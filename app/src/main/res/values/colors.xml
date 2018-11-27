@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="white">#FFFFFF</color>
+    <!--登陆页文字-->
+    <color name="login_content">#595971</color>
+    <!--登陆页edit背景-->
+    <color name="login_edit_bg">#ff8e8e9e</color>
+</resources>

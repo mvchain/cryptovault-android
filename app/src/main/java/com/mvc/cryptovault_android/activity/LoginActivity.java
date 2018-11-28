@@ -6,11 +6,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MainActivity;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.contract.LoginContract;
+import com.mvc.cryptovault_android.presenter.LoginPresenter;
 
 
 public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener,LoginContract.ILoginView {
@@ -26,7 +28,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     }
     @Override
     protected void initData() {
-
+        ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init();
     }
 
     @Override
@@ -37,6 +39,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         mLoginSubmit = findViewById(R.id.login_submit);
         mLoginSubmit.setOnClickListener(this);
         mLoginForgetPwd.setOnClickListener(this);
+
     }
 
 
@@ -57,7 +60,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     public BasePresenter initPresenter() {
-        return com.mvc.cryptovault_android.presenter.LoginPresenter.newIntance();
+        return LoginPresenter.newIntance();
     }
 
     @Override

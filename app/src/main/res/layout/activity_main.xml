@@ -13,21 +13,53 @@
         android:layout_height="0dp" />
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/home_main_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
     <RadioGroup
+        android:id="@+id/home_button_group"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@drawable/bg_home_button_radio"
         android:orientation="horizontal">
 
-        <RadioButton
+        <com.mvc.cryptovault_android.view.CenterButton
+            android:id="@+id/home_wallet"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableStart="@drawable/home_button_wallet_icon_check"
-            android:gravity="center" />
+            android:checked="true"
+            android:drawableLeft="@drawable/select_home_button_wallet"
+            app:res_center="true" />
+
+        <com.mvc.cryptovault_android.view.CenterButton
+            android:id="@+id/home_trand"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableLeft="@drawable/select_home_button_trand"
+            app:res_center="true" />
+
+        <com.mvc.cryptovault_android.view.CenterButton
+            android:id="@+id/home_together"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableLeft="@drawable/select_home_button_together"
+            app:res_center="true" />
+
+        <com.mvc.cryptovault_android.view.CenterButton
+            android:id="@+id/home_main"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableLeft="@drawable/select_home_button_main"
+            app:res_center="true" />
     </RadioGroup>
 </LinearLayout>

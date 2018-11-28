@@ -15,7 +15,6 @@ public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActiv
         if(mPresenter != null){
             mPresenter.attchMVP(this);
         }
-        ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init();
         initView();
         initData();
     }
@@ -34,8 +33,5 @@ public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActiv
     }
     protected void startActvity(Class clazz){
         startActivity(clazz);
-    }
-    protected void setStatusRect(){
-
     }
 }

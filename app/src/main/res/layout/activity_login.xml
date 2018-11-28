@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <View
-        android:id="@+id/login_status"
+        android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
@@ -38,8 +38,8 @@
         android:background="@drawable/bg_login_edit"
         android:hint="请输入手机号"
         android:inputType="phone"
-        android:maxLength="1"
-        android:maxLines="11"
+        android:maxLength="11"
+        android:maxLines="1"
         android:paddingLeft="32dp"
         android:textColor="@color/login_content"
         android:textSize="15sp" />
@@ -63,7 +63,7 @@
         android:background="@drawable/bg_login_edit"
         android:hint="请输入密码"
         android:inputType="textPassword"
-        android:maxLength="1"
+        android:maxLines="1"
         android:paddingLeft="32dp"
         android:textColor="@color/login_content"
         android:textSize="15sp" />

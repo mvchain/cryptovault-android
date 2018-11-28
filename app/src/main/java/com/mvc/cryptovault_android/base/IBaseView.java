@@ -1,11 +1,11 @@
 package com.mvc.cryptovault_android.base;
 
-interface IBaseView {
+public interface IBaseView {
     /**
      * 绑定
      * @return
      */
-    BasePresenter initPersenter();
+    BasePresenter initPresenter();
 
 
 }

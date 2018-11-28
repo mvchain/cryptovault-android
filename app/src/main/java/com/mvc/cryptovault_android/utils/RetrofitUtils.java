@@ -1,7 +1,7 @@
 package com.mvc.cryptovault_android.utils;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.example.mvc.cvaji.common.HttpUrl;
+import com.mvc.cryptovault_android.common.HttpUrl;
 
 import java.util.concurrent.TimeUnit;
 

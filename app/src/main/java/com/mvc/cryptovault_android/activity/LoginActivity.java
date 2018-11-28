@@ -4,13 +4,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.mvc.cvaji.R;
-import com.example.mvc.cvaji.base.BaseActivity;
-import com.example.mvc.cvaji.base.BasePresenter;
-import com.example.mvc.cvaji.persenter.LoginPersenter;
+import com.mvc.cryptovault_android.MainActivity;
+import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.base.BaseMVPActivity;
+import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.contract.LoginContract;
 
-public class LoginActivity extends BaseActivity<LoginPersenter> implements View.OnClickListener {
+
+public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener,LoginContract.ILoginView {
 
     private EditText mLoginPhone;
     private EditText mLoginPwd;
@@ -18,10 +21,9 @@ public class LoginActivity extends BaseActivity<LoginPersenter> implements View.
     private Button mLoginSubmit;
 
     @Override
-    protected int getLayoutID() {
+    protected int getLayoutId() {
         return R.layout.activity_login;
     }
-
     @Override
     protected void initData() {
 
@@ -37,10 +39,15 @@ public class LoginActivity extends BaseActivity<LoginPersenter> implements View.
         mLoginForgetPwd.setOnClickListener(this);
     }
 
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_submit:
+                String phone = mLoginPhone.getText().toString().trim();
+                String pwd = mLoginPwd.getText().toString().trim();
+                mPresenter.login(phone,pwd);
                 break;
             case R.id.login_forget_pwd:
 
@@ -49,7 +56,18 @@ public class LoginActivity extends BaseActivity<LoginPersenter> implements View.
     }
 
     @Override
-    public BasePresenter initPersenter() {
-        return LoginPersenter.newIntance();
+    public BasePresenter initPresenter() {
+        return com.mvc.cryptovault_android.presenter.LoginPresenter.newIntance();
+    }
+
+    @Override
+    public void showLoginStauts(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startActivity() {
+        startActvity(MainActivity.class);
+        finish();
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">cryptovault</string>
+    <!--App 登录-->
+    <string name="login_success">로그인 성공</string>
+    <string name="login_faild">로그인 실패</string>
+    <!--App 退出-->
+    <string name="app_exit">다시 눌러 앱을 종료하십시오.</string>
+</resources>

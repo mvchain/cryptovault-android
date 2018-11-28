@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">cryptovault</string>
+
+    <!--App login-->
+    <string name="login_success">Login Successful</string>
+    <string name="login_faild">Login failed</string>
+
+    <!--App exit-->
+    <string name="app_exit">Please press again to exit the app</string>
+
+</resources>

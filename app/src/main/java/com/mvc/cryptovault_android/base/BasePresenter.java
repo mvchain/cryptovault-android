@@ -2,10 +2,12 @@ package com.mvc.cryptovault_android.base;
 
 import android.support.annotation.Nullable;
 
+import com.mvc.cryptovault_android.utils.RxUtils;
+
 public abstract class BasePresenter<M,V> {
     protected M mIModel;
     protected V mIView;
-
+    protected RxUtils rxUtils = new RxUtils();
     /**
      * 绑定IModel和IView的引用
      * @param v
@@ -20,6 +22,7 @@ public abstract class BasePresenter<M,V> {
      * 解绑IModel和IView的引用
      */
     public void detachMVP() {
+        this.rxUtils.unSubscribe();
         this.mIModel = null;
         this.mIView = null;
     }

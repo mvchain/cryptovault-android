@@ -1,14 +1,14 @@
 package com.mvc.cryptovault_android.fragment;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dasu.recyclerlibrary.ui.ScrollWrapRecycler;
-import com.gyf.barlibrary.ImmersionBar;
+import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.MsgActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.WalletAssetsAdapter;
@@ -28,10 +28,11 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private TextView mAssetsAll;
     private TextView mTypeAssets;
     private TextView mPriceAssets;
-    private RelativeLayout mAssetsLayout;
-    private ScrollWrapRecycler mRvAssets;
+    private RecyclerViewHeader mAssetsLayout;
+    private RecyclerView mRvAssets;
     private WalletAssetsAdapter assetsAdapter;
     private List<String> mData;
+    private SwipeRefreshLayout mSwipAsstes;
 
     @Override
     protected void initView() {
@@ -48,6 +49,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mRvAssets = rootView.findViewById(R.id.assets_rv);
         mAssetsLayout = rootView.findViewById(R.id.assets_layout);
         mData = new ArrayList<>();
+        mSwipAsstes = rootView.findViewById(R.id.asstes_swip);
     }
 
     @Override
@@ -79,12 +81,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @Override
     protected void initData() {
         super.initData();
-        ImmersionBar.with(activity).titleBar(R.id.status_bar).statusBarDarkFont(true).init();
         mRvAssets.setLayoutManager(new LinearLayoutManager(activity));
         assetsAdapter = new WalletAssetsAdapter(R.layout.item_home_assets_type, mData);
-        mRvAssets.addHeadView(mAssetsLayout);
-        mRvAssets.setRefresh(false);
-        mRvAssets.setLoadMore(false);
+        mAssetsLayout.attachTo(mRvAssets);
         mRvAssets.setAdapter(assetsAdapter);
         mPresenter.refreshData();
     }

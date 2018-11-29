@@ -1,6 +1,5 @@
 package com.mvc.cryptovault_android.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +14,8 @@ public abstract class BaseFragment extends Fragment {
 
     protected View rootView;
     protected Context context;
-    protected Activity activity;
+    protected BaseActivity activity;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,9 +32,10 @@ public abstract class BaseFragment extends Fragment {
         initData();
     }
 
+
     @Override
     public void onAttach(Context context) {
-        this.activity = (Activity) context;
+        this.activity = (BaseActivity) context;
         this.context = context;
         super.onAttach(context);
     }
@@ -51,10 +52,16 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract int getLayoutId();
 
-    protected void showDialog(String msg){
+    protected void showDialog(String msg) {
 
     }
-    protected void showToast(int resId){
+
+    protected void showToast(int resId) {
         Toast.makeText(context, getResources().getString(resId), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

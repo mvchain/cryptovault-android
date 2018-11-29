@@ -13,7 +13,6 @@ import com.mvc.cryptovault_android.view.NoScrollViewPager;
 import java.util.ArrayList;
 
 public class TrandFragment extends BaseFragment implements View.OnClickListener {
-    private View mBarStatus;
     private TabLayout mTableTrand;
     private ImageView mHistroyTrand;
     private NoScrollViewPager mVpTrand;
@@ -33,7 +32,6 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     protected void initView() {
-        mBarStatus = rootView.findViewById(R.id.status_bar);
         mTableTrand = rootView.findViewById(R.id.trand_table);
         mHistroyTrand = rootView.findViewById(R.id.trand_histroy);
         mHistroyTrand.setOnClickListener(this);
@@ -53,4 +51,5 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
                 break;
         }
     }
+
 }

@@ -4,9 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioGroup;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.adapter.HomePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.fragment.MineFragment;
 import com.mvc.cryptovault_android.fragment.TogeFragment;
 import com.mvc.cryptovault_android.fragment.TrandFragment;
 import com.mvc.cryptovault_android.fragment.WalletFragment;
@@ -24,6 +26,8 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;
+    private int[] colors = {R.color.status_blue,R.color.white,R.color.white,R.color.status_gray};
+    private ImmersionBar with;
 
     @Override
     protected int getLayoutId() {
@@ -38,7 +42,8 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mFragment.add(trandFragment);
         TogeFragment togeFragment = new TogeFragment();
         mFragment.add(togeFragment);
-
+        MineFragment mineFragment = new MineFragment();
+        mFragment.add(mineFragment);
         pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), mFragment);
         mMainVpHome.setAdapter(pagerAdapter);
         int childCount = mButtonGroupHome.getChildCount();
@@ -47,6 +52,8 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
             mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
         }
         mMainVpHome.addOnPageChangeListener(this);
+        with = ImmersionBar.with(this);
+        with.statusBarDarkFont(true).statusBarColor(colors[0]).fitsSystemWindows(true).init();
     }
 
     @Override
@@ -85,6 +92,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     @Override
     public void onPageSelected(int position) {
         ((CenterButton) mButtonGroupHome.getChildAt(position)).setChecked(true);
+        with.statusBarDarkFont(true).statusBarColor(colors[position]).fitsSystemWindows(true).init();
     }
 
     @Override
@@ -96,5 +104,6 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     protected void onDestroy() {
         super.onDestroy();
         mMainVpHome.removeOnPageChangeListener(this);
+        ImmersionBar.with(this).destroy();
     }
 }

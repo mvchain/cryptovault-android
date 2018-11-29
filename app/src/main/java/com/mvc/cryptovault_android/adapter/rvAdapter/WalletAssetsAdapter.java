@@ -15,5 +15,6 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<String,BaseViewHolder>
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
+
     }
 }

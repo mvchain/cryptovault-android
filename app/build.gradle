@@ -45,6 +45,8 @@ dependencies {
     implementation 'com.android.support:cardview-v7:26+'
 //    Adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-    implementation 'com.github.Huazhiling:CustomRecyclerView:1.1.12'
+    implementation 'com.github.Huazhiling:CustomRecyclerView:1.1.14'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.github.lygttpod:SuperTextView:2.1.8'
+    implementation 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
 }

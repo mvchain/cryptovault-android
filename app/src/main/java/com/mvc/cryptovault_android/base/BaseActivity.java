@@ -48,4 +48,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void showToast(int msgId){
         Toast.makeText(this, getResources().getText(msgId), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

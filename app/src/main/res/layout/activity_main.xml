@@ -10,6 +10,7 @@
     <View
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
+        android:background="@color/status_blue"
         android:layout_height="0dp" />
 
     <com.mvc.cryptovault_android.view.NoScrollViewPager

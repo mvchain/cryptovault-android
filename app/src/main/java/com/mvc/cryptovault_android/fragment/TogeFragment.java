@@ -57,4 +57,5 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
 }

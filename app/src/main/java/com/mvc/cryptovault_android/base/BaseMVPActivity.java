@@ -3,8 +3,6 @@ package com.mvc.cryptovault_android.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.gyf.barlibrary.ImmersionBar;
-import com.mvc.cryptovault_android.R;
 
 public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActivity implements IBaseView{
     protected P mPresenter;

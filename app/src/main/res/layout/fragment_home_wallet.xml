@@ -8,7 +8,7 @@
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#0279fe" />
+        android:background="@color/status_blue" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,6 +52,7 @@
             </LinearLayout>
 
             <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/asstes_swip"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -60,54 +61,60 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <RelativeLayout
+                    <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
                         android:id="@+id/assets_layout"
                         android:layout_width="match_parent"
-                        android:paddingBottom="10dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/home_page_top_bg">
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/all_assets"
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="20dp"
-                            android:gravity="center"
-                            android:text="总资产"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
+                            android:background="@drawable/home_page_top_bg"
+                            android:paddingBottom="10dp">
 
-                        <TextView
-                            android:id="@+id/assets_type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/all_assets"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="12dp"
-                            android:drawableRight="@drawable/up_icon"
-                            android:drawablePadding="5dp"
-                            android:gravity="center"
-                            android:text="CNY"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
-                        <TextView
-                            android:id="@+id/assets_price"
-                            android:layout_width="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="36sp"
-                            android:layout_below="@id/assets_type"
-                            android:layout_centerHorizontal="true"
-                            android:text="1234567.12"
-                            android:layout_height="wrap_content" />
-                    </RelativeLayout>
+                            <TextView
+                                android:id="@+id/all_assets"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:gravity="center"
+                                android:text="总资产"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
 
-                    <com.dasu.recyclerlibrary.ui.ScrollWrapRecycler
+                            <TextView
+                                android:id="@+id/assets_type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/all_assets"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="12dp"
+                                android:drawableRight="@drawable/up_icon"
+                                android:drawablePadding="5dp"
+                                android:gravity="center"
+                                android:text="CNY"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/assets_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/assets_type"
+                                android:layout_centerHorizontal="true"
+                                android:text="1234567.12"
+                                android:textColor="@color/white"
+                                android:textSize="36sp" />
+                        </RelativeLayout>
+                    </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
+
+                    <android.support.v7.widget.RecyclerView
                         android:id="@+id/assets_rv"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </com.dasu.recyclerlibrary.ui.ScrollWrapRecycler>
+                        android:layout_gravity="center_horizontal|top"
+                        android:layout_height="match_parent" />
                 </LinearLayout>
 
             </android.support.v4.widget.SwipeRefreshLayout>

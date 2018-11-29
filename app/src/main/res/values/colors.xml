@@ -8,10 +8,13 @@
     <!--字体颜色-->
     <color name="login_content">#595971</color>
     <color name="trand_gray">#8E8E9E</color>
-    <color name="msg_time_content">#A7A9B8</color>
+    <color name="msg_time_gray">#A7A9B8</color>
+    <color name="toge_gray">#C1C2CC</color>
 
     <!--背景-->
     <color name="login_edit_bg">#FF8E8E9E</color>
     <color name="aoi_bg_orangey">#E86636</color>
     <color name="aoi_bg_ching">#0AA8A5</color>
+    <color name="lines_bg">#F6F7FB</color>
+
 </resources>

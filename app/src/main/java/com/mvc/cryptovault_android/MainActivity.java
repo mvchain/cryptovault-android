@@ -7,6 +7,7 @@ import android.widget.RadioGroup;
 import com.mvc.cryptovault_android.adapter.HomePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.fragment.TogeFragment;
 import com.mvc.cryptovault_android.fragment.TrandFragment;
 import com.mvc.cryptovault_android.fragment.WalletFragment;
 import com.mvc.cryptovault_android.view.CenterButton;
@@ -35,6 +36,9 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mFragment.add(walletFragment);
         TrandFragment trandFragment = new TrandFragment();
         mFragment.add(trandFragment);
+        TogeFragment togeFragment = new TogeFragment();
+        mFragment.add(togeFragment);
+
         pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), mFragment);
         mMainVpHome.setAdapter(pagerAdapter);
         int childCount = mButtonGroupHome.getChildCount();

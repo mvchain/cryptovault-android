@@ -20,7 +20,7 @@
             android:id="@+id/item_flag"
             android:layout_width="8dp"
             android:layout_height="8dp"
-            android:background="@drawable/shape_round_red" />
+            android:background="@drawable/shape_round_red_4dp" />
 
         <TextView
             android:id="@+id/item_title"
@@ -42,6 +42,6 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
         android:text="2018-11-23 12:00"
-        android:textColor="@color/msg_time_content"
+        android:textColor="@color/msg_time_gray"
         android:textSize="12sp" />
 </RelativeLayout>

@@ -48,7 +48,7 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_trand_child;
+        return R.layout.fragment_child_trand;
     }
 
     @Override

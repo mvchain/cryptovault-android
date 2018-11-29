@@ -46,4 +46,5 @@ dependencies {
 //    Adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     implementation 'com.github.Huazhiling:CustomRecyclerView:1.1.12'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

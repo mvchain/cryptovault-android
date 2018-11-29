@@ -7,9 +7,11 @@
     <color name="red">#FF0000</color>
     <!--字体颜色-->
     <color name="login_content">#595971</color>
+    <color name="trand_gray">#8E8E9E</color>
     <color name="msg_time_content">#A7A9B8</color>
 
-    <!--登陆页edit背景-->
-    <color name="login_edit_bg">#ff8e8e9e</color>
-
+    <!--背景-->
+    <color name="login_edit_bg">#FF8E8E9E</color>
+    <color name="aoi_bg_orangey">#E86636</color>
+    <color name="aoi_bg_ching">#0AA8A5</color>
 </resources>

@@ -5,24 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white" />
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/trand_table"
+        <TextView
+            android:id="@+id/toge_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:tabGravity="center" />
+            android:gravity="center"
+            android:text="众筹"
+            android:textColor="@color/login_content"
+            android:textSize="17sp" />
 
         <ImageView
-            android:id="@+id/trand_histroy"
+            android:id="@+id/toge_histroy"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentRight="true"
@@ -30,8 +28,14 @@
             android:src="@drawable/list_icon_black" />
     </RelativeLayout>
 
-    <com.mvc.cryptovault_android.view.NoScrollViewPager
-        android:id="@+id/trand_vp"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/toge_table"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/toge_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

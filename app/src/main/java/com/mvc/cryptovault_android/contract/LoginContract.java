@@ -26,5 +26,11 @@ public interface LoginContract {
          * @param msg
          */
         void showLoginStauts(String msg);
+
+        /**
+         * 保存用户token
+         * @param loginBean
+         */
+        void saveUserInfo(LoginBean loginBean);
     }
 }

@@ -1,27 +1,28 @@
 package com.mvc.cryptovault_android.presenter;
 
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.contract.VRTContract;
+import com.mvc.cryptovault_android.contract.TrandChildContract;
+import com.mvc.cryptovault_android.model.TrandChildModel;
 
-public class VRTPresenter extends VRTContract.VRTPresenter {
+public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter {
 
     public static BasePresenter newIntance() {
-        return new VRTPresenter();
+        return new TrandChildPresenter();
     }
 
     @Override
     public void getVrt() {
+        rxUtils.register(mIModel.getVrt().subscribe(strings -> mIView.showSuccess(strings), throwable -> {}));
 
     }
 
     @Override
     public void getBalanceTransactions() {
-
     }
 
     @Override
-    protected VRTContract.IVRTModel getModel() {
-        return null;
+    protected TrandChildModel getModel() {
+        return TrandChildModel.getInstance();
     }
 
     @Override

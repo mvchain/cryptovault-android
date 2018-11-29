@@ -33,6 +33,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                     if (loginBean.getCode() == 200) {
                         mIView.showLoginStauts("登录成功");
                         mIView.startActivity();
+                        mIView.saveUserInfo(loginBean);
                     }else{
                         mIView.showLoginStauts("登录失败");
                     }

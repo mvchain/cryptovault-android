@@ -6,11 +6,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-public class HomePagerAdapter extends FragmentPagerAdapter {
+public class TrandPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments;
     private FragmentManager fm;
+    private String[] titles = {"VRT交易", "余额交易"};
 
-    public HomePagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+    public TrandPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);
         this.fm = fm;
         this.fragments = fragments;
@@ -24,5 +25,10 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return fragments.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles[position];
     }
 }

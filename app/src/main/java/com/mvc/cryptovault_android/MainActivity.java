@@ -2,28 +2,24 @@ package com.mvc.cryptovault_android;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.RadioGroup;
 
 import com.mvc.cryptovault_android.adapter.HomePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.fragment.TrandFragment;
 import com.mvc.cryptovault_android.fragment.WalletFragment;
 import com.mvc.cryptovault_android.view.CenterButton;
+import com.mvc.cryptovault_android.view.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends BaseMVPActivity implements View.OnClickListener {
+public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageChangeListener {
     private boolean isBack = false;
     private Timer timer = new Timer();
-    private View mBarStatus;
-    private ViewPager mMainVpHome;
-    private CenterButton mWalletHome;
-    private CenterButton mTrandHome;
-    private CenterButton mTogetherHome;
-    private CenterButton mMainHome;
+    private NoScrollViewPager mMainVpHome;
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;
@@ -37,23 +33,22 @@ public class MainActivity extends BaseMVPActivity implements View.OnClickListene
     protected void initData() {
         WalletFragment walletFragment = new WalletFragment();
         mFragment.add(walletFragment);
-        pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(),mFragment);
+        TrandFragment trandFragment = new TrandFragment();
+        mFragment.add(trandFragment);
+        pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), mFragment);
         mMainVpHome.setAdapter(pagerAdapter);
+        int childCount = mButtonGroupHome.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            int finalI = i;
+            mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
+        }
+        mMainVpHome.addOnPageChangeListener(this);
     }
 
     @Override
     protected void initView() {
-        mBarStatus = findViewById(R.id.status_bar);
         mMainVpHome = findViewById(R.id.home_main_vp);
-        mWalletHome = findViewById(R.id.home_wallet);
-        mTrandHome = findViewById(R.id.home_trand);
-        mTogetherHome = findViewById(R.id.home_together);
-        mMainHome = findViewById(R.id.home_main);
         mButtonGroupHome = findViewById(R.id.home_button_group);
-        mWalletHome.setOnClickListener(this);
-        mTrandHome.setOnClickListener(this);
-        mTogetherHome.setOnClickListener(this);
-        mMainHome.setOnClickListener(this);
         mFragment = new ArrayList<>();
     }
 
@@ -79,20 +74,23 @@ public class MainActivity extends BaseMVPActivity implements View.OnClickListene
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.home_wallet:
-                // TODO 18/11/28
-                break;
-            case R.id.home_trand:
-                // TODO 18/11/28
-                break;
-            case R.id.home_together:
-                // TODO 18/11/28
-                break;
-            case R.id.home_main:
-                // TODO 18/11/28
-                break;
-        }
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        ((CenterButton) mButtonGroupHome.getChildAt(position)).setChecked(true);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMainVpHome.removeOnPageChangeListener(this);
     }
 }

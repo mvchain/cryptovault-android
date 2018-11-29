@@ -6,11 +6,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MainActivity;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.contract.LoginContract;
 import com.mvc.cryptovault_android.presenter.LoginPresenter;
 
@@ -29,6 +31,11 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     @Override
     protected void initData() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init();
+        String refreshToken = SPUtils.getInstance().getString("refreshToken");
+        String token = SPUtils.getInstance().getString("token");
+        if(!refreshToken.equals("") && !token.equals("")){
+            startActivity();
+        }
     }
 
     @Override
@@ -66,6 +73,13 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     @Override
     public void showLoginStauts(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void saveUserInfo(LoginBean loginBean) {
+        LoginBean.DataBean data = loginBean.getData();
+        SPUtils.getInstance().put("refreshToken",data.getRefreshToken());
+        SPUtils.getInstance().put("token",data.getToken());
     }
 
     @Override

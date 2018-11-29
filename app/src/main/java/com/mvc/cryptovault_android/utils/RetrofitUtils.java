@@ -36,7 +36,8 @@ public class RetrofitUtils {
                     public void log(String message) {
                         LogUtils.e("RetrofitUtils", message);
                     }
-                })).writeTimeout(30, TimeUnit.SECONDS)
+                }).setLevel(HttpLoggingInterceptor.Level.BODY))
+                .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build();

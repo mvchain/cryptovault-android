@@ -8,12 +8,12 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public interface HistroyContract {
-    abstract class HistroyPrecenter extends BasePresenter<IHistroyModel, IHistroyView> {
+public interface HistroyChildContract {
+    abstract class HistroyChildPrecenter extends BasePresenter<IHistroyChildModel, IHistroyChildView> {
         public abstract void getMsg();
     }
 
-    interface IHistroyModel extends IBaseModel {
+    interface IHistroyChildModel extends IBaseModel {
         /**
          * 请求数据
          *
@@ -22,7 +22,7 @@ public interface HistroyContract {
         Observable<List<String>> getMsg();
     }
 
-    interface IHistroyView extends IBaseActivity {
+    interface IHistroyChildView extends IBaseActivity {
         void showSuccess(List<String> msgs);
     }
 }

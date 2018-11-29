@@ -21,7 +21,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     @Override
     protected void initView() {
         strings = new ArrayList<>();
-        mChildRvToge = rootView.findViewById(R.id.toge_child_rv);
+        mChildRvToge = rootView.findViewById(R.id.child_rv);
         mChildRvToge.setLayoutManager(new LinearLayoutManager(activity));
         togeChildAdapter = new TogeChildAdapter(R.layout.item_together_child_list, strings);
         mChildRvToge.setAdapter(togeChildAdapter);
@@ -35,7 +35,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_child_together;
+        return R.layout.fragment_child_list_rv;
     }
 
     @Override

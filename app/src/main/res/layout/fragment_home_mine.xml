@@ -18,29 +18,31 @@
         android:paddingBottom="25dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_img"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginTop="32dp"
             android:src="@color/red" />
 
         <TextView
+            android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="LCF666"
             android:textColor="@color/white"
             android:textSize="17sp" />
 
         <TextView
+            android:id="@+id/user_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="手机号：12345678901"
             android:textColor="@color/white"
             android:textSize="13sp" />
     </LinearLayout>
 
     <com.allen.library.SuperTextView
+        android:id="@+id/sys_language"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:paddingLeft="15dp"
@@ -51,6 +53,7 @@
         app:sRightIconRes="@drawable/next_icon_black"
         android:layout_marginTop="12dp" />
     <com.allen.library.SuperTextView
+        android:id="@+id/about"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:paddingLeft="15dp"

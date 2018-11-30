@@ -7,4 +7,14 @@ public class QCodeActivity extends BaseActivity {
     protected int getLayoutId() {
         return 0;
     }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
 }

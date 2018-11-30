@@ -27,8 +27,8 @@ public class MinePresenter extends MineContract.MinePresenter {
     public void getUserInfo(String token) {
         rxUtils.register(mIModel.getUserInfo(token).subscribe(new Consumer<UserInfoBean>() {
             @Override
-            public void accept(UserInfoBean responseBody) throws Exception {
-
+            public void accept(UserInfoBean user) throws Exception {
+                mIView.setUser(user);
             }
         }, throwable -> {
             LogUtils.e("MinePresenter", throwable.getMessage());

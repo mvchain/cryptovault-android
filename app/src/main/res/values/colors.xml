@@ -18,5 +18,6 @@
     <color name="aoi_bg_orangey">#E86636</color>
     <color name="aoi_bg_ching">#0AA8A5</color>
     <color name="lines_bg">#F6F7FB</color>
+    <color name="light_grey">#F6F7Fb</color>
 
 </resources>

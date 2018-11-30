@@ -12,10 +12,15 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        initView();
+        initData();
     }
 
     protected abstract int getLayoutId();
 
+    protected abstract void initData();
+
+    protected abstract void initView();
     /**
      * 普通的页面跳转
      * @param clazz

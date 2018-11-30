@@ -13,14 +13,7 @@ public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActiv
         if(mPresenter != null){
             mPresenter.attchMVP(this);
         }
-        initView();
-        initData();
     }
-
-
-    protected abstract void initData();
-
-    protected abstract void initView();
 
     @Override
     protected void onDestroy() {

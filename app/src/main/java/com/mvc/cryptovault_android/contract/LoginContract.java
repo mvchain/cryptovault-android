@@ -32,5 +32,15 @@ public interface LoginContract {
          * @param loginBean
          */
         void saveUserInfo(LoginBean loginBean);
+
+        /**
+         * 显示dialog
+         */
+        void show();
+
+        /**
+         * 关闭dialog
+         */
+        void dismiss();
     }
 }

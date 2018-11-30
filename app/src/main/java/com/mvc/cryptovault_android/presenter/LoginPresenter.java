@@ -28,6 +28,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
             mIView.showLoginStauts("密码不可为空");
             return;
         }
+        mIView.show();
         rxUtils.register(mIModel.getLoginStatus(phone, pwd)
                 .subscribe(loginBean -> {
                     if (loginBean.getCode() == 200) {
@@ -37,7 +38,9 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                     }else{
                         mIView.showLoginStauts("登录失败");
                     }
+                    mIView.dismiss();
                 }, throwable -> {
+                    mIView.dismiss();
                     mIView.showLoginStauts("登录失败");
                     LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));

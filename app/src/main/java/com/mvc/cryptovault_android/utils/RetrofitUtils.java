@@ -21,6 +21,7 @@ public class RetrofitUtils {
                     mRetrofit = new Retrofit.Builder()
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
+                            .addConverterFactory(RequestFactory.create())
                             .baseUrl(HttpUrl.BASE_URL)
                             .client(getOkhttpUtils()).build();
                 }

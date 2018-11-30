@@ -15,6 +15,7 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.contract.LoginContract;
 import com.mvc.cryptovault_android.presenter.LoginPresenter;
+import com.mvc.cryptovault_android.view.DialogHelper;
 
 
 public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener,LoginContract.ILoginView {
@@ -23,6 +24,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     private EditText mLoginPwd;
     private TextView mLoginForgetPwd;
     private Button mLoginSubmit;
+    private DialogHelper dialog;
 
     @Override
     protected int getLayoutId() {
@@ -40,6 +42,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     protected void initView() {
+        dialog = DialogHelper.getInstance();
         mLoginPhone = findViewById(R.id.login_phone);
         mLoginPwd = findViewById(R.id.login_pwd);
         mLoginForgetPwd = findViewById(R.id.login_forget_pwd);
@@ -80,6 +83,16 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         LoginBean.DataBean data = loginBean.getData();
         SPUtils.getInstance().put("refreshToken",data.getRefreshToken());
         SPUtils.getInstance().put("token",data.getToken());
+    }
+
+    @Override
+    public void show() {
+        dialog.create(LoginActivity.this,R.drawable.pending_icon_2,getResources().getString(R.string.login_load)).show();
+    }
+
+    @Override
+    public void dismiss() {
+        dialog.dismiss();
     }
 
     @Override

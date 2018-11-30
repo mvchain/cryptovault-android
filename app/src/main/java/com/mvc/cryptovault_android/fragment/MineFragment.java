@@ -1,9 +1,10 @@
 package com.mvc.cryptovault_android.fragment;
 
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.base.BaseFragment;
+import com.mvc.cryptovault_android.base.BaseMVPFragment;
+import com.mvc.cryptovault_android.base.BasePresenter;
 
-public class MineFragment extends BaseFragment{
+public class MineFragment extends BaseMVPFragment {
 
     @Override
     protected void initData() {
@@ -19,4 +20,8 @@ public class MineFragment extends BaseFragment{
         return R.layout.fragment_home_mine;
     }
 
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
 }

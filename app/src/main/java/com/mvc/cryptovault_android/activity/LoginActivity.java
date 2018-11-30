@@ -33,11 +33,6 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     @Override
     protected void initData() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init();
-        String refreshToken = SPUtils.getInstance().getString("refreshToken");
-        String token = SPUtils.getInstance().getString("token");
-        if(!refreshToken.equals("") && !token.equals("")){
-            startActivity();
-        }
     }
 
     @Override

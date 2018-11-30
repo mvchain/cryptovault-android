@@ -27,6 +27,7 @@
             android:textSize="17sp" />
 
         <ImageView
+            android:id="@+id/about_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"

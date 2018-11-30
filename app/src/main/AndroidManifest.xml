@@ -11,15 +11,14 @@
         android:roundIcon="@mipmap/vp_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity
-            android:name=".activity.LoginActivity"
-            android:launchMode="singleTask">
+        <activity android:name=".activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".activity.MsgActivity" />
         <activity android:name=".activity.HistroyActivity" />

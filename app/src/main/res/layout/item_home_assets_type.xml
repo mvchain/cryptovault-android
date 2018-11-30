@@ -26,7 +26,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="￥1234567.12"
                 android:textColor="#595971"
                 android:textSize="17sp" />
 
@@ -37,7 +36,6 @@
                 android:layout_below="@id/item_assets_money"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="4dp"
-                android:text="123.4567 BTC"
                 android:textColor="#A7A9B8"
                 android:textSize="12sp" />
 
@@ -48,7 +46,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="4dp"
-                android:text="BTC"
                 android:textColor="#595971"
                 android:textSize="17sp" />
         </RelativeLayout>
@@ -56,11 +53,15 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/item_assets_icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
-        app:cardBackgroundColor="#C0BB95"
-        app:cardElevation="5dp" />
+        app:cardElevation="5dp">
+
+        <ImageView
+            android:id="@+id/item_assets_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

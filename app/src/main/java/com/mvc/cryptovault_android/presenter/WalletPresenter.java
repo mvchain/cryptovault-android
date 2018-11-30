@@ -1,12 +1,9 @@
 package com.mvc.cryptovault_android.presenter;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.contract.WallteContract;
 import com.mvc.cryptovault_android.model.WalletModel;
-
-import java.util.List;
-
-import io.reactivex.functions.Consumer;
 
 public class WalletPresenter extends WallteContract.WalletPresenter {
 
@@ -15,19 +12,31 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
     }
 
     @Override
-    public void refreshData() {
-        rxUtils.register(mIModel.getData().subscribe(new Consumer<List<String>>() {
-            @Override
-            public void accept(List<String> strings) {
-                mIView.refresh(strings);
-            }
-        },throwable -> {}));
+    public void getAssetList(String token) {
+        rxUtils.register(mIModel.getAssetList(token)
+                .subscribe(asset -> {
+                            if (asset.getCode() == 200) {
+                                mIView.refreshAssetList(asset);
+                            }
+                        }
+                        , throwable -> {
+                            LogUtils.e("WalletPresenter", throwable.getMessage());
+                        }));
     }
 
     @Override
-    public void loadMoreData(String phone, String pwd) {
-
+    public void getAllAsset(String token) {
+        rxUtils.register(mIModel.getAllAsset(token)
+                .subscribe(asset -> {
+                            if (asset.getCode() == 200) {
+                                mIView.refreshAllAssrt(asset);
+                            }
+                        }
+                        , throwable -> {
+                            LogUtils.e("WalletPresenter", throwable.getMessage());
+                        }));
     }
+
 
     @Override
     protected WalletModel getModel() {

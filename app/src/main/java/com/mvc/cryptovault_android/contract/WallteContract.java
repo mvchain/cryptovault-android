@@ -3,28 +3,35 @@ package com.mvc.cryptovault_android.contract;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.base.IBaseFragment;
 import com.mvc.cryptovault_android.base.IBaseModel;
-
-import java.util.List;
+import com.mvc.cryptovault_android.bean.AllAssetBean;
+import com.mvc.cryptovault_android.bean.AssetListBean;
 
 import io.reactivex.Observable;
 
 public interface WallteContract {
     abstract class WalletPresenter extends BasePresenter<IWallteModel, IWallteView> {
-        public abstract void refreshData();
-
-        public abstract void loadMoreData(String phone, String pwd);
+        public abstract void getAllAsset(String token);
+        public abstract void getAssetList(String token);
     }
 
     interface IWallteModel extends IBaseModel {
         /**
-         * 请求数据
+         * get All asset
          *
          * @return
          */
-        Observable<List<String>> getData();
+        Observable<AllAssetBean> getAllAsset(String token);
+
+        /**
+         * get asset list
+         * @param token
+         * @return
+         */
+        Observable<AssetListBean> getAssetList(String token);
     }
 
     interface IWallteView extends IBaseFragment {
-        void refresh(List<String> string);
+        void refreshAssetList(AssetListBean asset);
+        void refreshAllAssrt(AllAssetBean allAssetBean);
     }
 }

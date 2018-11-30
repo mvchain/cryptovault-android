@@ -32,19 +32,17 @@ public class RetrofitUtils {
 
     private static OkHttpClient getOkhttpUtils() {
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                    @Override
-                    public void log(String message) {
-                        LogUtils.e("RetrofitUtils", message);
-                    }
-                }).setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
+                        .setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(new ParameterInterceptor())
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build();
         return client;
     }
-    public static <T> T client(Class<T> clazz){
+
+    public static <T> T client(Class<T> clazz) {
         return getInstance().create(clazz);
     }
 }

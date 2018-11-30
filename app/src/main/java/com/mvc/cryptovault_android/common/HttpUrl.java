@@ -8,4 +8,9 @@ public class HttpUrl {
     public static final String LOGIN = "user/login";
 
 
+    /**
+     * 登录
+     */
+    public static final String GET_USER_INFO = "/user/info";
+
 }

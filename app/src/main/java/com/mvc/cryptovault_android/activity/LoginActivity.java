@@ -32,19 +32,10 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     }
     @Override
     protected void initData() {
-        ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init();
     }
 
     @Override
     protected void initView() {
-        dialog = DialogHelper.getInstance();
-        mLoginPhone = findViewById(R.id.login_phone);
-        mLoginPwd = findViewById(R.id.login_pwd);
-        mLoginForgetPwd = findViewById(R.id.login_forget_pwd);
-        mLoginSubmit = findViewById(R.id.login_submit);
-        mLoginSubmit.setOnClickListener(this);
-        mLoginForgetPwd.setOnClickListener(this);
-
     }
 
 
@@ -94,5 +85,21 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     public void startActivity() {
         startActvity(MainActivity.class);
         finish();
+    }
+
+    @Override
+    protected void initMVPData() {
+        ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init();
+    }
+
+    @Override
+    protected void initMVPView() {
+        dialog = DialogHelper.getInstance();
+        mLoginPhone = findViewById(R.id.login_phone);
+        mLoginPwd = findViewById(R.id.login_pwd);
+        mLoginForgetPwd = findViewById(R.id.login_forget_pwd);
+        mLoginSubmit = findViewById(R.id.login_submit);
+        mLoginSubmit.setOnClickListener(this);
+        mLoginForgetPwd.setOnClickListener(this);
     }
 }

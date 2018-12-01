@@ -22,12 +22,10 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         return R.layout.activity_about;
     }
 
-    @Override
     protected void initData() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
     }
 
-    @Override
     protected void initView() {
 
         mBarStatus = findViewById(R.id.status_bar);

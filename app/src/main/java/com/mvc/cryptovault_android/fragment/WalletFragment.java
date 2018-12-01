@@ -94,6 +94,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         String token = SPUtils.getInstance().getString("token");
         mPresenter.getAllAsset(token);
         mPresenter.getAssetList(token);
+        mPresenter.getCurrencyAll(token);
     }
 
     @Override

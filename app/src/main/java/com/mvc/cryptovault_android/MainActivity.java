@@ -36,31 +36,10 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
 
     @Override
     protected void initData() {
-        WalletFragment walletFragment = new WalletFragment();
-        mFragment.add(walletFragment);
-        TrandFragment trandFragment = new TrandFragment();
-        mFragment.add(trandFragment);
-        TogeFragment togeFragment = new TogeFragment();
-        mFragment.add(togeFragment);
-        MineFragment mineFragment = new MineFragment();
-        mFragment.add(mineFragment);
-        pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), mFragment);
-        mMainVpHome.setAdapter(pagerAdapter);
-        int childCount = mButtonGroupHome.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            int finalI = i;
-            mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
-        }
-        mMainVpHome.addOnPageChangeListener(this);
-        with = ImmersionBar.with(this);
-        with.statusBarDarkFont(true).statusBarColor(colors[0]).fitsSystemWindows(true).init();
     }
 
     @Override
     protected void initView() {
-        mMainVpHome = findViewById(R.id.home_main_vp);
-        mButtonGroupHome = findViewById(R.id.home_button_group);
-        mFragment = new ArrayList<>();
     }
 
     @Override
@@ -98,6 +77,35 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    protected void initMVPData() {
+        WalletFragment walletFragment = new WalletFragment();
+        mFragment.add(walletFragment);
+        TrandFragment trandFragment = new TrandFragment();
+        mFragment.add(trandFragment);
+        TogeFragment togeFragment = new TogeFragment();
+        mFragment.add(togeFragment);
+        MineFragment mineFragment = new MineFragment();
+        mFragment.add(mineFragment);
+        pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), mFragment);
+        mMainVpHome.setAdapter(pagerAdapter);
+        int childCount = mButtonGroupHome.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            int finalI = i;
+            mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
+        }
+        mMainVpHome.addOnPageChangeListener(this);
+        with = ImmersionBar.with(this);
+        with.statusBarDarkFont(true).statusBarColor(colors[0]).fitsSystemWindows(true).init();
+    }
+
+    @Override
+    protected void initMVPView() {
+        mMainVpHome = findViewById(R.id.home_main_vp);
+        mButtonGroupHome = findViewById(R.id.home_button_group);
+        mFragment = new ArrayList<>();
     }
 
     @Override

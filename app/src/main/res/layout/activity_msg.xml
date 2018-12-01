@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:background="#f6f7fb"
     android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:id="@+id/status_bar"
+        android:layout_height="0dp"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"

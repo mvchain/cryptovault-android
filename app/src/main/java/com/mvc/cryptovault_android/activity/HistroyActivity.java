@@ -33,7 +33,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private HistroyPagerAdapter histroyPagerAdapter;
 
     @Override
-    protected void initData() {
+    protected void initMVPData() {
         HistroyChildFragment allFragment = new HistroyChildFragment();
         fragments.add(allFragment);
         HistroyChildFragment outFragment = new HistroyChildFragment();
@@ -45,7 +45,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     }
 
     @Override
-    protected void initView() {
+    protected void initMVPView() {
         fragments = new ArrayList<>();
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         histroyPagerAdapter = new HistroyPagerAdapter(getSupportFragmentManager(), fragments);
@@ -67,6 +67,16 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     @Override
     protected int getLayoutId() {
         return R.layout.activity_histroy;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
     }
 
     @Override

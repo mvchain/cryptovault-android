@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.MsgAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -23,23 +24,14 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
     private RecyclerView mRvMsg;
     private List<String> strings;
     private MsgAdapter msgAdapter;
+    private View mBarStatus;
 
     @Override
     protected void initData() {
-        LogUtils.e("MsgActivity", "mPresenter:" + mPresenter);
-//        mPresenter.getMsg();
     }
 
     @Override
     protected void initView() {
-        mBackMsg = findViewById(R.id.msg_back);
-        mTitleMsg = findViewById(R.id.msg_title);
-        mRvMsg = findViewById(R.id.msg_rv);
-        mBackMsg.setOnClickListener(this);
-        strings = new ArrayList<>();
-        mRvMsg.setLayoutManager(new LinearLayoutManager(this));
-        msgAdapter = new MsgAdapter(R.layout.item_msg_list, strings);
-        mRvMsg.setAdapter(msgAdapter);
     }
 
     @Override
@@ -72,5 +64,24 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void initMVPData() {
+        ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        mPresenter.getMsg();
+    }
+
+    @Override
+    protected void initMVPView() {
+        mBackMsg = findViewById(R.id.msg_back);
+        mTitleMsg = findViewById(R.id.msg_title);
+        mBarStatus = findViewById(R.id.status_bar);
+        mRvMsg = findViewById(R.id.msg_rv);
+        mBackMsg.setOnClickListener(this);
+        strings = new ArrayList<>();
+        mRvMsg.setLayoutManager(new LinearLayoutManager(this));
+        msgAdapter = new MsgAdapter(R.layout.item_msg_list, strings);
+        mRvMsg.setAdapter(msgAdapter);
     }
 }

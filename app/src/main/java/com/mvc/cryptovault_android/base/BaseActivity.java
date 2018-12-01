@@ -54,9 +54,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         startActivity(intent);
     }
 
-    /**
-     * 带参数的页面跳转
-     */
     protected void startTaskActivity(Activity activity) {
         Intent intent = new Intent(activity, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

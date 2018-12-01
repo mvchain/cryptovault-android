@@ -28,4 +28,9 @@ public class HttpUrl {
      * get all asset
      */
     public static final String GET_ASSET_ALL = "/asset/balance";
+
+    /**
+     *Get currency list
+     */
+    public static final String GET_CURRENCY_ALL = "/token";
 }

@@ -27,28 +27,34 @@ public class ParameterInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Response response = chain.proceed(request);
+
         if (response.code() == 403) {//根据和服务端的约定判断token过期
             LogUtils.e("静默自动刷新Token,然后重新请求数据");
             //同步请求方式,获取最新的Token
             HttpTokenBean httpTokenBean = getNewToken();
-            if (httpTokenBean.getCode() == 401) {
-                Intent intent = new Intent();
-                intent.setAction("android.login");
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                Utils.getApp().startActivity(intent);
-            } else {
-                LogUtils.e("ParameterInterceptor", "重新请求数据");
-                //使用新的Token,创建新的请求
-                //重新请求
-                SPUtils.getInstance().put("token", httpTokenBean.getData());
-                String token = SPUtils.getInstance().getString("token");
-                Request newRequest = chain.request()
-                        .newBuilder()
-                        .header("Authorization", token)
-                        .build();
-                return chain.proceed(newRequest);
+            if (httpTokenBean != null) {
+                LogUtils.e("ParameterInterceptor", "token:" + httpTokenBean.getData());
+                if (httpTokenBean.getCode() == 401) {
+                    Intent intent = new Intent();
+                    intent.setAction("android.login");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Utils.getApp().startActivity(intent);
+                } else {
+                    LogUtils.e("ParameterInterceptor", "重新请求数据");
+                    //使用新的Token,创建新的请求
+                    //重新请求
+                    SPUtils.getInstance().put("token", httpTokenBean.getData());
+                    String token = SPUtils.getInstance().getString("token");
+                    Request newRequest = chain.request()
+                            .newBuilder()
+                            .header("Authorization", token)
+                            .build();
+                    return chain.proceed(newRequest);
+                }
             }
-        }else if (response.code() == 401){
+        } else if (response.code() == 401) {
+            SPUtils.getInstance().remove("refreshToken");
+            SPUtils.getInstance().remove("token");
             Intent intent = new Intent();
             intent.setAction("android.login");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -67,7 +73,9 @@ public class ParameterInterceptor implements Interceptor {
         LogUtils.e("ParameterInterceptor", "response.code():" + response.code());
         if (response.code() == 403) {
             return true;
-        }else if(response.code() == 401){
+        } else if (response.code() == 401) {
+            SPUtils.getInstance().remove("refreshToken");
+            SPUtils.getInstance().remove("token");
             Intent intent = new Intent();
             intent.setAction("android.login");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -98,6 +106,7 @@ public class ParameterInterceptor implements Interceptor {
         try {
             object.put("Authorization", refreshToken);
         } catch (JSONException e) {
+            LogUtils.d("ParameterInterceptor", e.getMessage());
             e.printStackTrace();
         }
         RequestBody token = RequestBody.create(MediaType.parse("text/html"), object.toString());

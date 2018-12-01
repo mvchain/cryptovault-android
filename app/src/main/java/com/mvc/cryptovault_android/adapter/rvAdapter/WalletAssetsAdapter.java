@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.bean.AssetListBean;
+import com.mvc.cryptovault_android.utils.DataTempCacheMap;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -34,16 +36,8 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         type.setText(item.getTokenName());
         money.setText("￥" + moneyFormat.format(item.getRatio()));
         actual.setText(actualFormat.format(item.getValue()) + " " + tokenName);
-        if (tokenName.equals("BTC")) {
-            Glide.with(mContext).load(R.drawable.home_icon_btc).into(icon);
-        } else if (tokenName.equals("EOS")) {
-            Glide.with(mContext).load(R.drawable.home_icon_eos).into(icon);
-        } else if (tokenName.equals("ETC")) {
-            Glide.with(mContext).load(R.drawable.home_icon_etc).into(icon);
-        } else if (tokenName.equals("VRT")) {
-            Glide.with(mContext).load(R.drawable.home_icon_vrt).into(icon);
-        } else if (tokenName.equals("XRP")) {
-            Glide.with(mContext).load(R.drawable.home_icon_xrp).into(icon);
-        }
+        String value = (String) DataTempCacheMap.getPreciseQuery(String.valueOf(item.getTokenId())).getValue();
+        LogUtils.e(TAG,"img==============:"+ value);
+        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&").into(icon);
     }
 }

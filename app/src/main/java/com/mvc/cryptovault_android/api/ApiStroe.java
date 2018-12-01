@@ -21,7 +21,7 @@ public interface ApiStroe {
     Observable<LoginBean> login(@Body RequestBody loginInfo);
 
     @POST(HttpUrl.TOKEN_REFRESH)
-    Call<HttpTokenBean> refreshToken(@Body RequestBody loginInfo);
+    Call<HttpTokenBean> refreshToken(@Header("Authorization") String token);
 
     @GET(HttpUrl.GET_USER_INFO)
     Observable<UserInfoBean> getUserInfo(@Header("Authorization") String token);

@@ -8,15 +8,10 @@ import com.blankj.utilcode.util.Utils;
 import com.mvc.cryptovault_android.api.ApiStroe;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -40,7 +35,6 @@ public class ParameterInterceptor implements Interceptor {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     Utils.getApp().startActivity(intent);
                 } else {
-                    LogUtils.e("ParameterInterceptor", "重新请求数据");
                     //使用新的Token,创建新的请求
                     //重新请求
                     SPUtils.getInstance().put("token", httpTokenBean.getData());
@@ -100,16 +94,16 @@ public class ParameterInterceptor implements Interceptor {
 //        LogUtils.e("loginInfo=" + loginInfo.toString());
 //        loginInfo.setPassword(password);
 //        CacheManager.saveLoginInfo(loginInfo);
-        JSONObject object = new JSONObject();
+//        JSONObject object = new JSONObject();
         String refreshToken = SPUtils.getInstance().getString("refreshToken");
-        LogUtils.e("ParameterInterceptor", refreshToken);
-        try {
-            object.put("Authorization", refreshToken);
-        } catch (JSONException e) {
-            LogUtils.d("ParameterInterceptor", e.getMessage());
-            e.printStackTrace();
-        }
-        RequestBody token = RequestBody.create(MediaType.parse("text/html"), object.toString());
-        return RetrofitUtils.client(ApiStroe.class).refreshToken(token).execute().body();
+//        LogUtils.e("ParameterInterceptor", refreshToken);
+//        try {
+//            object.put("Authorization", refreshToken);
+//        } catch (JSONException e) {
+//            LogUtils.d("ParameterInterceptor", e.getMessage());
+//            e.printStackTrace();
+//        }
+//        RequestBody token = RequestBody.create(MediaType.parse("text/html"), object.toString());
+        return RetrofitUtils.client(ApiStroe.class).refreshToken(refreshToken).execute().body();
     }
 }

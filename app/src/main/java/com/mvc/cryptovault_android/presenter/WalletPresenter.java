@@ -2,7 +2,6 @@ package com.mvc.cryptovault_android.presenter;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.bean.CurrencyBean;
 import com.mvc.cryptovault_android.contract.WallteContract;
 import com.mvc.cryptovault_android.model.WalletModel;
 
@@ -30,10 +29,7 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
         rxUtils.register(mIModel.getCurrencyAll(token)
                 .subscribe(currency -> {
                             if (currency.getCode() == 200) {
-//                                mIView.refreshAllAssrt(asset);
-                                for (CurrencyBean.DataBean dataBean : currency.getData()) {
-                                    LogUtils.e("WalletPresenter", "dataBean.getTokenId():" + dataBean.getTokenId());
-                                }
+                                mIView.savaLocalCurrency(currency);
                             }
                         }
                         , throwable -> {

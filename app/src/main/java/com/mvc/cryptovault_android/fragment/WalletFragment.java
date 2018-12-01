@@ -11,14 +11,17 @@ import android.widget.TextView;
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.HistroyActivity;
 import com.mvc.cryptovault_android.activity.MsgActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.WalletAssetsAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
+import com.mvc.cryptovault_android.bean.CurrencyBean;
 import com.mvc.cryptovault_android.contract.WallteContract;
 import com.mvc.cryptovault_android.presenter.WalletPresenter;
+import com.mvc.cryptovault_android.utils.DataTempCacheMap;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -89,6 +92,14 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         super.initData();
         mRvAssets.setLayoutManager(new LinearLayoutManager(activity));
         assetsAdapter = new WalletAssetsAdapter(R.layout.item_home_assets_type, mData);
+        assetsAdapter.setOnItemClickListener((adapter, view, position) -> {
+            switch (view.getId()){
+                case R.id.item_assets_layout:
+                    Intent intent = new Intent(activity, HistroyActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        });
         mAssetsLayout.attachTo(mRvAssets);
         mRvAssets.setAdapter(assetsAdapter);
         String token = SPUtils.getInstance().getString("token");
@@ -108,6 +119,19 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     public void refreshAllAssrt(AllAssetBean allAssetBean) {
         DecimalFormat format = new DecimalFormat("#.##");
         mPriceAssets.setText(format.format(allAssetBean.getData()));
+    }
+
+    @Override
+    public void savaLocalCurrency(CurrencyBean currencyBean) {
+        List<CurrencyBean.DataBean> cyBean = currencyBean.getData();
+        DataTempCacheMap.clear();
+        for (CurrencyBean.DataBean dataBean : cyBean) {
+            DataTempCacheMap.put(dataBean.getTokenCnName(), dataBean);
+            DataTempCacheMap.put(dataBean.getTokenEnName(), dataBean);
+            DataTempCacheMap.put(dataBean.getTokenName(), dataBean);
+            //cache img
+            DataTempCacheMap.put(String.valueOf(dataBean.getTokenId()), dataBean.getTokenImage());
+        }
     }
 
     public void onRefresh() {

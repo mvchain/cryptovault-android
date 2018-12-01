@@ -1,8 +1,11 @@
 package com.mvc.cryptovault_android.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class CurrencyBean {
+public class CurrencyBean implements Parcelable {
 
     /**
      * code : 200
@@ -13,6 +16,24 @@ public class CurrencyBean {
     private int code;
     private String message;
     private List<DataBean> data;
+
+    protected CurrencyBean(Parcel in) {
+        code = in.readInt();
+        message = in.readString();
+        data = in.createTypedArrayList(DataBean.CREATOR);
+    }
+
+    public static final Creator<CurrencyBean> CREATOR = new Creator<CurrencyBean>() {
+        @Override
+        public CurrencyBean createFromParcel(Parcel in) {
+            return new CurrencyBean(in);
+        }
+
+        @Override
+        public CurrencyBean[] newArray(int size) {
+            return new CurrencyBean[size];
+        }
+    };
 
     public int getCode() {
         return code;
@@ -38,7 +59,19 @@ public class CurrencyBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(code);
+        dest.writeString(message);
+        dest.writeTypedList(data);
+    }
+
+    public static class DataBean implements Parcelable {
         /**
          * timestamp : 1542358128483
          * tokenCnName : VRT货币
@@ -54,6 +87,27 @@ public class CurrencyBean {
         private int tokenId;
         private String tokenImage;
         private String tokenName;
+
+        protected DataBean(Parcel in) {
+            timestamp = in.readLong();
+            tokenCnName = in.readString();
+            tokenEnName = in.readString();
+            tokenId = in.readInt();
+            tokenImage = in.readString();
+            tokenName = in.readString();
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
 
         public long getTimestamp() {
             return timestamp;
@@ -101,6 +155,21 @@ public class CurrencyBean {
 
         public void setTokenName(String tokenName) {
             this.tokenName = tokenName;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeLong(timestamp);
+            dest.writeString(tokenCnName);
+            dest.writeString(tokenEnName);
+            dest.writeInt(tokenId);
+            dest.writeString(tokenImage);
+            dest.writeString(tokenName);
         }
     }
 }

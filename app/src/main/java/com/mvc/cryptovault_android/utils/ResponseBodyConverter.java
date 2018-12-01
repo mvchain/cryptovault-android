@@ -4,12 +4,12 @@ import com.blankj.utilcode.util.LogUtils;
 
 import java.io.IOException;
 
-import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Converter;
 
-public class RequestConverter<T> implements Converter<T, RequestBody> {
+public class ResponseBodyConverter<T> implements Converter<T, ResponseBody> {
     @Override
-    public RequestBody convert(T value) throws IOException {
+    public ResponseBody convert(T value) throws IOException {
         LogUtils.e("OkHttpFactory", "value:" + value);
         return null;
     }

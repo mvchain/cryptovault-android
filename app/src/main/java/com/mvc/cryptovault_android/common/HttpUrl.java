@@ -7,6 +7,11 @@ public class HttpUrl {
      */
     public static final String LOGIN = "user/login";
 
+    /**
+     * refresh token
+     */
+    public static final String TOKEN_REFRESH = "user/refresh";
+
 
     /**
      * get userinfo

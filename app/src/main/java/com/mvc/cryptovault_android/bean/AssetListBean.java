@@ -42,7 +42,7 @@ public class AssetListBean {
         /**
          * ratio : 0.1492537313432836
          * tokenId : 1
-         * tokenName : VRT
+         * tokenName : home_icon_vrt
          * value : 1000997.1799403675
          */
 

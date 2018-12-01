@@ -12,24 +12,24 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
-public class RequestFactory extends Converter.Factory {
+public class OkHttpFactory extends Converter.Factory {
 
-    public static RequestFactory create(){
-        return new RequestFactory();
+    public static OkHttpFactory create() {
+        return new OkHttpFactory();
     }
 
     @Nullable
     @Override
     public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        LogUtils.e("RequestFactory", type.toString());
-        return super.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+        LogUtils.e("OkHttpFactory", "requestBodyConverter" + type.toString());
+        return new RequestConverter<>();
     }
 
     @Nullable
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        LogUtils.e("RequestFactory", type.toString());
-        return super.responseBodyConverter(type, annotations, retrofit);
+        LogUtils.e("OkHttpFactory", "responseBodyConverter" + type.toString());
+        return new ResponseBodyConverter<>();
     }
 
 }

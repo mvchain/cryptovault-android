@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean, BaseViewHolder> {
-    //    btc EOS ETC VRT XRP
+    //    btc home_icon_eos home_icon_etc home_icon_vrt home_icon_xrp
     public WalletAssetsAdapter(int layoutResId, @Nullable List<AssetListBean.DataBean> data) {
         super(layoutResId, data);
     }
@@ -34,7 +34,7 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         type.setText(item.getTokenName());
         money.setText("￥" + moneyFormat.format(item.getRatio()));
         actual.setText(actualFormat.format(item.getValue()) + " " + tokenName);
-        if (tokenName.equals("btc")) {
+        if (tokenName.equals("BTC")) {
             Glide.with(mContext).load(R.drawable.home_icon_btc).into(icon);
         } else if (tokenName.equals("EOS")) {
             Glide.with(mContext).load(R.drawable.home_icon_eos).into(icon);

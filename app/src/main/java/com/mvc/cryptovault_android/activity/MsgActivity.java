@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.MsgAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -25,7 +26,8 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
 
     @Override
     protected void initData() {
-        mPresenter.getMsg();
+        LogUtils.e("MsgActivity", "mPresenter:" + mPresenter);
+//        mPresenter.getMsg();
     }
 
     @Override
@@ -58,6 +60,7 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
 
     @Override
     public BasePresenter initPresenter() {
+        LogUtils.e("MsgActivity", "initPresenter");
         return MsgPresenter.newIntance();
     }
 

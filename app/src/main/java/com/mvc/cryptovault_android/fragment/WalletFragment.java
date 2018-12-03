@@ -13,8 +13,10 @@ import android.widget.TextView;
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.google.gson.Gson;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.HistroyActivity;
+import com.mvc.cryptovault_android.activity.IncreaseCurrencyActivity;
 import com.mvc.cryptovault_android.activity.MsgActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.WalletAssetsAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
@@ -46,7 +48,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private WalletAssetsAdapter assetsAdapter;
     private List<AssetListBean.DataBean> mData;
     private SwipeRefreshLayout mSwipAsstes;
-    private List<CurrencyBean.DataBean> cyBean;
+    private CurrencyBean cyBean = null;
+    private AssetListBean assetBean = null;
+    private AllAssetBean allAssetBean = null;
 
     @Override
     protected void initView() {
@@ -63,7 +67,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mRvAssets = rootView.findViewById(R.id.assets_rv);
         mAssetsLayout = rootView.findViewById(R.id.assets_layout);
         mData = new ArrayList<>();
-        cyBean = new ArrayList<>();
         mSwipAsstes = rootView.findViewById(R.id.asstes_swip);
         mSwipAsstes.setOnRefreshListener(this::onRefresh);
         mSwipAsstes.post(() -> mSwipAsstes.setRefreshing(true));
@@ -88,6 +91,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                 break;
             case R.id.assets_add:
                 // TODO 18/11/28
+                startActivity(new Intent(activity, IncreaseCurrencyActivity.class));
                 break;
             case R.id.assets_type:
                 // TODO 18/11/28
@@ -119,20 +123,60 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @Override
     public void refreshAssetList(AssetListBean asset) {
         mData.addAll(asset.getData());
+        assetBean = asset;
         mSwipAsstes.post(() -> mSwipAsstes.setRefreshing(false));
         assetsAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void refreshAllAssrt(AllAssetBean allAssetBean) {
+    public void refreshAllAsset(AllAssetBean allAssetBean) {
         DecimalFormat format = new DecimalFormat("#.##");
         mPriceAssets.setText(format.format(allAssetBean.getData()));
+        this.allAssetBean = allAssetBean;
     }
 
     @Override
     public void savaLocalCurrency(CurrencyBean currencyBean) {
-        cyBean.addAll(currencyBean.getData());
+        cyBean = currencyBean;
         RsPermission.getInstance().setRequestCode(200).setiPermissionRequest(this).requestPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public void serverError() {
+        String currency_list = FileUtils.getFileToString("currency_list");
+        String asset_list = FileUtils.getFileToString("asset_list");
+        String allAsset = FileUtils.getFileToString("allAssetBean");
+        Gson gson = new Gson();
+        if (!currency_list.equals("")) {
+            CurrencyBean currencyBean = gson.fromJson(currency_list, CurrencyBean.class);
+            /**
+             * save data to DataTempCacheMap
+             */
+            for (CurrencyBean.DataBean dataBean : currencyBean.getData()) {
+                DataTempCacheMap.put(dataBean.getTokenName(), dataBean);
+                DataTempCacheMap.put(dataBean.getTokenName(), dataBean);
+                DataTempCacheMap.put(dataBean.getTokenEnName(), dataBean);
+                DataTempCacheMap.put(String.valueOf(dataBean.getTokenId()), dataBean.getTokenImage());
+            }
+        } else {
+
+        }
+        if (!asset_list.equals("")) {
+            AssetListBean assetListBean = gson.fromJson(asset_list, AssetListBean.class);
+            mData.clear();
+            mData.addAll(assetListBean.getData());
+            assetsAdapter.notifyDataSetChanged();
+        } else {
+
+        }
+        if (!allAsset.equals("")) {
+            AllAssetBean allAssetBean = gson.fromJson(allAsset, AllAssetBean.class);
+            DecimalFormat format = new DecimalFormat("#.##");
+            mPriceAssets.setText(format.format(allAssetBean.getData()));
+        } else {
+
+        }
+        mSwipAsstes.setRefreshing(false);
     }
 
     public void onRefresh() {
@@ -151,7 +195,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
 
     @Override
     public void toSetting() {
-
+        RsPermission.getInstance().toSettingPer();
     }
 
     @Override
@@ -169,15 +213,24 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     }
 
     private void FileSava() {
-        for (CurrencyBean.DataBean dataBean : cyBean) {
-            DataTempCacheMap.put(dataBean.getTokenCnName(), dataBean);
-            DataTempCacheMap.put(dataBean.getTokenEnName(), dataBean);
+        //save list currency
+        if (cyBean != null) {
+            FileUtils.saveJsonFile("currency_list", cyBean);
+        }
+        // save List of existing assets
+        if (assetBean != null) {
+            FileUtils.saveJsonFile("asset_list", assetBean);
+        }
+        if (allAssetBean != null) {
+            FileUtils.saveJsonFile("allAssetBean", allAssetBean);
+        }
+        List<CurrencyBean.DataBean> data = cyBean.getData();
+        for (CurrencyBean.DataBean dataBean : data) {
             DataTempCacheMap.put(dataBean.getTokenName(), dataBean);
-            //cache img
+            DataTempCacheMap.put(dataBean.getTokenName(), dataBean);
+            DataTempCacheMap.put(dataBean.getTokenEnName(), dataBean);
             DataTempCacheMap.put(String.valueOf(dataBean.getTokenId()), dataBean.getTokenImage());
-            FileUtils.saveFile("currency_list", dataBean);
-            String currency_list = FileUtils.getFileToString("currency_list");
-            LogUtils.e("WalletFragment", "=================>:"+currency_list);
+            LogUtils.e("WalletFragment", dataBean.getTokenImage());
         }
     }
 }

@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 public class FileUtils {
     private static String filePath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-    public static void saveFile(String fileName, Object clazz) {
+    public static void saveJsonFile(String fileName, Object clazz) {
         FileOutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(filePath + "/" + fileName + ".txt");

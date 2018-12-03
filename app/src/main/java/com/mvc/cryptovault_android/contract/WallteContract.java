@@ -42,7 +42,9 @@ public interface WallteContract {
 
     interface IWallteView extends IBaseFragment {
         void refreshAssetList(AssetListBean asset);
-        void refreshAllAssrt(AllAssetBean allAssetBean);
+        void refreshAllAsset(AllAssetBean allAssetBean);
         void savaLocalCurrency(CurrencyBean currencyBean);
+//        void newWorkError();
+        void serverError();
     }
 }

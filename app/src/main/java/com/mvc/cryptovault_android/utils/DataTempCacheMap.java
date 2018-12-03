@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * 临时缓存，仅存在于app开始到关闭
- * 后期根据场景做本地缓存
  */
 public class DataTempCacheMap {
     private static HashMap<String, Node> cache = new HashMap<>();

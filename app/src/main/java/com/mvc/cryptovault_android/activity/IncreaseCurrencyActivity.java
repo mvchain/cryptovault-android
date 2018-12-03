@@ -1,11 +1,14 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
@@ -20,6 +23,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     private RecyclerView mRvIncrease;
     private RecyclerView mSerachRvIncrease;
     private TextView mSerachNullIncrease;
+    private boolean isSerach = false;
 
     @Override
     protected void initMVPData() {
@@ -38,6 +42,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
         mRvIncrease = findViewById(R.id.increase_rv);
         mSerachRvIncrease = findViewById(R.id.increase_serach_rv);
         mSerachNullIncrease = findViewById(R.id.increase_serach_null);
+        ImmersionBar.with(this).statusBarView(mBarStatus).statusBarDarkFont(true).init();
     }
 
     @Override
@@ -69,6 +74,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -77,6 +83,16 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
                 break;
             case R.id.increase_serach:
                 // TODO 18/12/03
+                isSerach = !isSerach;
+                if(isSerach){
+                    mSerachIncrease.setImageDrawable(getDrawable(R.drawable.cancel_icon_black));
+                    mEditIncrease.setVisibility(View.VISIBLE);
+                    mTitleIncrease.setVisibility(View.GONE);
+                }else{
+                    mSerachIncrease.setImageDrawable(getDrawable(R.drawable.serch_icon_black));
+                    mEditIncrease.setVisibility(View.GONE);
+                    mTitleIncrease.setVisibility(View.VISIBLE);
+                }
                 break;
             default:
                 break;

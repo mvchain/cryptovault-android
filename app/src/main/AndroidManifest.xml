@@ -3,10 +3,11 @@
     package="com.mvc.cryptovault_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
-        android:allowBackup="true"
         android:name=".MyApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/vp_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/vp_logo"
@@ -19,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity" >
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
-                <action android:name="android.login"/>
+                <action android:name="android.login" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -29,6 +30,7 @@
         <activity android:name=".activity.MsgActivity" />
         <activity android:name=".activity.HistroyActivity" />
         <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.IncreaseCurrencyActivity" />
     </application>
 
 </manifest>

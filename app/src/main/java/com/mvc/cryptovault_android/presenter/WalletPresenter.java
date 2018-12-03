@@ -20,6 +20,7 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
                             }
                         }
                         , throwable -> {
+                            mIView.serverError();
                             LogUtils.e("WalletPresenter", throwable.getMessage());
                         }));
     }
@@ -33,6 +34,7 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
                             }
                         }
                         , throwable -> {
+                            mIView.serverError();
                             LogUtils.e("WalletPresenter", throwable.getMessage());
                         }));
     }
@@ -42,10 +44,11 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
         rxUtils.register(mIModel.getAllAsset(token)
                 .subscribe(asset -> {
                             if (asset.getCode() == 200) {
-                                mIView.refreshAllAssrt(asset);
+                                mIView.refreshAllAsset(asset);
                             }
                         }
                         , throwable -> {
+                            mIView.serverError();
                             LogUtils.e("WalletPresenter", throwable.getMessage());
                         }));
     }

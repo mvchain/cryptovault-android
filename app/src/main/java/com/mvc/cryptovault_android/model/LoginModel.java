@@ -2,7 +2,7 @@ package com.mvc.cryptovault_android.model;
 
 import android.support.annotation.Nullable;
 
-import com.mvc.cryptovault_android.api.ApiStroe;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.contract.LoginContract;
@@ -34,7 +34,7 @@ public class LoginModel extends BaseModel implements LoginContract.ILoginModel {
         }
         String loginInfo = jsonObject.toString();
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/html"), loginInfo);
-        return RetrofitUtils.client(ApiStroe.class).login(requestBody)
+        return RetrofitUtils.client(ApiStore.class).login(requestBody)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(loginBean -> loginBean);
     }

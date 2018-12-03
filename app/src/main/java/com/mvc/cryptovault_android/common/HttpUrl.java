@@ -30,7 +30,12 @@ public class HttpUrl {
     public static final String GET_ASSET_ALL = "/asset/balance";
 
     /**
-     *Get currency list
+     * Get currency list
      */
     public static final String GET_CURRENCY_ALL = "/token";
+    /**
+     * Get message
+     */
+    public static final String GET_MESSAGE = "/message";
+
 }

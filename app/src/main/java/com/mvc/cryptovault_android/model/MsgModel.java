@@ -2,16 +2,16 @@ package com.mvc.cryptovault_android.model;
 
 import android.support.annotation.Nullable;
 
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
+import com.mvc.cryptovault_android.bean.MsgBean;
 import com.mvc.cryptovault_android.contract.MsgContract;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
+import com.mvc.cryptovault_android.utils.RxHelper;
 
 import io.reactivex.Observable;
 
 public class MsgModel extends BaseModel implements MsgContract.IMsgModel {
-    private List<String> strings = new ArrayList<>();
 
     @Nullable
     public static MsgModel getInstance() {
@@ -19,10 +19,7 @@ public class MsgModel extends BaseModel implements MsgContract.IMsgModel {
     }
 
     @Override
-    public Observable<List<String>> getMsg() {
-        for (int i = 0; i < 10; i++) {
-            strings.add(">>>>> I <<<<<");
-        }
-        return Observable.just(strings).map(strings -> strings);
+    public Observable<MsgBean> getMsg(String token, long timestamp, int type, int pageSize) {
+        return RetrofitUtils.client(ApiStore.class).getMsg(token, timestamp, type, pageSize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
     }
 }

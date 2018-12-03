@@ -34,9 +34,23 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/msg_rv"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/msg_swip"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/msg_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/msg_null"
+            android:layout_width="match_parent"
+            android:text="暂无通知"
+            android:textColor="@color/login_content"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_height="match_parent" />
     </FrameLayout>
 </LinearLayout>

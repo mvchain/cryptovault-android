@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.MsgAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.bean.MsgBean;
 import com.mvc.cryptovault_android.contract.MsgContract;
 import com.mvc.cryptovault_android.presenter.MsgPresenter;
 
@@ -22,11 +24,14 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
     private ImageView mBackMsg;
     private TextView mTitleMsg;
     private RecyclerView mRvMsg;
-    private List<String> strings;
+    private List<MsgBean.DataBean> mBeans;
     private MsgAdapter msgAdapter;
     private View mBarStatus;
+    private SwipeRefreshLayout mSwipMsg;
+    private TextView mMsgNull;
 
     @Override
+
     protected void initData() {
     }
 
@@ -39,11 +44,6 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
         return R.layout.activity_msg;
     }
 
-    @Override
-    public void showSuccess(List<String> msgs) {
-        strings.addAll(msgs);
-        msgAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public void startActivity() {
@@ -69,7 +69,7 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
     @Override
     protected void initMVPData() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
-        mPresenter.getMsg();
+        mPresenter.getMsg(getToken(), 0, 0, 10);
     }
 
     @Override
@@ -78,10 +78,38 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
         mTitleMsg = findViewById(R.id.msg_title);
         mBarStatus = findViewById(R.id.status_bar);
         mRvMsg = findViewById(R.id.msg_rv);
+        mSwipMsg = findViewById(R.id.msg_swip);
+        mMsgNull = findViewById(R.id.msg_null);
         mBackMsg.setOnClickListener(this);
-        strings = new ArrayList<>();
+        mBeans = new ArrayList<>();
         mRvMsg.setLayoutManager(new LinearLayoutManager(this));
-        msgAdapter = new MsgAdapter(R.layout.item_msg_list, strings);
+        msgAdapter = new MsgAdapter(R.layout.item_msg_list, mBeans);
         mRvMsg.setAdapter(msgAdapter);
+        mSwipMsg.post(() -> mSwipMsg.setRefreshing(true));
+        mSwipMsg.setOnRefreshListener(this::refresh);
+    }
+
+    @Override
+    public void showSuccess(MsgBean msgs) {
+        mSwipMsg.post(() -> mSwipMsg.setRefreshing(false));
+        mRvMsg.setVisibility(View.VISIBLE);
+        mMsgNull.setVisibility(View.INVISIBLE);
+        mBeans.addAll(msgs.getData());
+        msgAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showNullMsh() {
+        mSwipMsg.post(() -> mSwipMsg.setRefreshing(false));
+        mRvMsg.setVisibility(View.INVISIBLE);
+        mMsgNull.setVisibility(View.VISIBLE);
+    }
+
+    public void refresh() {
+        if (mBeans.size() == 0) {
+            mPresenter.getMsg(getToken(), 0, 0, 10);
+        } else {
+            mPresenter.getMsg(getToken(), mBeans.get(0).getCreatedAt(), 0, 10);
+        }
     }
 }

@@ -5,7 +5,7 @@ import android.content.Intent;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
-import com.mvc.cryptovault_android.api.ApiStroe;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 
 import java.io.IOException;
@@ -104,6 +104,6 @@ public class ParameterInterceptor implements Interceptor {
 //            e.printStackTrace();
 //        }
 //        RequestBody token = RequestBody.create(MediaType.parse("text/html"), object.toString());
-        return RetrofitUtils.client(ApiStroe.class).refreshToken(refreshToken).execute().body();
+        return RetrofitUtils.client(ApiStore.class).refreshToken(refreshToken).execute().body();
     }
 }

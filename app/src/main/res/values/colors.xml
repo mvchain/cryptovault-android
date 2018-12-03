@@ -14,6 +14,7 @@
     <color name="trand_gray">#8E8E9E</color>
     <color name="msg_time_gray">#A7A9B8</color>
     <color name="toge_gray">#C1C2CC</color>
+    <color name="edit_tv">#D5D7E6</color>
 
     <!--背景-->
     <color name="login_edit_bg">#FF8E8E9E</color>

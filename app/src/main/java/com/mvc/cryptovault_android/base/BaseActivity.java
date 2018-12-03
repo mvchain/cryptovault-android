@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.activity.LoginActivity;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -66,6 +67,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected void showToast(int msgId) {
         Toast.makeText(this, getResources().getText(msgId), Toast.LENGTH_SHORT).show();
+    }
+
+    protected String getToken() {
+        return SPUtils.getInstance().getString("token");
     }
 
     @Override

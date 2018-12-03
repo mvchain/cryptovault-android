@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
@@ -36,8 +37,10 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         type.setText(item.getTokenName());
         money.setText("￥" + moneyFormat.format(item.getRatio()));
         actual.setText(actualFormat.format(item.getValue()) + " " + tokenName);
-        String value = (String) DataTempCacheMap.getPreciseQuery(String.valueOf(item.getTokenId())).getValue();
-        LogUtils.e(TAG,"img==============:"+ value);
-        Glide.with(mContext).load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&").into(icon);
+        DataTempCacheMap.Node preciseQuery = DataTempCacheMap.getPreciseQuery(String.valueOf(item.getTokenId()));
+        String value = (String) ((preciseQuery != null) ? preciseQuery.getValue() : "");
+        LogUtils.e(TAG, value);
+        RequestOptions options = new RequestOptions().error(R.mipmap.vp_logo);
+        Glide.with(mContext).load(value).apply(options).into(icon);
     }
 }

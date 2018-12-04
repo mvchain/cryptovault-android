@@ -153,11 +153,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
              * save data to DataTempCacheMap
              */
             for (CurrencyBean.DataBean dataBean : currencyBean.getData()) {
-                DataTempCacheMap.put(dataBean.getTokenName(), dataBean);
-                DataTempCacheMap.put(dataBean.getTokenName(), dataBean);
-                DataTempCacheMap.put(dataBean.getTokenEnName(), dataBean);
                 DataTempCacheMap.put(String.valueOf(dataBean.getTokenId()), dataBean.getTokenImage());
             }
+            DataTempCacheMap.put("currency_list", currency_list);
         } else {
 
         }
@@ -166,6 +164,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             mData.clear();
             mData.addAll(assetListBean.getData());
             assetsAdapter.notifyDataSetChanged();
+            DataTempCacheMap.put("asset_list", asset_list);
         } else {
 
         }

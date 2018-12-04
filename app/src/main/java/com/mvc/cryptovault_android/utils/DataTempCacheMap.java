@@ -52,6 +52,10 @@ public class DataTempCacheMap {
         return nodeList;
     }
 
+    public static Node get(String key) {
+        return cache.get(key);
+    }
+
     /**
      * Precise inquery
      *

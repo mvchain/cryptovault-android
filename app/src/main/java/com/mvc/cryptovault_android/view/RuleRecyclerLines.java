@@ -40,7 +40,7 @@ public class RuleRecyclerLines extends RecyclerView.ItemDecoration {
     public RuleRecyclerLines(Context context, int orientation, int height) {
         this.mContext = context;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setColor(0xFFE3E3E3);
+        mPaint.setColor(0xFFF5F5F5);
         mPaint.setStyle(Paint.Style.FILL);
         setOrientation(orientation);
         this.height = height;

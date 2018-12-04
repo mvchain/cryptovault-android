@@ -72,6 +72,6 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_trand_child_item_aoi_ching" />
+            android:background="@drawable/shape_trand_child_item_aoi_ching" />
     </LinearLayout>
 </LinearLayout>

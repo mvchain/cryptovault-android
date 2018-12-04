@@ -6,5 +6,7 @@
     <string name="login_load">正在登录</string>
     <!--App 双击退出-->
     <string name="app_exit">请再按一次退出App</string>
-
+    <!--应用内文字-->
+    <string name="increase_add">添加</string>
+    <string name="increase_remove">移除</string>
 </resources>

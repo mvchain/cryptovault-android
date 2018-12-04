@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -39,7 +38,6 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         actual.setText(actualFormat.format(item.getValue()) + " " + tokenName);
         DataTempCacheMap.Node preciseQuery = DataTempCacheMap.getPreciseQuery(String.valueOf(item.getTokenId()));
         String value = (String) ((preciseQuery != null) ? preciseQuery.getValue() : "");
-        LogUtils.e(TAG, value);
         RequestOptions options = new RequestOptions().error(R.mipmap.vp_logo);
         Glide.with(mContext).load(value).apply(options).into(icon);
     }

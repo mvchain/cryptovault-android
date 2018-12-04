@@ -11,13 +11,29 @@ public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter 
     }
 
     @Override
-    public void getVrt() {
-        rxUtils.register(mIModel.getVrt().subscribe(strings -> mIView.showSuccess(strings), throwable -> {}));
-
+    public void getVrt(String token,int pairType) {
+        rxUtils.register(mIModel.getVrt(token, pairType).subscribe(list -> {
+            if (list.getCode() == 200) {
+                mIView.showSuccess(list.getData());
+            }else{
+                mIView.showNull();
+            }
+        }, throwable ->
+        {
+        }));
     }
 
     @Override
-    public void getBalanceTransactions() {
+    public void getBalanceTransactions(String token,int pairType) {
+        rxUtils.register(mIModel.getVrt(token, pairType).subscribe(list -> {
+            if (list.getCode() == 200) {
+                mIView.showSuccess(list.getData());
+            }else{
+                mIView.showNull();
+            }
+        }, throwable ->
+        {
+        }));
     }
 
     @Override

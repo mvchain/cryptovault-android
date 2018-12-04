@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.SPUtils;
+
 public abstract class BaseFragment extends Fragment {
 
     protected View rootView;
@@ -64,4 +66,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+    protected String getToken() {
+        return SPUtils.getInstance().getString("token");
+    }
+
 }

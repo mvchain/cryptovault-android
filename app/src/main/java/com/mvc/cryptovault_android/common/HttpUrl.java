@@ -1,7 +1,9 @@
 package com.mvc.cryptovault_android.common;
 
 public class HttpUrl {
-    public static final String BASE_URL = "http://192.168.15.31:10086/";
+//    public static final String BASE_URL = "http://192.168.15.31:10086/";
+
+    public static final String BASE_URL = "http://192.168.15.21:10086/";
     /**
      * user login
      */
@@ -37,5 +39,11 @@ public class HttpUrl {
      * Get message
      */
     public static final String GET_MESSAGE = "/message";
+
+
+    /**
+     * get pair
+     */
+    public static final String GET_PAIR = "/transaction/pair";
 
 }

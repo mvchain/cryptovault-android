@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.AssetListBean;
@@ -55,6 +56,7 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
             increaseBean.setTitle(currdata.get(i).getTokenCnName());
             increaseBean.setContent(currdata.get(i).getTokenCnName());
             for (int j = 0; j < assetBean.size(); j++) {
+                LogUtils.e("IncreaseModel", currdata.get(i).getTokenId() + "----------------" + assetBean.get(j).getTokenId());
                 if (currdata.get(i).getTokenId() == assetBean.get(j).getTokenId()) {
                     increaseBean.setAdd(false);
                     break;

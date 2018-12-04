@@ -28,6 +28,7 @@ import com.mvc.cryptovault_android.contract.WallteContract;
 import com.mvc.cryptovault_android.presenter.WalletPresenter;
 import com.mvc.cryptovault_android.utils.DataTempCacheMap;
 import com.mvc.cryptovault_android.utils.FileUtils;
+import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 
@@ -125,6 +126,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mData.addAll(asset.getData());
         assetBean = asset;
         mSwipAsstes.post(() -> mSwipAsstes.setRefreshing(false));
+        DataTempCacheMap.put("asset_list",JsonHelper.jsonToString(asset));
         assetsAdapter.notifyDataSetChanged();
     }
 
@@ -138,6 +140,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @Override
     public void savaLocalCurrency(CurrencyBean currencyBean) {
         cyBean = currencyBean;
+        DataTempCacheMap.put("currency_list",JsonHelper.jsonToString(currencyBean));
         RsPermission.getInstance().setRequestCode(200).setiPermissionRequest(this).requestPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
@@ -223,6 +226,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         if (allAssetBean != null) {
             FileUtils.saveJsonFile("allAssetBean", allAssetBean);
         }
+
         List<CurrencyBean.DataBean> data = cyBean.getData();
         for (CurrencyBean.DataBean dataBean : data) {
             DataTempCacheMap.put(dataBean.getTokenName(), dataBean);

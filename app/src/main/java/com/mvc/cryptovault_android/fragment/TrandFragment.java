@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -24,8 +25,14 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void initData() {
         TrandChildFragment vrtFragment = new TrandChildFragment();
+        Bundle vrtBundle = new Bundle();
+        vrtBundle.putInt("pairType", 1);
+        vrtFragment.setArguments(vrtBundle);
         mFragments.add(vrtFragment);
         TrandChildFragment banFragment = new TrandChildFragment();
+        Bundle banBundle = new Bundle();
+        banBundle.putInt("pairType", 2);
+        banFragment.setArguments(banBundle);
         mFragments.add(banFragment);
         trandPagerAdapter = new TrandPagerAdapter(getChildFragmentManager(), mFragments);
         mVpTrand.setAdapter(trandPagerAdapter);
@@ -50,7 +57,7 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.trand_histroy:
-                Intent intent = new Intent(activity,HistroyActivity.class);
+                Intent intent = new Intent(activity, HistroyActivity.class);
                 startActivity(intent);
                 break;
         }

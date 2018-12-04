@@ -41,6 +41,7 @@
         android:paddingRight="16dp">
 
         <TextView
+            android:id="@+id/trand_child_ratio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1234567.1234 VRT"
@@ -48,6 +49,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/trand_child_pair"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -65,13 +67,14 @@
         android:paddingBottom="18dp">
 
         <TextView
+            android:id="@+id/trand_child_increase"
             android:layout_width="match_parent"
-            android:text="-100.51%"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_aoi_ching_5dp"
             android:gravity="center_vertical|right"
             android:paddingRight="10dp"
+            android:text="-100.51%"
             android:textColor="@color/white"
-            android:textSize="12sp"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_trand_child_item_aoi_ching" />
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

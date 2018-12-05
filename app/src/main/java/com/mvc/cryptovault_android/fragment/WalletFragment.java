@@ -65,7 +65,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private AssetListBean assetBean = null;
     private AllAssetBean allAssetBean = null;
     private PopupWindow mPopView;
-    private int position = 0;
 
     @Override
     protected void initView() {

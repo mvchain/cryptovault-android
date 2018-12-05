@@ -56,4 +56,5 @@ public interface ApiStore {
                                                 @Query("tokenId")int tokenId,
                                                 @Query("transactionType")int transactionType,
                                                 @Query("type")int type);
+
 }

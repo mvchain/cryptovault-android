@@ -40,6 +40,35 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mItemSwipHis.setRefreshing(true);
         mItemSwipHis.setOnRefreshListener(this::refresh);
         getArgument();
+        initRecyclerLoadmore();
+    }
+
+
+
+    private void initRecyclerLoadmore() {
+        mRvChild.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager.getItemCount() > 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
+                    switch (action) {
+                        case 0:
+                            mPresenter.getAll(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
+                            break;
+                        case 1:
+                            mPresenter.getOut(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
+                            break;
+                        case 2:
+                            mPresenter.getIn(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
+                            break;
+                    }
+                }
+            }
+        });
     }
 
     private void getArgument() {
@@ -64,13 +93,13 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         LogUtils.e("HistroyChildFragment", "action:" + action);
         switch (action) {
             case 0:
-                mPresenter.getAll(getToken(), 0, 1, tokenId, action, 0);
+                mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);
                 break;
             case 1:
-                mPresenter.getOut(getToken(), 0, 1, tokenId, action, 0);
+                mPresenter.getOut(getToken(), 0, 10, tokenId, action, 0);
                 break;
             case 2:
-                mPresenter.getIn(getToken(), 0, 1, tokenId, action, 0);
+                mPresenter.getIn(getToken(), 0, 10, tokenId, action, 0);
                 break;
         }
     }
@@ -85,13 +114,13 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mHisData.addAll(msgs);
         mDataNull.setVisibility(View.GONE);
         mRvChild.setVisibility(View.VISIBLE);
-        mItemSwipHis.post(()->mItemSwipHis.setRefreshing(false));
+        mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         histroyChildAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showNull() {
-        mItemSwipHis.post(()->mItemSwipHis.setRefreshing(false));
+        mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mDataNull.setVisibility(View.VISIBLE);
         mRvChild.setVisibility(View.GONE);
     }
@@ -100,13 +129,13 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mHisData.clear();
         switch (action) {
             case 0:
-                mPresenter.getAll(getToken(), 0, 1, tokenId, action, 0);
+                mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);
                 break;
             case 1:
-                mPresenter.getOut(getToken(), 0, 1, tokenId, action, 0);
+                mPresenter.getOut(getToken(), 0, 10, tokenId, action, 0);
                 break;
             case 2:
-                mPresenter.getIn(getToken(), 0, 1, tokenId, action, 0);
+                mPresenter.getIn(getToken(), 0, 10, tokenId, action, 0);
                 break;
         }
 

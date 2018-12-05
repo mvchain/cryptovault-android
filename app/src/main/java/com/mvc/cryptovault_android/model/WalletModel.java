@@ -39,4 +39,5 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
     public Observable<AllAssetBean> getAllAsset(String token) {
         return RetrofitUtils.client(ApiStore.class).getAssetAll(token).compose(RxHelper.rxSchedulerHelper()).map(allAssetBean -> allAssetBean);
     }
+
 }

@@ -1,28 +1,38 @@
 package com.mvc.cryptovault_android.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.HistroyPagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.base.ExchangeRateBean;
 import com.mvc.cryptovault_android.contract.HistroyContract;
 import com.mvc.cryptovault_android.fragment.HistroyChildFragment;
+import com.mvc.cryptovault_android.listener.IPopViewListener;
 import com.mvc.cryptovault_android.presenter.HistroyPresenter;
+import com.mvc.cryptovault_android.utils.JsonHelper;
+import com.mvc.cryptovault_android.utils.TextViewDrawUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
+import com.mvc.cryptovault_android.view.PopViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener {
+public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener, IPopViewListener {
     private ImageView mBackHis;
     private ImageView mQcodeHis;
     private TextView mPriceHis;
@@ -40,6 +50,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private Intent intent;
     private int type;
     private int tokenId;
+    private PopupWindow mPopView;
 
     @Override
     protected void initMVPData() {
@@ -89,6 +100,19 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         mOutHis.setOnClickListener(this);
         mInHis.setOnClickListener(this);
         initIntent();
+        initPop();
+    }
+
+    private void initPop() {
+        String rate_default = SPUtils.getInstance().getString("rate_default");
+        ArrayList<String> content = new ArrayList<>();
+        if (rate_default != null && !rate_default.equals("")) {
+            ExchangeRateBean rateBean = (ExchangeRateBean) JsonHelper.stringToJson(rate_default, ExchangeRateBean.class);
+            for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {
+                content.add(dataBean.getName());
+            }
+            mPopView = PopViewHelper.getInstance().setiPopViewListener(this).create(this, R.layout.layout_rate_pop, content);
+        }
     }
 
     private void initIntent() {
@@ -143,6 +167,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -155,6 +180,8 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_type:
                 // TODO 18/11/29
+                mPopView.showAsDropDown(mTypeHis, -50, -10, Gravity.CENTER);
+                TextViewDrawUtils.setRigthDraw(getDrawable(R.drawable.down_icon), mTypeHis);
                 break;
             case R.id.his_sub:
                 // TODO 18/11/29
@@ -169,5 +196,16 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     @Override
     public void showSuccess(List<String> msgs) {
 
+    }
+
+    @Override
+    public void toRate(int position) {
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void dismiss() {
+        TextViewDrawUtils.setRigthDraw(getDrawable(R.drawable.up_icon), mTypeHis);
     }
 }

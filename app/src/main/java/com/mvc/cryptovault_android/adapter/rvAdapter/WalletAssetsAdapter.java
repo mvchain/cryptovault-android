@@ -5,13 +5,16 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.bean.AssetListBean;
+import com.mvc.cryptovault_android.bean.RateDefalutBean;
 import com.mvc.cryptovault_android.utils.DataTempCacheMap;
+import com.mvc.cryptovault_android.utils.JsonHelper;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -25,6 +28,7 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
     @SuppressLint("SetTextI18n")
     @Override
     protected void convert(BaseViewHolder helper, AssetListBean.DataBean item) {
+        RateDefalutBean rateDefalutBean = (RateDefalutBean) JsonHelper.stringToJson(SPUtils.getInstance().getString("rate_mod"), RateDefalutBean.class);
         DecimalFormat moneyFormat = new DecimalFormat("#.##");
         DecimalFormat actualFormat = new DecimalFormat("#.####");
         String tokenName = item.getTokenName();
@@ -34,7 +38,13 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         TextView money = helper.getView(R.id.item_assets_money);
         helper.addOnClickListener(R.id.item_assets_layout); //add onclick to the layout to jump startActivity
         type.setText(item.getTokenName());
-        money.setText("￥" + moneyFormat.format(item.getRatio()));
+        double price;
+        if (!rateDefalutBean.getRate_name().equals("CNY")) {
+            price = item.getRatio() * item.getValue();
+        } else {
+            price = item.getRatio() * item.getValue() / rateDefalutBean.getRate_value();
+        }
+        money.setText("￥" + moneyFormat.format(price));
         actual.setText(actualFormat.format(item.getValue()) + " " + tokenName);
         DataTempCacheMap.Node preciseQuery = DataTempCacheMap.getPreciseQuery(String.valueOf(item.getTokenId()));
         String value = (String) ((preciseQuery != null) ? preciseQuery.getValue() : "");

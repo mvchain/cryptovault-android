@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.contract;
 
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.base.ExchangeRateBean;
 import com.mvc.cryptovault_android.base.IBaseFragment;
 import com.mvc.cryptovault_android.base.IBaseModel;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
@@ -14,6 +15,7 @@ public interface WallteContract {
         public abstract void getAllAsset(String token);
         public abstract void getAssetList(String token);
         public abstract void getCurrencyAll(String token);
+        public abstract void getExchangeRate(String token);
     }
 
     interface IWallteModel extends IBaseModel {
@@ -38,12 +40,20 @@ public interface WallteContract {
          * @return
          */
         Observable<CurrencyBean> getCurrencyAll(String token);
+
+        /**
+         * get currency list
+         * @param token
+         * @return
+         */
+        Observable<ExchangeRateBean> getExchangeRate(String token);
     }
 
     interface IWallteView extends IBaseFragment {
         void refreshAssetList(AssetListBean asset);
         void refreshAllAsset(AllAssetBean allAssetBean);
         void savaLocalCurrency(CurrencyBean currencyBean);
+        void savaExchangeRate(ExchangeRateBean currencyBean);
 //        void newWorkError();
         void serverError();
     }

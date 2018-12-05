@@ -1,9 +1,12 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -20,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener {
-    private View mBarStatus;
     private ImageView mBackHis;
     private ImageView mQcodeHis;
     private TextView mPriceHis;
@@ -31,14 +33,33 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private TextView mSubHis;
     private ArrayList<Fragment> fragments;
     private HistroyPagerAdapter histroyPagerAdapter;
+    private TextView mTitleHis;
+    private TextView mOutHis;
+    private TextView mInHis;
+    private LinearLayout mLayoutSub;
+    private Intent intent;
+    private int type;
+    private int tokenId;
 
     @Override
     protected void initMVPData() {
         HistroyChildFragment allFragment = new HistroyChildFragment();
+        Bundle allBundle = new Bundle();
+        allBundle.putInt("tokenId", tokenId);
+        allBundle.putInt("action", 0);
+        allFragment.setArguments(allBundle);
         fragments.add(allFragment);
         HistroyChildFragment outFragment = new HistroyChildFragment();
+        Bundle outBundle = new Bundle();
+        outBundle.putInt("tokenId", tokenId);
+        outBundle.putInt("action", 2);
+        outFragment.setArguments(outBundle);
         fragments.add(outFragment);
         HistroyChildFragment inFragment = new HistroyChildFragment();
+        Bundle inBundle = new Bundle();
+        inBundle.putInt("tokenId", tokenId);
+        inBundle.putInt("action", 1);
+        inFragment.setArguments(inBundle);
         fragments.add(inFragment);
         mVpHis.setAdapter(histroyPagerAdapter);
         mTabHis.setupWithViewPager(mVpHis);
@@ -49,8 +70,8 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         fragments = new ArrayList<>();
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         histroyPagerAdapter = new HistroyPagerAdapter(getSupportFragmentManager(), fragments);
-        mBarStatus = findViewById(R.id.status_bar);
         mBackHis = findViewById(R.id.his_back);
+        mTitleHis = findViewById(R.id.his_title);
         mQcodeHis = findViewById(R.id.his_qcode);
         mPriceHis = findViewById(R.id.his_price);
         mTypeHis = findViewById(R.id.his_type);
@@ -58,10 +79,42 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         mTabHis = findViewById(R.id.his_tab);
         mVpHis = findViewById(R.id.his_vp);
         mSubHis = findViewById(R.id.his_sub);
-        mQcodeHis.setOnClickListener(this);
+        mOutHis = findViewById(R.id.his_out);
+        mInHis = findViewById(R.id.his_in);
+        mLayoutSub = findViewById(R.id.sub_layout);
         mBackHis.setOnClickListener(this);
+        mQcodeHis.setOnClickListener(this);
         mTypeHis.setOnClickListener(this);
         mSubHis.setOnClickListener(this);
+        mOutHis.setOnClickListener(this);
+        mInHis.setOnClickListener(this);
+        initIntent();
+    }
+
+    private void initIntent() {
+        intent = getIntent();
+        type = intent.getIntExtra("type", 0);
+        tokenId = intent.getIntExtra("tokenId", 0);
+        switch (type) {
+            case 0:
+                mTitleHis.setText(R.string.his_title_vp);
+                mLayoutSub.setVisibility(View.VISIBLE);
+                mOutHis.setVisibility(View.GONE);
+                mInHis.setVisibility(View.GONE);
+                mSubHis.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                mTitleHis.setText(R.string.his_title_bth);
+                mLayoutSub.setVisibility(View.GONE);
+                break;
+            case 2:
+                mTitleHis.setText(R.string.his_title_znb);
+                mLayoutSub.setVisibility(View.VISIBLE);
+                mOutHis.setVisibility(View.VISIBLE);
+                mInHis.setVisibility(View.VISIBLE);
+                mSubHis.setVisibility(View.GONE);
+                break;
+        }
     }
 
     @Override
@@ -76,6 +129,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
     @Override
     protected void initView() {
+
 
     }
 
@@ -104,6 +158,10 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_sub:
                 // TODO 18/11/29
+                break;
+            case R.id.his_out:// TODO 18/12/05
+                break;
+            case R.id.his_in:// TODO 18/12/05
                 break;
         }
     }

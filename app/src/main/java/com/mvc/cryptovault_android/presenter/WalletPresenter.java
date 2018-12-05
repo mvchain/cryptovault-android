@@ -40,6 +40,20 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
     }
 
     @Override
+    public void getExchangeRate(String token) {
+        rxUtils.register(mIModel.getExchangeRate(token)
+                .subscribe(rate -> {
+                            if (rate.getCode() == 200) {
+                                mIView.savaExchangeRate(rate);
+                            }
+                        }
+                        , throwable -> {
+                            mIView.serverError();
+                            LogUtils.e("WalletPresenter", throwable.getMessage());
+                        }));
+    }
+
+    @Override
     public void getAllAsset(String token) {
         rxUtils.register(mIModel.getAllAsset(token)
                 .subscribe(asset -> {

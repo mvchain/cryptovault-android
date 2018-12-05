@@ -9,4 +9,7 @@
     <!--应用内文字-->
     <string name="increase_add">添加</string>
     <string name="increase_remove">移除</string>
+    <string name="his_title_vp">VP余额</string>
+    <string name="his_title_bth">BTH</string>
+    <string name="his_title_znb">ZNB</string>
 </resources>

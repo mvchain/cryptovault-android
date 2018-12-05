@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -12,7 +13,6 @@ import com.mvc.cryptovault_android.fragment.MineFragment;
 import com.mvc.cryptovault_android.fragment.TogeFragment;
 import com.mvc.cryptovault_android.fragment.TrandFragment;
 import com.mvc.cryptovault_android.fragment.WalletFragment;
-import com.mvc.cryptovault_android.view.CenterButton;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
 
     @Override
     public void onPageSelected(int position) {
-        ((CenterButton) mButtonGroupHome.getChildAt(position)).setChecked(true);
+        ((RadioButton) mButtonGroupHome.getChildAt(position)).setChecked(true);
         with.statusBarDarkFont(true).statusBarColor(colors[position]).fitsSystemWindows(true).init();
     }
 

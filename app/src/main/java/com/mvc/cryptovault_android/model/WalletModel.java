@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
+import com.mvc.cryptovault_android.base.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
@@ -27,6 +28,11 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
     @Override
     public Observable<CurrencyBean> getCurrencyAll(String token) {
         return RetrofitUtils.client(ApiStore.class).getCurrencyAll(token).compose(RxHelper.rxSchedulerHelper()).map(currencyBean -> currencyBean);
+    }
+
+    @Override
+    public Observable<ExchangeRateBean> getExchangeRate(String token) {
+        return RetrofitUtils.client(ApiStore.class).getExchangeRate(token).compose(RxHelper.rxSchedulerHelper()).map(exchangRate -> exchangRate);
     }
 
     @Override

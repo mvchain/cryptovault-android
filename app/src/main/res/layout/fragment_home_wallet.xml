@@ -58,14 +58,20 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:paddingBottom="10dp"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/assets_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal|top" />
 
                     <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
                         android:id="@+id/assets_layout"
                         android:layout_width="match_parent"
-                        android:layout_gravity="center_horizontal|top"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|top">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -90,7 +96,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/all_assets"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="6dp"
                                 android:drawableRight="@drawable/up_icon"
                                 android:drawablePadding="5dp"
                                 android:gravity="center"
@@ -109,11 +115,6 @@
                         </RelativeLayout>
                     </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/assets_rv"
-                        android:layout_width="match_parent"
-                        android:layout_gravity="center_horizontal|top"
-                        android:layout_height="match_parent" />
                 </FrameLayout>
 
             </android.support.v4.widget.SwipeRefreshLayout>

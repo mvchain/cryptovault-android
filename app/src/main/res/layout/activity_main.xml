@@ -26,41 +26,53 @@
         android:background="@drawable/bg_home_button_radio"
         android:orientation="horizontal">
 
-        <com.mvc.cryptovault_android.view.CenterButton
+        <RadioButton
             android:id="@+id/home_wallet"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:button="@null"
             android:checked="true"
-            android:drawableLeft="@drawable/select_home_button_wallet"
-            app:res_center="true" />
+            android:drawableTop="@drawable/select_home_button_wallet"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textColor="@color/select_home_button_wallet"
+            android:text="资产"/>
 
-        <com.mvc.cryptovault_android.view.CenterButton
+        <RadioButton
             android:id="@+id/home_trand"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableLeft="@drawable/select_home_button_trand"
-            app:res_center="true" />
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textColor="@color/select_home_button_wallet"
+            android:text="交易"
+            android:drawableTop="@drawable/select_home_button_trand" />
 
-        <com.mvc.cryptovault_android.view.CenterButton
+        <RadioButton
             android:id="@+id/home_together"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableLeft="@drawable/select_home_button_together"
-            app:res_center="true" />
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textColor="@color/select_home_button_wallet"
+            android:text="众筹"
+            android:drawableTop="@drawable/select_home_button_together" />
 
-        <com.mvc.cryptovault_android.view.CenterButton
+        <RadioButton
             android:id="@+id/home_main"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textColor="@color/select_home_button_wallet"
+            android:text="我的"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableLeft="@drawable/select_home_button_main"
-            app:res_center="true" />
+            android:drawableTop="@drawable/select_home_button_main" />
     </RadioGroup>
 </LinearLayout>

@@ -70,4 +70,7 @@ public abstract class BaseFragment extends Fragment {
         return SPUtils.getInstance().getString("token");
     }
 
+    protected String getDefalutRate() {
+        return SPUtils.getInstance().getString("rate_mod");
+    }
 }

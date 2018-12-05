@@ -1,8 +1,10 @@
 package com.mvc.cryptovault_android.api;
 
+import com.mvc.cryptovault_android.base.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
+import com.mvc.cryptovault_android.bean.HistroyBean;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.MsgBean;
@@ -44,4 +46,14 @@ public interface ApiStore {
     @GET(HttpUrl.GET_PAIR)
     Observable<TrandChildBean> getVrtAndBalance(@Header("Authorization") String token, @Query("pairType")int pairType);
 
+    @GET(HttpUrl.GET_RATE)
+    Observable<ExchangeRateBean> getExchangeRate(@Header("Authorization") String token);
+
+    @GET(HttpUrl.GET_TRANSACTIONS)
+    Observable<HistroyBean> getHistroyRecording(@Header("Authorization") String token,
+                                                @Query("id") int id,
+                                                @Query("pageSize")int pageSize,
+                                                @Query("tokenId")int tokenId,
+                                                @Query("transactionType")int transactionType,
+                                                @Query("type")int type);
 }

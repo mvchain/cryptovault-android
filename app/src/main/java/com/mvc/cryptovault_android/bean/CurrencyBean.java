@@ -7,9 +7,10 @@ import java.util.List;
 
 public class CurrencyBean implements Parcelable {
 
+
     /**
      * code : 200
-     * data : [{"timestamp":1542358128483,"tokenCnName":"VRT货币","tokenEnName":"VRT","tokenId":1,"tokenImage":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&","tokenName":"VRT"},{"timestamp":1542358128484,"tokenCnName":"余额","tokenEnName":"BALANCE","tokenId":2,"tokenImage":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&","tokenName":"余额"},{"timestamp":1542358128485,"tokenCnName":"以太坊","tokenEnName":"ETH","tokenId":3,"tokenImage":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&","tokenName":"ETH"},{"timestamp":1542358128486,"tokenCnName":"USDT","tokenEnName":"USDT","tokenId":4,"tokenImage":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&","tokenName":"USDT"},{"timestamp":0,"tokenCnName":"小牛","tokenEnName":"MVC0.8119309989","tokenId":9,"tokenImage":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&","tokenName":"MVC0.8119309989"},{"timestamp":0,"tokenCnName":"小牛","tokenEnName":"MVC0.9659708910","tokenId":10,"tokenImage":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&","tokenName":"MVC0.5131705911"},{"timestamp":0,"tokenCnName":"小牛","tokenEnName":"MVC0.0355440807","tokenId":11,"tokenImage":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&","tokenName":"MVC0.0355440807"},{"timestamp":0,"tokenCnName":"小牛","tokenEnName":"MVC0.7867652623","tokenId":12,"tokenImage":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&","tokenName":"MVC0.7867652623"},{"timestamp":0,"tokenCnName":"小牛","tokenEnName":"MVC0.8994572428","tokenId":13,"tokenImage":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&","tokenName":"MVC0.8994572428"},{"timestamp":0,"tokenCnName":"ETH2","tokenEnName":"ETH2","tokenId":14,"tokenImage":"string","tokenName":"ETH333"},{"timestamp":0,"tokenCnName":"中文","tokenEnName":"aa","tokenId":15,"tokenImage":"aaaaa","tokenName":"bb"},{"timestamp":0,"tokenCnName":"啊啊啊","tokenEnName":"aaa","tokenId":16,"tokenImage":"http://ico-list.oss-cn-hangzhou.aliyuncs.com/cryptovalut/201811271429244Ryr8arKyD.jpg","tokenName":"aaa"},{"timestamp":1542358128486,"tokenCnName":"JYWD","tokenEnName":"JYWD","tokenId":17,"tokenImage":"hangzhou.aliyuncs.com/cryptovalut/201811271429244Ryr8arKyD.jpg","tokenName":"JYWD"}]
+     * data : [{"timestamp":0,"tokenCnName":"VRT","tokenEnName":"VRT","tokenId":1,"tokenImage":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=538598390,4205429837&fm=27&gp=0.jpg","tokenName":"VRT","tokenType":1},{"timestamp":0,"tokenCnName":"余额","tokenEnName":"Balance","tokenId":2,"tokenImage":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=538598390,4205429837&fm=27&gp=0.jpg","tokenName":"余额","tokenType":0},{"timestamp":0,"tokenCnName":"以太坊","tokenEnName":"ethernum","tokenId":3,"tokenImage":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=538598390,4205429837&fm=27&gp=0.jpg","tokenName":"ETH","tokenType":2},{"timestamp":0,"tokenCnName":"泰达币","tokenEnName":"USDT","tokenId":4,"tokenImage":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=538598390,4205429837&fm=27&gp=0.jpg","tokenName":"USDT","tokenType":2},{"timestamp":0,"tokenCnName":"JYWD","tokenEnName":"JYWD","tokenId":5,"tokenImage":"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=538598390,4205429837&fm=27&gp=0.jpg","tokenName":"JYWD","tokenType":2}]
      * message :
      */
 
@@ -73,28 +74,31 @@ public class CurrencyBean implements Parcelable {
 
     public static class DataBean implements Parcelable {
         /**
-         * timestamp : 1542358128483
-         * tokenCnName : VRT货币
+         * timestamp : 0
+         * tokenCnName : VRT
          * tokenEnName : VRT
          * tokenId : 1
-         * tokenImage : https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542378065226&di=513e584258d0bed94aea1be2b0fd5f11&imgtype=0&
+         * tokenImage : https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=538598390,4205429837&fm=27&gp=0.jpg
          * tokenName : VRT
+         * tokenType : 1
          */
 
-        private long timestamp;
+        private int timestamp;
         private String tokenCnName;
         private String tokenEnName;
         private int tokenId;
         private String tokenImage;
         private String tokenName;
+        private int tokenType;
 
         protected DataBean(Parcel in) {
-            timestamp = in.readLong();
+            timestamp = in.readInt();
             tokenCnName = in.readString();
             tokenEnName = in.readString();
             tokenId = in.readInt();
             tokenImage = in.readString();
             tokenName = in.readString();
+            tokenType = in.readInt();
         }
 
         public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
@@ -109,11 +113,11 @@ public class CurrencyBean implements Parcelable {
             }
         };
 
-        public long getTimestamp() {
+        public int getTimestamp() {
             return timestamp;
         }
 
-        public void setTimestamp(long timestamp) {
+        public void setTimestamp(int timestamp) {
             this.timestamp = timestamp;
         }
 
@@ -157,6 +161,14 @@ public class CurrencyBean implements Parcelable {
             this.tokenName = tokenName;
         }
 
+        public int getTokenType() {
+            return tokenType;
+        }
+
+        public void setTokenType(int tokenType) {
+            this.tokenType = tokenType;
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -164,12 +176,13 @@ public class CurrencyBean implements Parcelable {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeLong(timestamp);
+            dest.writeInt(timestamp);
             dest.writeString(tokenCnName);
             dest.writeString(tokenEnName);
             dest.writeInt(tokenId);
             dest.writeString(tokenImage);
             dest.writeString(tokenName);
+            dest.writeInt(tokenType);
         }
     }
 }

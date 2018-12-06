@@ -30,6 +30,7 @@ import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
 import com.mvc.cryptovault_android.bean.RateDefalutBean;
 import com.mvc.cryptovault_android.contract.WallteContract;
+import com.mvc.cryptovault_android.event.WalletAssetsListEvent;
 import com.mvc.cryptovault_android.listener.IPopViewListener;
 import com.mvc.cryptovault_android.presenter.WalletPresenter;
 import com.mvc.cryptovault_android.utils.DataTempCacheMap;
@@ -40,6 +41,8 @@ import com.mvc.cryptovault_android.view.PopViewHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,6 +54,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private View mBarStatus;
     private ImageView mHintAssets;
     private TextView mTitleAssets;
+    private TextView mNullAssets;
     private ImageView mAddAssets;
     private TextView mAssetsAll;
     private TextView mTypeAssets;
@@ -73,6 +77,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mBarStatus = rootView.findViewById(R.id.status_bar);
         mHintAssets = rootView.findViewById(R.id.assets_hint);
         mTitleAssets = rootView.findViewById(R.id.assets_title);
+        mNullAssets = rootView.findViewById(R.id.assets_null);
         mAddAssets = rootView.findViewById(R.id.assets_add);
         mAssetsAll = rootView.findViewById(R.id.all_assets);
         mTypeAssets = rootView.findViewById(R.id.assets_type);
@@ -85,12 +90,14 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mHintAssets.setOnClickListener(this);
         mAddAssets.setOnClickListener(this);
         mTypeAssets.setOnClickListener(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home_wallet;
     }
+
 
     @Override
     public BasePresenter initPresenter() {
@@ -117,6 +124,15 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         }
     }
 
+    @Subscribe
+    public void updateAssets(WalletAssetsListEvent listEvent) {
+        mData.clear();
+        List<AssetListBean.DataBean> newsData = listEvent.getNewsData();
+        mData.addAll(newsData);
+        assetsAdapter.notifyDataSetChanged();
+        mPresenter.getAssetList(getToken());
+    }
+
     @Override
     protected void initData() {
         super.initData();
@@ -136,6 +152,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                     }
                     intent.putExtra("type", type);
                     intent.putExtra("tokenId", mData.get(position).getTokenId());
+                    intent.putExtra("data", mData.get(position));
                     startActivity(intent);
                     break;
             }
@@ -182,12 +199,15 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                     e.printStackTrace();
                 }
             }
-            mPopView = PopViewHelper.getInstance().setiPopViewListener(this).create(activity, R.layout.layout_rate_pop, content);
         }
+        mPopView = PopViewHelper.getInstance().create(activity, R.layout.layout_rate_pop, content,this);
     }
 
     @Override
     public void refreshAssetList(AssetListBean asset) {
+        mNullAssets.setVisibility(View.GONE);
+        mRvAssets.setVisibility(View.VISIBLE);
+        mData.clear();
         mData.addAll(asset.getData());
         assetBean = asset;
         mSwipAsstes.post(() -> mSwipAsstes.setRefreshing(false));
@@ -231,6 +251,12 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         initPop();
     }
 
+    @Override
+    public void showNullAsset() {
+        mNullAssets.setVisibility(View.VISIBLE);
+        mRvAssets.setVisibility(View.GONE);
+    }
+
     /**
      * 服务器出错/网络异常 都会走这里，此时的数据为本地缓存
      */
@@ -240,7 +266,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         String asset_list = FileUtils.getFileToString("asset_list");
         String allAsset = FileUtils.getFileToString("allAssetBean");
         if (!currency_list.equals("")) {
-            CurrencyBean currencyBean = (CurrencyBean) JsonHelper.stringToJson(currency_list,CurrencyBean.class);
+            CurrencyBean currencyBean = (CurrencyBean) JsonHelper.stringToJson(currency_list, CurrencyBean.class);
             /**
              * save data to DataTempCacheMap
              */
@@ -250,14 +276,14 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             DataTempCacheMap.put("currency_list", currency_list);
         }
         if (!asset_list.equals("")) {
-            AssetListBean assetListBean = (AssetListBean) JsonHelper.stringToJson(asset_list,AssetListBean.class);
+            AssetListBean assetListBean = (AssetListBean) JsonHelper.stringToJson(asset_list, AssetListBean.class);
             mData.clear();
             mData.addAll(assetListBean.getData());
             assetsAdapter.notifyDataSetChanged();
             DataTempCacheMap.put("asset_list", asset_list);
         }
         if (!allAsset.equals("")) {
-            AllAssetBean allAssetBean = (AllAssetBean) JsonHelper.stringToJson(allAsset,AllAssetBean.class);
+            AllAssetBean allAssetBean = (AllAssetBean) JsonHelper.stringToJson(allAsset, AllAssetBean.class);
             DecimalFormat format = new DecimalFormat("#.##");
             mPriceAssets.setText(format.format(allAssetBean.getData()));
         }
@@ -384,5 +410,11 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
 ////        update assets
 //        assetsAdapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

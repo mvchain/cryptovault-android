@@ -38,13 +38,13 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         TextView money = helper.getView(R.id.item_assets_money);
         helper.addOnClickListener(R.id.item_assets_layout); //add onclick to the layout to jump startActivity
         type.setText(item.getTokenName());
-        double price;
-        if (!rateDefalutBean.getRate_name().equals("CNY")) {
-            price = item.getRatio() * item.getValue();
-        } else {
-            price = item.getRatio() * item.getValue() / rateDefalutBean.getRate_value();
-        }
-        money.setText("￥" + moneyFormat.format(price));
+//        double price;
+//        if (!rateDefalutBean.getRate_name().equals("CNY")) {
+//            price = item.getRatio() * item.getValue();
+//        } else {
+//            price = item.getRatio() * item.getValue() / rateDefalutBean.getRate_value();
+//        }
+        money.setText("￥" + moneyFormat.format(item.getRatio() * item.getValue()));
         actual.setText(actualFormat.format(item.getValue()) + " " + tokenName);
         DataTempCacheMap.Node preciseQuery = DataTempCacheMap.getPreciseQuery(String.valueOf(item.getTokenId()));
         String value = (String) ((preciseQuery != null) ? preciseQuery.getValue() : "");

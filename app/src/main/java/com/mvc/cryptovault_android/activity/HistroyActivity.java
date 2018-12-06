@@ -20,6 +20,7 @@ import com.mvc.cryptovault_android.adapter.rvAdapter.HistroyPagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.base.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.contract.HistroyContract;
 import com.mvc.cryptovault_android.fragment.HistroyChildFragment;
 import com.mvc.cryptovault_android.listener.IPopViewListener;
@@ -51,6 +52,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private int type;
     private int tokenId;
     private PopupWindow mPopView;
+    private AssetListBean.DataBean dataBean;
 
     @Override
     protected void initMVPData() {
@@ -111,7 +113,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
             for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {
                 content.add(dataBean.getName());
             }
-            mPopView = PopViewHelper.getInstance().setiPopViewListener(this).create(this, R.layout.layout_rate_pop, content);
+            mPopView = PopViewHelper.getInstance().create(this, R.layout.layout_rate_pop, content,this);
         }
     }
 
@@ -119,6 +121,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         intent = getIntent();
         type = intent.getIntExtra("type", 0);
         tokenId = intent.getIntExtra("tokenId", 0);
+        dataBean = intent.getParcelableExtra("data");
         switch (type) {
             case 0:
                 mTitleHis.setText(R.string.his_title_vp);
@@ -139,6 +142,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 mSubHis.setVisibility(View.GONE);
                 break;
         }
+        mPriceHis.setText(dataBean.getRatio() * dataBean.getValue() + "");
     }
 
     @Override

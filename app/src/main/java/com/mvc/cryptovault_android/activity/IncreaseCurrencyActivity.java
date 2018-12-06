@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.app.Dialog;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,21 +11,40 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.IncreaseAdapter;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.IncreaseBean;
 import com.mvc.cryptovault_android.contract.IncreaseContract;
+import com.mvc.cryptovault_android.event.WalletAssetsListEvent;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.presenter.IncreasePresenter;
+import com.mvc.cryptovault_android.utils.DataTempCacheMap;
+import com.mvc.cryptovault_android.utils.JsonHelper;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
+import com.mvc.cryptovault_android.utils.RxHelper;
+import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.RuleRecyclerLines;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.IncreasePresenter> implements IncreaseContract.IIncreaseView, View.OnClickListener {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
+public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.IncreasePresenter> implements IncreaseContract.IIncreaseView, View.OnClickListener, BaseQuickAdapter.OnItemChildClickListener {
     private View mBarStatus;
     private ImageView mBackIncrease;
     private TextView mTitleIncrease;
@@ -36,8 +56,14 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     private boolean isSerach = false;
     private ArrayList<IncreaseBean> mBean;
     private ArrayList<IncreaseBean> mSearch;
+    private HashMap<Integer, AssetListBean> mAllStack;
+    private HashMap<Integer, IncreaseBean> mPutMap;
+    private HashMap<Integer, IncreaseBean> mRemoveMap;
     private IncreaseAdapter allIncreaseAdapter;
     private IncreaseAdapter searchIncreaseAdapter;
+    private Dialog mHintDialog;
+    private AssetListBean listBean;
+    //    assertVisibleDTO
 
     @Override
     protected void initMVPData() {
@@ -61,12 +87,23 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
             }
         });
         mPresenter.getCurrencyAll();
+        searchIncreaseAdapter.setOnItemChildClickListener(this);
+        allIncreaseAdapter.setOnItemChildClickListener(this);
+        initCache();
+    }
+
+    private void initCache() {
+        listBean = (AssetListBean) JsonHelper.stringToJson((String) DataTempCacheMap.get("asset_list").getValue(), AssetListBean.class);
+
     }
 
     @Override
     protected void initMVPView() {
         mBean = new ArrayList<>();
         mSearch = new ArrayList<>();
+        mAllStack = new HashMap<>();
+        mPutMap = new HashMap<>();
+        mRemoveMap = new HashMap<>();
         mBarStatus = findViewById(R.id.status_bar);
         mBackIncrease = findViewById(R.id.increase_back);
         mBackIncrease.setOnClickListener(this);
@@ -80,6 +117,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
         mRvIncrease.setLayoutManager(new LinearLayoutManager(this));
         mSerachRvIncrease.setLayoutManager(new LinearLayoutManager(this));
         ImmersionBar.with(this).statusBarView(mBarStatus).statusBarDarkFont(true).init();
+
     }
 
     @Override
@@ -113,7 +151,57 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
         switch (v.getId()) {
             case R.id.increase_back:
                 // TODO 18/12/03
-                finish();
+                int removeSize = mRemoveMap.size();
+                LogUtils.e("IncreaseCurrencyActivit", "mBean.size():" + mBean.size());
+                int putSize = mPutMap.size();
+                if (removeSize == 0 && putSize == 0) {
+                    finish();
+                } else {
+                    StringBuffer putBuffer = new StringBuffer();
+                    StringBuffer removeBuffer = new StringBuffer();
+                    for (Map.Entry<Integer, IncreaseBean> integerIncreaseBeanEntry : mPutMap.entrySet()) {
+                        IncreaseBean value = integerIncreaseBeanEntry.getValue();
+                        putBuffer.append(value.getCurrencyId() + ",");
+                    }
+                    String putJson = "";
+                    if (!putBuffer.toString().equals("")) {
+                        putJson = putBuffer.substring(0, putBuffer.length() - 1);
+                    }
+                    for (Map.Entry<Integer, IncreaseBean> integerIncreaseBeanEntry : mRemoveMap.entrySet()) {
+                        IncreaseBean value = integerIncreaseBeanEntry.getValue();
+                        removeBuffer.append(value.getCurrencyId() + ",");
+                    }
+                    String removeJson = "";
+                    if (!removeBuffer.toString().equals("")) {
+                        removeJson = removeBuffer.substring(0, removeBuffer.length() - 1);
+                    }
+                    JSONObject json = new JSONObject();
+                    try {
+                        json.put("addTokenIdArr", putJson);
+                        json.put("removeTokenIdArr", removeJson);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    RequestBody body = RequestBody.create(MediaType.parse("text/html"), json.toString());
+                    RetrofitUtils.client(ApiStore.class).updateAssetList(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
+                        if (updateBean.getCode() == 200 && updateBean.isData()) {
+//                                update success
+                            List<AssetListBean.DataBean> data = listBean.getData();
+                            List<AssetListBean.DataBean> newsData = new ArrayList<>();
+                            for (int i = 0; i < mBean.size(); i++) {
+                                for (int j = 0; j < data.size(); j++) {
+                                    if (mBean.get(i).getCurrencyId() == data.get(j).getTokenId() && !mBean.get(i).isAdd()) {
+                                        newsData.add(data.get(j));
+                                        break;
+                                    }
+                                }
+                            }
+                            EventBus.getDefault().post(new WalletAssetsListEvent(newsData));
+                        }
+                        finish();
+                    });
+                }
+                KeyboardUtils.hideSoftInput(this);
                 break;
             case R.id.increase_serach:
                 // TODO 18/12/03
@@ -124,7 +212,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
                     mTitleIncrease.setVisibility(View.GONE);
                     mEditIncrease.setFocusable(true);
                     mEditIncrease.requestFocus();
-                    KeyboardUtils.toggleSoftInput();
+                    KeyboardUtils.showSoftInput(this);
                 } else {
                     mSerachIncrease.setImageDrawable(getDrawable(R.drawable.serch_icon_black));
                     mEditIncrease.setVisibility(View.GONE);
@@ -133,7 +221,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
                     mSerachNullIncrease.setVisibility(View.GONE);
                     mSerachRvIncrease.setVisibility(View.GONE);
                     mRvIncrease.setVisibility(View.VISIBLE);
-                    KeyboardUtils.toggleSoftInput();
+                    KeyboardUtils.hideSoftInput(this);
                 }
                 break;
         }
@@ -143,6 +231,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     public void showCurrency(List<IncreaseBean> beanList) {
         mBean.clear();
         mBean.addAll(beanList);
+        LogUtils.e("IncreaseCurrencyActivit", "mBean.size():" + mBean.size());
         mSerachNullIncrease.setVisibility(View.GONE);
         mSerachRvIncrease.setVisibility(View.GONE);
         mRvIncrease.setVisibility(View.VISIBLE);
@@ -164,5 +253,104 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
         mSerachNullIncrease.setVisibility(View.VISIBLE);
         mSerachRvIncrease.setVisibility(View.GONE);
         mRvIncrease.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        switch (view.getId()) {
+            case R.id.item_increase_add:
+                if (mSerachRvIncrease.getVisibility() == View.VISIBLE) {
+                    // 搜索的结果
+                    if (!mSearch.get(position).isAdd()) {
+                        mHintDialog = DialogHelper.getInstance().create(this, "确定移除" + mSearch.get(position).getTitle() + "?", viewId -> {
+                            switch (viewId) {
+                                case R.id.hint_cancle:
+                                    mHintDialog.dismiss();
+                                    break;
+                                case R.id.hint_enter:
+                                    mHintDialog.dismiss();
+                                    pullStack(position);
+                                    break;
+                            }
+                        });
+                        mHintDialog.show();
+                    } else {
+                        pushStack(position);
+                    }
+                } else {
+                    //全部列表结果
+                    if (!mBean.get(position).isAdd()) {
+                        mHintDialog = DialogHelper.getInstance().create(this, "确定移除" + mBean.get(position).getTitle() + "?", viewId -> {
+                            switch (viewId) {
+                                case R.id.hint_cancle:
+                                    mHintDialog.dismiss();
+                                    break;
+                                case R.id.hint_enter:
+                                    mHintDialog.dismiss();
+                                    pullStack(position);
+                                    break;
+                            }
+                        });
+                        mHintDialog.show();
+                    } else {
+                        pushStack(position);
+                    }
+                }
+
+                break;
+        }
+    }
+
+    /**
+     * @param position
+     */
+    private void pullStack(int position) {
+        if (mSerachRvIncrease.getVisibility() == View.VISIBLE) {
+            IncreaseBean increaseBean = mPutMap.get(mSearch.get(position).getCurrencyId());
+            //新添加的
+            if (increaseBean != null) {
+                mPutMap.remove(mSearch.get(position).getCurrencyId());
+            }
+            mRemoveMap.put(mSearch.get(position).getCurrencyId(), mSearch.get(position));
+            boolean add = mSearch.get(position).isAdd();
+            mSearch.get(position).setAdd(!add);
+        } else {
+            //不是在搜索的时候
+            IncreaseBean increaseBean = mPutMap.get(mBean.get(position).getCurrencyId());
+            //新添加的
+            if (increaseBean != null) {
+                mPutMap.remove(mBean.get(position).getCurrencyId());
+            }
+            mRemoveMap.put(mBean.get(position).getCurrencyId(), mBean.get(position));
+            boolean add = mBean.get(position).isAdd();
+            mBean.get(position).setAdd(!add);
+        }
+        allIncreaseAdapter.notifyDataSetChanged();
+        searchIncreaseAdapter.notifyDataSetChanged();
+    }
+
+    private void pushStack(int position) {
+        if (mSerachRvIncrease.getVisibility() == View.VISIBLE) {
+            IncreaseBean increaseBean = mRemoveMap.get(mSearch.get(position).getCurrencyId());
+            //新添加的
+            if (increaseBean != null) {
+                mRemoveMap.remove(mSearch.get(position).getCurrencyId());
+            }
+            mPutMap.put(mSearch.get(position).getCurrencyId(), mSearch.get(position));
+            boolean add = mSearch.get(position).isAdd();
+            mSearch.get(position).setAdd(!add);
+        } else {
+            //不是在搜索的时候
+            IncreaseBean increaseBean = mRemoveMap.get(mBean.get(position).getCurrencyId());
+            //新添加的
+            if (increaseBean != null) {
+                mRemoveMap.remove(mBean.get(position).getCurrencyId());
+            }
+            mPutMap.put(mBean.get(position).getCurrencyId(), mBean.get(position));
+            boolean add = mBean.get(position).isAdd();
+            mBean.get(position).setAdd(!add);
+        }
+        allIncreaseAdapter.notifyDataSetChanged();
+        searchIncreaseAdapter.notifyDataSetChanged();
     }
 }

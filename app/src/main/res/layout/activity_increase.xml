@@ -39,13 +39,14 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:visibility="gone"
             android:background="@drawable/bg_increase_edit"
             android:drawableLeft="@drawable/serch_icon_drawable_edit"
             android:hint="搜索币种"
+            android:maxLines="1"
             android:paddingLeft="25dp"
             android:textColorHint="@color/edit_tv"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/increase_serach"

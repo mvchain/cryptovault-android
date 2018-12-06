@@ -1,6 +1,5 @@
 package com.mvc.cryptovault_android.model;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.AssetListBean;
@@ -34,29 +33,16 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
 
     @Override
     public Observable<List<IncreaseBean>> getCurrencyAll() {
-        mList.clear();
-        IncreaseBean vpBean = new IncreaseBean();
-        vpBean.setVisi(false);
-        vpBean.setContent("VP余额");
-        vpBean.setCurrencyId(0);
-        vpBean.setTitle("VP余额");
-        mList.add(vpBean);
-        IncreaseBean vrtBean = new IncreaseBean();
-        vrtBean.setVisi(false);
-        vrtBean.setContent("VRT");
-        vrtBean.setCurrencyId(1);
-        vrtBean.setTitle("VRT");
-        mList.add(vrtBean);
         List<CurrencyBean.DataBean> currdata = currencyBean.getData();
         List<AssetListBean.DataBean> assetBean = assetListBean.getData();
         for (int i = 0; i < currdata.size(); i++) {
             IncreaseBean increaseBean = new IncreaseBean();
-            increaseBean.setVisi(true);
+            increaseBean.setVisi(i >= 2);
             increaseBean.setResId(currdata.get(i).getTokenImage());
+            increaseBean.setCurrencyId(currdata.get(i).getTokenId());
             increaseBean.setTitle(currdata.get(i).getTokenCnName());
             increaseBean.setContent(currdata.get(i).getTokenCnName());
             for (int j = 0; j < assetBean.size(); j++) {
-                LogUtils.e("IncreaseModel", currdata.get(i).getTokenId() + "----------------" + assetBean.get(j).getTokenId());
                 if (currdata.get(i).getTokenId() == assetBean.get(j).getTokenId()) {
                     increaseBean.setAdd(false);
                     break;
@@ -72,7 +58,7 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
     @Override
     public Observable<List<IncreaseBean>> getCurrencySerachList(String serach) {
         mSearchList.clear();
-        if(!serach.equals("")){
+        if (!serach.equals("")) {
             for (int i = 2; i < mList.size(); i++) {
                 IncreaseBean increaseBean = mList.get(i);
                 if (increaseBean.getContent().contains(serach) || increaseBean.getTitle().contains(serach)) {

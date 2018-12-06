@@ -9,6 +9,7 @@ import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.MsgBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
+import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
 import com.mvc.cryptovault_android.common.HttpUrl;
 
@@ -19,6 +20,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface ApiStore {
@@ -34,6 +36,9 @@ public interface ApiStore {
     @GET(HttpUrl.GET_ASSET_LIST)
     Observable<AssetListBean> getAssetList(@Header("Authorization") String token);
 
+    @PUT(HttpUrl.GET_ASSET_LIST)
+    Observable<UpdateBean> updateAssetList(@Header("Authorization") String token, @Body RequestBody putBody);
+
     @GET(HttpUrl.GET_ASSET_ALL)
     Observable<AllAssetBean> getAssetAll(@Header("Authorization") String token);
 
@@ -44,7 +49,7 @@ public interface ApiStore {
     Observable<MsgBean> getMsg(@Header("Authorization") String token, @Query("timestamp") long timestamp, @Query("type") int type, @Query("pageSize") int pageSize);
 
     @GET(HttpUrl.GET_PAIR)
-    Observable<TrandChildBean> getVrtAndBalance(@Header("Authorization") String token, @Query("pairType")int pairType);
+    Observable<TrandChildBean> getVrtAndBalance(@Header("Authorization") String token, @Query("pairType") int pairType);
 
     @GET(HttpUrl.GET_RATE)
     Observable<ExchangeRateBean> getExchangeRate(@Header("Authorization") String token);
@@ -52,9 +57,9 @@ public interface ApiStore {
     @GET(HttpUrl.GET_TRANSACTIONS)
     Observable<HistroyBean> getHistroyRecording(@Header("Authorization") String token,
                                                 @Query("id") int id,
-                                                @Query("pageSize")int pageSize,
-                                                @Query("tokenId")int tokenId,
-                                                @Query("transactionType")int transactionType,
-                                                @Query("type")int type);
+                                                @Query("pageSize") int pageSize,
+                                                @Query("tokenId") int tokenId,
+                                                @Query("transactionType") int transactionType,
+                                                @Query("type") int type);
 
 }

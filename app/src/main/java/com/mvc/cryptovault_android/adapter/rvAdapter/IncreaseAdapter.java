@@ -36,5 +36,6 @@ public class IncreaseAdapter extends BaseQuickAdapter<IncreaseBean, BaseViewHold
             add.setText(R.string.increase_add);
         }
         Glide.with(mContext).load(item.getResId()).into(icon);
+        helper.addOnClickListener(R.id.item_increase_add);
     }
 }

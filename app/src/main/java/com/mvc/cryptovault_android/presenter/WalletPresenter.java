@@ -16,7 +16,11 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
         rxUtils.register(mIModel.getAssetList(token)
                 .subscribe(asset -> {
                             if (asset.getCode() == 200) {
-                                mIView.refreshAssetList(asset);
+                                if (asset.getData().size() > 0) {
+                                    mIView.refreshAssetList(asset);
+                                } else {
+                                    mIView.showNullAsset();
+                                }
                             }
                         }
                         , throwable -> {

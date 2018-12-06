@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class PopViewHelper {
     private PopupWindow mPopView;
     private static PopViewHelper mDialogHelper;
-    private IPopViewListener iPopViewListener;
 
     public static PopViewHelper getInstance() {
         if (mDialogHelper == null) {
@@ -28,7 +27,7 @@ public class PopViewHelper {
         return mDialogHelper;
     }
 
-    public PopupWindow create(Context context, int layoutId, ArrayList<String> content) {
+    public PopupWindow create(Context context, int layoutId, ArrayList<String> content,IPopViewListener iPopViewListener) {
         LinearLayout linear = (LinearLayout) LayoutInflater.from(context.getApplicationContext()).inflate(layoutId, null);
         RecyclerView mRateView = linear.findViewById(R.id.rate_rv);
         RateAdapter adapter = new RateAdapter(R.layout.item_rate_rv, content);
@@ -60,10 +59,5 @@ public class PopViewHelper {
         if (mPopView != null && mPopView.isShowing()) {
             mPopView.dismiss();
         }
-    }
-
-    public PopViewHelper setiPopViewListener(IPopViewListener iPopViewListener) {
-        this.iPopViewListener = iPopViewListener;
-        return this;
     }
 }

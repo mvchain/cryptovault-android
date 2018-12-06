@@ -16,18 +16,18 @@ public class HttpUrl {
 
 
     /**
-     * get userinfo
+     * remove userinfo
      */
     public static final String GET_USER_INFO = "/user/info";
 
 
     /**
-     * get asset list
+     * remove asset list
      */
     public static final String GET_ASSET_LIST = "/asset";
 
     /**
-     * get all asset
+     * remove all asset
      */
     public static final String GET_ASSET_ALL = "/asset/balance";
 
@@ -42,18 +42,18 @@ public class HttpUrl {
 
 
     /**
-     * get pair
+     * remove pair
      */
     public static final String GET_PAIR = "/transaction/pair";
 
     /**
-     * get exchange rate
+     * remove exchange rate
      */
     public static final String GET_RATE = "/token/exchange/rate";
 
 
     /**
-     * get exchange rate
+     * remove exchange rate
      */
     public static final String GET_TRANSACTIONS = "/asset/transactions";
 }

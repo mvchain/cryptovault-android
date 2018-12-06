@@ -20,14 +20,14 @@ public interface WallteContract {
 
     interface IWallteModel extends IBaseModel {
         /**
-         * get All asset
+         * remove All asset
          *
          * @return
          */
         Observable<AllAssetBean> getAllAsset(String token);
 
         /**
-         * get asset list
+         * remove asset list
          * @param token
          * @return
          */
@@ -35,14 +35,14 @@ public interface WallteContract {
 
 
         /**
-         * get currency list
+         * remove currency list
          * @param token
          * @return
          */
         Observable<CurrencyBean> getCurrencyAll(String token);
 
         /**
-         * get currency list
+         * remove currency list
          * @param token
          * @return
          */
@@ -54,6 +54,7 @@ public interface WallteContract {
         void refreshAllAsset(AllAssetBean allAssetBean);
         void savaLocalCurrency(CurrencyBean currencyBean);
         void savaExchangeRate(ExchangeRateBean currencyBean);
+        void showNullAsset();
 //        void newWorkError();
         void serverError();
     }

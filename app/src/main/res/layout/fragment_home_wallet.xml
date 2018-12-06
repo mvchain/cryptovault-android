@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <FrameLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content">
@@ -114,8 +114,15 @@
                                 android:textSize="36sp" />
                         </RelativeLayout>
                     </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
-
-                </FrameLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:id="@+id/assets_null"
+                        android:layout_below="@id/assets_layout"
+                        android:text="暂无数据"
+                        android:gravity="center"
+                        android:textSize="17sp"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
 
             </android.support.v4.widget.SwipeRefreshLayout>
 

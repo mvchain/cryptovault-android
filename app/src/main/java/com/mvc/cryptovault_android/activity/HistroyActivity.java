@@ -1,8 +1,10 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -29,6 +33,9 @@ import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.TextViewDrawUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 import com.mvc.cryptovault_android.view.PopViewHelper;
+import com.per.rslibrary.IPermissionRequest;
+import com.per.rslibrary.RsPermission;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +120,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
             for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {
                 content.add(dataBean.getName());
             }
-            mPopView = PopViewHelper.getInstance().create(this, R.layout.layout_rate_pop, content,this);
+            mPopView = PopViewHelper.getInstance().create(this, R.layout.layout_rate_pop, content, this);
         }
     }
 
@@ -129,17 +136,20 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 mOutHis.setVisibility(View.GONE);
                 mInHis.setVisibility(View.GONE);
                 mSubHis.setVisibility(View.VISIBLE);
+                mQcodeHis.setVisibility(View.GONE);
                 break;
             case 1:
-                mTitleHis.setText(R.string.his_title_bth);
+                mTitleHis.setText(R.string.his_title_znb);
                 mLayoutSub.setVisibility(View.GONE);
+                mQcodeHis.setVisibility(View.VISIBLE);
                 break;
             case 2:
-                mTitleHis.setText(R.string.his_title_znb);
+                mTitleHis.setText(R.string.his_title_bth);
                 mLayoutSub.setVisibility(View.VISIBLE);
                 mOutHis.setVisibility(View.VISIBLE);
                 mInHis.setVisibility(View.VISIBLE);
                 mSubHis.setVisibility(View.GONE);
+                mQcodeHis.setVisibility(View.GONE);
                 break;
         }
         mPriceHis.setText(dataBean.getRatio() * dataBean.getValue() + "");
@@ -181,8 +191,23 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_qcode:
                 // TODO 18/11/29
-                Intent intent = new Intent(this,QCodeActivity.class);
-                startActivity(intent);
+                RsPermission.getInstance().setRequestCode(200).setiPermissionRequest(new IPermissionRequest() {
+                    @Override
+                    public void toSetting() {
+                        RsPermission.getInstance().toSettingPer();
+                    }
+
+                    @Override
+                    public void cancle(int i) {
+                        Toast.makeText(HistroyActivity.this, "未给予相机权限将无法扫描二维码", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void success(int i) {
+                        Intent intent = new Intent(HistroyActivity.this, QCodeActivity.class);
+                        startActivityForResult(intent, 200);
+                    }
+                }).requestPermission(this, Manifest.permission.CAMERA);
                 break;
             case R.id.his_type:
                 // TODO 18/11/29
@@ -195,6 +220,9 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
             case R.id.his_out:// TODO 18/12/05
                 break;
             case R.id.his_in:// TODO 18/12/05
+                Intent intent = new Intent(this,MineReceiptQRCodeActivity.class);
+                intent.putExtra("tokenId",tokenId);
+                startActivityForResult(intent,300);
                 break;
         }
     }
@@ -213,5 +241,24 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     @Override
     public void dismiss() {
         TextViewDrawUtils.setRigthDraw(getDrawable(R.drawable.up_icon), mTypeHis);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        RsPermission.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            switch (resultCode) {
+                case 200:
+                    String stringExtra = data.getStringExtra(CodeUtils.RESULT_STRING);
+                    LogUtils.e("HistroyActivity", stringExtra);
+                    break;
+
+            }
+        }
     }
 }

@@ -153,6 +153,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                     CurrencyBean currencyBean = (CurrencyBean) JsonHelper.stringToJson((String) DataTempCacheMap.get("currency_list").getValue(), CurrencyBean.class);
                     for (int i = 0; i < currencyBean.getData().size(); i++) {
                         if (mData.get(position).getTokenId() == currencyBean.getData().get(i).getTokenId()) {
+                            LogUtils.e("WalletFragment", currencyBean.getData().get(i).getTokenName());
                             type = currencyBean.getData().get(i).getTokenType();
                             break;
                         }

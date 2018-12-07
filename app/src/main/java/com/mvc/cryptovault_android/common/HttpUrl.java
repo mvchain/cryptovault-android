@@ -61,4 +61,9 @@ public class HttpUrl {
      * get project
      */
     public static final String GET_CROWDFUNDING = "/project";
+
+    /**
+     * get recript qcode
+     */
+    public static final String GET_QCODE = "/asset/address";
 }

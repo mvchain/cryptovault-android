@@ -31,6 +31,8 @@
         <activity android:name=".activity.HistroyActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.IncreaseCurrencyActivity" />
+        <activity android:name=".activity.QCodeActivity" />
+        <activity android:name=".TogeHistroyActivity" />
     </application>
 
 </manifest>

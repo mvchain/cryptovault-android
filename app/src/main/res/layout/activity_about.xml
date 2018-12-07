@@ -65,7 +65,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="54dp"
-        android:background="@drawable/bg_toge_child_item_tv"
+        android:background="@drawable/bg_toge_child_item_tv_blue"
         android:gravity="center"
         android:text="退出登录"
         android:textColor="@color/white"

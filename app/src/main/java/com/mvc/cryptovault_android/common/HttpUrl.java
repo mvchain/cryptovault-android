@@ -56,4 +56,9 @@ public class HttpUrl {
      * remove exchange rate
      */
     public static final String GET_TRANSACTIONS = "/asset/transactions";
+
+    /**
+     * get project
+     */
+    public static final String GET_CROWDFUNDING = "/project";
 }

@@ -12,4 +12,6 @@
     <string name="his_title_vp">VP余额</string>
     <string name="his_title_bth">BTH</string>
     <string name="his_title_znb">ZNB</string>
+    <string name="toge_com">立即预约</string>
+    <string name="toge_end">已结束</string>
 </resources>

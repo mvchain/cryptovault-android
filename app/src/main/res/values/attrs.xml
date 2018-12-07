@@ -3,5 +3,4 @@
     <declare-styleable name="CenterButton">
         <attr name="res_center" format="boolean"/>
     </declare-styleable>
-
 </resources>

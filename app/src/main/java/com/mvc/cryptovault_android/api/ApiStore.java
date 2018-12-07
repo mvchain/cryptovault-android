@@ -8,6 +8,7 @@ import com.mvc.cryptovault_android.bean.HistroyBean;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.MsgBean;
+import com.mvc.cryptovault_android.bean.TogeBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
@@ -61,5 +62,10 @@ public interface ApiStore {
                                                 @Query("tokenId") int tokenId,
                                                 @Query("transactionType") int transactionType,
                                                 @Query("type") int type);
-
+    @GET(HttpUrl.GET_CROWDFUNDING)
+    Observable<TogeBean> getCrowdfunding(@Header("Authorization") String token,
+                                         @Query("pageSize") int pageSize,
+                                         @Query("projectId") int projectId,
+                                         @Query("projectType") int projectType,
+                                         @Query("type") int type);
 }

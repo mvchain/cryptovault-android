@@ -1,19 +1,53 @@
 package com.mvc.cryptovault_android.adapter.rvAdapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.bean.TogeBean;
 
 import java.util.List;
 
-public class TogeChildAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseViewHolder> {
 
-    public TogeChildAdapter(int layoutResId, @Nullable List<String> data) {
+    public TogeChildAdapter(int layoutResId, @Nullable List<TogeBean.DataBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, TogeBean.DataBean item) {
+        ImageView togeIcon = helper.getView(R.id.toge_child_icon);
+        TextView submit = helper.getView(R.id.toge_child_submit);
+        helper.setText(R.id.toge_child_title, item.getProjectName());
+        if (item.getStatus() == 0) {
+            submit.setText(R.string.toge_com);
+            submit.setVisibility(View.VISIBLE);
+            submit.setBackground(mContext.getDrawable(R.drawable.bg_toge_child_item_tv_blue));
+            submit.setTextColor(mContext.getColor(R.color.white));
+            submit.setEnabled(true);
+        } else if (item.getStatus() == 1) {
+            submit.setVisibility(View.GONE);
+        } else {
+            submit.setText(R.string.toge_end);
+            submit.setVisibility(View.VISIBLE);
+            submit.setBackground(mContext.getDrawable(R.drawable.bg_toge_child_item_tv_gray));
+            submit.setTextColor(mContext.getColor(R.color.gray_white));
+            submit.setEnabled(false);
+        }
+        helper.setText(R.id.toge_child_recevie_type, "接收币种：" + item.getBaseTokenName());
+        helper.setText(R.id.toge_child_recevie_bespoke, "预约时间：" + TimeUtils.millis2String(item.getCreatedAt()));
+        helper.setText(R.id.toge_child_gm, item.getTotal()+"");
+        helper.setText(R.id.toge_child_xg, item.getProjectLimit()+"");
+        helper.setText(R.id.toge_child_jg, item.getRatio()+"");
+        helper.setText(R.id.toge_child_bl, item.getReleaseValue()+"");
+        helper.setText(R.id.toge_child_sj, TimeUtils.millis2String(item.getStopAt()));
+        Glide.with(mContext).load(item.getProjectImage()).into(togeIcon);
+
     }
 }

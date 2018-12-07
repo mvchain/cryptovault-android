@@ -122,7 +122,7 @@
             android:layout_marginTop="7dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="2dp"
-            android:background="@drawable/bg_toge_child_item_tv"
+            android:background="@drawable/bg_toge_child_item_tv_blue"
             android:gravity="center"
             android:text="取出VP余额"
             android:textColor="@color/white"

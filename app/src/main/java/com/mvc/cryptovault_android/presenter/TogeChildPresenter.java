@@ -20,9 +20,52 @@ public class TogeChildPresenter extends TogeChildContract.TogeChildPresenter {
 
     }
 
+
     @Override
-    public void getMsg() {
-        rxUtils.register(mIModel.getMsg().subscribe(strings -> mIView.showSuccess(strings), throwable -> {
-        }));
+    public void getComingSoon(String token, int pageSize, int projectId, int projectType, int type) {
+        rxUtils.register(mIModel.getComingSoon(token, pageSize, projectId, projectType, type)
+                .subscribe(togeBean ->
+                        {
+                            if (togeBean.getData().size()>0) {
+                                mIView.showSuccess(togeBean.getData());
+                            }else{
+                                mIView.showNull();
+                            }
+                        }
+                        , throwable -> {
+                            mIView.showNull();
+                        }));
+    }
+
+    @Override
+    public void getProcess(String token, int pageSize, int projectId, int projectType, int type) {
+        rxUtils.register(mIModel.getProcess(token, pageSize, projectId, projectType, type)
+                .subscribe(togeBean ->
+                        {
+                            if (togeBean.getData().size()>0) {
+                                mIView.showSuccess(togeBean.getData());
+                            }else{
+                                mIView.showNull();
+                            }
+                        }
+                        , throwable -> {
+                            mIView.showNull();
+                        }));
+    }
+
+    @Override
+    public void getToEnd(String token, int pageSize, int projectId, int projectType, int type) {
+        rxUtils.register(mIModel.getToEnd(token, pageSize, projectId, projectType, type)
+                .subscribe(togeBean ->
+                        {
+                            if (togeBean.getData().size()>0) {
+                                mIView.showSuccess(togeBean.getData());
+                            }else{
+                                mIView.showNull();
+                            }
+                        }
+                        , throwable -> {
+                            mIView.showNull();
+                        }));
     }
 }

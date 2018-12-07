@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="3dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +47,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:layout_toRightOf="@id/toge_child_icon"
-                android:text="接收币种：VRT"
                 android:textColor="@color/trand_gray"
                 android:textSize="13sp" />
 
@@ -59,16 +58,16 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:layout_toRightOf="@id/toge_child_icon"
-                android:text="预约时间： 2018-11-01 15：38"
                 android:textColor="@color/trand_gray"
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/toge_child_submit"
                 android:layout_width="85dp"
                 android:layout_height="35dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/bg_toge_child_item_tv"
+                android:background="@drawable/bg_toge_child_item_tv_blue"
                 android:gravity="center"
                 android:text="立即参与"
                 android:textColor="@color/white"
@@ -140,11 +139,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/toge_child_gm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -152,7 +153,9 @@
                     android:text="20,000,000 BTC"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
+
                 <TextView
+                    android:id="@+id/toge_child_xg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -160,7 +163,9 @@
                     android:text="20,000,000 BTC"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
+
                 <TextView
+                    android:id="@+id/toge_child_jg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -168,7 +173,9 @@
                     android:text="1 BTC=10,000,000 VRT"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
+
                 <TextView
+                    android:id="@+id/toge_child_bl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -176,7 +183,9 @@
                     android:text="0.01%"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
+
                 <TextView
+                    android:id="@+id/toge_child_sj"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"

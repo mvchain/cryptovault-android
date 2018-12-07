@@ -3,7 +3,6 @@
     android:id="@+id/his_item_swip"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

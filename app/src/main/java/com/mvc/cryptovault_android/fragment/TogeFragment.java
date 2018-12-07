@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -8,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.activity.HistroyActivity;
+import com.mvc.cryptovault_android.TogeHistroyActivity;
 import com.mvc.cryptovault_android.adapter.TogePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseFragment;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
@@ -20,25 +21,34 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
     private ImageView mHistroyToge;
     private TabLayout mTableToge;
     private NoScrollViewPager mVpToge;
-    private ArrayList<Fragment> fragments;
+    private ArrayList<Fragment> mFragment;
     private TogePagerAdapter togePagerAdapter;
 
     @Override
     protected void initData() {
         TogeChildFragment receiceFragment = new TogeChildFragment();
-        fragments.add(receiceFragment);
+        Bundle receiceBundle = new Bundle();
+        receiceBundle.putInt("projectType", 1);
+        receiceFragment.setArguments(receiceBundle);
+        mFragment.add(receiceFragment);
         TogeChildFragment soonFragment = new TogeChildFragment();
-        fragments.add(soonFragment);
+        Bundle soonBundle = new Bundle();
+        soonBundle.putInt("projectType", 0);
+        soonFragment.setArguments(soonBundle);
+        mFragment.add(soonFragment);
         TogeChildFragment overFragment = new TogeChildFragment();
-        fragments.add(overFragment);
-        togePagerAdapter = new TogePagerAdapter(getChildFragmentManager(), fragments);
+        Bundle overBundle = new Bundle();
+        overBundle.putInt("projectType", 2);
+        overFragment.setArguments(overBundle);
+        mFragment.add(overFragment);
+        togePagerAdapter = new TogePagerAdapter(getChildFragmentManager(), mFragment);
         mVpToge.setAdapter(togePagerAdapter);
         mTableToge.setupWithViewPager(mVpToge);
     }
 
     @Override
     protected void initView() {
-        fragments = new ArrayList<>();
+        mFragment = new ArrayList<>();
         mTitleToge = rootView.findViewById(R.id.toge_title);
         mHistroyToge = rootView.findViewById(R.id.toge_histroy);
         mHistroyToge.setOnClickListener(this);
@@ -56,7 +66,7 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.toge_histroy:
                 // TODO 18/11/29
-                Intent intent = new Intent(activity,HistroyActivity.class);
+                Intent intent = new Intent(activity,TogeHistroyActivity.class);
                 startActivity(intent);
                 break;
         }

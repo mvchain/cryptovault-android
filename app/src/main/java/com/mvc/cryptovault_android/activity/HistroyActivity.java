@@ -181,6 +181,8 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_qcode:
                 // TODO 18/11/29
+                Intent intent = new Intent(this,QCodeActivity.class);
+                startActivity(intent);
                 break;
             case R.id.his_type:
                 // TODO 18/11/29

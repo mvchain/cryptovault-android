@@ -199,7 +199,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
                             EventBus.getDefault().post(new WalletAssetsListEvent(newsData));
                         }
                         finish();
-                    });
+                    },throwable -> finish());
                 }
                 KeyboardUtils.hideSoftInput(this);
                 break;

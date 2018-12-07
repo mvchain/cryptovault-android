@@ -3,7 +3,9 @@ package com.mvc.cryptovault_android.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -71,6 +73,12 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private PopupWindow mPopView;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     protected void initView() {
         mData = new ArrayList<>();
         mExchange = new ArrayList<>();
@@ -90,7 +98,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mHintAssets.setOnClickListener(this);
         mAddAssets.setOnClickListener(this);
         mTypeAssets.setOnClickListener(this);
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -281,6 +288,8 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             mData.addAll(assetListBean.getData());
             assetsAdapter.notifyDataSetChanged();
             DataTempCacheMap.put("asset_list", asset_list);
+            mNullAssets.setVisibility(View.VISIBLE);
+            mRvAssets.setVisibility(View.GONE);
         }
         if (!allAsset.equals("")) {
             AllAssetBean allAssetBean = (AllAssetBean) JsonHelper.stringToJson(allAsset, AllAssetBean.class);

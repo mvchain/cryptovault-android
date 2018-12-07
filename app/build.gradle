@@ -54,4 +54,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.github.Huazhiling:RsPermission:v1.0.7'
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
 }

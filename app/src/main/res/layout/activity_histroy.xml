@@ -19,38 +19,37 @@
         android:orientation="vertical"
         android:paddingBottom="16dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:gravity="center_vertical"
             android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/his_back"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="6dp"
-                android:padding="8dp"
-                android:src="@drawable/back_icon_white" />
-
             <TextView
                 android:id="@+id/his_title"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="VP余额"
                 android:textColor="@color/white"
                 android:textSize="17sp" />
-
             <ImageView
-                android:id="@+id/his_qcode"
+                android:id="@+id/his_back"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="6dp"
+                android:layout_centerVertical="true"
+                android:padding="8dp"
+                android:src="@drawable/back_icon_white" />
+            <ImageView
+                android:id="@+id/his_qcode"
+                android:layout_width="40dp"
+                android:layout_centerVertical="true"
+                android:layout_height="40dp"
+                android:layout_marginLeft="6dp"
+                android:layout_alignParentRight="true"
                 android:padding="8dp"
                 android:src="@drawable/code_icon_white" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
@@ -101,8 +102,12 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
     @Override
     public void showNullMsh() {
         mSwipMsg.post(() -> mSwipMsg.setRefreshing(false));
-        mRvMsg.setVisibility(View.INVISIBLE);
-        mMsgNull.setVisibility(View.VISIBLE);
+        if (mBeans.size() > 0) {
+            Toast.makeText(this, "没有新消息", Toast.LENGTH_SHORT).show();
+        } else {
+            mRvMsg.setVisibility(View.INVISIBLE);
+            mMsgNull.setVisibility(View.VISIBLE);
+        }
     }
 
     public void refresh() {

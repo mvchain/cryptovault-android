@@ -140,7 +140,9 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
             if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
                 if (requestCode == 100) {
                     ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
-                    LogUtils.e("QCodeActivity", images.get(0).path);
+                    Intent intent = new Intent();
+                    intent.putExtra(CodeUtils.RESULT_STRING, images.get(0).path);
+                    setResult(200,intent);
                 } else {
                     Toast.makeText(this, "图片不正确，请重新选择", Toast.LENGTH_SHORT).show();
                 }

@@ -12,14 +12,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <TextView
+        <ImageView
+            android:src="@drawable/nothing_icon"
             android:id="@+id/data_null"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="暂无数据"
-            android:textColor="@color/login_content"
-            android:textSize="17sp"
-            android:visibility="gone" />
+            android:scaleType="center"
+            android:textColor="@color/login_content"/>
     </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

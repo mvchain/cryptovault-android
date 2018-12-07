@@ -16,7 +16,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -141,7 +140,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
             case 1:
                 mTitleHis.setText(R.string.his_title_znb);
                 mLayoutSub.setVisibility(View.GONE);
-                mQcodeHis.setVisibility(View.VISIBLE);
+                mQcodeHis.setVisibility(View.GONE);
                 break;
             case 2:
                 mTitleHis.setText(R.string.his_title_bth);
@@ -149,7 +148,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 mOutHis.setVisibility(View.VISIBLE);
                 mInHis.setVisibility(View.VISIBLE);
                 mSubHis.setVisibility(View.GONE);
-                mQcodeHis.setVisibility(View.GONE);
+                mQcodeHis.setVisibility(View.VISIBLE);
                 break;
         }
         mPriceHis.setText(dataBean.getRatio() * dataBean.getValue() + "");
@@ -184,6 +183,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.his_back:
                 // TODO 18/11/29
@@ -218,9 +218,11 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 // TODO 18/11/29
                 break;
             case R.id.his_out:// TODO 18/12/05
+                intent.setClass(this,BTCTransferActivity.class);
+                startActivityForResult(intent,300);
                 break;
             case R.id.his_in:// TODO 18/12/05
-                Intent intent = new Intent(this,MineReceiptQRCodeActivity.class);
+                intent.setClass(this,MineReceiptQRCodeActivity.class);
                 intent.putExtra("tokenId",tokenId);
                 startActivityForResult(intent,300);
                 break;
@@ -255,7 +257,9 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
             switch (resultCode) {
                 case 200:
                     String stringExtra = data.getStringExtra(CodeUtils.RESULT_STRING);
-                    LogUtils.e("HistroyActivity", stringExtra);
+                    Intent intent = new Intent(HistroyActivity.this,BTCTransferActivity.class);
+                    intent.putExtra("hash",stringExtra);
+                    startActivity(intent);
                     break;
 
             }

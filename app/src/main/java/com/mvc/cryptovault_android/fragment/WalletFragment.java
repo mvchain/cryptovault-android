@@ -56,7 +56,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private View mBarStatus;
     private ImageView mHintAssets;
     private TextView mTitleAssets;
-    private TextView mNullAssets;
+    private ImageView mNullAssets;
     private ImageView mAddAssets;
     private TextView mAssetsAll;
     private TextView mTypeAssets;

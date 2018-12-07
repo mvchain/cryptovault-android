@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.TogeHistroyActivity;
+import com.mvc.cryptovault_android.activity.TogeHistroyActivity;
 import com.mvc.cryptovault_android.adapter.TogePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseFragment;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;

@@ -5,7 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.TogeChildAdapter;
@@ -25,7 +25,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     private Bundle arguments;
     private int projectType;
     private SwipeRefreshLayout mItemSwipHis;
-    private TextView mNullData;
+    private ImageView mNullData;
 
     @Override
     protected void initView() {

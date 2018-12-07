@@ -5,7 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.R;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.HistroyChildPrecenter> implements HistroyChildContract.IHistroyChildView {
     private RecyclerView mRvChild;
-    private TextView mDataNull;
+    private ImageView mDataNull;
     private HistroyChildAdapter histroyChildAdapter;
     private List<HistroyBean.DataBean> mHisData;
     private int tokenId;

@@ -36,8 +36,9 @@
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.IncreaseCurrencyActivity" />
         <activity android:name=".activity.QCodeActivity" />
-        <activity android:name=".TogeHistroyActivity" />
+        <activity android:name=".activity.TogeHistroyActivity" />
         <activity android:name=".activity.MineReceiptQRCodeActivity" />
+        <activity android:name=".activity.BTCTransferActivity" />
     </application>
 
 </manifest>

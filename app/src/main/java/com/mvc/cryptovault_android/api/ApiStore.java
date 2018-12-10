@@ -6,6 +6,7 @@ import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
 import com.mvc.cryptovault_android.bean.HistroyBean;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
+import com.mvc.cryptovault_android.bean.IDToTransferBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.MsgBean;
 import com.mvc.cryptovault_android.bean.ReceiptBean;
@@ -73,5 +74,8 @@ public interface ApiStore {
 
     @GET(HttpUrl.GET_QCODE)
     Observable<ReceiptBean> getRecriptQCode(@Header("Authorization") String token, @Query("tokenId") int tokenId);
+
+    @GET(HttpUrl.GET_TRANASTION)
+    Observable<IDToTransferBean> getTranstion(@Header("Authorization") String token, @Query("tokenId") int tokenId);
 
 }

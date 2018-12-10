@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">cryptovault</string>
+    <string name="app_name">VPAY</string>
     <!--App login -->
     <string name="login_success">ログインの成功</string>
     <string name="login_faild">ログインの失敗</string>

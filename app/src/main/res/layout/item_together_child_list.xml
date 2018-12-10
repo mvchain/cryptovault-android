@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/toge_child_icon"
-                android:text="VRT"
                 android:textColor="@color/login_content"
                 android:textSize="16sp" />
 
@@ -150,7 +149,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center_vertical|right"
-                    android:text="20,000,000 BTC"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
 
@@ -160,7 +158,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center_vertical|right"
-                    android:text="20,000,000 BTC"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
 
@@ -170,7 +167,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center_vertical|right"
-                    android:text="1 BTC=10,000,000 VRT"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
 
@@ -180,7 +176,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center_vertical|right"
-                    android:text="0.01%"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
 
@@ -190,7 +185,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center_vertical|right"
-                    android:text="2天12小时60分"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
             </LinearLayout>

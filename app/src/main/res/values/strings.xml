@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">cryptovault</string>
+    <string name="app_name">VPAY</string>
     <!--APP登陆成功-->
     <string name="login_success">登录成功</string>
     <string name="login_faild">登录失败</string>

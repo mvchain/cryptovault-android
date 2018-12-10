@@ -66,4 +66,9 @@ public class HttpUrl {
      * get recript qcode
      */
     public static final String GET_QCODE = "/asset/address";
+
+    /**
+     * Get transfer information based on id
+     */
+    public static final String GET_TRANASTION = "/asset/transaction";
 }

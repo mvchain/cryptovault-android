@@ -26,6 +26,7 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
     @Override
     protected void convert(BaseViewHolder helper, HistroyBean.DataBean item) {
         int iconType = 0;
+        int transactionType = item.getTransactionType();
         ImageView icon = helper.getView(R.id.his_child_icon);
         helper.setText(R.id.his_child_title, item.getTokenName());
         helper.setText(R.id.his_child_time, TimeUtils.millis2String(item.getCreatedAt()));
@@ -38,9 +39,11 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
             mStatusTv.setVisibility(View.GONE);
         }
         if ((item.getClassify() == 0 || item.getClassify() == 3) && (item.getStatus() == 0 || item.getStatus() == 1 || item.getStatus() == 2)) {
-            iconType = 0;
-        } else if ((item.getClassify() == 0 || item.getClassify() == 3) && item.getStatus() == 3) {
-            iconType = 1;
+            if (transactionType == 1) {
+                iconType = 0;
+            } else {
+                iconType = 1;
+            }
         } else if (item.getClassify() == 1) {
             iconType = 3;
         } else if (item.getClassify() == 2) {

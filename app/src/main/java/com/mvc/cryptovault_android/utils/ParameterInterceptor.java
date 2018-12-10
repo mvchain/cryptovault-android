@@ -22,13 +22,11 @@ public class ParameterInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Response response = chain.proceed(request);
-
         if (response.code() == 403) {//根据和服务端的约定判断token过期
             LogUtils.e("静默自动刷新Token,然后重新请求数据");
             //同步请求方式,获取最新的Token
             HttpTokenBean httpTokenBean = getNewToken();
             if (httpTokenBean != null) {
-                LogUtils.e("ParameterInterceptor", "token:" + httpTokenBean.getData());
                 if (httpTokenBean.getCode() == 401) {
                     Intent intent = new Intent();
                     intent.setAction("android.login");
@@ -64,7 +62,6 @@ public class ParameterInterceptor implements Interceptor {
      * @return
      */
     private boolean isTokenExpired(Response response) {
-        LogUtils.e("ParameterInterceptor", "response.code():" + response.code());
         if (response.code() == 403) {
             return true;
         } else if (response.code() == 401) {

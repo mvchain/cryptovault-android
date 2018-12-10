@@ -11,6 +11,7 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.contract.TogeHistroyContract;
+import com.mvc.cryptovault_android.presenter.TogeHistroyPresenter;
 
 public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.TogeHistroyPresenter> implements TogeHistroyContract.ITogeHisView, View.OnClickListener {
     private ImageView mBackTogehis;
@@ -63,7 +64,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
 
     @Override
     public BasePresenter initPresenter() {
-        return null;
+        return TogeHistroyPresenter.newIntance();
     }
 
     @Override

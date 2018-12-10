@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="12dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginRight="12dp"
+    android:background="@drawable/shape_round_white_12dp"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingTop="12dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="12dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/toge_histroy_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="5dp"
+            android:src="@color/red" />
+
+        <TextView
+            android:id="@+id/toge_histroy_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/toge_histroy_icon"
+            android:text="VRT"
+            android:textStyle="bold"
+            android:textColor="@color/login_content"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/toge_histroy_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toge_histroy_title"
+            android:layout_marginLeft="10dp"
+            android:text="2018"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/toge_histroy_icon"
+            android:textColor="@color/trand_gray"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/toge_histroy_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="已获得众筹名额"
+            android:textColor="@color/login_content"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/lines_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|left"
+                android:text="订单号"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|left"
+                android:text="兑换比例"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|left"
+                android:text="每日释放比例"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|left"
+                android:text="支付金额/预约金额"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|left"
+                android:text="成功数量/预约数量"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|left"
+                android:text="预约结束时间"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/toge_histroy_order_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/toge_histroy_bl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/toge_histroy_day_bl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/toge_histroy_pay_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/toge_histroy_success_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/toge_histroy_over_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/toge_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

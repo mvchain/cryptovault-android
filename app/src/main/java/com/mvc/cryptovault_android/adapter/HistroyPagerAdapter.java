@@ -1,4 +1,4 @@
-package com.mvc.cryptovault_android.adapter.rvAdapter;
+package com.mvc.cryptovault_android.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

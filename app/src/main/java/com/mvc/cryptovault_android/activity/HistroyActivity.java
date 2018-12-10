@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.adapter.rvAdapter.HistroyPagerAdapter;
+import com.mvc.cryptovault_android.adapter.HistroyPagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.base.ExchangeRateBean;
@@ -219,6 +219,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_out:// TODO 18/12/05
                 intent.setClass(this,BTCTransferActivity.class);
+                intent.putExtra("tokenId",tokenId);
                 startActivityForResult(intent,300);
                 break;
             case R.id.his_in:// TODO 18/12/05
@@ -259,6 +260,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                     String stringExtra = data.getStringExtra(CodeUtils.RESULT_STRING);
                     Intent intent = new Intent(HistroyActivity.this,BTCTransferActivity.class);
                     intent.putExtra("hash",stringExtra);
+                    intent.putExtra("tokenId",tokenId);
                     startActivity(intent);
                     break;
 

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_white"
+    android:background="@color/white_tras"
     android:orientation="vertical">
 
     <View
@@ -107,7 +107,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
-            android:text="余额：1236.1234"
             android:textColor="@color/login_edit_bg"
             android:textSize="13sp" />
 
@@ -126,7 +125,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
-            android:text="0.001BTC"
             android:textColor="@color/login_content"
             android:textSize="13sp" />
     </LinearLayout>

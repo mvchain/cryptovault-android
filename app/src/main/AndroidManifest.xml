@@ -31,6 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".activity.DetailActivity" />
         <activity android:name=".activity.MsgActivity" />
         <activity android:name=".activity.HistroyActivity" />
         <activity android:name=".activity.AboutActivity" />
@@ -39,6 +40,7 @@
         <activity android:name=".activity.TogeHistroyActivity" />
         <activity android:name=".activity.MineReceiptQRCodeActivity" />
         <activity android:name=".activity.BTCTransferActivity" />
+        <activity android:name=".activity.PayCodeActivity" />
     </application>
 
 </manifest>

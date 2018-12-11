@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_round2_white_12dp"
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/pay_title"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:gravity="center"
+                android:text="确认转账"
+                android:textColor="@color/login_content"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/pay_close"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:scaleType="center"
+                android:src="@drawable/cancel_icon_black" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <TextView
+            android:id="@+id/pay_child_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="转账金额"
+            android:textColor="@color/login_edit_bg"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/pay_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="12.1424 BTC"
+            android:textColor="@color/login_content"
+            android:textSize="27sp" />
+
+        <LinearLayout
+            android:id="@+id/pay_address_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收款地址"
+                android:textColor="@color/login_edit_bg" />
+
+            <TextView
+                android:id="@+id/pay_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="72dp"
+                android:layout_weight="1"
+                android:ellipsize="middle"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="0x2051dd2bab0051dd2bab0051dd2bab0e5ffa196ccc2448"
+                android:textColor="@color/login_edit_bg" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <LinearLayout
+            android:id="@+id/pay_fee_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="交易手续费"
+                android:textColor="@color/login_edit_bg" />
+
+            <TextView
+                android:id="@+id/pay_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="72dp"
+                android:layout_weight="1"
+                android:ellipsize="middle"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="0.01BTC"
+                android:textColor="@color/login_edit_bg" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <com.mvc.cryptovault_android.view.PswText
+            android:id="@+id/pay_text"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:inputType="numberPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/pay_forget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:text="忘记密码？"
+            android:textColor="@color/msg_time_gray" />
+    </LinearLayout>
+</LinearLayout>

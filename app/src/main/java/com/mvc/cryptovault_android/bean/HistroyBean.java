@@ -53,14 +53,14 @@ public class HistroyBean {
          */
 
         private int classify;
-        private int createdAt;
+        private long createdAt;
         private int id;
         private int ratio;
         private int status;
         private int tokenId;
         private String tokenName;
         private int transactionType;
-        private int updatedAt;
+        private long updatedAt;
         private int value;
 
         public int getClassify() {
@@ -71,11 +71,11 @@ public class HistroyBean {
             this.classify = classify;
         }
 
-        public int getCreatedAt() {
+        public long getCreatedAt() {
             return createdAt;
         }
 
-        public void setCreatedAt(int createdAt) {
+        public void setCreatedAt(long createdAt) {
             this.createdAt = createdAt;
         }
 
@@ -127,11 +127,11 @@ public class HistroyBean {
             this.transactionType = transactionType;
         }
 
-        public int getUpdatedAt() {
+        public long getUpdatedAt() {
             return updatedAt;
         }
 
-        public void setUpdatedAt(int updatedAt) {
+        public void setUpdatedAt(long updatedAt) {
             this.updatedAt = updatedAt;
         }
 

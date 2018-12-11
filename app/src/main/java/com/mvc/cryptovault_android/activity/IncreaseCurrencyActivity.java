@@ -98,6 +98,11 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     }
 
     @Override
+    public void onBackPressed() {
+        checkUpdate();
+    }
+
+    @Override
     protected void initMVPView() {
         mBean = new ArrayList<>();
         mSearch = new ArrayList<>();
@@ -150,58 +155,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.increase_back:
-                // TODO 18/12/03
-                int removeSize = mRemoveMap.size();
-                LogUtils.e("IncreaseCurrencyActivit", "mBean.size():" + mBean.size());
-                int putSize = mPutMap.size();
-                if (removeSize == 0 && putSize == 0) {
-                    finish();
-                } else {
-                    StringBuffer putBuffer = new StringBuffer();
-                    StringBuffer removeBuffer = new StringBuffer();
-                    for (Map.Entry<Integer, IncreaseBean> integerIncreaseBeanEntry : mPutMap.entrySet()) {
-                        IncreaseBean value = integerIncreaseBeanEntry.getValue();
-                        putBuffer.append(value.getCurrencyId() + ",");
-                    }
-                    String putJson = "";
-                    if (!putBuffer.toString().equals("")) {
-                        putJson = putBuffer.substring(0, putBuffer.length() - 1);
-                    }
-                    for (Map.Entry<Integer, IncreaseBean> integerIncreaseBeanEntry : mRemoveMap.entrySet()) {
-                        IncreaseBean value = integerIncreaseBeanEntry.getValue();
-                        removeBuffer.append(value.getCurrencyId() + ",");
-                    }
-                    String removeJson = "";
-                    if (!removeBuffer.toString().equals("")) {
-                        removeJson = removeBuffer.substring(0, removeBuffer.length() - 1);
-                    }
-                    JSONObject json = new JSONObject();
-                    try {
-                        json.put("addTokenIdArr", putJson);
-                        json.put("removeTokenIdArr", removeJson);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    RequestBody body = RequestBody.create(MediaType.parse("text/html"), json.toString());
-                    RetrofitUtils.client(ApiStore.class).updateAssetList(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
-                        if (updateBean.getCode() == 200 && updateBean.isData()) {
-//                                update success
-                            List<AssetListBean.DataBean> data = listBean.getData();
-                            List<AssetListBean.DataBean> newsData = new ArrayList<>();
-                            for (int i = 0; i < mBean.size(); i++) {
-                                for (int j = 0; j < data.size(); j++) {
-                                    if (mBean.get(i).getCurrencyId() == data.get(j).getTokenId() && !mBean.get(i).isAdd()) {
-                                        newsData.add(data.get(j));
-                                        break;
-                                    }
-                                }
-                            }
-                            EventBus.getDefault().post(new WalletAssetsListEvent(newsData));
-                        }
-                        finish();
-                    },throwable -> finish());
-                }
-                KeyboardUtils.hideSoftInput(this);
+                checkUpdate();
                 break;
             case R.id.increase_serach:
                 // TODO 18/12/03
@@ -225,6 +179,61 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
                 }
                 break;
         }
+    }
+
+    private void checkUpdate() {
+        // TODO 18/12/03
+        int removeSize = mRemoveMap.size();
+        LogUtils.e("IncreaseCurrencyActivit", "mBean.size():" + mBean.size());
+        int putSize = mPutMap.size();
+        if (removeSize == 0 && putSize == 0) {
+            finish();
+        } else {
+            StringBuffer putBuffer = new StringBuffer();
+            StringBuffer removeBuffer = new StringBuffer();
+            for (Map.Entry<Integer, IncreaseBean> integerIncreaseBeanEntry : mPutMap.entrySet()) {
+                IncreaseBean value = integerIncreaseBeanEntry.getValue();
+                putBuffer.append(value.getCurrencyId() + ",");
+            }
+            String putJson = "";
+            if (!putBuffer.toString().equals("")) {
+                putJson = putBuffer.substring(0, putBuffer.length() - 1);
+            }
+            for (Map.Entry<Integer, IncreaseBean> integerIncreaseBeanEntry : mRemoveMap.entrySet()) {
+                IncreaseBean value = integerIncreaseBeanEntry.getValue();
+                removeBuffer.append(value.getCurrencyId() + ",");
+            }
+            String removeJson = "";
+            if (!removeBuffer.toString().equals("")) {
+                removeJson = removeBuffer.substring(0, removeBuffer.length() - 1);
+            }
+            JSONObject json = new JSONObject();
+            try {
+                json.put("addTokenIdArr", putJson);
+                json.put("removeTokenIdArr", removeJson);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            RequestBody body = RequestBody.create(MediaType.parse("text/html"), json.toString());
+            RetrofitUtils.client(ApiStore.class).updateAssetList(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
+                if (updateBean.getCode() == 200 && updateBean.isData()) {
+//                                update success
+                    List<AssetListBean.DataBean> data = listBean.getData();
+                    List<AssetListBean.DataBean> newsData = new ArrayList<>();
+                    for (int i = 0; i < mBean.size(); i++) {
+                        for (int j = 0; j < data.size(); j++) {
+                            if (mBean.get(i).getCurrencyId() == data.get(j).getTokenId() && !mBean.get(i).isAdd()) {
+                                newsData.add(data.get(j));
+                                break;
+                            }
+                        }
+                    }
+                    EventBus.getDefault().post(new WalletAssetsListEvent(newsData));
+                }
+                finish();
+            },throwable -> finish());
+        }
+        KeyboardUtils.hideSoftInput(this);
     }
 
     @Override

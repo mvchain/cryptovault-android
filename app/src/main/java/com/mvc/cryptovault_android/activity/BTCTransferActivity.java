@@ -2,25 +2,34 @@ package com.mvc.cryptovault_android.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.text.InputFilter;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.IDToTransferBean;
+import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.BTCTransferContract;
 import com.mvc.cryptovault_android.listener.EditTextChange;
+import com.mvc.cryptovault_android.listener.IPayWindowListener;
 import com.mvc.cryptovault_android.presenter.BTCTransferPresenter;
 import com.mvc.cryptovault_android.utils.PointLengthFilter;
 import com.mvc.cryptovault_android.utils.TextUtils;
+import com.mvc.cryptovault_android.view.DialogHelper;
+import com.mvc.cryptovault_android.view.PopViewHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -38,6 +47,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     private String hash;
     private int tokenId;
     private IDToTransferBean.DataBean mTransBean;
+    private PopupWindow mPopView;
 
     @Override
     protected int getLayoutId() {
@@ -86,6 +96,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
         mSubmitBtc = findViewById(R.id.btc_submit);
         mTransPriceBtc.setFilters(new InputFilter[]{new PointLengthFilter()});
         mTransPriceBtc.addTextChangedListener(new EditTextChange() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String chagePrice = s.toString();
@@ -146,7 +157,47 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                     Toast.makeText(this, "转账金额不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
+//                startActivity(PayCodeActivity.class);
+                mPopView = PopViewHelper.getInstance()
+                        .create(this
+                                , R.layout.activity_paycode
+                                , "确认转账"
+                                , "转账金额"
+                                , priceBtc + mTransBean.getFeeTokenName()
+                                , transAddress
+                                , mTransBean.getFee() + mTransBean.getFeeTokenName()
+                                , true
+                                , new IPayWindowListener() {
 
+                                    @Override
+                                    public void onclick(View view) {
+                                        switch (view.getId()) {
+                                            case R.id.pay_close:
+                                                mPopView.dismiss();
+                                                Toast.makeText(BTCTransferActivity.this, "取消交易", Toast.LENGTH_SHORT).show();
+                                                break;
+                                            case R.id.pay_text:
+                                                KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
+                                                setAlpha(0.5f);
+                                                break;
+                                            case R.id.pay_forget:
+                                                break;
+                                        }
+                                    }
+
+                                    @Override
+                                    public void dismiss() {
+                                        setAlpha(1f);
+                                    }
+                                }, num -> {
+                                    mPresenter.sendTransferMsg(getToken(), transAddress, num, tokenId, priceBtc);
+                                    mPopView.dismiss();
+                                });
+                mPopView.showAtLocation(mSubmitBtc, Gravity.BOTTOM, 0, 0);
+                mPopView.getContentView().post(() ->
+                        KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text))
+                );
+                setAlpha(0.5f);
                 break;
         }
     }
@@ -174,5 +225,14 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
         this.mTransBean = data;
         mPriceBtc.setText("余额：" + TextUtils.doubleToFour(data.getBalance()));
         mSxfBtc.setText(data.getFee() + " " + data.getFeeTokenName());
+    }
+
+    @Override
+    public void transferCallBack(UpdateBean bean) {
+        if (bean.getCode() == 200) {
+            DialogHelper.getInstance().create(this,R.layout.layout_dialog,"转账成功");
+        } else if (bean.getCode() == 400) {
+            Toast.makeText(this, bean.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

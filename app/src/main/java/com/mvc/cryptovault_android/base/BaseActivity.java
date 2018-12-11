@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -76,5 +77,11 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    protected void setAlpha(float alpha) {
+        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+        attributes.alpha = alpha;
+        getWindow().setAttributes(attributes);
     }
 }

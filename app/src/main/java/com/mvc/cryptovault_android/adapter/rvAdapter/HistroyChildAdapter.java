@@ -51,5 +51,6 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         }
         mStatusTv.setTextColor(status_color[item.getStatus()]);
         Glide.with(mContext).load(status_icon[iconType]).into(icon);
+        helper.addOnClickListener(R.id.his_layout);
     }
 }

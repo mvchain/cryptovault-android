@@ -24,18 +24,15 @@ public class HistroyChildPresenter extends HistroyChildContract.HistroyChildPrec
 
     @Override
     public void getAll(String token, int id, int pageSize, int tokenId, int transactionType, int type) {
-        rxUtils.register(mIModel.getAll(token, id, pageSize, tokenId, transactionType, type).subscribe(new Consumer<HistroyBean>() {
-            @Override
-            public void accept(HistroyBean histroyBean) throws Exception {
-                if (histroyBean.getCode() == 200) {
-                    if (histroyBean.getData().size() > 0) {
-                        mIView.showSuccess(histroyBean.getData());
-                    }else{
-                        mIView.showNull();
-                    }
+        rxUtils.register(mIModel.getAll(token, id, pageSize, tokenId, transactionType, type).subscribe(histroyBean -> {
+            if (histroyBean.getCode() == 200) {
+                if (histroyBean.getData().size() > 0) {
+                    mIView.showSuccess(histroyBean.getData());
                 }else{
                     mIView.showNull();
                 }
+            }else{
+                mIView.showNull();
             }
         }, throwable -> {
             mIView.showNull();
@@ -44,18 +41,15 @@ public class HistroyChildPresenter extends HistroyChildContract.HistroyChildPrec
 
     @Override
     public void getOut(String token, int id, int pageSize, int tokenId, int transactionType, int type) {
-        rxUtils.register(mIModel.getOut(token, id, pageSize, tokenId, transactionType, type).subscribe(new Consumer<HistroyBean>() {
-            @Override
-            public void accept(HistroyBean histroyBean) throws Exception {
-                if (histroyBean.getCode() == 200) {
-                    if (histroyBean.getData().size() > 0) {
-                        mIView.showSuccess(histroyBean.getData());
-                    }else{
-                        mIView.showNull();
-                    }
+        rxUtils.register(mIModel.getOut(token, id, pageSize, tokenId, transactionType, type).subscribe(histroyBean -> {
+            if (histroyBean.getCode() == 200) {
+                if (histroyBean.getData().size() > 0) {
+                    mIView.showSuccess(histroyBean.getData());
                 }else{
                     mIView.showNull();
                 }
+            }else{
+                mIView.showNull();
             }
         }, throwable -> {
             mIView.showNull();

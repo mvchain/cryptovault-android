@@ -5,10 +5,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.bean.DetailBean;
 import com.mvc.cryptovault_android.contract.DetailContract;
+import com.mvc.cryptovault_android.presenter.DetailPresenter;
 
 public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresenter> implements DetailContract.IDetailView, View.OnClickListener {
     private View mBarStatus;
@@ -32,6 +35,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     private TextView mHashTitleDetail;
     private TextView mHashContentDetail;
     private LinearLayout mHashLayoutDetail;
+    private int id;
 
     @Override
     protected void initMVPData() {
@@ -40,6 +44,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
 
     @Override
     protected void initMVPView() {
+        ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         mBarStatus = findViewById(R.id.status_bar);
         mBackDetail = findViewById(R.id.detail_back);
         mBackDetail.setOnClickListener(this);
@@ -72,7 +77,10 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
 
     @Override
     protected void initData() {
-
+        id = getIntent().getIntExtra("id", -1);
+        if (id != -1) {
+            mPresenter.getDetailOnID(getToken(), id);
+        }
     }
 
     @Override
@@ -87,7 +95,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
 
     @Override
     public BasePresenter initPresenter() {
-        return null;
+        return DetailPresenter.newIntance();
     }
 
     @Override
@@ -95,10 +103,26 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
         switch (v.getId()) {
             case R.id.detail_back:
                 // TODO 18/12/01
+                finish();
                 break;
             case R.id.detail_share:
                 // TODO 18/12/01
                 break;
         }
+    }
+
+    @Override
+    public void showDetail(DetailBean bean) {
+        DetailBean.DataBean data = bean.getData();
+        int classify = data.getClassify();
+        //区块链和转账
+        if (classify == 0 || classify == 3) {
+            
+        } else if (classify == 1) { //订单交易
+
+        } else if (classify == 2) { //众筹交易
+
+        }
+
     }
 }

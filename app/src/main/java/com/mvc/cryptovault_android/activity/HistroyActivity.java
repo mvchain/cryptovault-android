@@ -16,6 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -151,6 +152,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 mQcodeHis.setVisibility(View.VISIBLE);
                 break;
         }
+        LogUtils.e("HistroyActivity", "dataBean.getRatio() * dataBean.getValue():" + (dataBean.getRatio() * dataBean.getValue()));
         mPriceHis.setText(dataBean.getRatio() * dataBean.getValue() + "");
     }
 

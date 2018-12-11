@@ -73,7 +73,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     public void show() {
-        dialog.create(LoginActivity.this,R.drawable.pending_icon_2,getResources().getString(R.string.login_load)).show();
+        dialog.create(LoginActivity.this,R.drawable.pending_icon,getResources().getString(R.string.login_load)).show();
     }
 
     @Override

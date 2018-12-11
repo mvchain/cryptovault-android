@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@color/white"
+    android:id="@+id/his_layout"
     android:layout_height="64dp">
 
     <de.hdodenhof.circleimageview.CircleImageView

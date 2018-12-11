@@ -9,7 +9,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/dialog_icon"
         android:layout_width="56dp"
-        android:src="@drawable/pending_icon_2"
+        android:src="@drawable/pending_icon"
         android:layout_height="56dp" />
 
     <TextView

@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.app.Dialog;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,8 @@ import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseActivity;
+import com.mvc.cryptovault_android.listener.IDialogViewClickListener;
+import com.mvc.cryptovault_android.view.DialogHelper;
 
 public class AboutActivity extends BaseActivity implements View.OnClickListener {
 
@@ -16,6 +19,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     private TextView mVersionAbout;
     private TextView mSingoutAbout;
     private ImageView mBackAbout;
+    private Dialog mOutDialog;
 
     @Override
     protected int getLayoutId() {
@@ -46,9 +50,22 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.about_singout:
                 // TODO 18/11/30
-                SPUtils.getInstance().remove("refreshToken");
-                SPUtils.getInstance().remove("token");
-                startTaskActivity(this);
+                mOutDialog = DialogHelper.getInstance().create(this, "确定要登出VPay?", new IDialogViewClickListener() {
+                    @Override
+                    public void click(int viewId) {
+                        switch (viewId) {
+                            case R.id.hint_enter:
+                                SPUtils.getInstance().remove("refreshToken");
+                                SPUtils.getInstance().remove("token");
+                                startTaskActivity(AboutActivity.this);
+                                break;
+                            case R.id.hint_cancle:
+                                mOutDialog.dismiss();
+                                break;
+                        }
+                    }
+                });
+                mOutDialog.show();
                 break;
         }
     }

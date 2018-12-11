@@ -1,14 +1,17 @@
 package com.mvc.cryptovault_android.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.DetailActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.HistroyChildAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
@@ -36,6 +39,15 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mItemSwipHis = rootView.findViewById(R.id.his_item_swip);
         mRvChild.setLayoutManager(new LinearLayoutManager(activity));
         histroyChildAdapter = new HistroyChildAdapter(R.layout.item_histroy_child_list, mHisData);
+        histroyChildAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.his_layout:
+                    Intent intent = new Intent(activity, DetailActivity.class);
+                    intent.putExtra("id",mHisData.get(position).getId());
+                    startActivity(intent);
+                    break;
+            }
+        });
         mRvChild.setAdapter(histroyChildAdapter);
         mItemSwipHis.setRefreshing(true);
         mItemSwipHis.setOnRefreshListener(this::refresh);
@@ -44,13 +56,13 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     }
 
 
-
     private void initRecyclerLoadmore() {
         mRvChild.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -121,8 +133,12 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     @Override
     public void showNull() {
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
-        mDataNull.setVisibility(View.VISIBLE);
-        mRvChild.setVisibility(View.GONE);
+        if (mHisData.size() > 0) {
+            Toast.makeText(context, "没有新的交易信息", Toast.LENGTH_SHORT).show();
+        } else {
+            mDataNull.setVisibility(View.VISIBLE);
+            mRvChild.setVisibility(View.GONE);
+        }
     }
 
     public void refresh() {

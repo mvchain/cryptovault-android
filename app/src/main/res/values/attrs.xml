@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CenterButton">
-        <attr name="res_center" format="boolean"/>
+        <attr name="res_center" format="boolean" />
+    </declare-styleable>
+    <!--<declare-styleable name="CustomPwdWidgt">-->
+        <!--&lt;!&ndash; 密码的个数 &ndash;&gt;-->
+        <!--<attr name="passwordNumber" format="integer" />-->
+        <!--&lt;!&ndash; 密码圆点的半径 &ndash;&gt;-->
+        <!--<attr name="passwordRadius" format="dimension" />-->
+        <!--&lt;!&ndash; 密码圆点的颜色 &ndash;&gt;-->
+        <!--<attr name="passwordColor" format="color" />-->
+        <!--&lt;!&ndash; 分割线的颜色 &ndash;&gt;-->
+        <!--<attr name="divisionLineColor" format="color" />-->
+        <!--&lt;!&ndash; 分割线的大小 &ndash;&gt;-->
+        <!--<attr name="divisionLineSize" format="dimension" />-->
+        <!--&lt;!&ndash; 背景边框的颜色 &ndash;&gt;-->
+        <!--<attr name="bgColor" format="color" />-->
+        <!--&lt;!&ndash; 背景边框的大小 &ndash;&gt;-->
+        <!--<attr name="bgSize" format="dimension" />-->
+        <!--&lt;!&ndash; 背景边框的圆角大小 &ndash;&gt;-->
+        <!--<attr name="bgCorner" format="dimension" />-->
+        <!--&lt;!&ndash; 是否隐藏输入的数字&ndash;&gt;-->
+        <!--<attr name="isHide" format="boolean" />-->
+    <!--</declare-styleable>-->
+    <declare-styleable name="PasswordEditText">
+        <!-- 密码的个数 -->
+        <attr name="passwordNumber" format="integer"/>
+        <!-- 密码圆点的半径 -->
+        <attr name="passwordRadius" format="dimension" />
+        <!-- 密码圆点的颜色 -->
+        <attr name="passwordColor" format="color" />
+        <!-- 分割线的颜色 -->
+        <attr name="divisionLineColor" format="color" />
+        <!-- 分割线的大小 -->
+        <attr name="divisionLineSize" format="color" />
+        <!-- 背景边框的颜色 -->
+        <attr name="bgColor" format="color" />
+        <!-- 背景边框的大小 -->
+        <attr name="bgSize" format="dimension" />
+        <!-- 背景边框的圆角大小 -->
+        <attr name="bgCorner" format="dimension"/>
     </declare-styleable>
 </resources>

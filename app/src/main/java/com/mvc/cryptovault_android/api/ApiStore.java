@@ -78,4 +78,7 @@ public interface ApiStore {
     @GET(HttpUrl.GET_TRANASTION)
     Observable<IDToTransferBean> getTranstion(@Header("Authorization") String token, @Query("tokenId") int tokenId);
 
+    @POST(HttpUrl.GET_TRANASTION)
+    Observable<UpdateBean> sendTransferRequest(@Header("Authorization") String token, @Body RequestBody body);
+
 }

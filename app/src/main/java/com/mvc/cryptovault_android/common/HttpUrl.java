@@ -71,4 +71,9 @@ public class HttpUrl {
      * Get transfer information based on id
      */
     public static final String GET_TRANASTION = "/asset/transaction";
+
+    /**
+     * 划账余额获取 / 划账
+     */
+    public static final String GET_DEBIT = "/asset/debit";
 }

@@ -1,9 +1,11 @@
 package com.mvc.cryptovault_android.api;
 
 import com.mvc.cryptovault_android.base.ExchangeRateBean;
+import com.mvc.cryptovault_android.base.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
+import com.mvc.cryptovault_android.bean.DetailBean;
 import com.mvc.cryptovault_android.bean.HistroyBean;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.IDToTransferBean;
@@ -24,6 +26,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiStore {
@@ -81,4 +84,13 @@ public interface ApiStore {
     @POST(HttpUrl.GET_TRANASTION)
     Observable<UpdateBean> sendTransferRequest(@Header("Authorization") String token, @Body RequestBody body);
 
+
+    @GET(HttpUrl.GET_TRANASTION+"/{id}")
+    Observable<DetailBean> getDetailOnID(@Header("Authorization") String token, @Path("id") int id);
+
+    @GET(HttpUrl.GET_DEBIT)
+    Observable<VPBalanceBean> getBalance(@Header("Authorization") String token);
+
+    @POST(HttpUrl.GET_DEBIT)
+    Observable<UpdateBean> sendDebitMsg(@Header("Authorization") String token,@Body RequestBody body);
 }

@@ -13,7 +13,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.RateDefalutBean;
-import com.mvc.cryptovault_android.utils.DataTempCacheMap;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 
 import java.text.DecimalFormat;
@@ -46,9 +45,7 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
 //        }
         money.setText("￥" + moneyFormat.format(item.getRatio() * item.getValue()));
         actual.setText(actualFormat.format(item.getValue()) + " " + tokenName);
-        DataTempCacheMap.Node preciseQuery = DataTempCacheMap.getPreciseQuery(String.valueOf(item.getTokenId()));
-        String value = (String) ((preciseQuery != null) ? preciseQuery.getValue() : "");
         RequestOptions options = new RequestOptions().error(R.mipmap.vp_logo);
-        Glide.with(mContext).load(value).apply(options).into(icon);
+        Glide.with(mContext).load(item.getTokenImage()).apply(options).into(icon);
     }
 }

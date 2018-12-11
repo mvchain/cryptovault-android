@@ -218,6 +218,9 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_sub:
                 // TODO 18/11/29
+                intent.setClass(this,VPBalanceWithdrawalActivity.class);
+                intent.putExtra("tokenId",tokenId);
+                startActivityForResult(intent,300);
                 break;
             case R.id.his_out:// TODO 18/12/05
                 intent.setClass(this,BTCTransferActivity.class);

@@ -1,10 +1,14 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -29,17 +33,19 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     private TextView mColladdTitleDetail;
     private TextView mColladdContentDetail;
     private LinearLayout mCollLayoutDetail;
-    private TextView mPayTitleDetail;
-    private TextView mPayContentDetail;
-    private LinearLayout mPayLayoutDetail;
     private TextView mHashTitleDetail;
     private TextView mHashContentDetail;
     private LinearLayout mHashLayoutDetail;
     private int id;
+    private boolean isTransfer;
 
     @Override
     protected void initMVPData() {
-
+        id = getIntent().getIntExtra("id", -1);
+        isTransfer = getIntent().getBooleanExtra("transType", false);
+        if (id != -1) {
+            mPresenter.getDetailOnID(getToken(), id);
+        }
     }
 
     @Override
@@ -62,9 +68,6 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
         mColladdTitleDetail = findViewById(R.id.detail_colladd_title);
         mColladdContentDetail = findViewById(R.id.detail_colladd_content);
         mCollLayoutDetail = findViewById(R.id.detail_coll_layout);
-        mPayTitleDetail = findViewById(R.id.detail_pay_title);
-        mPayContentDetail = findViewById(R.id.detail_pay_content);
-        mPayLayoutDetail = findViewById(R.id.detail_pay_layout);
         mHashTitleDetail = findViewById(R.id.detail_hash_title);
         mHashContentDetail = findViewById(R.id.detail_hash_content);
         mHashLayoutDetail = findViewById(R.id.detail_hash_layout);
@@ -77,10 +80,6 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
 
     @Override
     protected void initData() {
-        id = getIntent().getIntExtra("id", -1);
-        if (id != -1) {
-            mPresenter.getDetailOnID(getToken(), id);
-        }
     }
 
     @Override
@@ -111,18 +110,53 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void showDetail(DetailBean bean) {
+        if (isTransfer) {
+//            detail_colladd_title
+            mColladdTitleDetail.setText("收款地址");
+        } else {
+            mColladdTitleDetail.setText("付款地址");
+        }
         DetailBean.DataBean data = bean.getData();
         int classify = data.getClassify();
         //区块链和转账
         if (classify == 0 || classify == 3) {
-            
+            switch (data.getStatus()) {
+                case 0:
+                case 1:
+                    mIconDetail.setImageDrawable(getDrawable(R.drawable.pending_status_icon));
+                    mTitleDetail.setText("转账中");
+                    break;
+                case 2:
+                    mIconDetail.setImageDrawable(getDrawable(R.drawable.success_status_icon));
+                    mTitleDetail.setText("转账成功");
+                    break;
+                case 9:
+                    mIconDetail.setImageDrawable(getDrawable(R.drawable.defeat_status_icon));
+                    mTitleDetail.setText("转账失败");
+                    break;
+            }
+            mFeesContentDetail.setText(data.getFee() + " " + data.getFeeTokenType());
+            mColladdContentDetail.setText(data.getToAddress());
+            mHashContentDetail.setText(data.getHash());
+            mHashContentDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(DetailActivity.this, data.getHashLink(), Toast.LENGTH_SHORT).show();
+                }
+            });
         } else if (classify == 1) { //订单交易
-
+            mFeesLayoutDetail.setVisibility(View.GONE);
+            mHashLayoutDetail.setVisibility(View.GONE);
+            mCollLayoutDetail.setVisibility(View.GONE);
         } else if (classify == 2) { //众筹交易
-
+            mFeesLayoutDetail.setVisibility(View.GONE);
+            mHashLayoutDetail.setVisibility(View.GONE);
+            mCollLayoutDetail.setVisibility(View.GONE);
         }
-
+        mPriceContentDetail.setText(data.getValue() + " " + data.getFeeTokenType());
+        mTimeDetail.setText(TimeUtils.millis2String(data.getCreatedAt()));
     }
 }

@@ -1,0 +1,40 @@
+package com.mvc.cryptovault_android.model;
+
+import com.mvc.cryptovault_android.api.ApiStore;
+import com.mvc.cryptovault_android.base.BaseModel;
+import com.mvc.cryptovault_android.base.VPBalanceBean;
+import com.mvc.cryptovault_android.bean.UpdateBean;
+import com.mvc.cryptovault_android.contract.BalanceContract;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
+import com.mvc.cryptovault_android.utils.RxHelper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import io.reactivex.Observable;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
+public class VPBalanceModel extends BaseModel implements BalanceContract.BalanceModel {
+    public static VPBalanceModel getInstance() {
+        return new VPBalanceModel();
+    }
+
+    @Override
+    public Observable<VPBalanceBean> getBalance(String token) {
+        return RetrofitUtils.client(ApiStore.class).getBalance(token).compose(RxHelper.rxSchedulerHelper()).map(vpBalanceBean -> vpBalanceBean);
+    }
+
+    @Override
+    public Observable<UpdateBean> sendDebitMsg(String token, String password, String value) {
+        JSONObject object = new JSONObject();
+        try {
+            object.put("password", password);
+            object.put("value", value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
+        return RetrofitUtils.client(ApiStore.class).sendDebitMsg(token, body).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+    }
+}

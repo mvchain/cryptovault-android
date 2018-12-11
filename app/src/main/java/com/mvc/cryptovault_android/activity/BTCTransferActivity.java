@@ -1,8 +1,10 @@
 package com.mvc.cryptovault_android.activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.InputFilter;
@@ -88,7 +90,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
         mBackM = findViewById(R.id.m_back);
         mTitleM = findViewById(R.id.m_title);
         mQCodeM = findViewById(R.id.m_qcode);
-        mTitleLayoutBtc = findViewById(R.id.btc_title_layout);
+        mTitleLayoutBtc = findViewById(R.id.vp_title_layout);
         mTransAddressBtc = findViewById(R.id.btc_trans_address);
         mTransPriceBtc = findViewById(R.id.btc_trans_price);
         mPriceBtc = findViewById(R.id.btc_price);
@@ -230,7 +232,9 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     @Override
     public void transferCallBack(UpdateBean bean) {
         if (bean.getCode() == 200) {
-            DialogHelper.getInstance().create(this,R.layout.layout_dialog,"转账成功");
+            Dialog dialog = DialogHelper.getInstance().create(this, R.drawable.pending_icon, "转账成功");
+            dialog.show();
+            new Handler().postDelayed(() -> dialog.dismiss(), 1000);
         } else if (bean.getCode() == 400) {
             Toast.makeText(this, bean.getMessage(), Toast.LENGTH_SHORT).show();
         }

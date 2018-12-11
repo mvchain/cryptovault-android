@@ -184,7 +184,6 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     private void checkUpdate() {
         // TODO 18/12/03
         int removeSize = mRemoveMap.size();
-        LogUtils.e("IncreaseCurrencyActivit", "mBean.size():" + mBean.size());
         int putSize = mPutMap.size();
         if (removeSize == 0 && putSize == 0) {
             finish();

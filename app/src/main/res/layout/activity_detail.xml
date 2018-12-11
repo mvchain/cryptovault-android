@@ -58,15 +58,13 @@
                 android:id="@+id/detail_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="25dp"
-                android:src="@drawable/success_icon" />
+                android:layout_marginTop="25dp" />
 
             <TextView
                 android:id="@+id/detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="转账成功"
                 android:textColor="@color/login_content"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -76,7 +74,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="2017年12月18日 16:23:56"
                 android:textColor="@color/trand_gray"
                 android:textSize="12sp" />
 
@@ -111,7 +108,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="0.01BTC"
                         android:textColor="@color/login_content"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -138,7 +134,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="0.01BTC"
                         android:textColor="@color/login_content" />
                 </LinearLayout>
 
@@ -165,34 +160,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:gravity="right"
-                        android:text="0x2051dd2bab0ae6c75dee40546e5ffa196ccc2448"
-                        android:textColor="@color/login_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/detail_pay_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/detail_pay_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:gravity="left"
-                        android:text="付款地址："
-                        android:textColor="@color/login_content"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/detail_pay_content"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:gravity="right"
-                        android:text="0x2051dd2bab0ae6c75dee40546e5ffa196ccc2448"
                         android:textColor="@color/login_content" />
                 </LinearLayout>
 
@@ -219,7 +186,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:gravity="right"
-                        android:text="0x2051dd2bab0ae6c75dee40546e5ffa196ccc2448"
                         android:textColor="@color/login_content" />
                 </LinearLayout>
             </LinearLayout>

@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -31,12 +30,17 @@ public class DialogHelper {
         mDialog = new Dialog(context);
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setCancelable(false);
-        View dialogView = LayoutInflater.from(context).inflate(R.layout.layout_dialog, (ViewGroup) mDialog.getWindow().getDecorView().getParent());
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.layout_dialog, null);
+        Window window = mDialog.getWindow();
+        WindowManager.LayoutParams attributes = window.getAttributes();
+        attributes.height = dialogView.getHeight();
+        attributes.width = dialogView.getWidth();
+        window.setAttributes(attributes);
         ImageView icon = dialogView.findViewById(R.id.dialog_icon);
         TextView title = dialogView.findViewById(R.id.dialog_title);
         Glide.with(context).load(resId).into(icon);
         title.setText(msg);
-        mDialog.setContentView(R.layout.layout_dialog);
+        mDialog.setContentView(dialogView);
         return mDialog;
     }
 

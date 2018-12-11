@@ -40,9 +40,9 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         }
         if ((item.getClassify() == 0 || item.getClassify() == 3) && (item.getStatus() == 0 || item.getStatus() == 1 || item.getStatus() == 2)) {
             if (transactionType == 1) {
-                iconType = 0;
-            } else {
                 iconType = 1;
+            } else {
+                iconType = 0;
             }
         } else if (item.getClassify() == 1) {
             iconType = 3;

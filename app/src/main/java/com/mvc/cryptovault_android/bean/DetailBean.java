@@ -62,8 +62,8 @@ public class DetailBean {
         private int status;
         private String toAddress;
         private String tokenName;
-        private int updatedAt;
-        private int value;
+        private long updatedAt;
+        private double value;
 
         public int getClassify() {
             return classify;
@@ -145,19 +145,19 @@ public class DetailBean {
             this.tokenName = tokenName;
         }
 
-        public int getUpdatedAt() {
+        public long getUpdatedAt() {
             return updatedAt;
         }
 
-        public void setUpdatedAt(int updatedAt) {
+        public void setUpdatedAt(long updatedAt) {
             this.updatedAt = updatedAt;
         }
 
-        public int getValue() {
+        public double getValue() {
             return value;
         }
 
-        public void setValue(int value) {
+        public void setValue(double value) {
             this.value = value;
         }
     }

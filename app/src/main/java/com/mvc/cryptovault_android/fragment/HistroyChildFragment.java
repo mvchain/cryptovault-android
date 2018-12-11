@@ -43,7 +43,12 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
             switch (view.getId()) {
                 case R.id.his_layout:
                     Intent intent = new Intent(activity, DetailActivity.class);
-                    intent.putExtra("id",mHisData.get(position).getId());
+                    intent.putExtra("id", mHisData.get(position).getId());
+                    if (mHisData.get(position).getTransactionType() == 1) {
+                        intent.putExtra("transType", false);
+                    } else {
+                        intent.putExtra("transType", true);
+                    }
                     startActivity(intent);
                     break;
             }

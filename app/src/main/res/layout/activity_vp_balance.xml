@@ -33,17 +33,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="BTC转帐"
+            android:layout_marginRight="40dp"
+            android:text="余额取出"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
-
-        <ImageView
-            android:id="@+id/m_qcode"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="6dp"
-            android:padding="8dp"
-            android:src="@drawable/code_icon_black" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,41 +53,22 @@
         android:paddingRight="15dp"
         android:paddingBottom="12dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:text="收款地址"
-            android:textColor="@color/btc_gray"
-            android:textSize="13sp" />
-
-        <EditText
-            android:id="@+id/btc_trans_address"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/shape_round_gray_5dp"
-            android:hint="输入地址"
-            android:singleLine="true"
-            android:paddingLeft="12dp"
-            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="24dp"
-            android:text="转账金额"
+            android:text="取出余额"
             android:textColor="@color/btc_gray"
             android:textSize="13sp" />
 
         <EditText
-            android:id="@+id/btc_trans_price"
+            android:id="@+id/vp_bw_price"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_round_gray_5dp"
-            android:hint="输入转账金额"
+            android:hint="输入取出金额"
             android:paddingLeft="12dp"
             android:inputType="numberDecimal"
             android:digits="1234567890."
@@ -102,35 +76,17 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/btc_price"
+            android:id="@+id/vp_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
             android:textColor="@color/login_edit_bg"
             android:textSize="13sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="24dp"
-            android:text="交易手续费"
-            android:textColor="@color/btc_gray"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/btc_sxf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/login_content"
-            android:textSize="13sp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/btc_submit"
+        android:id="@+id/vp_submit"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_alignParentBottom="true"

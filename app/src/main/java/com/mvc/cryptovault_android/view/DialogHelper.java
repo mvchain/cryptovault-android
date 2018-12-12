@@ -4,8 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,11 +29,6 @@ public class DialogHelper {
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setCancelable(false);
         View dialogView = LayoutInflater.from(context).inflate(R.layout.layout_dialog, null);
-        Window window = mDialog.getWindow();
-        WindowManager.LayoutParams attributes = window.getAttributes();
-        attributes.height = dialogView.getHeight();
-        attributes.width = dialogView.getWidth();
-        window.setAttributes(attributes);
         ImageView icon = dialogView.findViewById(R.id.dialog_icon);
         TextView title = dialogView.findViewById(R.id.dialog_title);
         Glide.with(context).load(resId).into(icon);
@@ -49,11 +42,6 @@ public class DialogHelper {
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setCancelable(false);
         View dialogView = LayoutInflater.from(context).inflate(R.layout.layout_sub_dialog, null);
-        Window window = mDialog.getWindow();
-        WindowManager.LayoutParams attributes = window.getAttributes();
-        attributes.height = dialogView.getHeight();
-        attributes.width = dialogView.getWidth();
-        window.setAttributes(attributes);
         TextView cancle = dialogView.findViewById(R.id.hint_cancle);
         TextView enter = dialogView.findViewById(R.id.hint_enter);
         TextView title = dialogView.findViewById(R.id.hint_title);
@@ -64,9 +52,19 @@ public class DialogHelper {
         return mDialog;
     }
 
+    public void resetDialogResource(Context context, int resId, String msg) {
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.layout_dialog, null);
+        ImageView icon = dialogView.findViewById(R.id.dialog_icon);
+        TextView title = dialogView.findViewById(R.id.dialog_title);
+        Glide.with(context).load(resId).into(icon);
+        title.setText(msg);
+        mDialog.setContentView(dialogView);
+    }
+
     public void dismiss() {
         if (mDialog != null) {
             mDialog.dismiss();
         }
     }
+
 }

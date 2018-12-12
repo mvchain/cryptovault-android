@@ -38,7 +38,7 @@ import com.mvc.cryptovault_android.presenter.WalletPresenter;
 import com.mvc.cryptovault_android.utils.DataTempCacheMap;
 import com.mvc.cryptovault_android.utils.FileUtils;
 import com.mvc.cryptovault_android.utils.JsonHelper;
-import com.mvc.cryptovault_android.utils.TextViewDrawUtils;
+import com.mvc.cryptovault_android.utils.ViewDrawUtils;
 import com.mvc.cryptovault_android.view.PopViewHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
@@ -126,7 +126,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             case R.id.assets_type:
                 // TODO 18/11/28
                 mPopView.showAsDropDown(mTypeAssets, -50, -10, Gravity.CENTER);
-                TextViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.down_icon), mTypeAssets);
+                ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.down_icon), mTypeAssets);
                 break;
         }
     }
@@ -397,7 +397,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void dismiss() {
-        TextViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.up_icon), mTypeAssets);
+        ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.up_icon), mTypeAssets);
     }
 
     /**
@@ -405,7 +405,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void changeAssets() {
-        TextViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.up_icon), mTypeAssets);
+        ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.up_icon), mTypeAssets);
         RateDefalutBean defalutBean = (RateDefalutBean) JsonHelper.stringToJson(getDefalutRate(), RateDefalutBean.class);
         mTypeAssets.setText(defalutBean.getRate_name());
 //        float price;

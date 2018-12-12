@@ -15,7 +15,12 @@ import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.TogeBean;
 import com.mvc.cryptovault_android.contract.TogeChildContract;
+import com.mvc.cryptovault_android.event.TogeFragmentEvent;
 import com.mvc.cryptovault_android.presenter.TogeChildPresenter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +36,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         mData = new ArrayList<>();
         mItemSwipHis = rootView.findViewById(R.id.his_item_swip);
         mNullData = rootView.findViewById(R.id.data_null);
@@ -66,7 +72,16 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
             mPresenter.getToEnd(getToken(), 1, 0, projectType, 0);
         }
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventRefresh(TogeFragmentEvent fragmentEvent){
+        if (projectType == 0) {
+            mPresenter.getComingSoon(getToken(), 1, 0, projectType, 0);
+        } else if (projectType == 1) {
+            mPresenter.getProcess(getToken(), 1, 0, projectType, 0);
+        } else if (projectType == 2) {
+            mPresenter.getToEnd(getToken(), 1, 0, projectType, 0);
+        }
+    }
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_child_list_rv;
@@ -103,5 +118,11 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mChildRvToge.setVisibility(View.GONE);
         mNullData.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 }

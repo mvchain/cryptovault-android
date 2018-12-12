@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white_tras"
     android:layout_height="match_parent"
+    android:background="@color/white_tras"
     android:orientation="vertical">
 
     <View
@@ -40,6 +40,7 @@
             android:textSize="17sp" />
     </LinearLayout>
 
+
     <RelativeLayout
         android:id="@+id/m_info_layout"
         android:layout_width="match_parent"
@@ -66,42 +67,45 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_toRightOf="@id/m_info_icon"
-            android:textSize="17sp"
             android:text="POT"
-            android:textColor="@color/login_content" />
+            android:textColor="@color/login_content"
+            android:textSize="17sp" />
+
         <TextView
             android:id="@+id/m_info_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textSize="11sp"
-            android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@id/m_info_icon"
             android:layout_below="@id/m_info_title"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@id/m_info_icon"
             android:text="最多预约：15000"
-            android:textColor="@color/login_edit_bg" />
+            android:textColor="@color/login_edit_bg"
+            android:textSize="11sp" />
+
         <TextView
             android:id="@+id/m_info_min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="11sp"
-            android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@id/m_info_icon"
             android:layout_below="@id/m_info_max"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/m_info_icon"
             android:text="最少预约：100"
-            android:textColor="@color/login_edit_bg" />
+            android:textColor="@color/login_edit_bg"
+            android:textSize="11sp" />
+
         <TextView
             android:id="@+id/m_info_bl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="11sp"
-            android:layout_marginLeft="12dp"
-            android:layout_alignParentRight="true"
             android:layout_alignBaseline="@id/m_info_max"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="4dp"
             android:text="兑换比例 1 PTO=500 VRT"
-            android:textColor="@color/login_edit_bg" />
+            android:textColor="@color/login_edit_bg"
+            android:textSize="11sp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -127,51 +131,68 @@
             android:textColor="@color/trand_gray"
             android:textSize="13sp" />
 
-        <EditText
+        <com.mvc.cryptovault_android.view.ClearEditText
             android:id="@+id/m_bw_price"
+            android:paddingRight="10dp"
             android:layout_width="match_parent"
+            android:focusable="true"
             android:layout_height="40dp"
+            android:gravity="center_vertical"
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_round_gray_5dp"
-            android:digits="1234567890."
+            android:digits="1234567890"
             android:hint="输入预约数量"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:paddingLeft="12dp"
             android:singleLine="true"
             android:textSize="15sp" />
         <TextView
+            android:id="@+id/num_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="24dp"
+            android:visibility="invisible"
+            android:layout_marginTop="4dp"
+            android:text="超出最大预约数量！"
+            android:textColor="@color/red"
+            android:textSize="13sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
             android:text="总计需支付:"
             android:textColor="@color/trand_gray"
             android:textSize="13sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:layout_height="wrap_content">
+            android:paddingBottom="6dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:text="VRT "
-                android:textStyle="bold"
                 android:textColor="@color/login_content"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/m_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:text="0.00"
-                android:textStyle="bold"
                 android:textColor="@color/toge_gray"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/m_available"
             android:layout_width="wrap_content"
@@ -196,4 +217,15 @@
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/error_hint"
+        android:layout_width="match_parent"
+        android:textColor="@color/white"
+        android:text="无法连接到网络!"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:textSize="13sp"
+        android:layout_below="@id/m_title_layout"
+        android:background="#66000000"
+        android:layout_height="36dp" />
 </RelativeLayout>

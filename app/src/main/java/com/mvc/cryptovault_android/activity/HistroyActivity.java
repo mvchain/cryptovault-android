@@ -30,7 +30,7 @@ import com.mvc.cryptovault_android.fragment.HistroyChildFragment;
 import com.mvc.cryptovault_android.listener.IPopViewListener;
 import com.mvc.cryptovault_android.presenter.HistroyPresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
-import com.mvc.cryptovault_android.utils.TextViewDrawUtils;
+import com.mvc.cryptovault_android.utils.ViewDrawUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 import com.mvc.cryptovault_android.view.PopViewHelper;
 import com.per.rslibrary.IPermissionRequest;
@@ -214,7 +214,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
             case R.id.his_type:
                 // TODO 18/11/29
                 mPopView.showAsDropDown(mTypeHis, -50, -10, Gravity.CENTER);
-                TextViewDrawUtils.setRigthDraw(getDrawable(R.drawable.down_icon), mTypeHis);
+                ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.down_icon), mTypeHis);
                 break;
             case R.id.his_sub:
                 // TODO 18/11/29
@@ -248,7 +248,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void dismiss() {
-        TextViewDrawUtils.setRigthDraw(getDrawable(R.drawable.up_icon), mTypeHis);
+        ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.up_icon), mTypeHis);
     }
 
     @Override

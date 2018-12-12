@@ -1,6 +1,9 @@
 package com.mvc.cryptovault_android.adapter.rvAdapter;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +23,8 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
         super(layoutResId, data);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void convert(BaseViewHolder helper, TogeBean.DataBean item) {
         ImageView togeIcon = helper.getView(R.id.toge_child_icon);
@@ -42,10 +47,10 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
         }
         helper.setText(R.id.toge_child_recevie_type, "接收币种：" + item.getBaseTokenName());
         helper.setText(R.id.toge_child_recevie_bespoke, "预约时间：" + TimeUtils.millis2String(item.getCreatedAt()));
-        helper.setText(R.id.toge_child_gm, item.getTotal() + "");
-        helper.setText(R.id.toge_child_xg, item.getProjectLimit() + "");
-        helper.setText(R.id.toge_child_jg, item.getRatio() + "");
-        helper.setText(R.id.toge_child_bl, item.getReleaseValue() + "");
+        helper.setText(R.id.toge_child_gm, item.getTotal() + item.getTokenName());
+        helper.setText(R.id.toge_child_xg, item.getProjectLimit() + item.getTokenName());
+        helper.setText(R.id.toge_child_jg, "1" + item.getTokenName() + " = " + item.getRatio() + item.getBaseTokenName());
+        helper.setText(R.id.toge_child_bl, item.getReleaseValue() + "%");
         helper.setText(R.id.toge_child_sj, TimeUtils.millis2String(item.getStopAt()));
         Glide.with(mContext).load(item.getProjectImage()).into(togeIcon);
         helper.addOnClickListener(R.id.toge_child_submit);

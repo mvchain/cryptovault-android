@@ -30,7 +30,7 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         ImageView icon = helper.getView(R.id.his_child_icon);
         helper.setText(R.id.his_child_title, item.getTokenName());
         helper.setText(R.id.his_child_time, TimeUtils.millis2String(item.getCreatedAt()));
-        helper.setText(R.id.his_child_price, item.getTransactionType() == 1 ? "+" + (item.getRatio() * item.getValue()) : "-" + (item.getRatio() * item.getValue()));
+        helper.setText(R.id.his_child_price, item.getTransactionType() == 1 ? "+" + (item.getValue()) : "-" + (item.getValue()));
         TextView mStatusTv = helper.getView(R.id.his_child_status);
         mStatusTv.setText(status[item.getStatus()]);
         if (item.getClassify() == 0) {

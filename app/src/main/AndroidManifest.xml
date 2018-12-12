@@ -42,6 +42,7 @@
         <activity android:name=".activity.BTCTransferActivity" />
         <activity android:name=".activity.PayCodeActivity" />
         <activity android:name=".activity.VPBalanceWithdrawalActivity" />
+        <activity android:name=".activity.CrowdfundingAppointmentActivity" />
     </application>
 
 </manifest>

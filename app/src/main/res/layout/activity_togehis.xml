@@ -19,6 +19,7 @@
 
         <ImageView
             android:id="@+id/togehis_back"
+            android:scaleType="center"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/back_icon_black" />
@@ -51,12 +52,12 @@
         <ImageView
             android:id="@+id/togehis_serach"
             android:layout_width="40dp"
+            android:scaleType="center"
             android:layout_height="40dp"
-            android:padding="5dp"
             android:src="@drawable/serch_icon_black" />
     </LinearLayout>
 
-    <FrameLayout
+    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -64,15 +65,15 @@
             android:id="@+id/togehis_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@color/white" />
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/togehis_serach_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
         <TextView
             android:id="@+id/togehis_serach_null"

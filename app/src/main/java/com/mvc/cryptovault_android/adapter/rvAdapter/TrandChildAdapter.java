@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
+import com.mvc.cryptovault_android.utils.TextUtils;
 
 import java.util.List;
 
@@ -25,13 +26,13 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
     protected void convert(BaseViewHolder helper, TrandChildBean.DataBean item) {
         ImageView icon = helper.getView(R.id.trand_child_icon);
         TextView increase = helper.getView(R.id.trand_child_increase);
-        int incre = item.getIncrease();
+        double incre = item.getIncrease();
         if (incre < 0) {
             increase.setBackground(mContext.getDrawable(R.drawable.shape_aoi_ching_5dp));
         } else {
             increase.setBackground(mContext.getDrawable(R.drawable.shape_aoi_orangey_5dp));
         }
-        increase.setText(incre + "%");
+        increase.setText(TextUtils.doubleToDouble(incre) + "%");
         helper.setText(R.id.trand_child_ratio, item.getRatio() + " " + item.getTokenName());
         helper.setText(R.id.trand_child_pair, item.getRatio() + " 需要换算");
         Glide.with(mContext).load(item.getTokenImage()).into(icon);

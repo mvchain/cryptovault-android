@@ -20,6 +20,7 @@
 
         <ImageView
             android:id="@+id/detail_back"
+            android:scaleType="center"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="6dp"

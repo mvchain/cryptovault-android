@@ -13,6 +13,11 @@ public class TextUtils {
         DecimalFormat format = new DecimalFormat("0.0000");
         return format.format(price);
     }
+    public static String doubleToDouble(double price) {
+        DecimalFormat format = new DecimalFormat("0.00");
+        return format.format(price);
+    }
+//
     public static float stringToFloat(String price) {
         return Float.valueOf(price);
     }

@@ -25,13 +25,13 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
         ImageView togeIcon = helper.getView(R.id.toge_child_icon);
         TextView submit = helper.getView(R.id.toge_child_submit);
         helper.setText(R.id.toge_child_title, item.getProjectName());
-        if (item.getStatus() == 0) {
+        if (item.getStatus() == 1) {
             submit.setText(R.string.toge_com);
             submit.setVisibility(View.VISIBLE);
             submit.setBackground(mContext.getDrawable(R.drawable.bg_toge_child_item_tv_blue));
             submit.setTextColor(mContext.getColor(R.color.white));
             submit.setEnabled(true);
-        } else if (item.getStatus() == 1) {
+        } else if (item.getStatus() == 0) {
             submit.setVisibility(View.GONE);
         } else {
             submit.setText(R.string.toge_end);
@@ -42,12 +42,12 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
         }
         helper.setText(R.id.toge_child_recevie_type, "接收币种：" + item.getBaseTokenName());
         helper.setText(R.id.toge_child_recevie_bespoke, "预约时间：" + TimeUtils.millis2String(item.getCreatedAt()));
-        helper.setText(R.id.toge_child_gm, item.getTotal()+"");
-        helper.setText(R.id.toge_child_xg, item.getProjectLimit()+"");
-        helper.setText(R.id.toge_child_jg, item.getRatio()+"");
-        helper.setText(R.id.toge_child_bl, item.getReleaseValue()+"");
+        helper.setText(R.id.toge_child_gm, item.getTotal() + "");
+        helper.setText(R.id.toge_child_xg, item.getProjectLimit() + "");
+        helper.setText(R.id.toge_child_jg, item.getRatio() + "");
+        helper.setText(R.id.toge_child_bl, item.getReleaseValue() + "");
         helper.setText(R.id.toge_child_sj, TimeUtils.millis2String(item.getStopAt()));
         Glide.with(mContext).load(item.getProjectImage()).into(togeIcon);
-
+        helper.addOnClickListener(R.id.toge_child_submit);
     }
 }

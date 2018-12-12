@@ -1,17 +1,28 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.adapter.rvAdapter.TogeHisAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.bean.TogeHisBean;
 import com.mvc.cryptovault_android.contract.TogeHistroyContract;
+import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.presenter.TogeHistroyPresenter;
+import com.mvc.cryptovault_android.view.RuleRecyclerLines;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.TogeHistroyPresenter> implements TogeHistroyContract.ITogeHisView, View.OnClickListener {
     private ImageView mBackTogehis;
@@ -21,15 +32,22 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
     private RecyclerView mRvTogehis;
     private RecyclerView mSerachRvTogehis;
     private TextView mSerachNullTogehis;
+    private List<TogeHisBean.DataBean> beans;
+    private List<TogeHisBean.DataBean> searchBean;
+    private TogeHisAdapter hisAdapter;
+    private TogeHisAdapter searchAdapter;
+    private boolean isSerach = false;
 
     @Override
     protected void initMVPData() {
-
+        mPresenter.getReservation(getToken(), 0, 10, 0);
     }
 
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        beans = new ArrayList<>();
+        searchBean = new ArrayList<>();
         mBackTogehis = findViewById(R.id.togehis_back);
         mTitleTogehis = findViewById(R.id.togehis_title);
         mEditTogehis = findViewById(R.id.togehis_edit);
@@ -39,6 +57,62 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
         mSerachNullTogehis = findViewById(R.id.togehis_serach_null);
         mBackTogehis.setOnClickListener(this);
         mSerachTogehis.setOnClickListener(this);
+        hisAdapter = new TogeHisAdapter(R.layout.item_toge_histroy, beans);
+        searchAdapter = new TogeHisAdapter(R.layout.item_toge_histroy, searchBean);
+        mRvTogehis.setAdapter(hisAdapter);
+        mSerachRvTogehis.setAdapter(searchAdapter);
+        mSerachRvTogehis.addItemDecoration(new RuleRecyclerLines(this, RuleRecyclerLines.HORIZONTAL_LIST, 1));
+        initRecyclerLoadmore();
+        initSearch();
+    }
+
+    private void initSearch() {
+        mEditTogehis.addTextChangedListener(new EditTextChange() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String searchTv = s.toString();
+                if (searchTv.equals("")) {
+                    mSerachNullTogehis.setVisibility(View.GONE);
+                    mSerachRvTogehis.setVisibility(View.GONE);
+                    mRvTogehis.setVisibility(View.VISIBLE);
+                } else {
+                    searchBean.clear();
+                    searchAdapter.notifyDataSetChanged();
+                    mRvTogehis.setVisibility(View.GONE);
+                    for (int i = 0; i < beans.size(); i++) {
+                        TogeHisBean.DataBean dataBean = beans.get(i);
+                        if (dataBean.getProjectName().contains(searchTv)) {
+                            searchBean.add(dataBean);
+                        }
+                    }
+                    if (searchBean.size() == 0) {
+                        mSerachNullTogehis.setVisibility(View.VISIBLE);
+                        mSerachRvTogehis.setVisibility(View.GONE);
+                    } else {
+                        mSerachNullTogehis.setVisibility(View.GONE);
+                        mSerachRvTogehis.setVisibility(View.VISIBLE);
+                        searchAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+    }
+
+    private void initRecyclerLoadmore() {
+        mRvTogehis.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager.getItemCount() > 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
+                    mPresenter.getReservation(getToken(), beans.get(beans.size() - 1).getId(), 10, 1);
+                }
+            }
+        });
     }
 
     @Override
@@ -67,6 +141,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
         return TogeHistroyPresenter.newIntance();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -76,7 +151,32 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
                 break;
             case R.id.togehis_serach:
                 // TODO 18/12/07
+                isSerach = !isSerach;
+                if (isSerach) {
+                    mSerachTogehis.setImageDrawable(getDrawable(R.drawable.cancel_icon_black));
+                    mEditTogehis.setVisibility(View.VISIBLE);
+                    mTitleTogehis.setVisibility(View.GONE);
+                    mEditTogehis.setFocusable(true);
+                    mEditTogehis.requestFocus();
+                    KeyboardUtils.showSoftInput(this);
+                } else {
+                    mSerachTogehis.setImageDrawable(getDrawable(R.drawable.serch_icon_black));
+                    mEditTogehis.setVisibility(View.GONE);
+                    mTitleTogehis.setVisibility(View.VISIBLE);
+//                    在关闭搜索框的时候搜索内容也关闭掉
+                    mSerachNullTogehis.setVisibility(View.GONE);
+                    mSerachRvTogehis.setVisibility(View.GONE);
+                    mRvTogehis.setVisibility(View.VISIBLE);
+                    KeyboardUtils.hideSoftInput(this);
+                }
                 break;
         }
     }
+
+    @Override
+    public void showSuccess(List<TogeHisBean.DataBean> beanList) {
+        beans.addAll(beanList);
+        hisAdapter.notifyDataSetChanged();
+    }
+
 }

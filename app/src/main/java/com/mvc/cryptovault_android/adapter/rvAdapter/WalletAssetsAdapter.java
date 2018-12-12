@@ -14,6 +14,7 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.RateDefalutBean;
 import com.mvc.cryptovault_android.utils.JsonHelper;
+import com.mvc.cryptovault_android.utils.TextUtils;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -43,7 +44,7 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
 //        } else {
 //            price = item.getRatio() * item.getValue() / rateDefalutBean.getRate_value();
 //        }
-        money.setText("￥" + moneyFormat.format(item.getRatio() * item.getValue()));
+        money.setText("￥" + TextUtils.doubleToDouble(item.getRatio() * item.getValue()));
         actual.setText(actualFormat.format(item.getValue()) + " " + tokenName);
         RequestOptions options = new RequestOptions().error(R.mipmap.vp_logo);
         Glide.with(mContext).load(item.getTokenImage()).apply(options).into(icon);

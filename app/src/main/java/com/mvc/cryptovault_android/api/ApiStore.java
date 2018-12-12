@@ -13,6 +13,7 @@ import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.MsgBean;
 import com.mvc.cryptovault_android.bean.ReceiptBean;
 import com.mvc.cryptovault_android.bean.TogeBean;
+import com.mvc.cryptovault_android.bean.TogeHisBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
@@ -85,12 +86,19 @@ public interface ApiStore {
     Observable<UpdateBean> sendTransferRequest(@Header("Authorization") String token, @Body RequestBody body);
 
 
-    @GET(HttpUrl.GET_TRANASTION+"/{id}")
+    @GET(HttpUrl.GET_TRANASTION + "/{id}")
     Observable<DetailBean> getDetailOnID(@Header("Authorization") String token, @Path("id") int id);
 
     @GET(HttpUrl.GET_DEBIT)
     Observable<VPBalanceBean> getBalance(@Header("Authorization") String token);
 
     @POST(HttpUrl.GET_DEBIT)
-    Observable<UpdateBean> sendDebitMsg(@Header("Authorization") String token,@Body RequestBody body);
+    Observable<UpdateBean> sendDebitMsg(@Header("Authorization") String token, @Body RequestBody body);
+
+
+    @GET(HttpUrl.GET_RESERVATION)
+    Observable<TogeHisBean> getReservation(@Header("Authorization") String token,
+                                           @Query("id") int id,
+                                           @Query("pageSize") int pageSize,
+                                           @Query("type") int type);
 }

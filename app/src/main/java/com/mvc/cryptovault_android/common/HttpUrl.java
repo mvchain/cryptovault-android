@@ -76,4 +76,11 @@ public class HttpUrl {
      * 划账余额获取 / 划账
      */
     public static final String GET_DEBIT = "/asset/debit";
+
+
+
+    /**
+     * 获取参与的众筹项目列表
+     */
+    public static final String GET_RESERVATION = "/project/reservation";
 }

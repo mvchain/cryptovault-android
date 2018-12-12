@@ -50,7 +50,7 @@ public class TrandChildBean {
          * transactionStatus : 0
          */
 
-        private int increase;
+        private double increase;
         private String pair;
         private int pairId;
         private double ratio;
@@ -59,11 +59,11 @@ public class TrandChildBean {
         private String tokenName;
         private int transactionStatus;
 
-        public int getIncrease() {
+        public double getIncrease() {
             return increase;
         }
 
-        public void setIncrease(int increase) {
+        public void setIncrease(double increase) {
             this.increase = increase;
         }
 

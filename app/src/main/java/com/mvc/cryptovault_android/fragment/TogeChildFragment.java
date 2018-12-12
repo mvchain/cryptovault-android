@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.CrowdfundingAppointmentActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.TogeChildAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
@@ -41,6 +43,16 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
         mItemSwipHis.setRefreshing(true);
         arguments = getArguments();
         projectType = arguments.getInt("projectType");
+        togeChildAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.toge_child_submit:
+                    TogeBean.DataBean dataBean = mData.get(position);
+                    Intent intent = new Intent(activity, CrowdfundingAppointmentActivity.class);
+                    intent.putExtra("databean", dataBean);
+                    startActivity(intent);
+                    break;
+            }
+        });
     }
 
     @Override

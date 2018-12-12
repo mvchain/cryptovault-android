@@ -81,18 +81,18 @@ public class AssetListBean implements Parcelable{
          * value : 0
          */
 
-        private int ratio;
+        private double ratio;
         private int tokenId;
         private String tokenImage;
         private String tokenName;
-        private int value;
+        private double value;
 
         protected DataBean(Parcel in) {
-            ratio = in.readInt();
+            ratio = in.readDouble();
             tokenId = in.readInt();
             tokenImage = in.readString();
             tokenName = in.readString();
-            value = in.readInt();
+            value = in.readDouble();
         }
 
         public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
@@ -107,11 +107,11 @@ public class AssetListBean implements Parcelable{
             }
         };
 
-        public int getRatio() {
+        public double getRatio() {
             return ratio;
         }
 
-        public void setRatio(int ratio) {
+        public void setRatio(double ratio) {
             this.ratio = ratio;
         }
 
@@ -139,11 +139,11 @@ public class AssetListBean implements Parcelable{
             this.tokenName = tokenName;
         }
 
-        public int getValue() {
+        public double getValue() {
             return value;
         }
 
-        public void setValue(int value) {
+        public void setValue(double value) {
             this.value = value;
         }
 
@@ -154,11 +154,11 @@ public class AssetListBean implements Parcelable{
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(ratio);
+            dest.writeDouble(ratio);
             dest.writeInt(tokenId);
             dest.writeString(tokenImage);
             dest.writeString(tokenName);
-            dest.writeInt(value);
+            dest.writeDouble(value);
         }
     }
 }

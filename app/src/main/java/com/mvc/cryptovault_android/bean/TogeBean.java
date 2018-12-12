@@ -1,5 +1,8 @@
 package com.mvc.cryptovault_android.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 public class TogeBean {
@@ -38,7 +41,7 @@ public class TogeBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Parcelable {
         /**
          * baseTokenId : 1
          * baseTokenName : VRT
@@ -74,6 +77,37 @@ public class TogeBean {
         private String tokenName;
         private int total;
         private int updatedAt;
+
+        protected DataBean(Parcel in) {
+            baseTokenId = in.readInt();
+            baseTokenName = in.readString();
+            createdAt = in.readInt();
+            projectId = in.readInt();
+            projectImage = in.readString();
+            projectLimit = in.readInt();
+            projectName = in.readString();
+            ratio = in.readInt();
+            releaseValue = in.readInt();
+            startedAt = in.readInt();
+            status = in.readInt();
+            stopAt = in.readInt();
+            tokenId = in.readInt();
+            tokenName = in.readString();
+            total = in.readInt();
+            updatedAt = in.readInt();
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
 
         public int getBaseTokenId() {
             return baseTokenId;
@@ -201,6 +235,31 @@ public class TogeBean {
 
         public void setUpdatedAt(int updatedAt) {
             this.updatedAt = updatedAt;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(baseTokenId);
+            dest.writeString(baseTokenName);
+            dest.writeInt(createdAt);
+            dest.writeInt(projectId);
+            dest.writeString(projectImage);
+            dest.writeInt(projectLimit);
+            dest.writeString(projectName);
+            dest.writeInt(ratio);
+            dest.writeInt(releaseValue);
+            dest.writeInt(startedAt);
+            dest.writeInt(status);
+            dest.writeInt(stopAt);
+            dest.writeInt(tokenId);
+            dest.writeString(tokenName);
+            dest.writeInt(total);
+            dest.writeInt(updatedAt);
         }
     }
 }

@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -239,7 +238,6 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     public void showCurrency(List<IncreaseBean> beanList) {
         mBean.clear();
         mBean.addAll(beanList);
-        LogUtils.e("IncreaseCurrencyActivit", "mBean.size():" + mBean.size());
         mSerachNullIncrease.setVisibility(View.GONE);
         mSerachRvIncrease.setVisibility(View.GONE);
         mRvIncrease.setVisibility(View.VISIBLE);

@@ -26,6 +26,7 @@
 
         <ImageView
             android:id="@+id/msg_back"
+            android:scaleType="center"
             android:layout_width="40dp"
             android:layout_centerVertical="true"
             android:src="@drawable/back_icon_black"

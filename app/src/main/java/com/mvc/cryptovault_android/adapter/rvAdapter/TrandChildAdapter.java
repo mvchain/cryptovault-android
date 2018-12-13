@@ -36,5 +36,6 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
         helper.setText(R.id.trand_child_ratio, item.getRatio() + " " + item.getTokenName());
         helper.setText(R.id.trand_child_pair, item.getRatio() + " 需要换算");
         Glide.with(mContext).load(item.getTokenImage()).into(icon);
+        helper.addOnClickListener(R.id.trand_layout);
     }
 }

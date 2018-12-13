@@ -43,6 +43,7 @@
         <activity android:name=".activity.PayCodeActivity" />
         <activity android:name=".activity.VPBalanceWithdrawalActivity" />
         <activity android:name=".activity.CrowdfundingAppointmentActivity" />
+        <activity android:name=".activity.TrandRecordingActivity" />
     </application>
 
 </manifest>

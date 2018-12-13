@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/about_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@id/status_bar"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/trand_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="USDT/VRT"
+            android:textColor="@color/login_content"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/trand_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@drawable/back_icon_black" />
+
+
+        <ImageView
+            android:id="@+id/trand_histroy"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:src="@drawable/list_icon_black" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="11dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="11dp">
+
+        <TextView
+            android:id="@+id/current_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前价格"
+            android:textColor="@color/msg_time_gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/day_max_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="24H最高"
+            android:textColor="@color/msg_time_gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/day_min_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="24H最低"
+            android:textColor="@color/msg_time_gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/recording_current_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/current_hint"
+            android:layout_marginTop="5dp"
+            android:text="1234568.2154 VRT"
+            android:textColor="@color/login_content"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/recording_day_max_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/current_hint"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="1234568.2154 VRT"
+            android:textColor="@color/login_content"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/recording_day_min_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/current_hint"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:text="1234568.2154 VRT"
+            android:textColor="@color/login_content"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/red" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <RadioButton
+            android:id="@+id/recording_in_radio"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:background="@drawable/select_recording_radio_left"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="购买USDT"
+            android:textColor="@color/select_recording_radio" />
+
+        <RadioButton
+            android:id="@+id/recording_out_radio"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:background="@drawable/select_recording_radio_right"
+            android:button="@null"
+            android:gravity="center"
+            android:text="出售USDT"
+            android:textColor="@color/select_recording_radio" />
+    </RadioGroup>
+
+    <com.mvc.cryptovault_android.view.NoScrollViewPager
+        android:id="@+id/recording_vp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </com.mvc.cryptovault_android.view.NoScrollViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/recording_purh_submit"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_his_out"
+            android:gravity="center"
+            android:text="发布出售订单"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/recording_sell_submit"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="11dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_his_in"
+            android:gravity="center"
+            android:text="发布购买订单"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>

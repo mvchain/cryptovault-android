@@ -13,6 +13,7 @@ import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.MsgBean;
 import com.mvc.cryptovault_android.bean.PurchaseBean;
 import com.mvc.cryptovault_android.bean.ReceiptBean;
+import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.bean.TogeBean;
 import com.mvc.cryptovault_android.bean.TogeHisBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
@@ -108,4 +109,12 @@ public interface ApiStore {
 
     @POST("/project/{id}/purchase")
     Observable<UpdateBean> sendReservationRequest(@Header("Authorization") String token, @Body RequestBody body, @Path("id") int id);
+
+    @GET("/transaction")
+    Observable<RecorBean> getRecording(@Header("Authorization") String token,
+                                       @Query("id") int id,
+                                       @Query("pageSize") int pageSize,
+                                       @Query("pairId") int pairId,
+                                       @Query("transactionType") int transactionType,
+                                       @Query("type") int type);
 }

@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.TrandRecordingActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.TrandChildAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
@@ -39,6 +41,15 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
         data = new ArrayList<>();
         mRvTc.setLayoutManager(new LinearLayoutManager(activity));
         childAdapter = new TrandChildAdapter(R.layout.item_trand_child_list, data);
+        childAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.trand_layout:
+                    Intent intent = new Intent(activity, TrandRecordingActivity.class);
+                    intent.putExtra("pairId", data.get(position).getTokenId());
+                    startActivity(intent);
+                    break;
+            }
+        });
         mRvTc.setAdapter(childAdapter);
     }
 

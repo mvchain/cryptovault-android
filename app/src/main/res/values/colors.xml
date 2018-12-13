@@ -14,6 +14,7 @@
     <color name="select_blue">#007AFF</color>
     <color name="status_gray">#76768a</color>
     <color name="select_gray">#7A7A7C</color>
+    <color name="select_radio_gray">#EBF1FB</color>
     <!--字体颜色-->
     <color name="login_content">#595971</color>
     <color name="trand_gray">#8E8E9E</color>

@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.activity;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -32,6 +33,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
     private RecyclerView mRvTogehis;
     private RecyclerView mSerachRvTogehis;
     private TextView mSerachNullTogehis;
+    private SwipeRefreshLayout mSerachRefresh;
     private List<TogeHisBean.DataBean> beans;
     private List<TogeHisBean.DataBean> searchBean;
     private TogeHisAdapter hisAdapter;
@@ -55,6 +57,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
         mRvTogehis = findViewById(R.id.togehis_rv);
         mSerachRvTogehis = findViewById(R.id.togehis_serach_rv);
         mSerachNullTogehis = findViewById(R.id.togehis_serach_null);
+        mSerachRefresh = findViewById(R.id.togehis_refresh);
         mBackTogehis.setOnClickListener(this);
         mSerachTogehis.setOnClickListener(this);
         hisAdapter = new TogeHisAdapter(R.layout.item_toge_histroy, beans);
@@ -62,8 +65,14 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
         mRvTogehis.setAdapter(hisAdapter);
         mSerachRvTogehis.setAdapter(searchAdapter);
         mSerachRvTogehis.addItemDecoration(new RuleRecyclerLines(this, RuleRecyclerLines.HORIZONTAL_LIST, 1));
+        mSerachRefresh.setOnRefreshListener(this::refresh);
+        mSerachRefresh.post(()->mSerachRefresh.setRefreshing(true));
         initRecyclerLoadmore();
         initSearch();
+    }
+
+    private void refresh() {
+        mPresenter.getReservation(getToken(), 0, 10, 0);
     }
 
     private void initSearch() {
@@ -175,6 +184,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
 
     @Override
     public void showSuccess(List<TogeHisBean.DataBean> beanList) {
+        mSerachRefresh.post(()->mSerachRefresh.setRefreshing(false));
         beans.addAll(beanList);
         hisAdapter.notifyDataSetChanged();
     }

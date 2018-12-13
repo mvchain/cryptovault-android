@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.allen.library.SuperTextView;
-import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.AboutActivity;
@@ -32,8 +31,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     }
 
     private void getUserInfo() {
-        String token = SPUtils.getInstance().getString("token");
-        mPresenter.getUserInfo(token);
+        mPresenter.getUserInfo(getToken());
     }
 
     @Override

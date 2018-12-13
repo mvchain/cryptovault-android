@@ -9,7 +9,10 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.activity.LoginActivity;
+import com.mvc.cryptovault_android.common.Constant;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 
 public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
@@ -71,7 +74,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected String getToken() {
-        return SPUtils.getInstance().getString("token");
+        return SPUtils.getInstance().getString(TOKEN);
     }
 
     @Override
@@ -83,5 +86,8 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         WindowManager.LayoutParams attributes = getWindow().getAttributes();
         attributes.alpha = alpha;
         getWindow().setAttributes(attributes);
+    }
+    protected String getDefalutRate() {
+        return SPUtils.getInstance().getString(Constant.SP.SET_RATE);
     }
 }

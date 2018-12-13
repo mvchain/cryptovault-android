@@ -8,6 +8,9 @@ import com.mvc.cryptovault_android.MainActivity;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseActivity;
 
+import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
+
 
 public class StartActivity extends BaseActivity {
     @Override
@@ -17,8 +20,8 @@ public class StartActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        String refreshToken = SPUtils.getInstance().getString("refreshToken");
-        String token = SPUtils.getInstance().getString("token");
+        String refreshToken = SPUtils.getInstance().getString(REFRESH_TOKEN);
+        String token = SPUtils.getInstance().getString(TOKEN);
         new Handler().postDelayed(() -> {
             if (!refreshToken.equals("") && !token.equals("")) {
                 startActivity(MainActivity.class);

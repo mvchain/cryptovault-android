@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.utils;
 
-import com.blankj.utilcode.util.LogUtils;
+import android.util.Log;
+
 import com.mvc.cryptovault_android.common.HttpUrl;
 
 import java.util.concurrent.TimeUnit;
@@ -31,7 +32,7 @@ public class RetrofitUtils {
 
     private static OkHttpClient getOkhttpUtils() {
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
+                .addInterceptor(new HttpLoggingInterceptor(message -> Log.e("RetrofitUtils", message))
                         .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(new ParameterInterceptor())
                 .writeTimeout(10, TimeUnit.SECONDS)

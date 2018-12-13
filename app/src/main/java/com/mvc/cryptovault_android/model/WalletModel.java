@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.model;
 
 import android.support.annotation.Nullable;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
@@ -18,6 +19,11 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
+import static com.mvc.cryptovault_android.common.Constant.SP.CURRENCY_LIST;
+import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_RATE;
+import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
+import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
+
 public class WalletModel extends BaseModel implements WallteContract.IWallteModel {
     @Nullable
     public static WalletModel getInstance() {
@@ -32,28 +38,31 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
                     //查看是否有默认汇率设置，没有的话保存一份  有的话忽略
                     //保存总汇率列表  用作POPWindow显示
                     ExchangeRateBean.DataBean dataBean = exchangeRateBean.getData().get(0);
-                    String default_rate = SPUtils.getInstance().getString("default_rate");
+                    String default_rate = SPUtils.getInstance().getString(SET_RATE);
+                    SPUtils.getInstance().put(DEFAULE_RATE, JsonHelper.jsonToString(dataBean));
                     if (default_rate.equals("")) {
-                        SPUtils.getInstance().put("default_rate", JsonHelper.jsonToString(dataBean));
+                        SPUtils.getInstance().put(SET_RATE, JsonHelper.jsonToString(dataBean));
+                    } else {
+                        for (ExchangeRateBean.DataBean bean : exchangeRateBean.getData()) {
+                            ExchangeRateBean.DataBean setDataBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(default_rate, ExchangeRateBean.DataBean.class);
+                            if (bean.equals(setDataBean.getName())) {
+                                SPUtils.getInstance().put(SET_RATE, JsonHelper.jsonToString(setDataBean));
+                                break;
+                            }
+                        }
                     }
-                    SPUtils.getInstance().put("rate_list", JsonHelper.jsonToString(exchangeRateBean));
-                    return RetrofitUtils.client(ApiStore.class).getCurrencyAll(token);
-                }).flatMap((Function<CurrencyBean, ObservableSource<AssetListBean>>) currencyBean -> {
+                    LogUtils.e("WalletModel", SPUtils.getInstance().getString(SET_RATE));
+                    SPUtils.getInstance().put(RATE_LIST, JsonHelper.jsonToString(exchangeRateBean));
+                    return RetrofitUtils.client(ApiStore.class).getCurrencyAll(token).compose(RxHelper.rxSchedulerHelper());
+                })
+                .flatMap((Function<CurrencyBean, ObservableSource<AssetListBean>>) currencyBean -> {
                     //保存全部令牌
-                    SPUtils.getInstance().put("default_rate", JsonHelper.jsonToString(currencyBean));
-                    return RetrofitUtils.client(ApiStore.class).getAssetList(token);
-                }).map(assetListBean -> assetListBean);
+                    SPUtils.getInstance().put(CURRENCY_LIST, JsonHelper.jsonToString(currencyBean));
+                    return RetrofitUtils.client(ApiStore.class).getAssetList(token).compose(RxHelper.rxSchedulerHelper());
+                })
+                .map(assetListBean -> assetListBean);
     }
 
-    @Override
-    public Observable<CurrencyBean> getCurrencyAll(String token) {
-        return RetrofitUtils.client(ApiStore.class).getCurrencyAll(token).compose(RxHelper.rxSchedulerHelper()).map(currencyBean -> currencyBean);
-    }
-
-    @Override
-    public Observable<ExchangeRateBean> getExchangeRate(String token) {
-        return RetrofitUtils.client(ApiStore.class).getExchangeRate(token).compose(RxHelper.rxSchedulerHelper()).map(exchangRate -> exchangRate);
-    }
 
     @Override
     public Observable<AllAssetBean> getAllAsset(String token) {

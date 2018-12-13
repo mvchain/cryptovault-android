@@ -1,12 +1,13 @@
 package com.mvc.cryptovault_android.model;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.Gson;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
 import com.mvc.cryptovault_android.bean.IncreaseBean;
+import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.contract.IncreaseContract;
-import com.mvc.cryptovault_android.utils.DataTempCacheMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,8 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
     private ArrayList<IncreaseBean> mSearchList = new ArrayList<>();
 
     {
-        String currency_list = (String) DataTempCacheMap.get("currency_list").getValue();
-        String asset_list = (String) DataTempCacheMap.get("asset_list").getValue();
+        String currency_list = SPUtils.getInstance().getString(Constant.SP.CURRENCY_LIST);
+        String asset_list = SPUtils.getInstance().getString(Constant.SP.ASSETS_LIST);
         Gson gson = new Gson();
         currencyBean = gson.fromJson(currency_list, CurrencyBean.class);
         assetListBean = gson.fromJson(asset_list, AssetListBean.class);

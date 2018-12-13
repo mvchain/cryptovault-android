@@ -17,6 +17,9 @@ import com.mvc.cryptovault_android.contract.LoginContract;
 import com.mvc.cryptovault_android.presenter.LoginPresenter;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
+import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
+
 
 public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener,LoginContract.ILoginView {
 
@@ -67,8 +70,8 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     @Override
     public void saveUserInfo(LoginBean loginBean) {
         LoginBean.DataBean data = loginBean.getData();
-        SPUtils.getInstance().put("refreshToken",data.getRefreshToken());
-        SPUtils.getInstance().put("token",data.getToken());
+        SPUtils.getInstance().put(REFRESH_TOKEN,data.getRefreshToken());
+        SPUtils.getInstance().put(TOKEN,data.getToken());
     }
 
     @Override

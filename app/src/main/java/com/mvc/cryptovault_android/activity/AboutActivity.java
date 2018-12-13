@@ -12,6 +12,9 @@ import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.listener.IDialogViewClickListener;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
+import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
+
 public class AboutActivity extends BaseActivity implements View.OnClickListener {
 
     private View mBarStatus;
@@ -55,8 +58,8 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
                     public void click(int viewId) {
                         switch (viewId) {
                             case R.id.hint_enter:
-                                SPUtils.getInstance().remove("refreshToken");
-                                SPUtils.getInstance().remove("token");
+                                SPUtils.getInstance().remove(REFRESH_TOKEN);
+                                SPUtils.getInstance().remove(TOKEN);
                                 startTaskActivity(AboutActivity.this);
                                 break;
                             case R.id.hint_cancle:

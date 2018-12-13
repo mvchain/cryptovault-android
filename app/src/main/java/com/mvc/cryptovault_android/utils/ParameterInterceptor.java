@@ -14,6 +14,9 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
+
 /**
  * 判断token是否过期
  */
@@ -35,8 +38,8 @@ public class ParameterInterceptor implements Interceptor {
                 } else {
                     //使用新的Token,创建新的请求
                     //重新请求
-                    SPUtils.getInstance().put("token", httpTokenBean.getData());
-                    String token = SPUtils.getInstance().getString("token");
+                    SPUtils.getInstance().put(TOKEN, httpTokenBean.getData());
+                    String token = SPUtils.getInstance().getString(TOKEN);
                     Request newRequest = chain.request()
                             .newBuilder()
                             .header("Authorization", token)
@@ -45,8 +48,8 @@ public class ParameterInterceptor implements Interceptor {
                 }
             }
         } else if (response.code() == 401) {
-            SPUtils.getInstance().remove("refreshToken");
-            SPUtils.getInstance().remove("token");
+            SPUtils.getInstance().remove(REFRESH_TOKEN);
+            SPUtils.getInstance().remove(TOKEN);
             Intent intent = new Intent();
             intent.setAction("android.login");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -65,8 +68,8 @@ public class ParameterInterceptor implements Interceptor {
         if (response.code() == 403) {
             return true;
         } else if (response.code() == 401) {
-            SPUtils.getInstance().remove("refreshToken");
-            SPUtils.getInstance().remove("token");
+            SPUtils.getInstance().remove(REFRESH_TOKEN);
+            SPUtils.getInstance().remove(TOKEN);
             Intent intent = new Intent();
             intent.setAction("android.login");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -92,7 +95,7 @@ public class ParameterInterceptor implements Interceptor {
 //        loginInfo.setPassword(password);
 //        CacheManager.saveLoginInfo(loginInfo);
 //        JSONObject object = new JSONObject();
-        String refreshToken = SPUtils.getInstance().getString("refreshToken");
+        String refreshToken = SPUtils.getInstance().getString(REFRESH_TOKEN);
 //        LogUtils.e("ParameterInterceptor", refreshToken);
 //        try {
 //            object.put("Authorization", refreshToken);

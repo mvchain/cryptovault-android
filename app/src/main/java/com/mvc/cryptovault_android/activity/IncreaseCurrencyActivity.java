@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -20,11 +22,11 @@ import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.IncreaseBean;
+import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.contract.IncreaseContract;
 import com.mvc.cryptovault_android.event.WalletAssetsListEvent;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.presenter.IncreasePresenter;
-import com.mvc.cryptovault_android.utils.DataTempCacheMap;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
@@ -92,8 +94,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     }
 
     private void initCache() {
-        listBean = (AssetListBean) JsonHelper.stringToJson((String) DataTempCacheMap.get("asset_list").getValue(), AssetListBean.class);
-
+        listBean = (AssetListBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(Constant.SP.ASSETS_LIST), AssetListBean.class);
     }
 
     @Override
@@ -180,6 +181,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
         }
     }
 
+    @SuppressLint("CheckResult")
     private void checkUpdate() {
         // TODO 18/12/03
         int removeSize = mRemoveMap.size();

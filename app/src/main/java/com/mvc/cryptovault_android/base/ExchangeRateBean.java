@@ -45,7 +45,7 @@ public class ExchangeRateBean {
          */
 
         private String name;
-        private float value;
+        private double value;
 
         public String getName() {
             return name;
@@ -55,11 +55,11 @@ public class ExchangeRateBean {
             this.name = name;
         }
 
-        public float getValue() {
+        public double getValue() {
             return value;
         }
 
-        public void setValue(float value) {
+        public void setValue(double value) {
             this.value = value;
         }
     }

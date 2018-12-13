@@ -30,34 +30,6 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
     }
 
     @Override
-    public void getCurrencyAll(String token) {
-        rxUtils.register(mIModel.getCurrencyAll(token)
-                .subscribe(currency -> {
-                            if (currency.getCode() == 200) {
-                                mIView.savaLocalCurrency(currency);
-                            }
-                        }
-                        , throwable -> {
-                            mIView.serverError();
-                            LogUtils.e("WalletPresenter", throwable.getMessage());
-                        }));
-    }
-
-    @Override
-    public void getExchangeRate(String token) {
-        rxUtils.register(mIModel.getExchangeRate(token)
-                .subscribe(rate -> {
-                            if (rate.getCode() == 200) {
-                                mIView.savaExchangeRate(rate);
-                            }
-                        }
-                        , throwable -> {
-                            mIView.serverError();
-                            LogUtils.e("WalletPresenter", throwable.getMessage());
-                        }));
-    }
-
-    @Override
     public void getAllAsset(String token) {
         rxUtils.register(mIModel.getAllAsset(token)
                 .subscribe(asset -> {

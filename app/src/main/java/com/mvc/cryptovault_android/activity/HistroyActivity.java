@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -24,12 +24,15 @@ import com.mvc.cryptovault_android.adapter.HistroyPagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.base.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.contract.HistroyContract;
+import com.mvc.cryptovault_android.event.WalletFragmentEvent;
 import com.mvc.cryptovault_android.fragment.HistroyChildFragment;
 import com.mvc.cryptovault_android.listener.IPopViewListener;
 import com.mvc.cryptovault_android.presenter.HistroyPresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
+import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.utils.ViewDrawUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 import com.mvc.cryptovault_android.view.PopViewHelper;
@@ -37,8 +40,14 @@ import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.ALLASSETS;
+import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
+import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
 public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener, IPopViewListener {
     private ImageView mBackHis;
@@ -50,6 +59,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private NoScrollViewPager mVpHis;
     private TextView mSubHis;
     private ArrayList<Fragment> fragments;
+    private List<ExchangeRateBean.DataBean> mExchange;
     private HistroyPagerAdapter histroyPagerAdapter;
     private TextView mTitleHis;
     private TextView mOutHis;
@@ -87,6 +97,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
     @Override
     protected void initMVPView() {
+        mExchange = new ArrayList<>();
         fragments = new ArrayList<>();
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         histroyPagerAdapter = new HistroyPagerAdapter(getSupportFragmentManager(), fragments);
@@ -113,17 +124,19 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     }
 
     private void initPop() {
-        String rate_default = SPUtils.getInstance().getString("rate_default");
+        String rate_default = SPUtils.getInstance().getString(RATE_LIST);
         ArrayList<String> content = new ArrayList<>();
         if (rate_default != null && !rate_default.equals("")) {
             ExchangeRateBean rateBean = (ExchangeRateBean) JsonHelper.stringToJson(rate_default, ExchangeRateBean.class);
             for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {
                 content.add(dataBean.getName());
+                mExchange.add(dataBean);
             }
             mPopView = PopViewHelper.getInstance().create(this, R.layout.layout_rate_pop, content, this);
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void initIntent() {
         intent = getIntent();
         type = intent.getIntExtra("type", 0);
@@ -152,8 +165,10 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 mQcodeHis.setVisibility(View.VISIBLE);
                 break;
         }
-        LogUtils.e("HistroyActivity", "dataBean.getRatio() * dataBean.getValue():" + (dataBean.getRatio() * dataBean.getValue()));
-        mPriceHis.setText(dataBean.getRatio() * dataBean.getValue() + "");
+        mPriceHis.setText(TextUtils.rateToPrice(dataBean.getRatio() * dataBean.getValue()));
+        mActualHis.setText(TextUtils.doubleToFour(dataBean.getValue())+" "+dataBean.getTokenName());
+        ExchangeRateBean.DataBean defalutBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(getDefalutRate(), ExchangeRateBean.DataBean.class);
+        mTypeHis.setText(defalutBean.getName());
     }
 
     @Override
@@ -241,8 +256,17 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     }
 
     @Override
-    public void toRate(int position) {
+    public void changeRate(int position) {
+        ExchangeRateBean.DataBean dataBean = mExchange.get(position);
+        SPUtils.getInstance().put(SET_RATE, JsonHelper.jsonToString(dataBean));
+        mTypeHis.setText(dataBean.getName());
+        changeAssets(position);
+    }
 
+    private void changeAssets(int position) {
+        AllAssetBean assetBean = (AllAssetBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(ALLASSETS), AllAssetBean.class);
+        mPriceHis.setText(TextUtils.rateToPrice(assetBean.getData()));
+        EventBus.getDefault().post(new WalletFragmentEvent( position));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

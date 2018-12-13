@@ -46,7 +46,7 @@ public class PopViewHelper {
                 case R.id.rate_item_content:
                     mPopView.dismiss();
                     if (iPopViewListener != null) {
-                        iPopViewListener.toRate(position);
+                        iPopViewListener.changeRate(position);
                     }
                     break;
             }

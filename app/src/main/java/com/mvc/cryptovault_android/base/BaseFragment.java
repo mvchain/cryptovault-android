@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.mvc.cryptovault_android.common.Constant;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -23,6 +26,8 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(getLayoutId(), container, false);
+            initView();
+            initData();
         }
         return rootView;
     }
@@ -30,8 +35,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
-        initData();
     }
 
 
@@ -67,10 +70,10 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroy();
     }
     protected String getToken() {
-        return SPUtils.getInstance().getString("token");
+        return SPUtils.getInstance().getString(TOKEN);
     }
 
     protected String getDefalutRate() {
-        return SPUtils.getInstance().getString("rate_mod");
+        return SPUtils.getInstance().getString(Constant.SP.SET_RATE);
     }
 }

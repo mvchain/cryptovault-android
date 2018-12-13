@@ -47,7 +47,6 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
         pairType = arguments.getInt("pairType");
         mSwipeTc.setOnRefreshListener(this::refresh);
         mSwipeTc.post(() -> mSwipeTc.setRefreshing(true));
-        mSwipeTc.setRefreshing(true);
     }
 
     @Override
@@ -72,14 +71,14 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
 
     @Override
     public void showSuccess(List<TrandChildBean.DataBean> msgs) {
-        mSwipeTc.setRefreshing(false);
+        mSwipeTc.post(() -> mSwipeTc.setRefreshing(false));
         data.addAll(msgs);
         childAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showNull() {
-        mSwipeTc.setRefreshing(false);
+        mSwipeTc.post(() -> mSwipeTc.setRefreshing(false));
     }
 
     public void refresh() {

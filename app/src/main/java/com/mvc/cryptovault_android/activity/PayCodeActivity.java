@@ -6,7 +6,7 @@ import com.mvc.cryptovault_android.base.BaseActivity;
 public class PayCodeActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_paycode;
+        return R.layout.layout_paycode;
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.bean.TogeBean;
 import com.mvc.cryptovault_android.bean.TogeHisBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
+import com.mvc.cryptovault_android.bean.TrandPurhBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
 import com.mvc.cryptovault_android.common.HttpUrl;
@@ -110,11 +111,26 @@ public interface ApiStore {
     @POST("/project/{id}/purchase")
     Observable<UpdateBean> sendReservationRequest(@Header("Authorization") String token, @Body RequestBody body, @Path("id") int id);
 
-    @GET("/transaction")
+    @GET(HttpUrl.GET_RECORDING)
     Observable<RecorBean> getRecording(@Header("Authorization") String token,
                                        @Query("id") int id,
                                        @Query("pageSize") int pageSize,
                                        @Query("pairId") int pairId,
                                        @Query("transactionType") int transactionType,
                                        @Query("type") int type);
+
+    /**
+     * 发布挂单
+     *
+     * @param token
+     * @return
+     */
+    @POST(HttpUrl.GET_RECORDING)
+    Observable<UpdateBean> releaseOrder(@Header("Authorization") String token,
+                                       @Body RequestBody body);
+
+    @GET(HttpUrl.GET_TRANSACTIONINFO)
+    Observable<TrandPurhBean> getTransactionInfo(@Header("Authorization") String token,
+                                                 @Query("pairId") int pairId,
+                                                 @Query("transactionType") int transactionType);
 }

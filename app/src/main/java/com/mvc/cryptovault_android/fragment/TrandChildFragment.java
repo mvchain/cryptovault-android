@@ -45,7 +45,7 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
             switch (view.getId()) {
                 case R.id.trand_layout:
                     Intent intent = new Intent(activity, TrandRecordingActivity.class);
-                    intent.putExtra("pairId", data.get(position).getTokenId());
+                    intent.putExtra("data", data.get(position));
                     startActivity(intent);
                     break;
             }

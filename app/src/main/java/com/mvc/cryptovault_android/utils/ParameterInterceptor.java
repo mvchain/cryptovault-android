@@ -59,26 +59,6 @@ public class ParameterInterceptor implements Interceptor {
     }
 
     /**
-     * 根据Response,判断Token是否失效
-     *
-     * @param response
-     * @return
-     */
-    private boolean isTokenExpired(Response response) {
-        if (response.code() == 403) {
-            return true;
-        } else if (response.code() == 401) {
-            SPUtils.getInstance().remove(REFRESH_TOKEN);
-            SPUtils.getInstance().remove(TOKEN);
-            Intent intent = new Intent();
-            intent.setAction("android.login");
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            Utils.getApp().startActivity(intent);
-        }
-        return false;
-    }
-
-    /**
      * 同步请求方式,获取最新的Token
      *
      * @return

@@ -186,7 +186,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 }
                 mPopView = PopViewHelper.getInstance()
                         .create(this
-                                , R.layout.activity_paycode
+                                , R.layout.layout_paycode
                                 , "确认预约"
                                 , "总计需支付"
                                 , mPriceM.getText().toString() + dataBean.getBaseTokenName()

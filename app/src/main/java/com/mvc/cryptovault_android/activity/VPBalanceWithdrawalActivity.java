@@ -138,7 +138,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
                 }
                 mPopView = PopViewHelper.getInstance()
                         .create(this
-                                , R.layout.activity_paycode
+                                , R.layout.layout_paycode
                                 , "确认取出"
                                 , "取出金额"
                                 , vpEditPrice + " 余额"

@@ -10,5 +10,6 @@ public class Constant {
         public static final String CURRENCY_LIST = "currency_list";
         public static final String REFRESH_TOKEN = "refreshToken";
         public static final String TOKEN = "token";
+        public static final String RECORDING_UNIT = "recording_unit";
     }
 }

@@ -1,8 +1,11 @@
 package com.mvc.cryptovault_android.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class TrandChildBean {
+public class TrandChildBean implements Parcelable{
 
     /**
      * code : 200
@@ -13,6 +16,24 @@ public class TrandChildBean {
     private int code;
     private String message;
     private List<DataBean> data;
+
+    protected TrandChildBean(Parcel in) {
+        code = in.readInt();
+        message = in.readString();
+        data = in.createTypedArrayList(DataBean.CREATOR);
+    }
+
+    public static final Creator<TrandChildBean> CREATOR = new Creator<TrandChildBean>() {
+        @Override
+        public TrandChildBean createFromParcel(Parcel in) {
+            return new TrandChildBean(in);
+        }
+
+        @Override
+        public TrandChildBean[] newArray(int size) {
+            return new TrandChildBean[size];
+        }
+    };
 
     public int getCode() {
         return code;
@@ -38,7 +59,19 @@ public class TrandChildBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(code);
+        dest.writeString(message);
+        dest.writeTypedList(data);
+    }
+
+    public static class DataBean implements Parcelable {
         /**
          * increase : 650
          * pair : VRT/USDT
@@ -58,6 +91,29 @@ public class TrandChildBean {
         private String tokenImage;
         private String tokenName;
         private int transactionStatus;
+
+        protected DataBean(Parcel in) {
+            increase = in.readDouble();
+            pair = in.readString();
+            pairId = in.readInt();
+            ratio = in.readDouble();
+            tokenId = in.readInt();
+            tokenImage = in.readString();
+            tokenName = in.readString();
+            transactionStatus = in.readInt();
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
 
         public double getIncrease() {
             return increase;
@@ -121,6 +177,23 @@ public class TrandChildBean {
 
         public void setTransactionStatus(int transactionStatus) {
             this.transactionStatus = transactionStatus;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeDouble(increase);
+            dest.writeString(pair);
+            dest.writeInt(pairId);
+            dest.writeDouble(ratio);
+            dest.writeInt(tokenId);
+            dest.writeString(tokenImage);
+            dest.writeString(tokenName);
+            dest.writeInt(transactionStatus);
         }
     }
 }

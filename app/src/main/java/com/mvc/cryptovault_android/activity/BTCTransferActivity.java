@@ -162,7 +162,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
 //                startActivity(PayCodeActivity.class);
                 mPopView = PopViewHelper.getInstance()
                         .create(this
-                                , R.layout.activity_paycode
+                                , R.layout.layout_paycode
                                 , "确认转账"
                                 , "转账金额"
                                 , priceBtc + mTransBean.getFeeTokenName()

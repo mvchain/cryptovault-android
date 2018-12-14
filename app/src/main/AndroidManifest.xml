@@ -44,6 +44,7 @@
         <activity android:name=".activity.VPBalanceWithdrawalActivity" />
         <activity android:name=".activity.CrowdfundingAppointmentActivity" />
         <activity android:name=".activity.TrandRecordingActivity" />
+        <activity android:name=".activity.TrandPurhAndSellActivity" android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

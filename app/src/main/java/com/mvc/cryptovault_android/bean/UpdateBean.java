@@ -9,7 +9,7 @@ public class UpdateBean {
      */
 
     private int code;
-    private boolean data;
+    private Boolean data;
     private String message;
 
     public int getCode() {
@@ -20,11 +20,11 @@ public class UpdateBean {
         this.code = code;
     }
 
-    public boolean isData() {
+    public Boolean isData() {
         return data;
     }
 
-    public void setData(boolean data) {
+    public void setData(Boolean data) {
         this.data = data;
     }
 

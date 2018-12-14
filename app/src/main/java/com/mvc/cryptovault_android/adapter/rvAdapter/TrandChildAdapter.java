@@ -33,8 +33,8 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
             increase.setBackground(mContext.getDrawable(R.drawable.shape_aoi_orangey_5dp));
         }
         increase.setText(TextUtils.doubleToDouble(incre) + "%");
-        helper.setText(R.id.trand_child_ratio, item.getRatio() + " " + item.getTokenName());
-        helper.setText(R.id.trand_child_pair, item.getRatio() + " 需要换算");
+        helper.setText(R.id.trand_child_ratio, TextUtils.doubleToFour(item.getRatio()) + " " + item.getTokenName());
+        helper.setText(R.id.trand_child_pair, TextUtils.rateToPrice(item.getRatio()));
         Glide.with(mContext).load(item.getTokenImage()).into(icon);
         helper.addOnClickListener(R.id.trand_layout);
     }

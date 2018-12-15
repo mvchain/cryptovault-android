@@ -17,6 +17,7 @@ import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.bean.TogeBean;
 import com.mvc.cryptovault_android.bean.TogeHisBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
+import com.mvc.cryptovault_android.bean.TrandOrderBean;
 import com.mvc.cryptovault_android.bean.TrandPurhBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
@@ -133,4 +134,13 @@ public interface ApiStore {
     Observable<TrandPurhBean> getTransactionInfo(@Header("Authorization") String token,
                                                  @Query("pairId") int pairId,
                                                  @Query("transactionType") int transactionType);
+    @GET(HttpUrl.GET_TPARTAKE)
+    Observable<TrandOrderBean> getTpartake(@Header("Authorization") String token,
+                                           @Query("id") int id,
+                                           @Query("pageSize") int pageSize,
+                                           @Query("pairId") String pairId,
+                                           @Query("status") int status,
+                                           @Query("transactionType") String transactionType,
+                                           @Query("type") int type);
+
 }

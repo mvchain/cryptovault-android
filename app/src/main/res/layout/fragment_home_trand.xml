@@ -16,10 +16,10 @@
         android:layout_height="?attr/actionBarSize">
 
         <android.support.design.widget.TabLayout
-            android:background="@color/white"
             android:id="@+id/trand_table"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             app:tabGravity="center" />
 
         <ImageView
@@ -28,6 +28,7 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentRight="true"
             android:padding="10dp"
+            android:scaleType="center"
             android:src="@drawable/list_icon_black" />
     </RelativeLayout>
 

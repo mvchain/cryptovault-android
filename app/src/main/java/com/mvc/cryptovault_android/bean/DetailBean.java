@@ -57,7 +57,7 @@ public class DetailBean {
         private double fee;
         private String feeTokenType;
         private String fromAddress;
-        private String hash;
+        private String blockHash;
         private String hashLink;
         private int status;
         private String toAddress;
@@ -106,11 +106,11 @@ public class DetailBean {
         }
 
         public String getHash() {
-            return hash;
+            return blockHash;
         }
 
-        public void setHash(String hash) {
-            this.hash = hash;
+        public void setHash(String blockHash) {
+            this.blockHash = blockHash;
         }
 
         public String getHashLink() {

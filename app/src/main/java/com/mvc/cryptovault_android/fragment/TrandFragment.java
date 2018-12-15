@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.TrandOrderActivity;
 import com.mvc.cryptovault_android.adapter.TrandPagerAdapter;
 import com.mvc.cryptovault_android.base.BaseFragment;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
@@ -55,8 +57,8 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.trand_histroy:
-//                Intent intent = new Intent(activity, HistroyActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(activity, TrandOrderActivity.class);
+                startActivity(intent);
                 break;
         }
     }

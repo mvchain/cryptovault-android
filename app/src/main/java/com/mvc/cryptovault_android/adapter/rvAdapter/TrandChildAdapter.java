@@ -26,6 +26,7 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
     protected void convert(BaseViewHolder helper, TrandChildBean.DataBean item) {
         ImageView icon = helper.getView(R.id.trand_child_icon);
         TextView increase = helper.getView(R.id.trand_child_increase);
+
         double incre = item.getIncrease();
         if (incre < 0) {
             increase.setBackground(mContext.getDrawable(R.drawable.shape_aoi_ching_5dp));
@@ -33,7 +34,8 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
             increase.setBackground(mContext.getDrawable(R.drawable.shape_aoi_orangey_5dp));
         }
         increase.setText(TextUtils.doubleToDouble(incre) + "%");
-        helper.setText(R.id.trand_child_ratio, TextUtils.doubleToFour(item.getRatio()) + " " + item.getTokenName());
+        helper.setText(R.id.trand_child_ratio, TextUtils.doubleToFour(item.getRatio()) + " " + item.getPair().substring(0, item.getPair().indexOf("/")));
+        helper.setText(R.id.trand_child_title, item.getTokenName());
         helper.setText(R.id.trand_child_pair, TextUtils.rateToPrice(item.getRatio()));
         Glide.with(mContext).load(item.getTokenImage()).into(icon);
         helper.addOnClickListener(R.id.trand_layout);

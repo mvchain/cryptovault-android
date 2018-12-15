@@ -84,6 +84,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         data = getIntent().getParcelableExtra("data");
         mTitleTrand.setText(getIntent().getStringExtra("title"));
         type = getIntent().getIntExtra("type", 0);
+        mEditPurh.setHint("输入" + (type == 1 ? "购买" : "出售") + "数量");
         RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(trandPurhBean -> {
@@ -183,7 +184,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         mHistroyTrand.setOnClickListener(this);
         mSubmitPurh.setOnClickListener(this);
         dialogHelper = DialogHelper.getInstance();
-        mHintError = (TextView) findViewById(R.id.error_hint);
+        mHintError = findViewById(R.id.error_hint);
     }
 
     @Override
@@ -284,7 +285,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 mHintError.setText(updateBean.getMessage());
             }
             new Handler().postDelayed(() -> {
-                mHintError.setVisibility(View.VISIBLE);
+                mHintError.setVisibility(View.INVISIBLE);
                 mPurhDialog.dismiss();
             }, 1000);
         }, throwable -> {
@@ -316,7 +317,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 mHintError.setText(updateBean.getMessage());
             }
             new Handler().postDelayed(() -> {
-                mHintError.setVisibility(View.VISIBLE);
+                mHintError.setVisibility(View.INVISIBLE);
                 mPurhDialog.dismiss();
             }, 1000);
         }, throwable -> {

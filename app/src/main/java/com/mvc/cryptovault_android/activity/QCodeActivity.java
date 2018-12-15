@@ -90,6 +90,7 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.qcode_back:
                 // TODO 18/12/07
+                finish();
                 break;
             case R.id.qcode_photo:
                 // TODO 18/12/07
@@ -142,7 +143,7 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
                     ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                     Intent intent = new Intent();
                     intent.putExtra(CodeUtils.RESULT_STRING, images.get(0).path);
-                    setResult(200,intent);
+                    setResult(200, intent);
                 } else {
                     Toast.makeText(this, "图片不正确，请重新选择", Toast.LENGTH_SHORT).show();
                 }

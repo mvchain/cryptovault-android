@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,7 +34,6 @@ import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.utils.ViewDrawUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
-import com.mvc.cryptovault_android.view.PopViewHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -46,7 +44,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.ALLASSETS;
-import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
 public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener, IPopViewListener {
@@ -120,21 +117,20 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         mOutHis.setOnClickListener(this);
         mInHis.setOnClickListener(this);
         initIntent();
-        initPop();
     }
 
-    private void initPop() {
-        String rate_default = SPUtils.getInstance().getString(RATE_LIST);
-        ArrayList<String> content = new ArrayList<>();
-        if (rate_default != null && !rate_default.equals("")) {
-            ExchangeRateBean rateBean = (ExchangeRateBean) JsonHelper.stringToJson(rate_default, ExchangeRateBean.class);
-            for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {
-                content.add(dataBean.getName());
-                mExchange.add(dataBean);
-            }
-            mPopView = PopViewHelper.getInstance().create(this, R.layout.layout_rate_pop, content, this);
-        }
-    }
+//    private void initPop() {
+//        String rate_default = SPUtils.getInstance().getString(RATE_LIST);
+//        ArrayList<String> content = new ArrayList<>();
+//        if (rate_default != null && !rate_default.equals("")) {
+//            ExchangeRateBean rateBean = (ExchangeRateBean) JsonHelper.stringToJson(rate_default, ExchangeRateBean.class);
+//            for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {
+//                content.add(dataBean.getName());
+//                mExchange.add(dataBean);
+//            }
+//            mPopView = PopViewHelper.getInstance().create(this, R.layout.layout_rate_pop, content, this);
+//        }
+//    }
 
     @SuppressLint("SetTextI18n")
     private void initIntent() {
@@ -228,8 +224,8 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_type:
                 // TODO 18/11/29
-                mPopView.showAsDropDown(mTypeHis, -50, -10, Gravity.CENTER);
-                ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.down_icon), mTypeHis);
+//                mPopView.showAsDropDown(mTypeHis, -50, -10, Gravity.CENTER);
+//                ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.down_icon), mTypeHis);
                 break;
             case R.id.his_sub:
                 // TODO 18/11/29

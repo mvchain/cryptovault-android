@@ -44,8 +44,8 @@ public class PopViewHelper {
         adapter.setOnItemChildClickListener((adapter1, view, position) -> {
             switch (view.getId()) {
                 case R.id.rate_item_content:
-                    mPopView.dismiss();
                     if (iPopViewListener != null) {
+                        mPopView.dismiss();
                         iPopViewListener.changeRate(position);
                     }
                     break;

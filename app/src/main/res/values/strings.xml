@@ -14,5 +14,7 @@
     <string name="his_title_znb">ZNB</string>
     <string name="toge_com">立即预约</string>
     <string name="toge_end">已结束</string>
+    <string name="trand_withdrawal">撤单</string>
+    <string name="trand_over">已成交</string>
     <string name="select_photo">从相册选择</string>
 </resources>

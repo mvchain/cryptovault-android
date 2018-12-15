@@ -15,36 +15,79 @@
         android:icon="@mipmap/vp_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/vp_logo"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.StartActivity">
+        <activity
+            android:name=".activity.StartActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.login" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".activity.DetailActivity" />
-        <activity android:name=".activity.MsgActivity" />
-        <activity android:name=".activity.HistroyActivity" />
-        <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".activity.IncreaseCurrencyActivity" />
-        <activity android:name=".activity.QCodeActivity" />
-        <activity android:name=".activity.TogeHistroyActivity" />
-        <activity android:name=".activity.MineReceiptQRCodeActivity" />
-        <activity android:name=".activity.BTCTransferActivity" />
-        <activity android:name=".activity.PayCodeActivity" />
-        <activity android:name=".activity.VPBalanceWithdrawalActivity" />
-        <activity android:name=".activity.CrowdfundingAppointmentActivity" />
-        <activity android:name=".activity.TrandRecordingActivity" />
-        <activity android:name=".activity.TrandPurhAndSellActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MsgActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HistroyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.IncreaseCurrencyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.QCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TogeHistroyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MineReceiptQRCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BTCTransferActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PayCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.VPBalanceWithdrawalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CrowdfundingAppointmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TrandRecordingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TrandPurhAndSellActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.TrandPurhAndSellItemActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.TrandOrderActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

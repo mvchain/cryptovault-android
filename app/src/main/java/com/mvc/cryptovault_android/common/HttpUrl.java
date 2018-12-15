@@ -1,7 +1,7 @@
 package com.mvc.cryptovault_android.common;
 
 public class HttpUrl {
-//    public static final String BASE_URL = "http://192.168.15.31:10086/";
+    //    public static final String BASE_URL = "http://192.168.15.31:10086/";
     public static final String BASE_URL = "http://47.110.234.233:10086/";
 
     /**
@@ -78,7 +78,6 @@ public class HttpUrl {
     public static final String GET_DEBIT = "/asset/debit";
 
 
-
     /**
      * 获取参与的众筹项目列表
      */
@@ -93,5 +92,10 @@ public class HttpUrl {
      * 挂单信息获取transactionType:1购买 2出售
      */
     public static final String GET_TRANSACTIONINFO = "/transaction/info";
+    /**
+     * 筛选已参与订单
+     */
+    public static final String GET_TPARTAKE = "/transaction/partake";
+
 
 }

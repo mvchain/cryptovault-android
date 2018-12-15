@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.adapter.rvAdapter;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -11,6 +12,8 @@ import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.utils.TextUtils;
 
 import java.util.List;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_UNIT;
 
 public class RecorAdapter extends BaseQuickAdapter<RecorBean.DataBean, BaseViewHolder> {
     public RecorAdapter(int layoutResId, @Nullable List<RecorBean.DataBean> data) {
@@ -22,7 +25,8 @@ public class RecorAdapter extends BaseQuickAdapter<RecorBean.DataBean, BaseViewH
         ImageView recIcon = helper.getView(R.id.recor_icon);
         helper.setText(R.id.recor_nickname, item.getNickname());
         helper.setText(R.id.recor_max, "购买限额：" + item.getLimitValue());
-        helper.setText(R.id.recor_price, TextUtils.doubleToFour(item.getTotal() * item.getPrice()));
+        helper.setText(R.id.recor_price, TextUtils.doubleToFour(item.getTotal() * item.getPrice()) + " " + SPUtils.getInstance().getString(RECORDING_UNIT));
         Glide.with(mContext).load(item.getHeadImage()).into(recIcon);
+        helper.addOnClickListener(R.id.recording_layout);
     }
 }

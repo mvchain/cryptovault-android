@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.TrandPurhAndSellItemActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.RecorAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
@@ -38,6 +41,21 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
         mRvChild.setLayoutManager(new LinearLayoutManager(activity));
         mRecorAdapter = new RecorAdapter(R.layout.item_recording_rv, bean);
         mRvChild.setAdapter(mRecorAdapter);
+        mRecorAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()){
+                    case R.id.recording_layout:
+                        // TODO 18/12/13
+                        Intent intent = new Intent(activity,TrandPurhAndSellItemActivity.class);
+//                        intent.putExtra("title", "购买" + data.getTokenName());
+//                        intent.putExtra("data", data);
+                        intent.putExtra("type", 1);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
         initArgument();
     }
 

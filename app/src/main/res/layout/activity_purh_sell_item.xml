@@ -49,13 +49,161 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="5dp">
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/vp_title_layout"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/shape_round_white_12dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="27dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="27dp">
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/price_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="USDT余额"
+                            android:textColor="@color/btc_gray"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="1234568.2154"
+                            android:textColor="@color/login_content"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="32dp"
+                        android:background="@color/btc_gray" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/vrt_hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="VRT"
+                            android:textColor="@color/btc_gray"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/vrt_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="0"
+                            android:textColor="@color/login_content"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/shape_round_white_12dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/price_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="出售价"
+                        android:textColor="@color/trand_gray"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/current_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="当前价格100 VRT"
+                        android:textColor="@color/trand_gray"
+                        android:textSize="13sp" />
+
+
+                    <TextView
+                        android:id="@+id/price_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/process_layout"
+                        android:layout_marginTop="24dp"
+                        android:text="出售价"
+                        android:textColor="@color/trand_gray"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/purh_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_below="@id/price_num"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/shape_round_gray_5dp"
+                        android:gravity="center_vertical"
+                        android:hint="输入出售数量"
+                        android:paddingLeft="12dp"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/all_price_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/purh_edit"
+                        android:layout_marginTop="24dp"
+                        android:text="总计需支付:"
+                        android:textColor="@color/trand_gray"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/purh_all_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/all_price_hint"
+                        android:layout_marginTop="8dp"
+                        android:text="USDT 0.00"
+                        android:textColor="@color/toge_gray"
+                        android:textSize="21dp" />
+                </RelativeLayout>
+            </LinearLayout>
             <TextView
                 android:id="@+id/error_hint"
                 android:layout_width="match_parent"
@@ -67,154 +215,7 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:visibility="invisible" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/vp_title_layout"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="-24dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/shape_round_white_12dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingTop="27dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="27dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/price_hint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="USDT余额"
-                        android:textColor="@color/btc_gray"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="1234568.2154"
-                        android:textColor="@color/login_content"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="32dp"
-                    android:background="@color/btc_gray" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/vrt_hint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="VRT"
-                        android:textColor="@color/btc_gray"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/vrt_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="0"
-                        android:textColor="@color/login_content"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/shape_round_white_12dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingTop="12dp"
-                android:paddingRight="14dp"
-                android:paddingBottom="12dp">
-
-                <TextView
-                    android:id="@+id/price_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="出售价"
-                    android:textColor="@color/trand_gray"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/current_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="当前价格100 VRT"
-                    android:textColor="@color/trand_gray"
-                    android:textSize="13sp" />
-
-
-                <TextView
-                    android:id="@+id/price_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/process_layout"
-                    android:layout_marginTop="24dp"
-                    android:text="出售价"
-                    android:textColor="@color/trand_gray"
-                    android:textSize="13sp" />
-
-                <EditText
-                    android:id="@+id/purh_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_below="@id/price_num"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/shape_round_gray_5dp"
-                    android:gravity="center_vertical"
-                    android:hint="输入出售数量"
-                    android:paddingLeft="12dp"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/all_price_hint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/purh_edit"
-                    android:layout_marginTop="24dp"
-                    android:text="总计需支付:"
-                    android:textColor="@color/trand_gray"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/purh_all_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/all_price_hint"
-                    android:layout_marginTop="8dp"
-                    android:text="USDT 0.00"
-                    android:textColor="@color/toge_gray"
-                    android:textSize="21dp" />
-            </RelativeLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
     <TextView

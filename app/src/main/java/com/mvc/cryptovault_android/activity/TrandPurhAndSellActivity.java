@@ -3,8 +3,8 @@ package com.mvc.cryptovault_android.activity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Handler;
 import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,11 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
+import com.mvc.cryptovault_android.bean.RecordingEvent;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.bean.TrandPurhBean;
 import com.mvc.cryptovault_android.listener.EditTextChange;
@@ -38,6 +38,7 @@ import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.PswText;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -196,6 +197,10 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.trand_histroy:
                 // TODO 18/12/14
+                Intent intent = new Intent(this, TrandOrderActivity.class);
+                intent.putExtra("pairId", data.getPairId() + "");
+                intent.putExtra("transactionType", type - 1 + "");
+                startActivity(intent);
                 break;
             case R.id.purh_submit:
                 // TODO 18/12/14
@@ -276,24 +281,21 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.success_icon, "发布成功");
                 mHintError.setVisibility(View.INVISIBLE);
+                EventBus.getDefault().post(new RecordingEvent());
+                dialogHelper.dismissDelayed(() -> finish());
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.INVISIBLE);
+                dialogHelper.dismissDelayed(null);
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
+                dialogHelper.dismissDelayed(null);
             }
-            new Handler().postDelayed(() -> {
-                mHintError.setVisibility(View.INVISIBLE);
-                mPurhDialog.dismiss();
-            }, 1000);
         }, throwable -> {
             dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
-            new Handler().postDelayed(() -> {
-                mPurhDialog.dismiss();
-            }, 1000);
-            LogUtils.e("TrandPurhAndSellActivit", throwable.getMessage());
+            dialogHelper.dismissDelayed(null);
         });
     }
 
@@ -308,23 +310,21 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.success_icon, "发布成功");
                 mHintError.setVisibility(View.INVISIBLE);
+                EventBus.getDefault().post(new RecordingEvent());
+                dialogHelper.dismissDelayed(() -> finish());
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.INVISIBLE);
+                dialogHelper.dismissDelayed(null);
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
+                dialogHelper.dismissDelayed(null);
             }
-            new Handler().postDelayed(() -> {
-                mHintError.setVisibility(View.INVISIBLE);
-                mPurhDialog.dismiss();
-            }, 1000);
         }, throwable -> {
             dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
-            new Handler().postDelayed(() -> {
-                mPurhDialog.dismiss();
-            }, 1000);
+            dialogHelper.dismissDelayed(null);
             //能获取到报错信息
 //            if(throwable instanceof HttpException){
 //                HttpException httpException= (HttpException) throwable;

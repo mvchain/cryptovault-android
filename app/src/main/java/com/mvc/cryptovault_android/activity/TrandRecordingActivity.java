@@ -102,6 +102,9 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.trand_histroy:
                 // TODO 18/12/13
+                intent.setClass(this, TrandOrderActivity.class);
+                intent.putExtra("pairId", data.getPairId() + "");
+                startActivity(intent);
                 break;
             case R.id.recording_in_radio:
                 // TODO 18/12/13
@@ -128,5 +131,13 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
                 startActivity(intent);
                 break;
         }
+    }
+
+    public void startPurhActivity() {
+        Intent intent = new Intent(this, TrandPurhAndSellItemActivity.class);
+        intent.putExtra("title", "购买" + data.getTokenName());
+        intent.putExtra("data", data);
+        intent.putExtra("type", 1);
+        startActivity(intent);
     }
 }

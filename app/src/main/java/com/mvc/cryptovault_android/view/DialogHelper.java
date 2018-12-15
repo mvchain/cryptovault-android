@@ -61,10 +61,25 @@ public class DialogHelper {
         mDialog.setContentView(dialogView);
     }
 
+    public void dismissDelayed(IDialogDialog dialogDialog) {
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dismiss();
+                if (dialogDialog != null) {
+                    dialogDialog.callback();
+                }
+            }
+        }, 1000);
+    }
+
     public void dismiss() {
         if (mDialog != null) {
             mDialog.dismiss();
         }
     }
 
+    public interface IDialogDialog {
+        void callback();
+    }
 }

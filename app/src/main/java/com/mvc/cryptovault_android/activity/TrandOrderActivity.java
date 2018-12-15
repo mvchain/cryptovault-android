@@ -25,6 +25,9 @@ public class TrandOrderActivity extends BaseActivity implements View.OnClickList
     private ViewPager mViewpagerM;
     private ArrayList<Fragment> mFragment;
     private TrandOrderViewPagerAdapter orderAdapter;
+    private String pairId = "";
+    private String transactionType = "";
+
 
     @Override
     protected int getLayoutId() {
@@ -38,10 +41,14 @@ public class TrandOrderActivity extends BaseActivity implements View.OnClickList
         Bundle processBundle = new Bundle();
         processFragment.setArguments(processBundle);
         processBundle.putInt("status", 0);
+        processBundle.putString("pairId", pairId);
+        processBundle.putString("transactionType", transactionType);
         mFragment.add(processFragment);
         TrandOrderFragment overFragment = new TrandOrderFragment();
         Bundle overBundle = new Bundle();
         overBundle.putInt("status", 1);
+        overBundle.putString("pairId", pairId);
+        overBundle.putString("transactionType", transactionType);
         overFragment.setArguments(overBundle);
         mFragment.add(overFragment);
         orderAdapter = new TrandOrderViewPagerAdapter(getSupportFragmentManager(), mFragment);

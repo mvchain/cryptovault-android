@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
+import android.text.InputFilter;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +17,30 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
+import com.mvc.cryptovault_android.bean.TrandChildBean;
+import com.mvc.cryptovault_android.bean.TrandPurhBean;
+import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.IPayWindowListener;
 import com.mvc.cryptovault_android.listener.PswMaxListener;
+import com.mvc.cryptovault_android.utils.PointLengthFilter;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
+import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.PswText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class TrandPurhAndSellItemActivity extends BaseActivity implements View.OnClickListener {
@@ -51,6 +64,9 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     private TextView mAllPricePurh;
     private TextView mSubmitPurh;
     private Dialog mPurhDialog;
+    private TrandChildBean.DataBean data;
+    private int type;
+    private double price;
 
     @Override
     protected int getLayoutId() {
@@ -60,7 +76,45 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     @SuppressLint({"CheckResult", "SetTextI18n"})
     @Override
     protected void initData() {
+        data = getIntent().getParcelableExtra("data");
+        mTitleTrand.setText(getIntent().getStringExtra("title"));
+        type = getIntent().getIntExtra("type", 0);
+        mEditPurh.setHint("输入" + (type == 1 ? "购买" : "出售") + "数量");
+        RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
+                .compose(RxHelper.rxSchedulerHelper())
+                .subscribe(trandPurhBean -> {
+                    if (trandPurhBean.getCode() == 200) {
+                        TrandPurhBean.DataBean data = trandPurhBean.getData();
+                        mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
+                        mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
+                        mHintPrice.setText(TrandPurhAndSellItemActivity.this.data.getTokenName() + "余额");
+                        price = data.getPrice();
+                        mPriceCurrent.setText(TextUtils.doubleToDouble(data.getPrice()) + "VRT");
+                        mAllPricePurh.setText("0.00 " + (type == 1 ? "VRT" : this.data.getTokenName()));
+                        mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
+                        mEditPurh.setFilters(new InputFilter[]{new PointLengthFilter()});
+                        mEditPurh.addTextChangedListener(new EditTextChange() {
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                String numText = s.toString();
+                                if (!numText.equals("")) {
+                                    Integer num = Integer.valueOf(numText);
+                                    if (num == 0) {
+                                        mAllPricePurh.setText((type == 1 ? "VRT" : TrandPurhAndSellItemActivity.this.data.getTokenName()) + " 0.00 ");
+                                    } else {
+                                        mAllPricePurh.setText((type == 1 ? "VRT" : TrandPurhAndSellItemActivity.this.data.getTokenName()) + " " + TextUtils.doubleToDouble(data.getPrice() * num));
+                                    }
+                                } else {
+                                    mAllPricePurh.setText((type == 1 ? "VRT" : TrandPurhAndSellItemActivity.this.data.getTokenName()) + " 0.00 ");
+                                }
+                            }
+                        });
+                    } else {
 
+                    }
+                }, throwable -> {
+                    LogUtils.e("TrandPurhAndSellItemAct", throwable.getMessage());
+                });
     }
 
     @Override
@@ -100,68 +154,68 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 break;
             case R.id.purh_submit:
                 // TODO 18/12/14
-//                String currentNum = mEditPurh.getText().toString();
-//                String currentAllPrice = mAllPricePurh.getText().toString();
-//                if (currentNum.equals("") || Integer.valueOf(currentNum) == 0) {
-//                    Toast.makeText(this, type == 1 ? "购买数量不正确" : "出售数量不正确", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                mPopView = createPopWindow(this, R.layout.layout_paycode
-//                        , type == 1 ? "确认购买" : "确认发布"
-//                        , type == 1 ? "总计需支付" : "需支付"
-//                        , currentAllPrice
-//                        , type == 1 ? "购买数量" : "出售数量"
-//                        , currentNum + (type == 1 ? "VRT" : data.getTokenName())
-//                        , type == 1 ? "购买价格" : "出售价格"
-//                        , currentAllPrice
-//                        , new IPayWindowListener() {
-//                            @Override
-//                            public void onclick(View view) {
-//                                switch (view.getId()) {
-//                                    case R.id.pay_close:
-//                                        mPopView.dismiss();
-//                                        Toast.makeText(TrandPurhAndSellItemActivity.this, "取消交易", Toast.LENGTH_SHORT).show();
-//                                        break;
-//                                    case R.id.pay_text:
-//                                        KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
-//                                        setAlpha(0.5f);
-//                                        break;
-//                                    case R.id.pay_forget:
-//                                        break;
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void dismiss() {
-//                                setAlpha(1f);
-//                            }
-//                        }, num -> {
-//                            mPurhDialog = dialogHelper.create(TrandPurhAndSellItemActivity.this, R.drawable.pending_icon, "正在发布");
-//                            mPurhDialog.show();
-//                            mPopView.dismiss();
-//                            JSONObject object = new JSONObject();
-//                            try {
-//                                object.put("id", 0);
-//                                object.put("pairId", data.getPairId());
-//                                object.put("password", num);
-//                                object.put("price", mPricePurh.getText().toString().replace("VRT", ""));
-//                                object.put("transactionType", type);
-//                                object.put("value", currentNum);
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                            RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
-//                            if (type == 1) {
-//                                releasePurh(body);
-//                            } else {
-//                                releaseSell(body);
-//                            }
-//                        });
-//                mPopView.showAtLocation(mSubmitPurh, Gravity.BOTTOM, 0, 0);
-//                mPopView.getContentView().post(() ->
-//                        KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text))
-//                );
-//                setAlpha(0.5f);
+                String currentNum = mEditPurh.getText().toString();
+                String currentAllPrice = mAllPricePurh.getText().toString();
+                if (currentNum.equals("") || Integer.valueOf(currentNum) == 0) {
+                    Toast.makeText(this, type == 1 ? "购买数量不正确" : "出售数量不正确", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                mPopView = createPopWindow(this, R.layout.layout_paycode
+                        , type == 1 ? "确认购买" : "确认发布"
+                        , type == 1 ? "总计需支付" : "需支付"
+                        , currentAllPrice
+                        , type == 1 ? "购买数量" : "出售数量"
+                        , currentNum + (type == 1 ? "VRT" : data.getTokenName())
+                        , type == 1 ? "购买价格" : "出售价格"
+                        , currentAllPrice
+                        , new IPayWindowListener() {
+                            @Override
+                            public void onclick(View view) {
+                                switch (view.getId()) {
+                                    case R.id.pay_close:
+                                        mPopView.dismiss();
+                                        Toast.makeText(TrandPurhAndSellItemActivity.this, "取消交易", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case R.id.pay_text:
+                                        KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
+                                        setAlpha(0.5f);
+                                        break;
+                                    case R.id.pay_forget:
+                                        break;
+                                }
+                            }
+
+                            @Override
+                            public void dismiss() {
+                                setAlpha(1f);
+                            }
+                        }, num -> {
+                            mPurhDialog = dialogHelper.create(TrandPurhAndSellItemActivity.this, R.drawable.pending_icon, "正在发布");
+                            mPurhDialog.show();
+                            mPopView.dismiss();
+                            JSONObject object = new JSONObject();
+                            try {
+                                object.put("id", 0);
+                                object.put("pairId", data.getPairId());
+                                object.put("password", num);
+                                object.put("price", price);
+                                object.put("transactionType", type);
+                                object.put("value", currentNum);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
+                            if (type == 1) {
+                                releasePurh(body);
+                            } else {
+                                releaseSell(body);
+                            }
+                        });
+                mPopView.showAtLocation(mSubmitPurh, Gravity.BOTTOM, 0, 0);
+                mPopView.getContentView().post(() ->
+                        KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text))
+                );
+                setAlpha(0.5f);
                 break;
         }
     }
@@ -186,7 +240,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 mHintError.setText(updateBean.getMessage());
             }
             new Handler().postDelayed(() -> {
-                mHintError.setVisibility(View.VISIBLE);
+                mHintError.setVisibility(View.INVISIBLE);
                 mPurhDialog.dismiss();
             }, 1000);
         }, throwable -> {
@@ -218,7 +272,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 mHintError.setText(updateBean.getMessage());
             }
             new Handler().postDelayed(() -> {
-                mHintError.setVisibility(View.VISIBLE);
+                mHintError.setVisibility(View.INVISIBLE);
                 mPurhDialog.dismiss();
             }, 1000);
         }, throwable -> {

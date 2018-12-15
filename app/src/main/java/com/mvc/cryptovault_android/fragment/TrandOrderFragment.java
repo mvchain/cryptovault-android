@@ -1,7 +1,10 @@
 package com.mvc.cryptovault_android.fragment;
 
 import android.app.Dialog;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,8 +17,8 @@ import com.mvc.cryptovault_android.bean.TrandOrderBean;
 import com.mvc.cryptovault_android.contract.ITrandOrderContract;
 import com.mvc.cryptovault_android.event.TrandOrderEvent;
 import com.mvc.cryptovault_android.presenter.OrderPresenter;
-import com.mvc.cryptovault_android.view.DialogHelper;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -29,39 +32,54 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
     private ImageView mNullOrder;
     private SwipeRefreshLayout mSwipOrder;
     private Dialog mHintDialog;
+    private String pairId;
+    private String transactionType;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 
     @Override
     protected void initView() {
         dataBeans = new ArrayList<>();
         status = getArguments().getInt("status");
+        pairId = getArguments().getString("pairId");
+        transactionType = getArguments().getString("transactionType");
         mRvOrder = rootView.findViewById(R.id.order_rv);
         mNullOrder = rootView.findViewById(R.id.order_null);
         mSwipOrder = rootView.findViewById(R.id.order_swip);
         orderAdapter = new TrandOrderAdapter(R.layout.item_trand_order, dataBeans);
         mRvOrder.setAdapter(orderAdapter);
-        orderAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            switch (view.getId()){
-                case R.id.order_item_submit:
-                    mHintDialog = DialogHelper.getInstance().create(activity, "确认撤除 USDT/VRT的挂单?", viewId -> {
-                        switch (viewId) {
-                            case R.id.hint_cancle:
-                                mHintDialog.dismiss();
-                                break;
-                            case R.id.hint_enter:
-                                mHintDialog.dismiss();
-
-                                break;
-                        }
-                    });
-                    mHintDialog.show();
-                    break;
-            }
-        });
         mSwipOrder.setOnRefreshListener(() -> {
             dataBeans.clear();
-            mPresenter.getTrandOrder(getToken(), 0, 10, "", status, "", 0);
+            mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
         });
         mSwipOrder.post(() -> mSwipOrder.setRefreshing(true));
+        initRecyclerLoadmore();
+    }
+
+    private void initRecyclerLoadmore() {
+        mRvOrder.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+            }
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager.getItemCount() > 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
+                    mPresenter.getTrandOrder(getToken(), dataBeans.get(dataBeans.size() - 1).getId(), 10, pairId, status, transactionType, 0);
+                }
+            }
+        });
     }
 
     @Override
@@ -77,16 +95,17 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
         mRvOrder.setVisibility(View.VISIBLE);
         orderAdapter.notifyDataSetChanged();
     }
+
     @Subscribe
     public void refresh(TrandOrderEvent orderEvent) {
         dataBeans.clear();
-        mPresenter.getTrandOrder(getToken(), 0, 10, "", status, "", 0);
+        mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
     }
 
     @Override
     protected void initData() {
         super.initData();
-        mPresenter.getTrandOrder(getToken(), 0, 10, "", status, "", 0);
+        mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
     }
 
     @Override
@@ -100,4 +119,5 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
     public BasePresenter initPresenter() {
         return OrderPresenter.newIntance();
     }
+
 }

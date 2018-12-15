@@ -1,22 +1,25 @@
 package com.mvc.cryptovault_android.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.activity.TrandPurhAndSellItemActivity;
+import com.mvc.cryptovault_android.activity.TrandRecordingActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.RecorAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.RecorBean;
+import com.mvc.cryptovault_android.bean.RecordingEvent;
 import com.mvc.cryptovault_android.contract.RecordingContract;
 import com.mvc.cryptovault_android.presenter.RecordingPresenter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,18 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
     private int pairId;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Override
     protected void initView() {
         bean = new ArrayList<>();
         mRvChild = rootView.findViewById(R.id.child_rv);
@@ -41,22 +56,21 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
         mRvChild.setLayoutManager(new LinearLayoutManager(activity));
         mRecorAdapter = new RecorAdapter(R.layout.item_recording_rv, bean);
         mRvChild.setAdapter(mRecorAdapter);
-        mRecorAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()){
-                    case R.id.recording_layout:
-                        // TODO 18/12/13
-                        Intent intent = new Intent(activity,TrandPurhAndSellItemActivity.class);
-//                        intent.putExtra("title", "购买" + data.getTokenName());
-//                        intent.putExtra("data", data);
-                        intent.putExtra("type", 1);
-                        startActivity(intent);
-                        break;
-                }
+        mRecorAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.recording_layout:
+                    // TODO 18/12/13
+                    ((TrandRecordingActivity) activity).startPurhActivity();
+                    break;
             }
         });
         initArgument();
+    }
+
+    @Subscribe
+    public void eventRefresh(RecordingEvent recordingEvent) {
+        bean.clear();
+        mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
     }
 
     private void initArgument() {
@@ -73,7 +87,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
     @Override
     protected void initData() {
         super.initData();
-        mPresenter.getRecorList(getToken(),0,10,pairId,transType,0);
+        mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
     }
 
     @Override
@@ -93,16 +107,17 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
     @Override
     public void showNull() {
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
-        if(bean.size()>0){
+        if (bean.size() > 0) {
             mRvChild.setVisibility(View.VISIBLE);
             mNullData.setVisibility(View.GONE);
-        }else{
+        } else {
             mRvChild.setVisibility(View.GONE);
             mNullData.setVisibility(View.VISIBLE);
         }
     }
-    private void refresh(){
+
+    private void refresh() {
         bean.clear();
-        mPresenter.getRecorList(getToken(),0,10,pairId,transType,0);
+        mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
     }
 }

@@ -147,15 +147,19 @@ public interface ApiStore {
                                            @Query("status") int status,
                                            @Query("transactionType") String transactionType,
                                            @Query("type") int type);
+
     /**
-     *取消挂单
+     * 取消挂单
      *
      * @param token
      * @return
      */
-    @DELETE(HttpUrl.GET_RECORDING+"/{id}")
+    @DELETE(HttpUrl.GET_RECORDING + "/{id}")
     Observable<UpdateBean> cancleOrder(@Header("Authorization") String token,
-                                        @Path("id") int id);
+                                       @Path("id") int id);
 
+    @GET(HttpUrl.GET_KLINE)
+    Observable<UpdateBean> getKLine(@Header("Authorization") String token,
+                                    @Query("pairId") int pairId);
 
 }

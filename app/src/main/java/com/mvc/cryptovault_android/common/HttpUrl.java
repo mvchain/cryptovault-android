@@ -96,6 +96,10 @@ public class HttpUrl {
      * 筛选已参与订单
      */
     public static final String GET_TPARTAKE = "/transaction/partake";
+    /**
+     * 获取7日K线图
+     */
+    public static final String GET_KLINE = "/transaction/pair/kline";
 
 
 }

@@ -115,10 +115,10 @@
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <View
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/recording_chart"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="@color/red" />
+        android:layout_height="180dp" />
 
     <RadioGroup
         android:layout_width="match_parent"

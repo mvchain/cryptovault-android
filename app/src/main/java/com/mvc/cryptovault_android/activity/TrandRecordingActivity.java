@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,16 +10,27 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.TrandRecorAdapter;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
+import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.fragment.RecordingFragment;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
+import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 
 import java.util.ArrayList;
+
+import io.reactivex.functions.Consumer;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_UNIT;
 
@@ -37,6 +49,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
     private NoScrollViewPager mVpRecording;
     private TextView mPurhSubmitRecording;
     private TextView mSellSubmitRecording;
+    private LineChart mChartRecording;
     private TrandRecorAdapter recorAdapter;
 
     @Override
@@ -66,6 +79,29 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mOutRadioRecording.setText("出售" + data.getTokenName());
         String subTitle = data.getPair().substring(0, data.getPair().indexOf("/"));
         SPUtils.getInstance().put(RECORDING_UNIT, subTitle);
+        mChartRecording.setDragEnabled(false);
+        mChartRecording.setScaleEnabled(false);
+        mChartRecording.setDoubleTapToZoomEnabled(false);
+        initLineChartData();
+    }
+
+    @SuppressLint("CheckResult")
+    private void initLineChartData() {
+        RetrofitUtils.client(ApiStore.class).getKLine(getToken(), data.getPairId())
+                .compose(RxHelper.rxSchedulerHelper())
+                .subscribe(new Consumer<UpdateBean>() {
+                    @Override
+                    public void accept(UpdateBean updateBean) throws Exception {
+//                        initLineChart(updateBean);
+                    }
+                }, throwable -> {
+                    LogUtils.e("TrandRecordingActivity", throwable.getMessage());
+                });
+        LineDataSet dataSetByIndex = (LineDataSet) mChartRecording.getData().getDataSetByIndex(0);
+        ArrayList<Entry> values = new ArrayList<>();
+
+        LineData data = new LineData();
+
     }
 
     @Override
@@ -74,21 +110,22 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         data = getIntent().getParcelableExtra("data");
         mTitleTrand = findViewById(R.id.trand_title);
         mBackTrand = findViewById(R.id.trand_back);
-        mBackTrand.setOnClickListener(this);
         mHistroyTrand = findViewById(R.id.trand_histroy);
-        mHistroyTrand.setOnClickListener(this);
         mToolbarAbout = findViewById(R.id.about_toolbar);
         mCurrentTvRecording = findViewById(R.id.recording_current_tv);
         mDayMaxTvRecording = findViewById(R.id.recording_day_max_tv);
         mDayMinTvRecording = findViewById(R.id.recording_day_min_tv);
         mInRadioRecording = findViewById(R.id.recording_in_radio);
-        mInRadioRecording.setOnClickListener(this);
         mOutRadioRecording = findViewById(R.id.recording_out_radio);
-        mOutRadioRecording.setOnClickListener(this);
         mVpRecording = findViewById(R.id.recording_vp);
         mPurhSubmitRecording = findViewById(R.id.recording_purh_submit);
-        mPurhSubmitRecording.setOnClickListener(this);
         mSellSubmitRecording = findViewById(R.id.recording_sell_submit);
+        mChartRecording = findViewById(R.id.recording_chart);
+        mBackTrand.setOnClickListener(this);
+        mHistroyTrand.setOnClickListener(this);
+        mInRadioRecording.setOnClickListener(this);
+        mOutRadioRecording.setOnClickListener(this);
+        mPurhSubmitRecording.setOnClickListener(this);
         mSellSubmitRecording.setOnClickListener(this);
     }
 

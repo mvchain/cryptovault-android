@@ -72,6 +72,7 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 
             }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -99,7 +100,19 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
     @Subscribe
     public void refresh(TrandOrderEvent orderEvent) {
         dataBeans.clear();
-        mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
+        if (orderEvent.getPariId() != null && orderEvent.getTransactionType() != null) {
+            mPresenter.getTrandOrder(getToken(), 0, 10, orderEvent.getPariId(), status, orderEvent.getTransactionType(), 0);
+            pairId = orderEvent.getPariId();
+            transactionType = orderEvent.getTransactionType();
+        } else if (orderEvent.getPariId() != null) {
+            mPresenter.getTrandOrder(getToken(), 0, 10, orderEvent.getPariId(), status, transactionType, 0);
+            pairId = orderEvent.getPariId();
+        } else if (orderEvent.getTransactionType() != null) {
+            mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, orderEvent.getTransactionType(), 0);
+            transactionType = orderEvent.getTransactionType();
+        } else {
+            mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
+        }
     }
 
     @Override

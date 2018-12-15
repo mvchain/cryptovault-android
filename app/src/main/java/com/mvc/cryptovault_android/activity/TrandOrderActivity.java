@@ -79,6 +79,7 @@ public class TrandOrderActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.m_filter:
                 // TODO 18/12/15
+                startActivity(FilterOrderActivity.class);
                 break;
         }
     }

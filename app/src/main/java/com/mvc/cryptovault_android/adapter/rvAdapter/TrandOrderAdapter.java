@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.adapter.rvAdapter;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +51,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         TextView mSellerHint = helper.getView(R.id.order_item_seller_hint);
         TextView mOrderNum = helper.getView(R.id.order_item_num);
         TextView mPurchase = helper.getView(R.id.order_item_purchase);
-        TextView pendContent = helper.getView(R.id.order_item_pendpurh);
+        TextView mPendContent = helper.getView(R.id.order_item_pendpurh);
         int position = 0;
         if (item.getTransactionType() == 1) {
             mSellerHint.setText("买家");
@@ -75,6 +76,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         }
         TrandChildBean.DataBean dataBean = orderBean.get(position);
         mPurchase.setText(item.getDeal() + " " + dataBean.getTokenName());
+        mPendContent.setText(item.getDeal() + " " + dataBean.getTokenName());
         mPrice.setText(item.getPrice() + dataBean.getPair().substring(0, dataBean.getPair().indexOf("/")));
         if (item.getStatus() == 0) {//进行中的订单
             helper.getView(R.id.order_item_num_layout).setVisibility(View.GONE);
@@ -115,7 +117,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
                     case R.id.hint_enter:
                         mHintDialog.dismiss();
                         String token = SPUtils.getInstance().getString(TOKEN);
-                        RetrofitUtils.client(ApiStore.class).cancleOrder(token, dataBean.getPairId())
+                        RetrofitUtils.client(ApiStore.class).cancleOrder(token, item.getId())
                                 .compose(RxHelper.rxSchedulerHelper())
                                 .subscribe(updateBean -> {
                                     if (updateBean.getCode() == 200) {

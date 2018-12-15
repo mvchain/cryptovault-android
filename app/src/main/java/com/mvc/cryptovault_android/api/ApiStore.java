@@ -9,6 +9,7 @@ import com.mvc.cryptovault_android.bean.DetailBean;
 import com.mvc.cryptovault_android.bean.HistroyBean;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.IDToTransferBean;
+import com.mvc.cryptovault_android.bean.KLineBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.MsgBean;
 import com.mvc.cryptovault_android.bean.PurchaseBean;
@@ -159,7 +160,7 @@ public interface ApiStore {
                                        @Path("id") int id);
 
     @GET(HttpUrl.GET_KLINE)
-    Observable<UpdateBean> getKLine(@Header("Authorization") String token,
-                                    @Query("pairId") int pairId);
+    Observable<KLineBean> getKLine(@Header("Authorization") String token,
+                                   @Query("pairId") int pairId);
 
 }

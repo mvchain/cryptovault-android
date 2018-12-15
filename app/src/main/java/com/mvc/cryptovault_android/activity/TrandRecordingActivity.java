@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -13,24 +14,28 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.TrandRecorAdapter;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
+import com.mvc.cryptovault_android.bean.KLineBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
-import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.fragment.RecordingFragment;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 
 import java.util.ArrayList;
-
-import io.reactivex.functions.Consumer;
+import java.util.List;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_UNIT;
 
@@ -82,6 +87,41 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mChartRecording.setDragEnabled(false);
         mChartRecording.setScaleEnabled(false);
         mChartRecording.setDoubleTapToZoomEnabled(false);
+        mChartRecording.setViewPortOffsets(0, 0, 0, 0);
+        mChartRecording.setBackgroundColor(Color.rgb(104, 241, 175));
+
+        // no description text
+        mChartRecording.getDescription().setEnabled(false);
+
+        // enable touch gestures
+        mChartRecording.setTouchEnabled(true);
+
+        // enable scaling and dragging
+        mChartRecording.setDragEnabled(true);
+        mChartRecording.setScaleEnabled(true);
+
+        // if disabled, scaling can be done on x- and y-axis separately
+        mChartRecording.setPinchZoom(false);
+
+        mChartRecording.setDrawGridBackground(false);
+        mChartRecording.setMaxHighlightDistance(300);
+        XAxis x = mChartRecording.getXAxis();
+        x.setEnabled(false);
+
+        YAxis y = mChartRecording.getAxisLeft();
+        y.setLabelCount(6, false);
+        y.setTextColor(Color.WHITE);
+        y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        y.setDrawGridLines(false);
+        y.setAxisLineColor(Color.WHITE);
+        mChartRecording.getAxisRight().setEnabled(false);
+
+        mChartRecording.getLegend().setEnabled(false);
+
+        mChartRecording.animateXY(2000, 2000);
+
+        // don't forget to refresh the drawing
+        mChartRecording.invalidate();
         initLineChartData();
     }
 
@@ -89,19 +129,49 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
     private void initLineChartData() {
         RetrofitUtils.client(ApiStore.class).getKLine(getToken(), data.getPairId())
                 .compose(RxHelper.rxSchedulerHelper())
-                .subscribe(new Consumer<UpdateBean>() {
-                    @Override
-                    public void accept(UpdateBean updateBean) throws Exception {
-//                        initLineChart(updateBean);
-                    }
-                }, throwable -> {
+                .subscribe(updateBean -> initLineChart(updateBean), throwable -> {
                     LogUtils.e("TrandRecordingActivity", throwable.getMessage());
                 });
-        LineDataSet dataSetByIndex = (LineDataSet) mChartRecording.getData().getDataSetByIndex(0);
+
+    }
+
+    private void initLineChart(KLineBean updateBean) {
+        LineDataSet dataSetByIndex;
         ArrayList<Entry> values = new ArrayList<>();
-
-        LineData data = new LineData();
-
+        List<Long> timeX = updateBean.getData().getTimeX();
+        List<Float> valueY = updateBean.getData().getValueY();
+//        values.add(new Entry(0, 3));
+//        for (int i = timeX.size() - 200; i < timeX.size(); i++) {
+//            values.add(new Entry(timeX.get(i), valueY.get(i)));
+//        }
+//        values.add(new Entry(timeX.get(timeX.size() - 1), 8));
+        for (int i = 0; i < 200; i++) {
+            float val = (float) (Math.random() * 1) + 19;
+            values.add(new Entry(i, val));
+        }
+        dataSetByIndex = new LineDataSet(values, "kline");
+        dataSetByIndex.setValues(values);
+        dataSetByIndex.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        dataSetByIndex.setCubicIntensity(0.2f);
+        dataSetByIndex.setDrawFilled(true);
+        dataSetByIndex.setDrawCircles(false);
+        dataSetByIndex.setLineWidth(0.5f);
+        dataSetByIndex.setCircleRadius(0.8f);
+        dataSetByIndex.setCircleColor(Color.BLUE);
+        dataSetByIndex.setHighLightColor(Color.RED);
+        dataSetByIndex.setColor(Color.YELLOW);
+        dataSetByIndex.setFillColor(Color.GREEN);
+        dataSetByIndex.setFillAlpha(100);
+        dataSetByIndex.setDrawHorizontalHighlightIndicator(false);
+        dataSetByIndex.setFillFormatter(new IFillFormatter() {
+            @Override
+            public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
+                return mChartRecording.getAxisLeft().getAxisMinimum();
+            }
+        });
+        LineData data = new LineData(dataSetByIndex);
+        mChartRecording.setData(data);
+        mChartRecording.invalidate();
     }
 
     @Override

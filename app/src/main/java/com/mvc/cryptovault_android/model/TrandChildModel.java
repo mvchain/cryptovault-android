@@ -33,4 +33,9 @@ public class TrandChildModel extends BaseModel implements TrandChildContract.ITr
         return RetrofitUtils.client(ApiStore.class).getVrtAndBalance(token, pairType).compose(RxHelper.rxSchedulerHelper()).map(trandChildBean -> trandChildBean);
 
     }
+
+    @Override
+    public Observable<TrandChildBean> getAll(String token) {
+        return RetrofitUtils.client(ApiStore.class).getAllVrtAndBalance(token).compose(RxHelper.rxSchedulerHelper()).map(trandChildBean -> trandChildBean);
+    }
 }

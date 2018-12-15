@@ -37,6 +37,19 @@ public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter 
     }
 
     @Override
+    public void getAll(String token) {
+        rxUtils.register(mIModel.getAll(token).subscribe(list -> {
+            if (list.getCode() == 200) {
+                mIView.saveAll(list);
+            }else{
+                mIView.showNull();
+            }
+        }, throwable ->
+        {
+        }));
+    }
+
+    @Override
     protected TrandChildModel getModel() {
         return TrandChildModel.getInstance();
     }

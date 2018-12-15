@@ -27,6 +27,7 @@ import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -61,6 +62,9 @@ public interface ApiStore {
 
     @GET(HttpUrl.GET_PAIR)
     Observable<TrandChildBean> getVrtAndBalance(@Header("Authorization") String token, @Query("pairType") int pairType);
+
+    @GET(HttpUrl.GET_PAIR)
+    Observable<TrandChildBean> getAllVrtAndBalance(@Header("Authorization") String token);
 
     @GET(HttpUrl.GET_RATE)
     Observable<ExchangeRateBean> getExchangeRate(@Header("Authorization") String token);
@@ -128,12 +132,13 @@ public interface ApiStore {
      */
     @POST(HttpUrl.GET_RECORDING)
     Observable<UpdateBean> releaseOrder(@Header("Authorization") String token,
-                                       @Body RequestBody body);
+                                        @Body RequestBody body);
 
     @GET(HttpUrl.GET_TRANSACTIONINFO)
     Observable<TrandPurhBean> getTransactionInfo(@Header("Authorization") String token,
                                                  @Query("pairId") int pairId,
                                                  @Query("transactionType") int transactionType);
+
     @GET(HttpUrl.GET_TPARTAKE)
     Observable<TrandOrderBean> getTpartake(@Header("Authorization") String token,
                                            @Query("id") int id,
@@ -142,5 +147,15 @@ public interface ApiStore {
                                            @Query("status") int status,
                                            @Query("transactionType") String transactionType,
                                            @Query("type") int type);
+    /**
+     *取消挂单
+     *
+     * @param token
+     * @return
+     */
+    @DELETE(HttpUrl.GET_RECORDING+"/{id}")
+    Observable<UpdateBean> cancleOrder(@Header("Authorization") String token,
+                                        @Path("id") int id);
+
 
 }

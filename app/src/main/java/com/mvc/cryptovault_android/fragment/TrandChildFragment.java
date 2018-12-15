@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.TrandRecordingActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.TrandChildAdapter;
@@ -15,9 +16,12 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.contract.TrandChildContract;
 import com.mvc.cryptovault_android.presenter.TrandChildPresenter;
+import com.mvc.cryptovault_android.utils.JsonHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.TRAND_LIST;
 
 public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.TrandChildPresenter> implements TrandChildContract.ITrandChildView {
     private TextView mCurrencyTc;
@@ -63,6 +67,8 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
     @Override
     protected void initData() {
         super.initData();
+        //只请求一次交易对
+        mPresenter.getAll(getToken());
         if (pairType == 1) {
             mPresenter.getVrt(getToken(), pairType);
         } else {
@@ -85,6 +91,11 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
         mSwipeTc.post(() -> mSwipeTc.setRefreshing(false));
         data.addAll(msgs);
         childAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void saveAll(TrandChildBean childBean) {
+        SPUtils.getInstance().put(TRAND_LIST,JsonHelper.jsonToString(childBean));
     }
 
     @Override

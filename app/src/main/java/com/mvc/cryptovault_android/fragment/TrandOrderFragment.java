@@ -12,8 +12,11 @@ import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.TrandOrderBean;
 import com.mvc.cryptovault_android.contract.ITrandOrderContract;
+import com.mvc.cryptovault_android.event.TrandOrderEvent;
 import com.mvc.cryptovault_android.presenter.OrderPresenter;
 import com.mvc.cryptovault_android.view.DialogHelper;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,7 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
                                 break;
                             case R.id.hint_enter:
                                 mHintDialog.dismiss();
+
                                 break;
                         }
                     });
@@ -53,7 +57,10 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
                     break;
             }
         });
-        mSwipOrder.setOnRefreshListener(this::refresh);
+        mSwipOrder.setOnRefreshListener(() -> {
+            dataBeans.clear();
+            mPresenter.getTrandOrder(getToken(), 0, 10, "", status, "", 0);
+        });
         mSwipOrder.post(() -> mSwipOrder.setRefreshing(true));
     }
 
@@ -70,8 +77,8 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
         mRvOrder.setVisibility(View.VISIBLE);
         orderAdapter.notifyDataSetChanged();
     }
-
-    private void refresh() {
+    @Subscribe
+    public void refresh(TrandOrderEvent orderEvent) {
         dataBeans.clear();
         mPresenter.getTrandOrder(getToken(), 0, 10, "", status, "", 0);
     }

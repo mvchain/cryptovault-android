@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.adapter.TrandOrderAdapter;
+import com.mvc.cryptovault_android.adapter.TrandOrderViewPagerAdapter;
 import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.fragment.TrandOrderFragment;
 
@@ -24,7 +24,7 @@ public class TrandOrderActivity extends BaseActivity implements View.OnClickList
     private TabLayout mTablayoutM;
     private ViewPager mViewpagerM;
     private ArrayList<Fragment> mFragment;
-    private TrandOrderAdapter orderAdapter;
+    private TrandOrderViewPagerAdapter orderAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -44,7 +44,7 @@ public class TrandOrderActivity extends BaseActivity implements View.OnClickList
         overBundle.putInt("status", 1);
         overFragment.setArguments(overBundle);
         mFragment.add(overFragment);
-        orderAdapter = new TrandOrderAdapter(getSupportFragmentManager(), mFragment);
+        orderAdapter = new TrandOrderViewPagerAdapter(getSupportFragmentManager(), mFragment);
         mViewpagerM.setAdapter(orderAdapter);
         mTablayoutM.setupWithViewPager(mViewpagerM);
     }

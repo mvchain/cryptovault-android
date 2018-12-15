@@ -6,12 +6,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-public class TrandOrderAdapter extends FragmentPagerAdapter {
+public class TrandOrderViewPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments;
     private FragmentManager fm;
     private String[] titles = {"进行中的订单","成交记录"};
 
-    public TrandOrderAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+    public TrandOrderViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);
         this.fm = fm;
         this.fragments = fragments;

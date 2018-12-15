@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.activity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.text.InputFilter;
@@ -151,6 +152,11 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 break;
             case R.id.trand_histroy:
                 // TODO 18/12/14
+                LogUtils.e("TrandPurhAndSellItemAct", "type:" + type);
+                Intent intent = new Intent(this, TrandOrderActivity.class);
+                intent.putExtra("pairId", data.getPairId() + "");
+                intent.putExtra("transactionType", type - 1 + "");
+                startActivity(intent);
                 break;
             case R.id.purh_submit:
                 // TODO 18/12/14

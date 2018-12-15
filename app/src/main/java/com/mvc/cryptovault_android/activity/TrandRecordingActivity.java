@@ -133,11 +133,11 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    public void startPurhActivity() {
+    public void startPurhActivity(int transType) {
         Intent intent = new Intent(this, TrandPurhAndSellItemActivity.class);
         intent.putExtra("title", "购买" + data.getTokenName());
         intent.putExtra("data", data);
-        intent.putExtra("type", 1);
+        intent.putExtra("type", transType);
         startActivity(intent);
     }
 }

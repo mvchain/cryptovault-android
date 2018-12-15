@@ -13,9 +13,9 @@ public class OrderPresenter extends ITrandOrderContract.TrandOrderPresenter {
     @Override
     public void getTrandOrder(String token, int id, int pageSize, String pairId, int status, String transactionType, int type) {
         rxUtils.register(mIModel.getTrandOrder(token, id, pageSize, pairId, status, transactionType, type).subscribe(trandOrderBean -> {
-            if (trandOrderBean.getCode() == 200) {
+            if (trandOrderBean.getCode() == 200 && trandOrderBean.getData().size() > 0) {
                 mIView.showSuccess(trandOrderBean.getData());
-            }else{
+            } else {
                 mIView.showNull();
             }
         }, throwable -> {

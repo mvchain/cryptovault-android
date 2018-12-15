@@ -74,7 +74,6 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
             }
         }
         TrandChildBean.DataBean dataBean = orderBean.get(position);
-        LogUtils.e(TAG, dataBean.getTokenName());
         mPurchase.setText(item.getDeal() + " " + dataBean.getTokenName());
         mPrice.setText(item.getPrice() + dataBean.getPair().substring(0, dataBean.getPair().indexOf("/")));
         if (item.getStatus() == 0) {//进行中的订单

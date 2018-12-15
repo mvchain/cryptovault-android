@@ -36,6 +36,8 @@ public class TrandOrderActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initData() {
+        pairId = getIntent().getStringExtra("pairId");
+        transactionType = getIntent().getStringExtra("transactionType");
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         TrandOrderFragment processFragment = new TrandOrderFragment();
         Bundle processBundle = new Bundle();

@@ -41,6 +41,7 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentRight="true"
             android:padding="10dp"
+            android:scaleType="center"
             android:src="@drawable/list_icon_black" />
     </RelativeLayout>
 
@@ -48,14 +49,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="5dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -128,7 +132,6 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:focusableInTouchMode="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -136,6 +139,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/shape_round_white_12dp"
                     android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:orientation="horizontal"
                     android:paddingLeft="16dp"
                     android:paddingTop="12dp"
@@ -253,17 +257,18 @@
                         android:textSize="21dp" />
                 </RelativeLayout>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/error_hint"
                 android:layout_width="match_parent"
-                android:textColor="@color/white"
-                android:text="无法连接到网络!"
-                android:visibility="invisible"
-                android:gravity="center"
-                android:textSize="13sp"
+                android:layout_height="36dp"
                 android:layout_below="@id/m_title_layout"
                 android:background="#66000000"
-                android:layout_height="36dp" />
+                android:gravity="center"
+                android:text="无法连接到网络!"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:visibility="invisible" />
         </RelativeLayout>
     </ScrollView>
 

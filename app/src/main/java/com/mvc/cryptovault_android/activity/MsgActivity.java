@@ -117,4 +117,10 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
             mPresenter.getMsg(getToken(), mBeans.get(0).getCreatedAt(), 0, 10);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        setResult(200);
+        super.onDestroy();
+    }
 }

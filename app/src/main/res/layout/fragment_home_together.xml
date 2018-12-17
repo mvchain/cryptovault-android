@@ -24,8 +24,9 @@
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
 
-            android:scaleType="center"   android:layout_alignParentRight="true"
+            android:layout_alignParentRight="true"
             android:padding="10dp"
+            android:scaleType="center"
             android:src="@drawable/list_icon_black" />
     </RelativeLayout>
 
@@ -33,9 +34,11 @@
         android:id="@+id/toge_table"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white" />
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/login_content"
+        app:tabSelectedTextColor="@color/login_content" />
 
-    <com.mvc.cryptovault_android.view.NoScrollViewPager
+    <android.support.v4.view.ViewPager
         android:id="@+id/toge_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

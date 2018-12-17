@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +18,11 @@ import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.HistroyBean;
 import com.mvc.cryptovault_android.contract.HistroyChildContract;
+import com.mvc.cryptovault_android.event.HistroyEvent;
 import com.mvc.cryptovault_android.presenter.HistroyChildPresenter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +35,18 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     private int tokenId;
     private int action;
     private SwipeRefreshLayout mItemSwipHis;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 
     @Override
     protected void initView() {
@@ -159,6 +176,20 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
                 mPresenter.getIn(getToken(), 0, 10, tokenId, action, 0);
                 break;
         }
-
+    }
+    @Subscribe
+    public void eventRefresh(HistroyEvent event){
+        mHisData.clear();
+        switch (action) {
+            case 0:
+                mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);
+                break;
+            case 1:
+                mPresenter.getOut(getToken(), 0, 10, tokenId, action, 0);
+                break;
+            case 2:
+                mPresenter.getIn(getToken(), 0, 10, tokenId, action, 0);
+                break;
+        }
     }
 }

@@ -26,6 +26,7 @@ public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter 
             }
         }, throwable ->
         {
+            mIView.showError();
         }));
     }
 
@@ -40,6 +41,7 @@ public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter 
             }
         }, throwable ->
         {
+            mIView.showError();
         }));
     }
 
@@ -53,6 +55,7 @@ public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter 
             }
         }, throwable ->
         {
+            mIView.showError();
         }));
     }
 

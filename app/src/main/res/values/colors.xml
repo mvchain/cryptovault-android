@@ -9,6 +9,7 @@
     <color name="white_tras">#F6F7FB</color>
 
     <color name="black">#000000</color>
+    <color name="tran_black">#66000000</color>
     <color name="red">#FF0000</color>
     <color name="status_blue">#0079fE</color>
     <color name="select_blue">#007AFF</color>

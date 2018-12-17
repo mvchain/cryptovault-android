@@ -32,6 +32,8 @@ public interface TrandChildContract {
 
         void saveAll(TrandChildBean childBean);
 
+        void showError();
+
         void showNull();
     }
 }

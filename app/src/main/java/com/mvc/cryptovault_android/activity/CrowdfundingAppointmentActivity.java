@@ -213,6 +213,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                                         setAlpha(1f);
                                     }
                                 }, num -> {
+                                    KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                     mPopView.dismiss();
                                     mReservationDialog = dialogHelper.create(CrowdfundingAppointmentActivity.this, R.drawable.pending_icon, "正在预约");
                                     mReservationDialog.show();

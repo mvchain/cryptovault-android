@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,6 +15,8 @@ import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.utils.TextUtils;
 
 import java.util.List;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_SYMBOL;
 
 public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean, BaseViewHolder> {
     //    btc home_icon_eos home_icon_etc home_icon_vrt home_icon_xrp
@@ -31,7 +34,7 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         TextView money = helper.getView(R.id.item_assets_money);
         helper.addOnClickListener(R.id.item_assets_layout); //add onclick to the layout to jump startActivity
         type.setText(item.getTokenName());
-        money.setText("￥" + TextUtils.rateToPrice(item.getRatio() * item.getValue()));
+        money.setText(SPUtils.getInstance().getString(DEFAULE_SYMBOL) + TextUtils.rateToPrice(item.getRatio() * item.getValue()));
         actual.setText(TextUtils.doubleToFour(item.getValue()) + " " + tokenName);
         RequestOptions options = new RequestOptions().error(R.mipmap.vp_logo);
         Glide.with(mContext).load(item.getTokenImage()).apply(options).into(icon);

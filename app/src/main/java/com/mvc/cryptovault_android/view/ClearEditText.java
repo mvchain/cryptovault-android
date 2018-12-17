@@ -2,11 +2,11 @@ package com.mvc.cryptovault_android.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.widget.EditText;
 
-public class ClearEditText extends AppCompatEditText {
+public class ClearEditText extends EditText {
 
     public ClearEditText(Context context) {
         this(context, null);

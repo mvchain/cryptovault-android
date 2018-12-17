@@ -27,7 +27,9 @@ import com.mvc.cryptovault_android.base.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
+import com.mvc.cryptovault_android.bean.MsgBean;
 import com.mvc.cryptovault_android.contract.WallteContract;
+import com.mvc.cryptovault_android.event.TrandFragmentEvent;
 import com.mvc.cryptovault_android.event.WalletAssetsListEvent;
 import com.mvc.cryptovault_android.event.WalletFragmentEvent;
 import com.mvc.cryptovault_android.listener.IPopViewListener;
@@ -46,8 +48,11 @@ import java.util.List;
 import static com.mvc.cryptovault_android.common.Constant.SP.ALLASSETS;
 import static com.mvc.cryptovault_android.common.Constant.SP.ASSETS_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.CURRENCY_LIST;
-import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
+import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_SYMBOL;
+import static com.mvc.cryptovault_android.common.Constant.SP.MSG_TIME;
 import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
+import static com.mvc.cryptovault_android.common.Constant.SP.READ_MSG;
+import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
 public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresenter> implements WallteContract.IWallteView, View.OnClickListener, IPopViewListener {
     private ImageView mHintAssets;
@@ -105,7 +110,8 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         switch (v.getId()) {
             case R.id.assets_hint:
                 // TODO 18/11/28
-                startActivity(new Intent(activity, MsgActivity.class));
+                SPUtils.getInstance().put(READ_MSG, true);
+                startActivityForResult(new Intent(activity, MsgActivity.class), 200);
                 break;
             case R.id.assets_add:
                 // TODO 18/11/28
@@ -121,10 +127,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
 
     @Subscribe
     public void updateAssets(WalletAssetsListEvent listEvent) {
-        mData.clear();
-        List<AssetListBean.DataBean> newsData = listEvent.getNewsData();
-        mData.addAll(newsData);
-        assetsAdapter.notifyDataSetChanged();
         mPresenter.getAssetList(getToken());
     }
 
@@ -135,6 +137,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         int position = fragmentEvent.getPosition();
         changeRate(position);
     }
+
     @Override
     protected void initData() {
         super.initData();
@@ -154,6 +157,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                     }
                     intent.putExtra("type", type);
                     intent.putExtra("tokenId", mData.get(position).getTokenId());
+                    intent.putExtra("tokenName", mData.get(position).getTokenName());
                     intent.putExtra("data", mData.get(position));
                     startActivity(intent);
                     break;
@@ -162,6 +166,8 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mAssetsLayout.attachTo(mRvAssets);
         mRvAssets.setAdapter(assetsAdapter);
         mPresenter.getAssetList(getToken());
+        long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
+        mPresenter.getMsg(getToken(), msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
         ExchangeRateBean.DataBean defalutBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(getDefalutRate(), ExchangeRateBean.DataBean.class);
         if (defalutBean != null) {
             mTypeAssets.setText(defalutBean.getName());
@@ -202,6 +208,18 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mPriceAssets.setText(TextUtils.rateToPrice(allAssetBean.getData()));
     }
 
+    @Override
+    public void refreshMsg(MsgBean msgBean) {
+        if (msgBean.getData().size() > 0) {
+            SPUtils.getInstance().put(MSG_TIME, msgBean.getData().get(0).getCreatedAt());
+            mHintAssets.setImageResource(R.drawable.home_newnote_icon);
+        } else {
+            if (SPUtils.getInstance().getBoolean(READ_MSG, false)) {
+                mHintAssets.setImageResource(R.drawable.home_note_icon);
+            }
+        }
+    }
+
 
     @Override
     public void showNullAsset() {
@@ -239,6 +257,8 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         assetsAdapter.notifyDataSetChanged();
         mPresenter.getAllAsset(getToken());
         mPresenter.getAssetList(getToken());
+        long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
+        mPresenter.getMsg(getToken(), msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
     }
 
     /**
@@ -251,6 +271,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     public void changeRate(int position) {
         ExchangeRateBean.DataBean dataBean = mExchange.get(position);
         SPUtils.getInstance().put(SET_RATE, JsonHelper.jsonToString(dataBean));
+        String symbol = dataBean.getName();
+        String newSymbol = symbol.substring(0, 1);
+        SPUtils.getInstance().put(DEFAULE_SYMBOL, newSymbol);
         mTypeAssets.setText(dataBean.getName());
         changeAssets();
     }
@@ -271,11 +294,22 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mPriceAssets.setText(TextUtils.rateToPrice(assetBean.getData()));
         assetsAdapter.notifyDataSetChanged();
         EventBus.getDefault().post(new WalletFragment());
+        EventBus.getDefault().postSticky(new TrandFragmentEvent());
+//        EventBus.getDefault().post(new TrandFragmentEvent());
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 200) {
+            SPUtils.getInstance().put(READ_MSG, false);
+            mHintAssets.setImageResource(R.drawable.home_note_icon);
+        }
     }
 }

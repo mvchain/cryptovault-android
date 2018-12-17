@@ -19,11 +19,11 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:scaleType="center"
             android:id="@+id/m_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="6dp"
+            android:scaleType="center"
             android:src="@drawable/back_icon_black" />
 
         <TextView
@@ -73,9 +73,10 @@
 
             <TextView
                 android:id="@+id/m_hash"
-                android:layout_width="150dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:drawableRight="@drawable/copy_icon"
                 android:ellipsize="middle"
                 android:singleLine="true"
                 android:text="0x2051dd2b51dd2b51dd2b51dd2b51dd2b51dd2ba196ccc2448"

@@ -100,7 +100,7 @@
                                 android:drawableRight="@drawable/up_icon"
                                 android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:text="CNY"
+                                android:text="¥CNY"
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
 

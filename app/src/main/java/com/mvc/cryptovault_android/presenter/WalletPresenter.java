@@ -30,6 +30,19 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
     }
 
     @Override
+    public void getMsg(String token, long timestamp, int type, int pagesize) {
+        rxUtils.register(mIModel.getMsg(token, timestamp, type, pagesize)
+                .subscribe(msgBean -> {
+                            if (msgBean.getCode() == 200) {
+                                mIView.refreshMsg(msgBean);
+                            }
+                        }
+                        , throwable -> {
+                            LogUtils.e("WalletPresenter", throwable.getMessage());
+                        }));
+    }
+
+    @Override
     public void getAllAsset(String token) {
         rxUtils.register(mIModel.getAllAsset(token)
                 .subscribe(asset -> {

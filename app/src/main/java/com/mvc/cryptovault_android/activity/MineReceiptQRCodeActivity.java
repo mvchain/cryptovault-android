@@ -29,6 +29,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
     private ImageView mQcImgM;
     private ImageView mProtraitM;
     private int tokenId;
+    private String tokenName;
 
     @Override
     protected void initMVPData() {
@@ -39,6 +40,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        tokenName = getIntent().getStringExtra("tokenName");
         mBackM = findViewById(R.id.m_back);
         mTitleM = findViewById(R.id.m_title);
         mShareM = findViewById(R.id.m_share);
@@ -46,6 +48,8 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
         mHashM = findViewById(R.id.m_hash);
         mQcImgM = findViewById(R.id.m_qc_img);
         mProtraitM = findViewById(R.id.m_protrait);
+        mTitleM.setText(tokenName+"收款");
+        mContentM.setText(tokenName+"收款地址");
         mBackM.setOnClickListener(this);
         mShareM.setOnClickListener(this);
         mHashM.setOnClickListener(this);

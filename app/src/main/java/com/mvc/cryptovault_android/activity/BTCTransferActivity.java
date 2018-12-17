@@ -25,6 +25,7 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.IDToTransferBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.BTCTransferContract;
+import com.mvc.cryptovault_android.event.HistroyEvent;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.IPayWindowListener;
 import com.mvc.cryptovault_android.presenter.BTCTransferPresenter;
@@ -35,6 +36,8 @@ import com.mvc.cryptovault_android.view.PopViewHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTCTransferPresenter> implements BTCTransferContract.BTCTransferView, View.OnClickListener {
     private ImageView mBackM;
@@ -50,6 +53,8 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     private int tokenId;
     private IDToTransferBean.DataBean mTransBean;
     private PopupWindow mPopView;
+    private String tokenName;
+    private DialogHelper dialogHelper;
 
     @Override
     protected int getLayoutId() {
@@ -87,6 +92,8 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        dialogHelper = DialogHelper.getInstance();
+        tokenName = getIntent().getStringExtra("tokenName");
         mBackM = findViewById(R.id.m_back);
         mTitleM = findViewById(R.id.m_title);
         mQCodeM = findViewById(R.id.m_qcode);
@@ -96,6 +103,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
         mPriceBtc = findViewById(R.id.btc_price);
         mSxfBtc = findViewById(R.id.btc_sxf);
         mSubmitBtc = findViewById(R.id.btc_submit);
+        mTitleM.setText(tokenName + "转账");
         mTransPriceBtc.setFilters(new InputFilter[]{new PointLengthFilter()});
         mTransPriceBtc.addTextChangedListener(new EditTextChange() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -192,6 +200,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                         setAlpha(1f);
                                     }
                                 }, num -> {
+                                    KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                     mPresenter.sendTransferMsg(getToken(), transAddress, num, tokenId, priceBtc);
                                     mPopView.dismiss();
                                 });
@@ -232,9 +241,13 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     @Override
     public void transferCallBack(UpdateBean bean) {
         if (bean.getCode() == 200) {
-            Dialog dialog = DialogHelper.getInstance().create(this, R.drawable.pending_icon, "转账成功");
+            Dialog dialog =dialogHelper .create(this, R.drawable.success_icon, "转账成功");
             dialog.show();
-            new Handler().postDelayed(() -> dialog.dismiss(), 1000);
+            new Handler().postDelayed(() -> {
+                EventBus.getDefault().post(new HistroyEvent());
+                finish();
+                dialog.dismiss();
+            }, 1500);
         } else if (bean.getCode() == 400) {
             Toast.makeText(this, bean.getMessage(), Toast.LENGTH_SHORT).show();
         }

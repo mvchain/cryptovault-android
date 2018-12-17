@@ -55,13 +55,13 @@ public class HistroyBean {
         private int classify;
         private long createdAt;
         private int id;
-        private int ratio;
+        private double ratio;
         private int status;
         private int tokenId;
         private String tokenName;
         private int transactionType;
         private long updatedAt;
-        private int value;
+        private double value;
 
         public int getClassify() {
             return classify;
@@ -87,11 +87,11 @@ public class HistroyBean {
             this.id = id;
         }
 
-        public int getRatio() {
+        public double getRatio() {
             return ratio;
         }
 
-        public void setRatio(int ratio) {
+        public void setRatio(double ratio) {
             this.ratio = ratio;
         }
 
@@ -135,11 +135,11 @@ public class HistroyBean {
             this.updatedAt = updatedAt;
         }
 
-        public int getValue() {
+        public double getValue() {
             return value;
         }
 
-        public void setValue(int value) {
+        public void setValue(double value) {
             this.value = value;
         }
     }

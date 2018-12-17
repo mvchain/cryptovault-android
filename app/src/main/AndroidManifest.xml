@@ -79,12 +79,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.TrandPurhAndSellActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.TrandPurhAndSellItemActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.TrandOrderActivity"
             android:screenOrientation="portrait" />

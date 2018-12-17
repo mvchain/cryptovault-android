@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,9 +32,9 @@ import com.mvc.cryptovault_android.fragment.HistroyChildFragment;
 import com.mvc.cryptovault_android.listener.IPopViewListener;
 import com.mvc.cryptovault_android.presenter.HistroyPresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
+import com.mvc.cryptovault_android.utils.TabLayoutUtils;
 import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.utils.ViewDrawUtils;
-import com.mvc.cryptovault_android.view.NoScrollViewPager;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -53,7 +54,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private TextView mTypeHis;
     private TextView mActualHis;
     private TabLayout mTabHis;
-    private NoScrollViewPager mVpHis;
+    private ViewPager mVpHis;
     private TextView mSubHis;
     private ArrayList<Fragment> fragments;
     private List<ExchangeRateBean.DataBean> mExchange;
@@ -65,6 +66,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private Intent intent;
     private int type;
     private int tokenId;
+    private String tokenName;
     private PopupWindow mPopView;
     private AssetListBean.DataBean dataBean;
 
@@ -90,6 +92,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         fragments.add(inFragment);
         mVpHis.setAdapter(histroyPagerAdapter);
         mTabHis.setupWithViewPager(mVpHis);
+        TabLayoutUtils.setIndicator(mTabHis, 40, 40);
     }
 
     @Override
@@ -137,10 +140,11 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         intent = getIntent();
         type = intent.getIntExtra("type", 0);
         tokenId = intent.getIntExtra("tokenId", 0);
+        tokenName = intent.getStringExtra("tokenName");
         dataBean = intent.getParcelableExtra("data");
+        mTitleHis.setText(tokenName);
         switch (type) {
             case 0:
-                mTitleHis.setText(R.string.his_title_vp);
                 mLayoutSub.setVisibility(View.VISIBLE);
                 mOutHis.setVisibility(View.GONE);
                 mInHis.setVisibility(View.GONE);
@@ -148,12 +152,10 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 mQcodeHis.setVisibility(View.GONE);
                 break;
             case 1:
-                mTitleHis.setText(R.string.his_title_znb);
                 mLayoutSub.setVisibility(View.GONE);
                 mQcodeHis.setVisibility(View.GONE);
                 break;
             case 2:
-                mTitleHis.setText(R.string.his_title_bth);
                 mLayoutSub.setVisibility(View.VISIBLE);
                 mOutHis.setVisibility(View.VISIBLE);
                 mInHis.setVisibility(View.VISIBLE);
@@ -162,7 +164,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
         }
         mPriceHis.setText(TextUtils.rateToPrice(dataBean.getRatio() * dataBean.getValue()));
-        mActualHis.setText(TextUtils.doubleToFour(dataBean.getValue())+" "+dataBean.getTokenName());
+        mActualHis.setText(TextUtils.doubleToFour(dataBean.getValue()) + " " + dataBean.getTokenName());
         ExchangeRateBean.DataBean defalutBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(getDefalutRate(), ExchangeRateBean.DataBean.class);
         mTypeHis.setText(defalutBean.getName());
     }
@@ -229,19 +231,21 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_sub:
                 // TODO 18/11/29
-                intent.setClass(this,VPBalanceWithdrawalActivity.class);
-                intent.putExtra("tokenId",tokenId);
-                startActivityForResult(intent,300);
+                intent.setClass(this, VPBalanceWithdrawalActivity.class);
+                intent.putExtra("tokenId", tokenId);
+                startActivityForResult(intent, 300);
                 break;
             case R.id.his_out:// TODO 18/12/05
-                intent.setClass(this,BTCTransferActivity.class);
-                intent.putExtra("tokenId",tokenId);
-                startActivityForResult(intent,300);
+                intent.setClass(this, BTCTransferActivity.class);
+                intent.putExtra("tokenId", tokenId);
+                intent.putExtra("tokenName", tokenName);
+                startActivity(intent);
                 break;
             case R.id.his_in:// TODO 18/12/05
-                intent.setClass(this,MineReceiptQRCodeActivity.class);
-                intent.putExtra("tokenId",tokenId);
-                startActivityForResult(intent,300);
+                intent.setClass(this, MineReceiptQRCodeActivity.class);
+                intent.putExtra("tokenId", tokenId);
+                intent.putExtra("tokenName", tokenName);
+                startActivityForResult(intent, 300);
                 break;
         }
     }
@@ -262,7 +266,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private void changeAssets(int position) {
         AllAssetBean assetBean = (AllAssetBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(ALLASSETS), AllAssetBean.class);
         mPriceHis.setText(TextUtils.rateToPrice(assetBean.getData()));
-        EventBus.getDefault().post(new WalletFragmentEvent( position));
+        EventBus.getDefault().post(new WalletFragmentEvent(position));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -283,12 +287,11 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
             switch (resultCode) {
                 case 200:
                     String stringExtra = data.getStringExtra(CodeUtils.RESULT_STRING);
-                    Intent intent = new Intent(HistroyActivity.this,BTCTransferActivity.class);
-                    intent.putExtra("hash",stringExtra);
-                    intent.putExtra("tokenId",tokenId);
+                    Intent intent = new Intent(HistroyActivity.this, BTCTransferActivity.class);
+                    intent.putExtra("hash", stringExtra);
+                    intent.putExtra("tokenId", tokenId);
                     startActivity(intent);
                     break;
-
             }
         }
     }

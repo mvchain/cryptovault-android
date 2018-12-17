@@ -28,14 +28,18 @@
         android:textColor="@color/login_content"
         android:textSize="15sp" />
 
-    <EditText
+    <com.mvc.cryptovault_android.view.ClearEditText
         android:id="@+id/login_phone"
         android:layout_width="match_parent"
         android:layout_height="44dp"
+        android:paddingRight="15dp"
         android:layout_marginLeft="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_marginTop="12dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/bg_login_edit"
+        android:gravity="center_vertical"
         android:hint="请输入手机号"
         android:inputType="phone"
         android:maxLength="11"
@@ -53,13 +57,17 @@
         android:textColor="@color/login_content"
         android:textSize="15sp" />
 
-    <EditText
+    <com.mvc.cryptovault_android.view.ClearEditText
         android:id="@+id/login_pwd"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginRight="16dp"
+        android:gravity="center_vertical"
+        android:paddingRight="15dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="@drawable/bg_login_edit"
         android:hint="请输入密码"
         android:inputType="textPassword"

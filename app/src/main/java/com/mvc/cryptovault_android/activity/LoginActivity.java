@@ -1,8 +1,10 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,33 +16,37 @@ import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.contract.LoginContract;
+import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.presenter.LoginPresenter;
+import com.mvc.cryptovault_android.utils.ViewDrawUtils;
+import com.mvc.cryptovault_android.view.ClearEditText;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 
 
-public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener,LoginContract.ILoginView {
+public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener, LoginContract.ILoginView {
 
-    private EditText mLoginPhone;
-    private EditText mLoginPwd;
+    private ClearEditText mLoginPhone;
+    private ClearEditText mLoginPwd;
     private TextView mLoginForgetPwd;
     private Button mLoginSubmit;
-    private DialogHelper dialog;
+    private DialogHelper dialogHelper;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
     }
+
     @Override
     protected void initData() {
     }
 
     @Override
     protected void initView() {
-    }
 
+    }
 
 
     @Override
@@ -49,10 +55,11 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             case R.id.login_submit:
                 String phone = mLoginPhone.getText().toString().trim();
                 String pwd = mLoginPwd.getText().toString().trim();
-                mPresenter.login(phone,pwd);
+                mPresenter.login(phone, pwd);
                 break;
             case R.id.login_forget_pwd:
-
+                dialogHelper.create(this, R.layout.layout_forgetpwd_dialog).show();
+                dialogHelper.dismissDelayed(null, 2000);
                 break;
         }
     }
@@ -70,18 +77,18 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     @Override
     public void saveUserInfo(LoginBean loginBean) {
         LoginBean.DataBean data = loginBean.getData();
-        SPUtils.getInstance().put(REFRESH_TOKEN,data.getRefreshToken());
-        SPUtils.getInstance().put(TOKEN,data.getToken());
+        SPUtils.getInstance().put(REFRESH_TOKEN, data.getRefreshToken());
+        SPUtils.getInstance().put(TOKEN, data.getToken());
     }
 
     @Override
     public void show() {
-        dialog.create(LoginActivity.this,R.drawable.pending_icon,getResources().getString(R.string.login_load)).show();
+        dialogHelper.create(LoginActivity.this, R.drawable.pending_icon, getResources().getString(R.string.login_load)).show();
     }
 
     @Override
     public void dismiss() {
-        dialog.dismiss();
+        dialogHelper.dismiss();
     }
 
     @Override
@@ -97,12 +104,38 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     protected void initMVPView() {
-        dialog = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.getInstance();
         mLoginPhone = findViewById(R.id.login_phone);
         mLoginPwd = findViewById(R.id.login_pwd);
         mLoginForgetPwd = findViewById(R.id.login_forget_pwd);
         mLoginSubmit = findViewById(R.id.login_submit);
         mLoginSubmit.setOnClickListener(this);
         mLoginForgetPwd.setOnClickListener(this);
+        mLoginPhone.addTextChangedListener(new EditTextChange() {
+            @TargetApi(Build.VERSION_CODES.M)
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String updateTv = s.toString();
+                if (!updateTv.equals("")) {
+                    ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mLoginPhone);
+                } else {
+                    ViewDrawUtils.clearDraw(mLoginPhone);
+                }
+            }
+        });
+        mLoginPwd.addTextChangedListener(new EditTextChange() {
+            @TargetApi(Build.VERSION_CODES.M)
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String updateTv = s.toString();
+                if (!updateTv.equals("")) {
+                    ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mLoginPwd);
+                } else {
+                    ViewDrawUtils.clearDraw(mLoginPwd);
+                }
+            }
+        });
     }
 }

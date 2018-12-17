@@ -24,8 +24,17 @@ public class DialogHelper {
         return mDialogHelper;
     }
 
+    public Dialog create(Context context, int resId) {
+        mDialog = new Dialog(context, R.style.tras_dialog);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setCancelable(false);
+        View dialogView = LayoutInflater.from(context).inflate(resId, null);
+        mDialog.setContentView(dialogView);
+        return mDialog;
+    }
+
     public Dialog create(Context context, int resId, String msg) {
-        mDialog = new Dialog(context);
+        mDialog = new Dialog(context, R.style.tras_dialog);
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setCancelable(false);
         View dialogView = LayoutInflater.from(context).inflate(R.layout.layout_dialog, null);
@@ -38,7 +47,7 @@ public class DialogHelper {
     }
 
     public Dialog create(Context context, String msg, IDialogViewClickListener clickListener) {
-        mDialog = new Dialog(context);
+        mDialog = new Dialog(context, R.style.tras_dialog);
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setCancelable(false);
         View dialogView = LayoutInflater.from(context).inflate(R.layout.layout_sub_dialog, null);
@@ -71,6 +80,18 @@ public class DialogHelper {
                 }
             }
         }, 1000);
+    }
+
+    public void dismissDelayed(IDialogDialog dialogDialog, long delayMillis) {
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dismiss();
+                if (dialogDialog != null) {
+                    dialogDialog.callback();
+                }
+            }
+        }, delayMillis);
     }
 
     public void dismiss() {

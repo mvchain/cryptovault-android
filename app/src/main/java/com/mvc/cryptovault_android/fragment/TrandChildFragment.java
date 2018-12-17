@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +16,12 @@ import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.contract.TrandChildContract;
+import com.mvc.cryptovault_android.event.TrandFragmentEvent;
 import com.mvc.cryptovault_android.presenter.TrandChildPresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +38,18 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
     private List<TrandChildBean.DataBean> data;
     private TrandChildAdapter childAdapter;
     private int pairType;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 
     @Override
     protected void initView() {
@@ -62,6 +79,11 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
         pairType = arguments.getInt("pairType");
         mSwipeTc.setOnRefreshListener(this::refresh);
         mSwipeTc.post(() -> mSwipeTc.setRefreshing(true));
+    }
+
+    @Subscribe(sticky = true)
+    public void refreshRate(TrandFragmentEvent fragmentEvent) {
+        childAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -95,7 +117,13 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
 
     @Override
     public void saveAll(TrandChildBean childBean) {
-        SPUtils.getInstance().put(TRAND_LIST,JsonHelper.jsonToString(childBean));
+        mSwipeTc.post(() -> mSwipeTc.setRefreshing(false));
+        SPUtils.getInstance().put(TRAND_LIST, JsonHelper.jsonToString(childBean));
+    }
+
+    @Override
+    public void showError() {
+        mSwipeTc.post(() -> mSwipeTc.setRefreshing(false));
     }
 
     @Override

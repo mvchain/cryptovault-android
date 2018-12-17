@@ -282,20 +282,29 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.success_icon, "发布成功");
                 mHintError.setVisibility(View.INVISIBLE);
                 EventBus.getDefault().post(new RecordingEvent());
-                dialogHelper.dismissDelayed(() -> finish());
+                dialogHelper.dismissDelayed(() -> {
+                    KeyboardUtils.hideSoftInput(this);
+                    finish();
+                });
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.INVISIBLE);
-                dialogHelper.dismissDelayed(null);
+                dialogHelper.dismissDelayed(()->{
+                    KeyboardUtils.hideSoftInput(this);
+                });
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
-                dialogHelper.dismissDelayed(null);
+                dialogHelper.dismissDelayed(()->{
+                    KeyboardUtils.hideSoftInput(this);
+                });
             }
         }, throwable -> {
             dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
-            dialogHelper.dismissDelayed(null);
+            dialogHelper.dismissDelayed(()->{
+                KeyboardUtils.hideSoftInput(this);
+            });
         });
     }
 
@@ -311,20 +320,29 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.success_icon, "发布成功");
                 mHintError.setVisibility(View.INVISIBLE);
                 EventBus.getDefault().post(new RecordingEvent());
-                dialogHelper.dismissDelayed(() -> finish());
+                dialogHelper.dismissDelayed(()->{
+                    KeyboardUtils.hideSoftInput(this);
+                    finish();
+                });
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.INVISIBLE);
-                dialogHelper.dismissDelayed(null);
+                dialogHelper.dismissDelayed(()->{
+                    KeyboardUtils.hideSoftInput(this);
+                });
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
-                dialogHelper.dismissDelayed(null);
+                dialogHelper.dismissDelayed(()->{
+                    KeyboardUtils.hideSoftInput(this);
+                });
             }
         }, throwable -> {
             dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
-            dialogHelper.dismissDelayed(null);
+            dialogHelper.dismissDelayed(()->{
+                KeyboardUtils.hideSoftInput(this);
+            });
             //能获取到报错信息
 //            if(throwable instanceof HttpException){
 //                HttpException httpException= (HttpException) throwable;

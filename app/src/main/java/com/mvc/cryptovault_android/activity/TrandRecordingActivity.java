@@ -140,15 +140,13 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         ArrayList<Entry> values = new ArrayList<>();
         List<Long> timeX = updateBean.getData().getTimeX();
         List<Float> valueY = updateBean.getData().getValueY();
-//        values.add(new Entry(0, 3));
-//        for (int i = timeX.size() - 200; i < timeX.size(); i++) {
-//            values.add(new Entry(timeX.get(i), valueY.get(i)));
-//        }
-//        values.add(new Entry(timeX.get(timeX.size() - 1), 8));
-        for (int i = 0; i < 200; i++) {
-            float val = (float) (Math.random() * 1) + 19;
-            values.add(new Entry(i, val));
+        for (int i = 0; i < timeX.size(); i++) {
+            values.add(new Entry(timeX.get(i), valueY.get(i)));
         }
+//        for (int i = 0; i < 200; i++) {
+//            float val = (float) (Math.random() * 1) + 19;
+//            values.add(new Entry(i, val));
+//        }
         dataSetByIndex = new LineDataSet(values, "kline");
         dataSetByIndex.setValues(values);
         dataSetByIndex.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);

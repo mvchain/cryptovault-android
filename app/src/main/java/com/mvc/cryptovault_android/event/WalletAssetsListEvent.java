@@ -17,9 +17,6 @@ public class WalletAssetsListEvent {
         this.newsData = newsData;
     }
 
-    public WalletAssetsListEvent(List<AssetListBean.DataBean> newsData) {
-        this.newsData = newsData;
-    }
 
     public String getAddId() {
         return addId;

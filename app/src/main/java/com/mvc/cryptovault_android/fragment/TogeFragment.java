@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,7 +13,7 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.TogeHistroyActivity;
 import com.mvc.cryptovault_android.adapter.TogePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseFragment;
-import com.mvc.cryptovault_android.view.NoScrollViewPager;
+import com.mvc.cryptovault_android.utils.TabLayoutUtils;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
     private TextView mTitleToge;
     private ImageView mHistroyToge;
     private TabLayout mTableToge;
-    private NoScrollViewPager mVpToge;
+    private ViewPager mVpToge;
     private ArrayList<Fragment> mFragment;
     private TogePagerAdapter togePagerAdapter;
 
@@ -44,6 +45,7 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
         togePagerAdapter = new TogePagerAdapter(getChildFragmentManager(), mFragment);
         mVpToge.setAdapter(togePagerAdapter);
         mTableToge.setupWithViewPager(mVpToge);
+        TabLayoutUtils.setIndicator(mTableToge, 40, 40);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.toge_histroy:
                 // TODO 18/11/29
-                Intent intent = new Intent(activity,TogeHistroyActivity.class);
+                Intent intent = new Intent(activity, TogeHistroyActivity.class);
                 startActivity(intent);
                 break;
         }

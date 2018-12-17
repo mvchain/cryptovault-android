@@ -35,6 +35,7 @@ public class PopViewHelper {
         return mDialogHelper;
     }
 
+
     public PopupWindow create(Context context, int layoutId, ArrayList<String> content, IPopViewListener iPopViewListener) {
         LinearLayout linear = (LinearLayout) LayoutInflater.from(context.getApplicationContext()).inflate(layoutId, null);
         RecyclerView mRateView = linear.findViewById(R.id.rate_rv);

@@ -80,6 +80,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventRefresh(TogeFragmentEvent fragmentEvent){
+        mData.clear();
         if (projectType == 0) {
             mPresenter.getComingSoon(getToken(), 1, 0, projectType, 0);
         } else if (projectType == 1) {

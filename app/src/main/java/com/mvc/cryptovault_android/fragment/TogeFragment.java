@@ -13,7 +13,6 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.TogeHistroyActivity;
 import com.mvc.cryptovault_android.adapter.TogePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseFragment;
-import com.mvc.cryptovault_android.utils.TabLayoutUtils;
 
 import java.util.ArrayList;
 
@@ -45,7 +44,7 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
         togePagerAdapter = new TogePagerAdapter(getChildFragmentManager(), mFragment);
         mVpToge.setAdapter(togePagerAdapter);
         mTableToge.setupWithViewPager(mVpToge);
-        TabLayoutUtils.setIndicator(mTableToge, 40, 40);
+//        TabLayoutUtils.setIndicator(mTableToge, 30, 30);
     }
 
     @Override

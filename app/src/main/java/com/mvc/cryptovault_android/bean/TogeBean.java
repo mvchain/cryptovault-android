@@ -63,38 +63,38 @@ public class TogeBean {
 
         private int baseTokenId;
         private String baseTokenName;
-        private int createdAt;
+        private long createdAt;
         private int projectId;
         private String projectImage;
-        private int projectLimit;
+        private double projectLimit;
         private String projectName;
-        private int ratio;
-        private int releaseValue;
-        private int startedAt;
+        private double ratio;
+        private double releaseValue;
+        private long startedAt;
         private int status;
-        private int stopAt;
+        private long stopAt;
         private int tokenId;
         private String tokenName;
-        private int total;
-        private int updatedAt;
+        private double total;
+        private long updatedAt;
 
         protected DataBean(Parcel in) {
             baseTokenId = in.readInt();
             baseTokenName = in.readString();
-            createdAt = in.readInt();
+            createdAt = in.readLong();
             projectId = in.readInt();
             projectImage = in.readString();
-            projectLimit = in.readInt();
+            projectLimit = in.readDouble();
             projectName = in.readString();
-            ratio = in.readInt();
-            releaseValue = in.readInt();
-            startedAt = in.readInt();
+            ratio = in.readDouble();
+            releaseValue = in.readDouble();
+            startedAt = in.readLong();
             status = in.readInt();
-            stopAt = in.readInt();
+            stopAt = in.readLong();
             tokenId = in.readInt();
             tokenName = in.readString();
-            total = in.readInt();
-            updatedAt = in.readInt();
+            total = in.readDouble();
+            updatedAt = in.readLong();
         }
 
         public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
@@ -125,11 +125,11 @@ public class TogeBean {
             this.baseTokenName = baseTokenName;
         }
 
-        public int getCreatedAt() {
+        public long getCreatedAt() {
             return createdAt;
         }
 
-        public void setCreatedAt(int createdAt) {
+        public void setCreatedAt(long createdAt) {
             this.createdAt = createdAt;
         }
 
@@ -149,11 +149,11 @@ public class TogeBean {
             this.projectImage = projectImage;
         }
 
-        public int getProjectLimit() {
+        public double getProjectLimit() {
             return projectLimit;
         }
 
-        public void setProjectLimit(int projectLimit) {
+        public void setProjectLimit(double projectLimit) {
             this.projectLimit = projectLimit;
         }
 
@@ -165,27 +165,27 @@ public class TogeBean {
             this.projectName = projectName;
         }
 
-        public int getRatio() {
+        public double getRatio() {
             return ratio;
         }
 
-        public void setRatio(int ratio) {
+        public void setRatio(double ratio) {
             this.ratio = ratio;
         }
 
-        public int getReleaseValue() {
+        public double getReleaseValue() {
             return releaseValue;
         }
 
-        public void setReleaseValue(int releaseValue) {
+        public void setReleaseValue(double releaseValue) {
             this.releaseValue = releaseValue;
         }
 
-        public int getStartedAt() {
+        public long getStartedAt() {
             return startedAt;
         }
 
-        public void setStartedAt(int startedAt) {
+        public void setStartedAt(long startedAt) {
             this.startedAt = startedAt;
         }
 
@@ -197,11 +197,11 @@ public class TogeBean {
             this.status = status;
         }
 
-        public int getStopAt() {
+        public long getStopAt() {
             return stopAt;
         }
 
-        public void setStopAt(int stopAt) {
+        public void setStopAt(long stopAt) {
             this.stopAt = stopAt;
         }
 
@@ -221,19 +221,19 @@ public class TogeBean {
             this.tokenName = tokenName;
         }
 
-        public int getTotal() {
+        public double getTotal() {
             return total;
         }
 
-        public void setTotal(int total) {
+        public void setTotal(double total) {
             this.total = total;
         }
 
-        public int getUpdatedAt() {
+        public long getUpdatedAt() {
             return updatedAt;
         }
 
-        public void setUpdatedAt(int updatedAt) {
+        public void setUpdatedAt(long updatedAt) {
             this.updatedAt = updatedAt;
         }
 
@@ -246,20 +246,20 @@ public class TogeBean {
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeInt(baseTokenId);
             dest.writeString(baseTokenName);
-            dest.writeInt(createdAt);
+            dest.writeLong(createdAt);
             dest.writeInt(projectId);
             dest.writeString(projectImage);
-            dest.writeInt(projectLimit);
+            dest.writeDouble(projectLimit);
             dest.writeString(projectName);
-            dest.writeInt(ratio);
-            dest.writeInt(releaseValue);
-            dest.writeInt(startedAt);
+            dest.writeDouble(ratio);
+            dest.writeDouble(releaseValue);
+            dest.writeLong(startedAt);
             dest.writeInt(status);
-            dest.writeInt(stopAt);
+            dest.writeLong(stopAt);
             dest.writeInt(tokenId);
             dest.writeString(tokenName);
-            dest.writeInt(total);
-            dest.writeInt(updatedAt);
+            dest.writeDouble(total);
+            dest.writeLong(updatedAt);
         }
     }
 }

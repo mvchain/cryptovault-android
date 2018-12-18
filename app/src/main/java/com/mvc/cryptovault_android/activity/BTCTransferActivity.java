@@ -1,10 +1,8 @@
 package com.mvc.cryptovault_android.activity;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.InputFilter;
@@ -83,8 +81,6 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
 
     @Override
     protected void initMVPData() {
-        hash = getIntent().getStringExtra("hash");
-        tokenId = getIntent().getIntExtra("tokenId", 0);
         mTransAddressBtc.setText(hash);
         mPresenter.getDetail(getToken(), tokenId);
     }
@@ -93,7 +89,9 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         dialogHelper = DialogHelper.getInstance();
+        hash = getIntent().getStringExtra("hash");
         tokenName = getIntent().getStringExtra("tokenName");
+        tokenId = getIntent().getIntExtra("tokenId", 0);
         mBackM = findViewById(R.id.m_back);
         mTitleM = findViewById(R.id.m_title);
         mQCodeM = findViewById(R.id.m_qcode);
@@ -110,7 +108,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String chagePrice = s.toString();
-                if (!chagePrice.equals("")) {
+                if (!chagePrice.equals("") && mTransBean != null) {
                     if (TextUtils.stringToDouble(chagePrice) > mTransBean.getBalance()) {
                         mPriceBtc.setText("余额不足");
                         mPriceBtc.setTextColor(getColor(R.color.red));
@@ -151,6 +149,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                     @Override
                     public void success(int i) {
                         Intent intent = new Intent(BTCTransferActivity.this, QCodeActivity.class);
+                        intent.putExtra("tokenId", tokenId);
                         startActivityForResult(intent, 200);
                     }
                 }).requestPermission(this, Manifest.permission.CAMERA);
@@ -200,6 +199,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                         setAlpha(1f);
                                     }
                                 }, num -> {
+                                    dialogHelper.create(this, R.drawable.pending_icon, "转账成功").show();
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                     mPresenter.sendTransferMsg(getToken(), transAddress, num, tokenId, priceBtc);
                                     mPopView.dismiss();
@@ -219,6 +219,11 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
         if (data != null) {
             switch (resultCode) {
                 case 200:
+                    boolean qode = data.getBooleanExtra("QODE", false);
+                    if (!qode) {
+                        Toast.makeText(this, "无效地址", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     String hash = data.getStringExtra(CodeUtils.RESULT_STRING);
                     mTransAddressBtc.setText(hash);
                     break;
@@ -241,15 +246,14 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     @Override
     public void transferCallBack(UpdateBean bean) {
         if (bean.getCode() == 200) {
-            Dialog dialog =dialogHelper .create(this, R.drawable.success_icon, "转账成功");
-            dialog.show();
-            new Handler().postDelayed(() -> {
+            dialogHelper.resetDialogResource(this, R.drawable.success_icon, "转账成功");
+            dialogHelper.dismissDelayed(() -> {
                 EventBus.getDefault().post(new HistroyEvent());
                 finish();
-                dialog.dismiss();
             }, 1500);
         } else if (bean.getCode() == 400) {
-            Toast.makeText(this, bean.getMessage(), Toast.LENGTH_SHORT).show();
+            dialogHelper.resetDialogResource(this, R.drawable.miss_icon, "转账失败");
+            dialogHelper.dismissDelayed(null, 1500);
         }
     }
 }

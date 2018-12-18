@@ -21,8 +21,8 @@ public class IncreasePresenter extends IncreaseContract.IncreasePresenter {
     }
 
     @Override
-    public void getCurrencyAll() {
-        rxUtils.register(mIModel.getCurrencyAll().subscribe(increaseBeans -> {
+    public void getCurrencyAll(String token) {
+        rxUtils.register(mIModel.getCurrencyAll(token).subscribe(increaseBeans -> {
             if (increaseBeans.size() > 0){
                 mIView.showCurrency(increaseBeans);
             }else{

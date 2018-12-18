@@ -119,8 +119,10 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                 break;
             case R.id.assets_type:
                 // TODO 18/11/28
-                mPopView.showAsDropDown(mTypeAssets, -50, -10, Gravity.CENTER);
-                ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.down_icon), mTypeAssets);
+                if (mPopView != null) {
+                    mPopView.showAsDropDown(mTypeAssets, -50, -10, Gravity.CENTER);
+                    ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.down_icon), mTypeAssets);
+                }
                 break;
         }
     }
@@ -293,7 +295,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         AllAssetBean assetBean = (AllAssetBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(ALLASSETS), AllAssetBean.class);
         mPriceAssets.setText(TextUtils.rateToPrice(assetBean.getData()));
         assetsAdapter.notifyDataSetChanged();
-        EventBus.getDefault().post(new WalletFragment());
         EventBus.getDefault().postSticky(new TrandFragmentEvent());
 //        EventBus.getDefault().post(new TrandFragmentEvent());
     }

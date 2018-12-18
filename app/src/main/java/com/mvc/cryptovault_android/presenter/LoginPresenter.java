@@ -35,13 +35,13 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                         mIView.showLoginStauts("登录成功");
                         mIView.startActivity();
                         mIView.saveUserInfo(loginBean);
-                    }else{
-                        mIView.showLoginStauts("登录失败");
+                    } else {
+                        mIView.showLoginStauts("登录失败, 失败原因：" + loginBean.getMessage());
                     }
                     mIView.dismiss();
                 }, throwable -> {
                     mIView.dismiss();
-                    mIView.showLoginStauts("登录失败");
+                    mIView.showLoginStauts("登录失败, 失败原因：" + throwable.getMessage());
                     LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));
     }

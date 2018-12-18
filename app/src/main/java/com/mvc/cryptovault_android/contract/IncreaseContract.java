@@ -11,11 +11,11 @@ import io.reactivex.Observable;
 
 public interface IncreaseContract {
     abstract class IncreasePresenter extends BasePresenter<IIncreaseModel,IIncreaseView>{
-        public abstract void getCurrencyAll();
+        public abstract void getCurrencyAll(String token);
         public abstract void getCurrencySerach(String serach);
     }
     interface IIncreaseModel extends IBaseModel{
-        Observable<List<IncreaseBean>> getCurrencyAll();
+        Observable<List<IncreaseBean>> getCurrencyAll(String token);
         Observable<List<IncreaseBean>> getCurrencySerachList(String serach);
     }
     interface IIncreaseView extends IBaseActivity{

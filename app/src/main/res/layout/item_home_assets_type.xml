@@ -58,9 +58,9 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerVertical="true"
-        app:cardCornerRadius="5dp"
         android:layout_marginLeft="15dp"
         android:background="@drawable/shape_round_white_6dp"
+        app:cardCornerRadius="5dp"
         app:cardElevation="5dp">
 
         <ImageView

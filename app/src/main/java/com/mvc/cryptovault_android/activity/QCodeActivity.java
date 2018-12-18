@@ -19,6 +19,7 @@ import com.lzy.imagepicker.view.CropImageView;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.utils.ImagePickerLoader;
+import com.mvc.cryptovault_android.utils.RxgularUtils;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CaptureFragment;
@@ -31,7 +32,7 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
     private CaptureFragment captureFragment;
     private ImageView mBackQcode;
     private TextView mPhotoQcode;
-
+    private int tokenId;
 
     @Override
     protected int getLayoutId() {
@@ -46,6 +47,7 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void initView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        tokenId = getIntent().getIntExtra("tokenId", 0);
         captureFragment = new CaptureFragment();
         // 为二维码扫描界面设置定制化界面
         CodeUtils.setFragmentArgs(captureFragment, R.layout.layout_camera);
@@ -67,8 +69,25 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
             Bundle bundle = new Bundle();
             bundle.putInt(CodeUtils.RESULT_TYPE, CodeUtils.RESULT_SUCCESS);
             bundle.putString(CodeUtils.RESULT_STRING, result);
+            LogUtils.e("QCodeActivity", "tokenId:" + tokenId);
+            if (tokenId == 0) {
+                bundle.putBoolean("QODE", false);
+            } else if (tokenId != 4) {
+                if (!RxgularUtils.isETH(result)) {
+                    bundle.putBoolean("QODE", false);
+                }else{
+                    bundle.putBoolean("QODE", true);
+                }
+            } else if (tokenId == 4) {
+                if (!RxgularUtils.isBTC(result)) {
+                    bundle.putBoolean("QODE", false);
+                }else{
+                    bundle.putBoolean("QODE", true);
+                }
+            }else{
+                bundle.putBoolean("QODE", true);
+            }
             resultIntent.putExtras(bundle);
-            LogUtils.e("QCodeActivity", result);
             QCodeActivity.this.setResult(200, resultIntent);
             QCodeActivity.this.finish();
         }

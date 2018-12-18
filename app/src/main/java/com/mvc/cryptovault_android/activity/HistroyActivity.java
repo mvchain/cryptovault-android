@@ -13,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,7 +66,6 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private int type;
     private int tokenId;
     private String tokenName;
-    private PopupWindow mPopView;
     private AssetListBean.DataBean dataBean;
 
     @Override
@@ -121,19 +119,6 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         mInHis.setOnClickListener(this);
         initIntent();
     }
-
-//    private void initPop() {
-//        String rate_default = SPUtils.getInstance().getString(RATE_LIST);
-//        ArrayList<String> content = new ArrayList<>();
-//        if (rate_default != null && !rate_default.equals("")) {
-//            ExchangeRateBean rateBean = (ExchangeRateBean) JsonHelper.stringToJson(rate_default, ExchangeRateBean.class);
-//            for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {
-//                content.add(dataBean.getName());
-//                mExchange.add(dataBean);
-//            }
-//            mPopView = PopViewHelper.getInstance().create(this, R.layout.layout_rate_pop, content, this);
-//        }
-//    }
 
     @SuppressLint("SetTextI18n")
     private void initIntent() {
@@ -220,6 +205,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                     @Override
                     public void success(int i) {
                         Intent intent = new Intent(HistroyActivity.this, QCodeActivity.class);
+                        intent.putExtra("tokenId",tokenId);
                         startActivityForResult(intent, 200);
                     }
                 }).requestPermission(this, Manifest.permission.CAMERA);
@@ -286,6 +272,11 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         if (data != null) {
             switch (resultCode) {
                 case 200:
+                    boolean qode = data.getBooleanExtra("QODE", false);
+                    if (!qode) {
+                        Toast.makeText(this, "无效地址", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     String stringExtra = data.getStringExtra(CodeUtils.RESULT_STRING);
                     Intent intent = new Intent(HistroyActivity.this, BTCTransferActivity.class);
                     intent.putExtra("hash", stringExtra);

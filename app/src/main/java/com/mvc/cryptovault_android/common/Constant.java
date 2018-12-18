@@ -4,6 +4,7 @@ public class Constant {
     public static class SP {
         public static final String DEFAULE_RATE = "default_rate";
         public static final String DEFAULE_SYMBOL = "defaule_symbol";
+        public static final String DEFAULE_LANGUAGE = "defaule_language";
         public static final String SET_RATE = "set_rate";
         public static final String ASSETS_LIST = "assets_list";
         public static final String ALLASSETS = "all_assets";
@@ -17,5 +18,10 @@ public class Constant {
         public static final String TRAND_BALANCE_LIST = "balance_list";
         public static final String MSG_TIME = "msg_time";
         public static final String READ_MSG = "read_msg";
+    }
+
+    public static class LANGUAGE {
+        public static final String CHINESE = "zh_CH";
+        public static final String ENGLISH = "en";
     }
 }

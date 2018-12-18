@@ -39,7 +39,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -57,9 +56,6 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     private boolean isSerach = false;
     private ArrayList<IncreaseBean> mBean;
     private ArrayList<IncreaseBean> mSearch;
-    private HashMap<Integer, AssetListBean> mAllStack;
-    private HashMap<Integer, IncreaseBean> mPutMap;
-    private HashMap<Integer, IncreaseBean> mRemoveMap;
     private IncreaseAdapter allIncreaseAdapter;
     private IncreaseAdapter searchIncreaseAdapter;
     private Dialog mHintDialog;
@@ -87,10 +83,9 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
                 }
             }
         });
-        mPresenter.getCurrencyAll();
+        mPresenter.getCurrencyAll(getToken());
         searchIncreaseAdapter.setOnItemChildClickListener(this);
         allIncreaseAdapter.setOnItemChildClickListener(this);
-        initCache();
     }
 
     private void initCache() {
@@ -101,9 +96,6 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
     protected void initMVPView() {
         mBean = new ArrayList<>();
         mSearch = new ArrayList<>();
-        mAllStack = new HashMap<>();
-        mPutMap = new HashMap<>();
-        mRemoveMap = new HashMap<>();
         mBarStatus = findViewById(R.id.status_bar);
         mBackIncrease = findViewById(R.id.increase_back);
         mBackIncrease.setOnClickListener(this);

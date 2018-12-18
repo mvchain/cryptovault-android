@@ -136,17 +136,26 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
     }
 
     private void initLineChart(KLineBean updateBean) {
+//        recording_current_tv
+        int currentSize = updateBean.getData().getValueY().size();
+        long currentTime = updateBean.getData().getTimeX().get(currentSize - 1);
+        long dayTime = currentTime - (20 * 60 * 60 * 1000);
+        float max = 0;
+        float min = 0;
+        mCurrentTvRecording.setText(updateBean.getData().getValueY().get(currentSize-1) + " VRT");
         LineDataSet dataSetByIndex;
         ArrayList<Entry> values = new ArrayList<>();
         List<Long> timeX = updateBean.getData().getTimeX();
         List<Float> valueY = updateBean.getData().getValueY();
         for (int i = 0; i < timeX.size(); i++) {
             values.add(new Entry(timeX.get(i), valueY.get(i)));
+            if (timeX.get(i) > dayTime && i < timeX.size() - 1) {
+                max = Math.max(valueY.get(i), valueY.get(i + 1));
+                min = Math.min(valueY.get(i), valueY.get(i + 1));
+            }
         }
-//        for (int i = 0; i < 200; i++) {
-//            float val = (float) (Math.random() * 1) + 19;
-//            values.add(new Entry(i, val));
-//        }
+        mDayMaxTvRecording.setText(max + " VRT");
+        mDayMinTvRecording.setText(min + " VRT");
         dataSetByIndex = new LineDataSet(values, "kline");
         dataSetByIndex.setValues(values);
         dataSetByIndex.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);

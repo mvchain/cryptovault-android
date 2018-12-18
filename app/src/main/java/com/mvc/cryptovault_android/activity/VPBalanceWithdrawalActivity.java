@@ -22,6 +22,8 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.base.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.BalanceContract;
+import com.mvc.cryptovault_android.event.HistroyEvent;
+import com.mvc.cryptovault_android.event.WalletAssetsListEvent;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.IPayWindowListener;
 import com.mvc.cryptovault_android.presenter.VPBalancePresenter;
@@ -29,6 +31,8 @@ import com.mvc.cryptovault_android.utils.PointLengthFilter;
 import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.PopViewHelper;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 余额提取
@@ -42,6 +46,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
     private TextView mSubmitVp;
     private PopupWindow mPopView;
     private VPBalanceBean vpBalanceBean;
+    private DialogHelper dialogHelper;
 
     @Override
     protected void initMVPData() {
@@ -51,6 +56,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        dialogHelper = DialogHelper.getInstance();
         mBackM = findViewById(R.id.m_back);
         mBackM.setOnClickListener(this);
         mTitleM = findViewById(R.id.m_title);
@@ -65,7 +71,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String chagePrice = s.toString();
-                if (!chagePrice.equals("")) {
+                if (!chagePrice.equals("") && vpBalanceBean != null) {
                     if (TextUtils.stringToDouble(chagePrice) > vpBalanceBean.getData()) {
                         mPriceVp.setText("余额不足");
                         mPriceVp.setTextColor(getColor(R.color.red));
@@ -104,8 +110,13 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
     @Override
     public void callBack(UpdateBean bean) {
         if (bean.getCode() == 200) {
-            Dialog dialog = DialogHelper.getInstance().create(this, R.drawable.pending_icon, "提取成功");
+            Dialog dialog = dialogHelper.create(this, R.drawable.pending_icon, "提取成功");
             dialog.show();
+            dialogHelper.dismissDelayed(() -> {
+                EventBus.getDefault().post(new HistroyEvent());
+                EventBus.getDefault().post(new WalletAssetsListEvent());
+                finish();
+            }, 1500);
             new Handler().postDelayed(() -> dialog.dismiss(), 1000);
         } else {
             Toast.makeText(this, bean.getMessage(), Toast.LENGTH_SHORT).show();
@@ -167,6 +178,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
                                         setAlpha(1f);
                                     }
                                 }, num -> {
+                                    KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                     mPresenter.sendDebitMsg(getToken(), num, vpEditPrice);
                                     mPopView.dismiss();
                                 });

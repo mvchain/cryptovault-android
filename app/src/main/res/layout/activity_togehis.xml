@@ -20,6 +20,7 @@
         <ImageView
             android:id="@+id/togehis_back"
             android:scaleType="center"
+            android:layout_marginLeft="5dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/back_icon_black" />
@@ -44,7 +45,7 @@
             android:drawableLeft="@drawable/serch_icon_drawable_edit"
             android:hint="搜索币种"
             android:maxLines="1"
-            android:paddingLeft="25dp"
+            android:paddingLeft="15dp"
             android:textColorHint="@color/edit_tv"
             android:textSize="15sp"
             android:visibility="gone" />

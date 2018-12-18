@@ -5,8 +5,17 @@ public class IncreaseBean {
     private boolean isAdd;
     private String resId;
     private String title;
-    private String content;
+    private String zhContent;
+    private String enContent;
     private boolean isVisi;
+
+    public String getEnContent() {
+        return enContent;
+    }
+
+    public void setEnContent(String enContent) {
+        this.enContent = enContent;
+    }
 
     public boolean isVisi() {
         return isVisi;
@@ -48,11 +57,11 @@ public class IncreaseBean {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getZhContent() {
+        return zhContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setZhContent(String zhContent) {
+        this.zhContent = zhContent;
     }
 }

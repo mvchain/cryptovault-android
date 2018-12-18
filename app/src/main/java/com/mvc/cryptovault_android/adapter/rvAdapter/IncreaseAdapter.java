@@ -26,7 +26,7 @@ public class IncreaseAdapter extends BaseQuickAdapter<IncreaseBean, BaseViewHold
         ImageView icon = helper.getView(R.id.item_increase_icon);
         TextView add = helper.getView(R.id.item_increase_add);
         helper.setText(R.id.item_increase_title, item.getTitle());
-        helper.setText(R.id.item_increase_content, item.getContent());
+        helper.setText(R.id.item_increase_content, item.getZhContent());
         add.setVisibility(item.isVisi() ? View.VISIBLE : View.GONE);
         if (!item.isAdd()) {
             add.setBackground(mContext.getDrawable(R.drawable.shape_round_orangey_15dp));

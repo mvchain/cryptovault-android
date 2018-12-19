@@ -204,7 +204,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/all_price_hint"
                         android:layout_marginTop="8dp"
-                        android:text="USDT 0.00"
+                        android:text="0.00 USDT"
                         android:textColor="@color/login_content"
                         android:textSize="21dp" />
                 </RelativeLayout>

@@ -249,9 +249,9 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    public void startPurhActivity(int transType) {
+    public void startPurhActivity(int transType,int id) {
         Intent intent = new Intent(this, TrandPurhAndSellItemActivity.class);
-        intent.putExtra("pairId", data.getPairId());
+        intent.putExtra("id", id);
         intent.putExtra("data", data);
         intent.putExtra("type", transType);
         LogUtils.e("TrandRecordingActivity", "transType:" + transType);

@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <View
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
-        android:background="@color/status_gray"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        android:background="@color/status_gray" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/mine_swip"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,7 +34,7 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_marginTop="32dp"
-                    android:src="@color/red" />
+                    android:src="@drawable/portrait_icon" />
 
                 <TextView
                     android:id="@+id/user_name"
@@ -53,13 +57,14 @@
                 android:id="@+id/sys_language"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:layout_marginTop="12dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="10dp"
                 app:sDividerLineHeight="1dp"
-                app:sLeftTextString="语言"
                 app:sLeftIconRes="@drawable/language_icon"
-                app:sRightIconRes="@drawable/next_icon_black"
-                android:layout_marginTop="12dp" />
+                app:sLeftTextString="语言"
+                app:sRightIconRes="@drawable/next_icon_black" />
+
             <com.allen.library.SuperTextView
                 android:id="@+id/about"
                 android:layout_width="match_parent"
@@ -67,8 +72,8 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="10dp"
                 app:sDividerLineHeight="0dp"
-                app:sLeftTextString="关于"
                 app:sLeftIconRes="@drawable/about_icon"
+                app:sLeftTextString="关于"
                 app:sRightIconRes="@drawable/next_icon_black" />
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -26,6 +26,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
+import com.mvc.cryptovault_android.bean.RecordingEvent;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.bean.TrandPurhBean;
 import com.mvc.cryptovault_android.listener.EditTextChange;
@@ -38,6 +39,7 @@ import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.PswText;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -83,7 +85,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         data = getIntent().getParcelableExtra("data");
         mTitleTrand.setText(getIntent().getStringExtra("title"));
         type = getIntent().getIntExtra("type", 0);
-        pairId = getIntent().getIntExtra("pairId", 0);
+        pairId = getIntent().getIntExtra("id", 0);
         unitPrice = getIntent().getStringExtra("unit_price");
         mEditPurh.setHint("输入" + (type == 1 ? "购买" : "出售") + "数量");
         mTitlePrice.setText((type == 1 ? "购买" : "出售") + "价");
@@ -108,12 +110,12 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                 if (!numText.equals("")) {
                                     Double num = Double.valueOf(numText);
                                     if (num == 0) {
-                                        mAllPricePurh.setText(unitPrice + " 0.00 ");
+                                        mAllPricePurh.setText("0.00 " + unitPrice);
                                     } else {
-                                        mAllPricePurh.setText(unitPrice + " " + TextUtils.doubleToDouble(data.getPrice() * num));
+                                        mAllPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * num) + " " + unitPrice);
                                     }
                                 } else {
-                                    mAllPricePurh.setText(unitPrice + " 0.00 ");
+                                    mAllPricePurh.setText("0.00 " + unitPrice);
                                 }
                             }
                         });
@@ -223,6 +225,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                 e.printStackTrace();
                             }
                             RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
+                            KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                             if (type == 1) {
                                 releasePurh(body);
                             } else {
@@ -247,25 +250,23 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     private void releasePurh(RequestBody body) {
         RetrofitUtils.client(ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200) {
-                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, "发布成功");
+                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
+                EventBus.getDefault().post(new RecordingEvent());
                 mHintError.setVisibility(View.INVISIBLE);
+                dialogHelper.dismissDelayed(() -> finish(), 1000);
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.INVISIBLE);
+                dialogHelper.dismissDelayed(null, 2000);
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
+                dialogHelper.dismissDelayed(null, 2000);
             }
-            new Handler().postDelayed(() -> {
-                mHintError.setVisibility(View.INVISIBLE);
-                mPurhDialog.dismiss();
-            }, 1000);
         }, throwable -> {
             dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, throwable.getMessage());
-            new Handler().postDelayed(() -> {
-                mPurhDialog.dismiss();
-            }, 1000);
+            dialogHelper.dismissDelayed(null, 2000);
             LogUtils.e("TrandPurhAndSellActivit", throwable.getMessage());
         });
     }
@@ -279,25 +280,23 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     private void releaseSell(RequestBody body) {
         RetrofitUtils.client(ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200) {
-                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, "发布成功");
+                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
                 mHintError.setVisibility(View.INVISIBLE);
+                EventBus.getDefault().post(new RecordingEvent());
+                dialogHelper.dismissDelayed(() -> finish(), 1000);
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.INVISIBLE);
+                dialogHelper.dismissDelayed(null, 2000);
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
+                dialogHelper.dismissDelayed(null, 2000);
             }
-            new Handler().postDelayed(() -> {
-                mHintError.setVisibility(View.INVISIBLE);
-                mPurhDialog.dismiss();
-            }, 1000);
         }, throwable -> {
             dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, throwable.getMessage());
-            new Handler().postDelayed(() -> {
-                mPurhDialog.dismiss();
-            }, 1000);
+            dialogHelper.dismissDelayed(null, 2000);
             //能获取到报错信息
 //            if(throwable instanceof HttpException){
 //                HttpException httpException= (HttpException) throwable;

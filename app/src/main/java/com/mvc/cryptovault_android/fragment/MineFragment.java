@@ -71,7 +71,8 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         UserInfoBean.DataBean data = user.getData();
         mNameUser.setText(data.getNickname());
         mPhoneUser.setText(data.getUsername());
-        Glide.with(activity).load(data.getHeadImage()).into(mImgUser);
+        RequestOptions options = new RequestOptions().error(R.drawable.portrait_icon);
+        Glide.with(activity).load(data.getHeadImage()).apply(options).into(mImgUser);
     }
 
     private void refresh() {

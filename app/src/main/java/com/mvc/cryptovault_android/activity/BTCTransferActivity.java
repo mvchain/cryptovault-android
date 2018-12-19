@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -241,7 +243,8 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     public void showSuccess(IDToTransferBean.DataBean data) {
         this.mTransBean = data;
         mPriceBtc.setText("余额：" + TextUtils.doubleToFour(data.getBalance()));
-        mSxfBtc.setText(data.getFee() + " " + data.getFeeTokenName());
+        LogUtils.e("TextUtils", "data.getFee():" + data.getFee());
+        mSxfBtc.setText(TextUtils.doubleToSix(data.getFee()) + " " + data.getFeeTokenName());
     }
 
     @Override

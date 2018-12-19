@@ -43,6 +43,7 @@ public class ParameterInterceptor implements Interceptor {
                     Request newRequest = chain.request()
                             .newBuilder()
                             .header("Authorization", token)
+                            .header("Accept-Language", "zh-cn")
                             .build();
                     return chain.proceed(newRequest);
                 }
@@ -55,6 +56,7 @@ public class ParameterInterceptor implements Interceptor {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             Utils.getApp().startActivity(intent);
         }
+        response.header("Accept-Language", "zh-cn");
         return response;
     }
 

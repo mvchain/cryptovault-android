@@ -1,5 +1,8 @@
 package com.mvc.cryptovault_android.model;
 
+import android.util.Log;
+
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.Gson;
 import com.mvc.cryptovault_android.api.ApiStore;
@@ -71,7 +74,7 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
     public Observable<List<IncreaseBean>> getCurrencySerachList(String serach) {
         mSearchList.clear();
         if (!serach.equals("")) {
-            for (int i = 2; i < mList.size(); i++) {
+            for (int i = 0; i < mList.size(); i++) {
                 IncreaseBean increaseBean = mList.get(i);
                 if (increaseBean.getZhContent().contains(serach) || increaseBean.getTitle().contains(serach)) {
                     mSearchList.add(increaseBean);

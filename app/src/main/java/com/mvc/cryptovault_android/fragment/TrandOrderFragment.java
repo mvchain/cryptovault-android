@@ -76,7 +76,7 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.getItemCount() > 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
+                if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
                     mPresenter.getTrandOrder(getToken(), dataBeans.get(dataBeans.size() - 1).getId(), 10, pairId, status, transactionType, 0);
                 }
             }

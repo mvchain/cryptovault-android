@@ -35,6 +35,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     private int tokenId;
     private int action;
     private SwipeRefreshLayout mItemSwipHis;
+    private boolean isRefresh = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.getItemCount() > 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
+                if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
                     switch (action) {
                         case 0:
                             mPresenter.getAll(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
@@ -124,7 +125,6 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     @Override
     protected void initData() {
         super.initData();
-        LogUtils.e("HistroyChildFragment", "action:" + action);
         switch (action) {
             case 0:
                 mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);
@@ -145,6 +145,10 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
 
     @Override
     public void showSuccess(List<HistroyBean.DataBean> msgs) {
+        if (isRefresh) {
+            mHisData.clear();
+            isRefresh = false;
+        }
         mHisData.addAll(msgs);
         mDataNull.setVisibility(View.GONE);
         mRvChild.setVisibility(View.VISIBLE);
@@ -155,8 +159,10 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     @Override
     public void showNull() {
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
-        if (mHisData.size() > 0) {
-            Toast.makeText(context, "没有新的交易信息", Toast.LENGTH_SHORT).show();
+        if (mHisData.size() > 0 && isRefresh) {
+//            Toast.makeText(context, "没有新的交易信息", Toast.LENGTH_SHORT).show();
+        } else if (mHisData.size() > 0 && !isRefresh) {
+//            Toast.makeText(context, "没有更多交易信息", Toast.LENGTH_SHORT).show();
         } else {
             mDataNull.setVisibility(View.VISIBLE);
             mRvChild.setVisibility(View.GONE);
@@ -164,7 +170,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     }
 
     public void refresh() {
-        mHisData.clear();
+        isRefresh = true;
         switch (action) {
             case 0:
                 mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);
@@ -177,9 +183,10 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
                 break;
         }
     }
+
     @Subscribe
-    public void eventRefresh(HistroyEvent event){
-        mHisData.clear();
+    public void eventRefresh(HistroyEvent event) {
+        isRefresh = true;
         switch (action) {
             case 0:
                 mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);

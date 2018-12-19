@@ -38,7 +38,7 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
         trandPagerAdapter = new TrandPagerAdapter(getChildFragmentManager(), mFragments);
         mVpTrand.setAdapter(trandPagerAdapter);
         mTableTrand.setupWithViewPager(mVpTrand);
-        TabLayoutUtils.setIndicator(mTableTrand, 20, 20);
+        TabLayoutUtils.setIndicator(mTableTrand, 40, 40);
     }
 
     @Override

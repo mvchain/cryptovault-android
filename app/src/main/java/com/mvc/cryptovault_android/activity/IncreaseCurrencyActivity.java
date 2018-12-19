@@ -247,7 +247,12 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
      */
     @SuppressLint("CheckResult")
     private void pullStack(int position) {
-        int currencyId = mBean.get(position).getCurrencyId();
+        int currencyId = 0;
+        if (mSerachRvIncrease.getVisibility() == View.VISIBLE) {
+            currencyId =  mSearch.get(position).getCurrencyId();
+        }else{
+            currencyId =  mBean.get(position).getCurrencyId();
+        }
         JSONObject json = new JSONObject();
         try {
             json.put("addTokenIdArr", "");
@@ -276,7 +281,12 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
 
     @SuppressLint("CheckResult")
     private void pushStack(int position) {
-        int currencyId = mBean.get(position).getCurrencyId();
+        int currencyId = 0;
+        if (mSerachRvIncrease.getVisibility() == View.VISIBLE) {
+            currencyId =  mSearch.get(position).getCurrencyId();
+        }else{
+            currencyId =  mBean.get(position).getCurrencyId();
+        }
         JSONObject json = new JSONObject();
         try {
             json.put("addTokenIdArr", currencyId);
@@ -289,7 +299,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
             if (updateBean.getCode() == 200 && updateBean.isData()) {
                 EventBus.getDefault().post(new WalletAssetsListEvent());
             }
-        }, throwable -> LogUtils.d("IncreaseCurrencyActivit", throwable.getMessage()));
+        }, throwable -> LogUtils.e("IncreaseCurrencyActivit", throwable.getMessage()));
         if (mSerachRvIncrease.getVisibility() == View.VISIBLE) {
             boolean add = mSearch.get(position).isAdd();
             mSearch.get(position).setAdd(!add);

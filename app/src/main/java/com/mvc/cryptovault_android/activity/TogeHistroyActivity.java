@@ -117,7 +117,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.getItemCount() > 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
+                if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
                     mPresenter.getReservation(getToken(), beans.get(beans.size() - 1).getId(), 10, 1);
                 }
             }

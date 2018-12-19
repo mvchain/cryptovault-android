@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.fragment;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     private TextView mPhoneUser;
     private SuperTextView mLanguageSys;
     private SuperTextView mAbout;
+    private SwipeRefreshLayout mSwipMine;
 
     @Override
     protected void initData() {
@@ -46,6 +48,9 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         mPhoneUser = rootView.findViewById(R.id.user_phone);
         mLanguageSys = rootView.findViewById(R.id.sys_language);
         mAbout = rootView.findViewById(R.id.about);
+        mSwipMine = rootView.findViewById(R.id.mine_swip);
+        mSwipMine.post(() -> mSwipMine.setRefreshing(true));
+        mSwipMine.setOnRefreshListener(this::refresh);
         mAbout.setOnClickListener(this);
     }
 
@@ -61,6 +66,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
 
     @Override
     public void setUser(UserInfoBean user) {
+        mSwipMine.post(() -> mSwipMine.setRefreshing(false));
         SPUtils.getInstance().put(USER_INFO, JsonHelper.jsonToString(user));
         UserInfoBean.DataBean data = user.getData();
         mNameUser.setText(data.getNickname());
@@ -68,8 +74,13 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         Glide.with(activity).load(data.getHeadImage()).into(mImgUser);
     }
 
+    private void refresh() {
+        mPresenter.getUserInfo(getToken());
+    }
+
     @Override
     public void serverError() {
+        mSwipMine.post(() -> mSwipMine.setRefreshing(false));
         String userJson = SPUtils.getInstance().getString(USER_INFO);
         if (!userJson.equals("")) {
             UserInfoBean infoBean = (UserInfoBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(USER_INFO), UserInfoBean.class);

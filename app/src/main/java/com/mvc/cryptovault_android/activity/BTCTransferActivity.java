@@ -190,6 +190,8 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                                 setAlpha(0.5f);
                                                 break;
                                             case R.id.pay_forget:
+                                                dialogHelper.create(BTCTransferActivity.this, R.layout.layout_forgetpwd_dialog).show();
+                                                dialogHelper.dismissDelayed(null, 2000);
                                                 break;
                                         }
                                     }

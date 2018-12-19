@@ -42,7 +42,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginRight="5dp"
             android:scaleType="center"
             android:src="@drawable/select_icon_black" />
     </LinearLayout>

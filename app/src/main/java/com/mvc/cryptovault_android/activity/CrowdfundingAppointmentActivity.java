@@ -207,6 +207,8 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                                                 setAlpha(0.5f);
                                                 break;
                                             case R.id.pay_forget:
+                                                dialogHelper.create(CrowdfundingAppointmentActivity.this, R.layout.layout_forgetpwd_dialog).show();
+                                                dialogHelper.dismissDelayed(null, 2000);
                                                 break;
                                         }
                                     }

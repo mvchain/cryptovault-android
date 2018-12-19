@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.HistroyActivity;
@@ -182,6 +184,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private void initPop() {
         ArrayList<String> content = new ArrayList<>();
         String rate_list = SPUtils.getInstance().getString(RATE_LIST);
+        LogUtils.e("WalletFragment", rate_list);
         if (!rate_list.equals("")) {
             ExchangeRateBean rateBean = (ExchangeRateBean) JsonHelper.stringToJson(rate_list, ExchangeRateBean.class);
             for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {

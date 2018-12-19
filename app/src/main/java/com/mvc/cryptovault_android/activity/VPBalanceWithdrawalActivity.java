@@ -169,6 +169,8 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
                                                 setAlpha(0.5f);
                                                 break;
                                             case R.id.pay_forget:
+                                                dialogHelper.create(VPBalanceWithdrawalActivity.this, R.layout.layout_forgetpwd_dialog).show();
+                                                dialogHelper.dismissDelayed(null, 2000);
                                                 break;
                                         }
                                     }

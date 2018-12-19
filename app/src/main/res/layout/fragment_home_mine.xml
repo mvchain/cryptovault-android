@@ -9,57 +9,67 @@
         android:layout_width="match_parent"
         android:background="@color/status_gray"
         android:layout_height="0dp"/>
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/mine_swip"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/home_bg_mine_page"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="25dp">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/home_bg_mine_page"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="25dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_img"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="32dp"
-            android:src="@color/red" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_img"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@color/red" />
 
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
 
-        <TextView
-            android:id="@+id/user_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/user_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+            </LinearLayout>
 
-    <com.allen.library.SuperTextView
-        android:id="@+id/sys_language"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="10dp"
-        app:sDividerLineHeight="1dp"
-        app:sLeftTextString="语言"
-        app:sLeftIconRes="@drawable/language_icon"
-        app:sRightIconRes="@drawable/next_icon_black"
-        android:layout_marginTop="12dp" />
-    <com.allen.library.SuperTextView
-        android:id="@+id/about"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="10dp"
-        app:sDividerLineHeight="0dp"
-        app:sLeftTextString="关于"
-        app:sLeftIconRes="@drawable/about_icon"
-        app:sRightIconRes="@drawable/next_icon_black" />
+            <com.allen.library.SuperTextView
+                android:id="@+id/sys_language"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                app:sDividerLineHeight="1dp"
+                app:sLeftTextString="语言"
+                app:sLeftIconRes="@drawable/language_icon"
+                app:sRightIconRes="@drawable/next_icon_black"
+                android:layout_marginTop="12dp" />
+            <com.allen.library.SuperTextView
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                app:sDividerLineHeight="0dp"
+                app:sLeftTextString="关于"
+                app:sLeftIconRes="@drawable/about_icon"
+                app:sRightIconRes="@drawable/next_icon_black" />
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

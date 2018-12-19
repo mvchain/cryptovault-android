@@ -146,7 +146,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.getItemCount() > 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
+                if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
                     int projectId = mData.get(mData.size() - 1).getProjectId();
                     switch (projectType) {
                         case 0:

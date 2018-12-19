@@ -16,32 +16,52 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
 
     @SuppressLint("CheckResult")
     @Override
-    public void login(String phone, String pwd) {
+    public void login(String phone, String pwd, String code) {
+        mIView.show();
         if (mIModel == null || mIView == null) {
             return;
         }
         if (phone == null || phone.equals("")) {
-            mIView.showLoginStauts("手机号不可为空");
+            mIView.showLoginStauts(false, "手机号不可为空");
             return;
         }
         if (pwd == null || pwd.equals("")) {
-            mIView.showLoginStauts("密码不可为空");
+            mIView.showLoginStauts(false, "密码不可为空");
             return;
         }
-        mIView.show();
-        rxUtils.register(mIModel.getLoginStatus(phone, pwd)
+        if (code == null || code.equals("")) {
+            mIView.showLoginStauts(false, "验证码不可为空");
+            return;
+        }
+        rxUtils.register(mIModel.getLoginStatus(phone, pwd, code)
                 .subscribe(loginBean -> {
                     if (loginBean.getCode() == 200) {
-                        mIView.showLoginStauts("登录成功");
-                        mIView.startActivity();
+                        mIView.showLoginStauts(true, "登录成功");
                         mIView.saveUserInfo(loginBean);
                     } else {
-                        mIView.showLoginStauts(loginBean.getMessage());
+                        mIView.showLoginStauts(false,loginBean.getMessage());
                     }
-                    mIView.dismiss();
                 }, throwable -> {
-                    mIView.dismiss();
-                    mIView.showLoginStauts("登录失败, 失败原因：" + throwable.getMessage());
+                    mIView.showLoginStauts(false, throwable.getMessage());
+                    LogUtils.e("LoginPresenter", throwable.getMessage());
+                }));
+    }
+
+    @Override
+    public void sendCode(String cellphone) {
+        if (cellphone == null || cellphone.equals("")) {
+            mIView.showSendCode(false, "手机号不可为空");
+            return;
+        }
+        rxUtils.register(mIModel.sendCode(cellphone)
+                .subscribe(bean -> {
+                    if (bean.getCode() == 200 && bean.isData()) {
+                        mIView.showSendCode(true, "验证码发送成功");
+                    } else {
+                        mIView.showSendCode(false, bean.getMessage());
+                    }
+                }, throwable -> {
+                    mIView.showSendCode(false, throwable.getMessage());
                     LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));
     }

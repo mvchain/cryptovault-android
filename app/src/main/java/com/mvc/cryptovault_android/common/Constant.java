@@ -18,7 +18,7 @@ public class Constant {
         public static final String TRAND_BALANCE_LIST = "balance_list";
         public static final String MSG_TIME = "msg_time";
         public static final String READ_MSG = "read_msg";
-        public static final String USER_INFO = "read_msg";
+        public static final String USER_INFO = "user_info";
     }
 
     public static class LANGUAGE {

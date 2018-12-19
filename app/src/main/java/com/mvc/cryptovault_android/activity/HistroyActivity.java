@@ -281,6 +281,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                     Intent intent = new Intent(HistroyActivity.this, BTCTransferActivity.class);
                     intent.putExtra("hash", stringExtra);
                     intent.putExtra("tokenId", tokenId);
+                    intent.putExtra("tokenId", tokenName);
                     startActivity(intent);
                     break;
             }

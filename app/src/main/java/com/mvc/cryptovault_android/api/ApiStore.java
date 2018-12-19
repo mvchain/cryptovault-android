@@ -31,6 +31,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -162,5 +163,14 @@ public interface ApiStore {
     @GET(HttpUrl.GET_KLINE)
     Observable<KLineBean> getKLine(@Header("Authorization") String token,
                                    @Query("pairId") int pairId);
+
+    /**
+     * 获取验证码
+     *
+     * @param cellphone
+     * @return
+     */
+    @GET(HttpUrl.SEND_CODE)
+    Observable<UpdateBean> sendCode(@Query("cellphone") String cellphone);
 
 }

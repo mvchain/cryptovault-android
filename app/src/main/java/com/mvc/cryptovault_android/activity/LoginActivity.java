@@ -2,12 +2,18 @@ package com.mvc.cryptovault_android.activity;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MainActivity;
@@ -15,12 +21,17 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.LoginBean;
+import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.LoginContract;
 import com.mvc.cryptovault_android.listener.EditTextChange;
+import com.mvc.cryptovault_android.listener.OnTimeEndCallBack;
 import com.mvc.cryptovault_android.presenter.LoginPresenter;
+import com.mvc.cryptovault_android.utils.TimeVerification;
 import com.mvc.cryptovault_android.utils.ViewDrawUtils;
 import com.mvc.cryptovault_android.view.ClearEditText;
 import com.mvc.cryptovault_android.view.DialogHelper;
+
+import java.lang.ref.WeakReference;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
@@ -33,6 +44,8 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     private TextView mLoginForgetPwd;
     private Button mLoginSubmit;
     private DialogHelper dialogHelper;
+    private ClearEditText mCodeLogin;
+    private TextView mCodeSend;
 
     @Override
     protected int getLayoutId() {
@@ -45,21 +58,26 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     protected void initView() {
-
     }
 
 
     @Override
     public void onClick(View v) {
+        String phone = mLoginPhone.getText().toString().trim();
         switch (v.getId()) {
             case R.id.login_submit:
-                String phone = mLoginPhone.getText().toString().trim();
                 String pwd = mLoginPwd.getText().toString().trim();
-                mPresenter.login(phone, pwd);
+                String code = mCodeLogin.getText().toString().trim();
+                mPresenter.login(phone, pwd, code);
                 break;
             case R.id.login_forget_pwd:
                 dialogHelper.create(this, R.layout.layout_forgetpwd_dialog).show();
                 dialogHelper.dismissDelayed(null, 2000);
+                break;
+            case R.id.send_code:
+                LogUtils.e("LoginActivity", "123");
+                dialogHelper.create(this, R.drawable.pending_icon, "发送验证码中").show();
+                mPresenter.sendCode(phone);
                 break;
         }
     }
@@ -69,9 +87,19 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         return LoginPresenter.newIntance();
     }
 
+
     @Override
-    public void showLoginStauts(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    public void showLoginStauts(boolean isSuccess, String msg) {
+        if (isSuccess) {
+            dialogHelper.resetDialogResource(this, R.drawable.success_icon, msg);
+            dialogHelper.dismissDelayed(() -> {
+                startActvity(MainActivity.class);
+                finish();
+            }, 1000);
+        } else {
+            dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg);
+            dialogHelper.dismissDelayed(null, 1500);
+        }
     }
 
     @Override
@@ -82,19 +110,33 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     }
 
     @Override
+    public void showSendCode(boolean isSuccess, String msg) {
+        if (isSuccess) {
+            dialogHelper.resetDialogResource(this, R.drawable.success_icon, msg);
+            TimeVerification.getInstence().setOnTimeEndCallBack(new OnTimeEndCallBack() {
+                @Override
+                public void updata(int time) {
+                    mCodeSend.setEnabled(false);
+                    mCodeSend.setBackgroundResource(R.drawable.shape_load_sendcode_bg);
+                    mCodeSend.setText(time + "s后重新获取");
+                }
+
+                @Override
+                public void exit() {
+                    mCodeSend.setEnabled(true);
+                    mCodeSend.setBackgroundResource(R.drawable.shape_sendcode_bg);
+                    mCodeSend.setText("重新获取验证码");
+                }
+            }).updataTime();
+        } else {
+            dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg);
+        }
+        dialogHelper.dismissDelayed(null, 1500);
+    }
+
+    @Override
     public void show() {
         dialogHelper.create(LoginActivity.this, R.drawable.pending_icon, getResources().getString(R.string.login_load)).show();
-    }
-
-    @Override
-    public void dismiss() {
-        dialogHelper.dismiss();
-    }
-
-    @Override
-    public void startActivity() {
-        startActvity(MainActivity.class);
-        finish();
     }
 
     @Override
@@ -109,6 +151,9 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         mLoginPwd = findViewById(R.id.login_pwd);
         mLoginForgetPwd = findViewById(R.id.login_forget_pwd);
         mLoginSubmit = findViewById(R.id.login_submit);
+        mCodeLogin = findViewById(R.id.login_code);
+        mCodeSend = findViewById(R.id.send_code);
+        mCodeSend.setOnClickListener(this);
         mLoginSubmit.setOnClickListener(this);
         mLoginForgetPwd.setOnClickListener(this);
         mLoginPhone.addTextChangedListener(new EditTextChange() {
@@ -137,5 +182,23 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                 }
             }
         });
+        mCodeLogin.addTextChangedListener(new EditTextChange() {
+            @TargetApi(Build.VERSION_CODES.M)
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String updateTv = s.toString();
+                if (!updateTv.equals("")) {
+                    ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mLoginPwd);
+                } else {
+                    ViewDrawUtils.clearDraw(mLoginPwd);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void startActivity() {
+
     }
 }

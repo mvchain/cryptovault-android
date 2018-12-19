@@ -1,7 +1,9 @@
 package com.mvc.cryptovault_android.model;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
@@ -59,6 +61,7 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
                         String newSymbol = symbol.substring(0, 1);
                         SPUtils.getInstance().put(DEFAULE_SYMBOL, newSymbol + " ");
                     }
+                    LogUtils.e("WalletModel", JsonHelper.jsonToString(exchangeRateBean));
                     SPUtils.getInstance().put(RATE_LIST, JsonHelper.jsonToString(exchangeRateBean));
                     return RetrofitUtils.client(ApiStore.class).getCurrencyAll(token).compose(RxHelper.rxSchedulerHelper());
                 })

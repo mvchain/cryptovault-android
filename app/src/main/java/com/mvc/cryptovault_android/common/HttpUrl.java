@@ -100,6 +100,10 @@ public class HttpUrl {
      * 获取7日K线图
      */
     public static final String GET_KLINE = "/transaction/pair/kline";
+    /**
+     * 获取验证码
+     */
+    public static final String SEND_CODE = "/user/sms";
 
 
 }

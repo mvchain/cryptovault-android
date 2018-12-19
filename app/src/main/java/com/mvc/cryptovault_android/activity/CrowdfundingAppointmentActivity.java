@@ -103,7 +103,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
                     ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mBwPriceM);
-                    Integer currentNum = Integer.valueOf(updateTv);
+                    Double currentNum = Double.valueOf(updateTv);
                     if (currentNum > maxPurchase) {
                         mNumHint.setText("超出最大预约数量！");
                         mNumHint.setVisibility(View.VISIBLE);

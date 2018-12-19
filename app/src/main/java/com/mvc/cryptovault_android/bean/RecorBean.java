@@ -50,7 +50,7 @@ public class RecorBean {
 
         private String headImage;
         private int id;
-        private int limitValue;
+        private double limitValue;
         private String nickname;
         private double price;
         private double total;
@@ -71,11 +71,11 @@ public class RecorBean {
             this.id = id;
         }
 
-        public int getLimitValue() {
+        public double getLimitValue() {
             return limitValue;
         }
 
-        public void setLimitValue(int limitValue) {
+        public void setLimitValue(double limitValue) {
             this.limitValue = limitValue;
         }
 

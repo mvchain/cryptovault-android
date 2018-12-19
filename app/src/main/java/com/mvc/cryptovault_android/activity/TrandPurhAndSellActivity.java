@@ -69,6 +69,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
     private TextView mSubmitPurh;
     private boolean isNetWork;
     private int type;
+    private String unitPrice;
     private PopupWindow mPopView;
     private DialogHelper dialogHelper;
     private Dialog mPurhDialog;
@@ -85,7 +86,10 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         data = getIntent().getParcelableExtra("data");
         mTitleTrand.setText(getIntent().getStringExtra("title"));
         type = getIntent().getIntExtra("type", 0);
+        unitPrice = getIntent().getStringExtra("unit_price");
         mEditPurh.setHint("输入" + (type == 1 ? "购买" : "出售") + "数量");
+        mTitlePrice.setText((type == 1 ? "购买" : "出售") + "价");
+        mNumPrice.setText((type == 1 ? "购买" : "出售") + "数量");
         RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(trandPurhBean -> {
@@ -105,7 +109,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                         } else {
                             mSeekPurh.setProgress(mSeekPurh.getMax() / 2);
                         }
-                        mAllPricePurh.setText("0.00 " + (type == 1 ? "VRT" : this.data.getTokenName()));
+                        mAllPricePurh.setText("0.00 " + unitPrice);
                         mPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + "VRT");
                         mSeekNumPurh.setText((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100)) + "%");
                         mSeekPurh.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -115,8 +119,8 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                 mSeekNumPurh.setText(currentPro + "%");
                                 mPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * currentPro / 100) + "VRT");
                                 if (!mEditPurh.getText().toString().equals("")) {
-                                    double allPrice = (data.getPrice() * currentPro / 100) * Integer.valueOf(mEditPurh.getText().toString());
-                                    mAllPricePurh.setText(TextUtils.doubleToDouble(allPrice) + " " + (type == 1 ? "VRT" : TrandPurhAndSellActivity.this.data.getTokenName()));
+                                    double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
+                                    mAllPricePurh.setText(TextUtils.doubleToDouble(allPrice) + " " + unitPrice);
                                 }
                             }
 
@@ -137,16 +141,16 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                             public void onTextChanged(CharSequence s, int start, int before, int count) {
                                 String numText = s.toString();
                                 if (!numText.equals("")) {
-                                    Integer num = Integer.valueOf(numText);
+                                    Double num = Double.valueOf(numText);
                                     if (num == 0) {
-                                        mAllPricePurh.setText("0.00 " + (type == 1 ? "VRT" : TrandPurhAndSellActivity.this.data.getTokenName()));
+                                        mAllPricePurh.setText("0.00 " + unitPrice);
                                     } else {
                                         double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100));
-                                        double allPrice = (data.getPrice() * currentPro / 100) * Integer.valueOf(mEditPurh.getText().toString());
-                                        mAllPricePurh.setText(TextUtils.doubleToDouble(allPrice) + " " + (type == 1 ? "VRT" : TrandPurhAndSellActivity.this.data.getTokenName()));
+                                        double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
+                                        mAllPricePurh.setText(TextUtils.doubleToDouble(allPrice) + " " + unitPrice);
                                     }
                                 } else {
-                                    mAllPricePurh.setText("0.00 " + (type == 1 ? "VRT" : TrandPurhAndSellActivity.this.data.getTokenName()));
+                                    mAllPricePurh.setText("0.00 " + unitPrice);
                                 }
                             }
                         });
@@ -209,7 +213,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 // TODO 18/12/14
                 String currentNum = mEditPurh.getText().toString();
                 String currentAllPrice = mAllPricePurh.getText().toString();
-                if (currentNum.equals("") || Integer.valueOf(currentNum) == 0) {
+                if (currentNum.equals("") || Double.valueOf(currentNum) <= 0) {
                     Toast.makeText(this, type == 1 ? "购买数量不正确" : "出售数量不正确", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -292,20 +296,20 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.INVISIBLE);
-                dialogHelper.dismissDelayed(()->{
+                dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
-                dialogHelper.dismissDelayed(()->{
+                dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });
             }
         }, throwable -> {
             dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
-            dialogHelper.dismissDelayed(()->{
+            dialogHelper.dismissDelayed(() -> {
                 KeyboardUtils.hideSoftInput(this);
             });
         });
@@ -323,27 +327,27 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.success_icon, "发布成功");
                 mHintError.setVisibility(View.INVISIBLE);
                 EventBus.getDefault().post(new RecordingEvent());
-                dialogHelper.dismissDelayed(()->{
+                dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                     finish();
                 });
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.INVISIBLE);
-                dialogHelper.dismissDelayed(()->{
+                dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
-                dialogHelper.dismissDelayed(()->{
+                dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });
             }
         }, throwable -> {
             dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
-            dialogHelper.dismissDelayed(()->{
+            dialogHelper.dismissDelayed(() -> {
                 KeyboardUtils.hideSoftInput(this);
             });
             //能获取到报错信息

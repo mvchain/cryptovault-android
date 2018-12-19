@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -65,30 +66,30 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
     @Override
     protected void initData() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
-        RecordingFragment purhFragment = new RecordingFragment();
-        Bundle purhBundle = new Bundle();
-        purhBundle.putInt("transType", 1);
-        purhBundle.putInt("pairId", data.getPairId());
-        purhFragment.setArguments(purhBundle);
-        mFragment.add(purhFragment);
         RecordingFragment sellFragment = new RecordingFragment();
         Bundle sellBundle = new Bundle();
         sellBundle.putInt("transType", 2);
         sellBundle.putInt("pairId", data.getPairId());
         sellFragment.setArguments(sellBundle);
         mFragment.add(sellFragment);
+        RecordingFragment purhFragment = new RecordingFragment();
+        Bundle purhBundle = new Bundle();
+        purhBundle.putInt("transType", 1);
+        purhBundle.putInt("pairId", data.getPairId());
+        purhFragment.setArguments(purhBundle);
+        mFragment.add(purhFragment);
         recorAdapter = new TrandRecorAdapter(getSupportFragmentManager(), mFragment);
         mVpRecording.setAdapter(recorAdapter);
         mTitleTrand.setText(data.getPair());
-        mInRadioRecording.setText("购买" + data.getTokenName());
-        mOutRadioRecording.setText("出售" + data.getTokenName());
+        mInRadioRecording.setText("出售" + data.getTokenName());
+        mOutRadioRecording.setText("购买" + data.getTokenName());
         String subTitle = data.getPair().substring(0, data.getPair().indexOf("/"));
         SPUtils.getInstance().put(RECORDING_UNIT, subTitle);
         mChartRecording.setDragEnabled(false);
         mChartRecording.setScaleEnabled(false);
         mChartRecording.setDoubleTapToZoomEnabled(false);
         mChartRecording.setViewPortOffsets(0, 0, 0, 0);
-        mChartRecording.setBackgroundColor(Color.rgb(104, 241, 175));
+        mChartRecording.setBackgroundColor(Color.WHITE);
 
         // no description text
         mChartRecording.getDescription().setEnabled(false);
@@ -102,7 +103,6 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
 
         // if disabled, scaling can be done on x- and y-axis separately
         mChartRecording.setPinchZoom(false);
-
         mChartRecording.setDrawGridBackground(false);
         mChartRecording.setMaxHighlightDistance(300);
         XAxis x = mChartRecording.getXAxis();
@@ -142,7 +142,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         long dayTime = currentTime - (20 * 60 * 60 * 1000);
         float max = 0;
         float min = 0;
-        mCurrentTvRecording.setText(updateBean.getData().getValueY().get(currentSize-1) + " VRT");
+        mCurrentTvRecording.setText(updateBean.getData().getValueY().get(currentSize - 1) + " VRT");
         LineDataSet dataSetByIndex;
         ArrayList<Entry> values = new ArrayList<>();
         List<Long> timeX = updateBean.getData().getTimeX();
@@ -233,6 +233,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
                 intent.setClass(this, TrandPurhAndSellActivity.class);
                 intent.putExtra("title", "出售" + data.getTokenName());
                 intent.putExtra("data", data);
+                intent.putExtra("unit_price", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 intent.putExtra("type", 2);
                 startActivity(intent);
                 break;
@@ -240,6 +241,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
                 // TODO 18/12/13
                 intent.setClass(this, TrandPurhAndSellActivity.class);
                 intent.putExtra("title", "购买" + data.getTokenName());
+                intent.putExtra("unit_price", data.getPair().substring(0, data.getPair().indexOf("/")));
                 intent.putExtra("data", data);
                 intent.putExtra("type", 1);
                 startActivity(intent);
@@ -249,9 +251,18 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
 
     public void startPurhActivity(int transType) {
         Intent intent = new Intent(this, TrandPurhAndSellItemActivity.class);
-        intent.putExtra("title", "购买" + data.getTokenName());
+        intent.putExtra("pairId", data.getPairId());
         intent.putExtra("data", data);
         intent.putExtra("type", transType);
+        LogUtils.e("TrandRecordingActivity", "transType:" + transType);
+//        unitPrice
+        if (transType == 1) {
+            intent.putExtra("title", "购买" + data.getTokenName());
+            intent.putExtra("unit_price", data.getPair().substring(0, data.getPair().indexOf("/")));
+        } else {
+            intent.putExtra("title", "出售" + data.getTokenName());
+            intent.putExtra("unit_price", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
+        }
         startActivity(intent);
     }
 }

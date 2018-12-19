@@ -177,7 +177,6 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                 , mTransBean.getFee() + mTransBean.getFeeTokenName()
                                 , true
                                 , new IPayWindowListener() {
-
                                     @Override
                                     public void onclick(View view) {
                                         switch (view.getId()) {
@@ -203,7 +202,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                 }, num -> {
                                     dialogHelper.create(this, R.drawable.pending_icon, "转账成功").show();
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
-                                    mPresenter.sendTransferMsg(getToken(), transAddress, num, tokenId, priceBtc);
+                                    mPresenter.sendTransferMsg(getToken(), transAddress.trim(), num, tokenId, priceBtc);
                                     mPopView.dismiss();
                                 });
                 mPopView.showAtLocation(mSubmitBtc, Gravity.BOTTOM, 0, 0);
@@ -227,7 +226,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                         return;
                     }
                     String hash = data.getStringExtra(CodeUtils.RESULT_STRING);
-                    mTransAddressBtc.setText(hash);
+                    mTransAddressBtc.setText(hash.trim());
                     break;
             }
         }

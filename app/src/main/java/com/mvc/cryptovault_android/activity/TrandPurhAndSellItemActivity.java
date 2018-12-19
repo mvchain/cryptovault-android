@@ -68,6 +68,9 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     private TrandChildBean.DataBean data;
     private int type;
     private double price;
+    private int pairId;
+    private String unitPrice;
+
 
     @Override
     protected int getLayoutId() {
@@ -80,7 +83,11 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         data = getIntent().getParcelableExtra("data");
         mTitleTrand.setText(getIntent().getStringExtra("title"));
         type = getIntent().getIntExtra("type", 0);
+        pairId = getIntent().getIntExtra("pairId", 0);
+        unitPrice = getIntent().getStringExtra("unit_price");
         mEditPurh.setHint("输入" + (type == 1 ? "购买" : "出售") + "数量");
+        mTitlePrice.setText((type == 1 ? "购买" : "出售") + "价");
+        mNumPrice.setText((type == 1 ? "购买" : "出售") + "数量");
         RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(trandPurhBean -> {
@@ -91,7 +98,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                         mHintPrice.setText(TrandPurhAndSellItemActivity.this.data.getTokenName() + "余额");
                         price = data.getPrice();
                         mPriceCurrent.setText(TextUtils.doubleToDouble(data.getPrice()) + "VRT");
-                        mAllPricePurh.setText("0.00 " + (type == 1 ? "VRT" : this.data.getTokenName()));
+                        mAllPricePurh.setText("0.00 " + unitPrice);
                         mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
                         mEditPurh.setFilters(new InputFilter[]{new PointLengthFilter()});
                         mEditPurh.addTextChangedListener(new EditTextChange() {
@@ -99,14 +106,14 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                             public void onTextChanged(CharSequence s, int start, int before, int count) {
                                 String numText = s.toString();
                                 if (!numText.equals("")) {
-                                    Integer num = Integer.valueOf(numText);
+                                    Double num = Double.valueOf(numText);
                                     if (num == 0) {
-                                        mAllPricePurh.setText((type == 1 ? "VRT" : TrandPurhAndSellItemActivity.this.data.getTokenName()) + " 0.00 ");
+                                        mAllPricePurh.setText(unitPrice + " 0.00 ");
                                     } else {
-                                        mAllPricePurh.setText((type == 1 ? "VRT" : TrandPurhAndSellItemActivity.this.data.getTokenName()) + " " + TextUtils.doubleToDouble(data.getPrice() * num));
+                                        mAllPricePurh.setText(unitPrice + " " + TextUtils.doubleToDouble(data.getPrice() * num));
                                     }
                                 } else {
-                                    mAllPricePurh.setText((type == 1 ? "VRT" : TrandPurhAndSellItemActivity.this.data.getTokenName()) + " 0.00 ");
+                                    mAllPricePurh.setText(unitPrice + " 0.00 ");
                                 }
                             }
                         });
@@ -165,7 +172,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 // TODO 18/12/14
                 String currentNum = mEditPurh.getText().toString();
                 String currentAllPrice = mAllPricePurh.getText().toString();
-                if (currentNum.equals("") || Integer.valueOf(currentNum) == 0) {
+                if (currentNum.equals("") || Double.valueOf(currentNum) <= 0) {
                     Toast.makeText(this, type == 1 ? "购买数量不正确" : "出售数量不正确", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -206,7 +213,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                             mPopView.dismiss();
                             JSONObject object = new JSONObject();
                             try {
-                                object.put("id", 0);
+                                object.put("id", pairId);
                                 object.put("pairId", data.getPairId());
                                 object.put("password", num);
                                 object.put("price", price);
@@ -243,10 +250,10 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, "发布成功");
                 mHintError.setVisibility(View.INVISIBLE);
             } else if (updateBean.getCode() == 400) {
-                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, "发布失败");
+                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.INVISIBLE);
             } else {
-                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, "发布失败");
+                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
             }
@@ -255,7 +262,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 mPurhDialog.dismiss();
             }, 1000);
         }, throwable -> {
-            dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, "发布失败");
+            dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, throwable.getMessage());
             new Handler().postDelayed(() -> {
                 mPurhDialog.dismiss();
             }, 1000);
@@ -275,10 +282,10 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, "发布成功");
                 mHintError.setVisibility(View.INVISIBLE);
             } else if (updateBean.getCode() == 400) {
-                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, "发布失败");
+                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.INVISIBLE);
             } else {
-                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, "发布失败");
+                dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
             }
@@ -287,7 +294,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 mPurhDialog.dismiss();
             }, 1000);
         }, throwable -> {
-            dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, "发布失败");
+            dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, throwable.getMessage());
             new Handler().postDelayed(() -> {
                 mPurhDialog.dismiss();
             }, 1000);

@@ -19,7 +19,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.base.VPBalanceBean;
+import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.BalanceContract;
 import com.mvc.cryptovault_android.event.HistroyEvent;

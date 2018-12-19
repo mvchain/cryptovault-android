@@ -1,7 +1,7 @@
 package com.mvc.cryptovault_android.api;
 
-import com.mvc.cryptovault_android.base.ExchangeRateBean;
-import com.mvc.cryptovault_android.base.VPBalanceBean;
+import com.mvc.cryptovault_android.bean.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;

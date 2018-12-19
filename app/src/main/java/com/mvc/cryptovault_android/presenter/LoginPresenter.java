@@ -36,7 +36,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                         mIView.startActivity();
                         mIView.saveUserInfo(loginBean);
                     } else {
-                        mIView.showLoginStauts("登录失败, 失败原因：" + loginBean.getMessage());
+                        mIView.showLoginStauts(loginBean.getMessage());
                     }
                     mIView.dismiss();
                 }, throwable -> {

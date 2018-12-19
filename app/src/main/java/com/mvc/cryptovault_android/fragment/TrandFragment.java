@@ -11,6 +11,7 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.TrandOrderActivity;
 import com.mvc.cryptovault_android.adapter.TrandPagerAdapter;
 import com.mvc.cryptovault_android.base.BaseFragment;
+import com.mvc.cryptovault_android.utils.TabLayoutUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
         trandPagerAdapter = new TrandPagerAdapter(getChildFragmentManager(), mFragments);
         mVpTrand.setAdapter(trandPagerAdapter);
         mTableTrand.setupWithViewPager(mVpTrand);
+        TabLayoutUtils.setIndicator(mTableTrand, 20, 20);
     }
 
     @Override

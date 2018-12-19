@@ -184,6 +184,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
 
     @Override
     public void showSuccess(List<TogeHisBean.DataBean> beanList) {
+        beans.clear();
         mSerachRefresh.post(()->mSerachRefresh.setRefreshing(false));
         beans.addAll(beanList);
         hisAdapter.notifyDataSetChanged();

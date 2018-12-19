@@ -175,6 +175,9 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
         switch (v.getId()) {
             case R.id.m_back:
                 // TODO 18/12/12
+                if (mPopView != null) {
+                    KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
+                }
                 finish();
                 break;
             case R.id.m_submit:

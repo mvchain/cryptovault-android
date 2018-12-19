@@ -19,6 +19,7 @@ import com.mvc.cryptovault_android.contract.TrandChildContract;
 import com.mvc.cryptovault_android.event.TrandFragmentEvent;
 import com.mvc.cryptovault_android.presenter.TrandChildPresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
+import com.mvc.cryptovault_android.view.RuleRecyclerLines;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -71,6 +72,7 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
                     break;
             }
         });
+        mRvTc.addItemDecoration(new RuleRecyclerLines(activity, RuleRecyclerLines.HORIZONTAL_LIST, 1));
         mRvTc.setAdapter(childAdapter);
     }
 

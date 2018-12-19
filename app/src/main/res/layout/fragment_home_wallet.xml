@@ -58,8 +58,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/assets_rv"
@@ -88,7 +88,7 @@
                                 android:gravity="center"
                                 android:text="总资产"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:id="@+id/assets_type"
@@ -100,9 +100,9 @@
                                 android:drawableRight="@drawable/up_icon"
                                 android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:text="¥CNY"
+                                android:text="CNY"
                                 android:textColor="@color/white"
-                                android:textSize="14sp" />
+                                android:textSize="12sp" />
 
                             <TextView
                                 android:id="@+id/assets_price"
@@ -114,13 +114,14 @@
                                 android:textSize="36sp" />
                         </RelativeLayout>
                     </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
+
                     <ImageView
-                        android:layout_width="match_parent"
                         android:id="@+id/assets_null"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_below="@id/assets_layout"
-                        android:src="@drawable/nothing_icon"
                         android:scaleType="center"
-                        android:layout_height="match_parent" />
+                        android:src="@drawable/nothing_icon" />
                 </RelativeLayout>
 
             </android.support.v4.widget.SwipeRefreshLayout>

@@ -2,7 +2,7 @@ package com.mvc.cryptovault_android.presenter;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.base.VPBalanceBean;
+import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.BalanceContract;
 import com.mvc.cryptovault_android.model.VPBalanceModel;

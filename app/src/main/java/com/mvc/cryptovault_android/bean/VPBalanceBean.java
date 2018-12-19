@@ -1,4 +1,4 @@
-package com.mvc.cryptovault_android.base;
+package com.mvc.cryptovault_android.bean;
 
 public class VPBalanceBean {
 

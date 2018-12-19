@@ -2,7 +2,7 @@ package com.mvc.cryptovault_android.model;
 
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
-import com.mvc.cryptovault_android.base.VPBalanceBean;
+import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.BalanceContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;

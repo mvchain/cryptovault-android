@@ -72,14 +72,14 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
             LogUtils.e("QCodeActivity", "tokenId:" + tokenId);
             if (tokenId == 0) {
                 bundle.putBoolean("QODE", false);
-            } else if (tokenId != 4) {
-                if (!RxgularUtils.isETH(result)) {
+            } else if (tokenId == 4) {
+                if (!RxgularUtils.isBTC(result)) {
                     bundle.putBoolean("QODE", false);
                 }else{
                     bundle.putBoolean("QODE", true);
                 }
-            } else if (tokenId == 4) {
-                if (!RxgularUtils.isBTC(result)) {
+            } else if (tokenId != 4) {
+                if (!RxgularUtils.isETH(result)) {
                     bundle.putBoolean("QODE", false);
                 }else{
                     bundle.putBoolean("QODE", true);

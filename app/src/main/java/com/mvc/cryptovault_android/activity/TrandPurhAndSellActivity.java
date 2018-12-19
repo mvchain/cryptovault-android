@@ -193,6 +193,9 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.trand_back:
                 // TODO 18/12/14
+                if (mPopView != null) {
+                    KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
+                }
                 finish();
                 break;
             case R.id.trand_histroy:

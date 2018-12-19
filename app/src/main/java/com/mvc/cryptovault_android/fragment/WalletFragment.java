@@ -23,7 +23,7 @@ import com.mvc.cryptovault_android.activity.MsgActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.WalletAssetsAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.base.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
@@ -91,6 +91,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mHintAssets.setOnClickListener(this);
         mAddAssets.setOnClickListener(this);
         mTypeAssets.setOnClickListener(this);
+        mPriceAssets.setOnClickListener(this);
     }
 
     @Override
@@ -117,10 +118,11 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                 // TODO 18/11/28
                 startActivity(new Intent(activity, IncreaseCurrencyActivity.class));
                 break;
+            case R.id.assets_price:
             case R.id.assets_type:
                 // TODO 18/11/28
                 if (mPopView != null) {
-                    mPopView.showAsDropDown(mTypeAssets, -50, -10, Gravity.CENTER);
+                    mPopView.showAsDropDown(mTypeAssets, -80, -10, Gravity.CENTER);
                     ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.down_icon), mTypeAssets);
                 }
                 break;
@@ -172,18 +174,22 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mPresenter.getMsg(getToken(), msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
         ExchangeRateBean.DataBean defalutBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(getDefalutRate(), ExchangeRateBean.DataBean.class);
         if (defalutBean != null) {
-            mTypeAssets.setText(defalutBean.getName());
+            String default_type = defalutBean.getName();
+            mTypeAssets.setText(default_type.substring(1, default_type.length()));
         }
     }
 
     private void initPop() {
         ArrayList<String> content = new ArrayList<>();
-        ExchangeRateBean rateBean = (ExchangeRateBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(RATE_LIST), ExchangeRateBean.class);
-        for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {
-            content.add(dataBean.getName());
-            mExchange.add(dataBean);
+        String rate_list = SPUtils.getInstance().getString(RATE_LIST);
+        if (!rate_list.equals("")) {
+            ExchangeRateBean rateBean = (ExchangeRateBean) JsonHelper.stringToJson(rate_list, ExchangeRateBean.class);
+            for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {
+                content.add(dataBean.getName());
+                mExchange.add(dataBean);
+            }
+            mPopView = PopViewHelper.getInstance().create(activity, R.layout.layout_rate_pop, content, this);
         }
-        mPopView = PopViewHelper.getInstance().create(activity, R.layout.layout_rate_pop, content, this);
     }
 
     @Override
@@ -236,11 +242,15 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     public void serverError() {
         String asset_list = SPUtils.getInstance().getString(ASSETS_LIST);
         String allAsset = SPUtils.getInstance().getString(ALLASSETS);
+        initPop();
         if (!asset_list.equals("")) {
             AssetListBean assetListBean = (AssetListBean) JsonHelper.stringToJson(asset_list, AssetListBean.class);
             mData.clear();
             mData.addAll(assetListBean.getData());
             assetsAdapter.notifyDataSetChanged();
+            mNullAssets.setVisibility(View.GONE);
+            mRvAssets.setVisibility(View.VISIBLE);
+        } else {
             mNullAssets.setVisibility(View.VISIBLE);
             mRvAssets.setVisibility(View.GONE);
         }
@@ -255,8 +265,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
      * 刷新接口
      */
     public void onRefresh() {
-        mData.clear();
-        assetsAdapter.notifyDataSetChanged();
+//        mData.clear();
         mPresenter.getAllAsset(getToken());
         mPresenter.getAssetList(getToken());
         long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
@@ -275,8 +284,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         SPUtils.getInstance().put(SET_RATE, JsonHelper.jsonToString(dataBean));
         String symbol = dataBean.getName();
         String newSymbol = symbol.substring(0, 1);
-        SPUtils.getInstance().put(DEFAULE_SYMBOL, newSymbol);
-        mTypeAssets.setText(dataBean.getName());
+        SPUtils.getInstance().put(DEFAULE_SYMBOL, newSymbol + " ");
+        String default_type = dataBean.getName();
+        mTypeAssets.setText(default_type.substring(1, default_type.length()));
         changeAssets();
     }
 

@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.allen.library.SuperTextView;
+import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.AboutActivity;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
@@ -13,8 +15,11 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
 import com.mvc.cryptovault_android.contract.MineContract;
 import com.mvc.cryptovault_android.presenter.MinePresenter;
+import com.mvc.cryptovault_android.utils.JsonHelper;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_INFO;
 
 public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> implements MineContract.IMineView, View.OnClickListener {
 
@@ -56,6 +61,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
 
     @Override
     public void setUser(UserInfoBean user) {
+        SPUtils.getInstance().put(USER_INFO, JsonHelper.jsonToString(user));
         UserInfoBean.DataBean data = user.getData();
         mNameUser.setText(data.getNickname());
         mPhoneUser.setText(data.getUsername());
@@ -63,10 +69,25 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     }
 
     @Override
+    public void serverError() {
+        String userJson = SPUtils.getInstance().getString(USER_INFO);
+        if (!userJson.equals("")) {
+            UserInfoBean infoBean = (UserInfoBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(USER_INFO), UserInfoBean.class);
+            if (infoBean != null) {
+                UserInfoBean.DataBean data = infoBean.getData();
+                mNameUser.setText(data.getNickname());
+                mPhoneUser.setText(data.getUsername());
+                RequestOptions options = new RequestOptions().error(R.drawable.portrait_icon);
+                Glide.with(activity).load(data.getHeadImage()).apply(options).into(mImgUser);
+            }
+        }
+    }
+
+    @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.about:
-                startActivity(new Intent(activity,AboutActivity.class));
+                startActivity(new Intent(activity, AboutActivity.class));
                 break;
         }
     }

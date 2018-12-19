@@ -11,7 +11,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="45dp"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/tc_currency"
@@ -30,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="4"
                 android:gravity="center_vertical|right"
-                android:paddingRight="16dp"
+                android:paddingRight="25dp"
                 android:text="价格"
                 android:textColor="@color/trand_gray"
                 android:textSize="14sp" />
@@ -50,7 +51,10 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/tc_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
     </LinearLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

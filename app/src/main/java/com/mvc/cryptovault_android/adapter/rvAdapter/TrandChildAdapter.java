@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.adapter.rvAdapter;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +37,14 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
         } else {
             increase.setBackground(mContext.getDrawable(R.drawable.shape_aoi_orangey_5dp));
         }
-        increase.setText(TextUtils.doubleToDouble(incre) + "%");
+        if (item.getTransactionStatus() == 0) {
+            increase.setBackground(mContext.getDrawable(R.drawable.shape_aoi_gray_5dp));
+            increase.setGravity(Gravity.CENTER);
+            increase.setText("不可交易");
+            increase.setTextColor(mContext.getColor(R.color.trand_gray));
+        } else {
+            increase.setText(TextUtils.doubleToDouble(incre) + "%");
+        }
         helper.setText(R.id.trand_child_ratio, TextUtils.doubleToFour(item.getRatio()) + " " + item.getPair().substring(0, item.getPair().indexOf("/")));
         helper.setText(R.id.trand_child_title, item.getTokenName());
         helper.setText(R.id.trand_child_pair, SPUtils.getInstance().getString(DEFAULE_SYMBOL) + TextUtils.rateToPrice(item.getRatio()));

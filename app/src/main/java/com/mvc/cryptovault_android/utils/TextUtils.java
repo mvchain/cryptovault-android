@@ -1,7 +1,7 @@
 package com.mvc.cryptovault_android.utils;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.mvc.cryptovault_android.base.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 
 import java.text.DecimalFormat;
 

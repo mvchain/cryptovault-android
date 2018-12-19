@@ -22,7 +22,7 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.HistroyPagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.base.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.contract.HistroyContract;

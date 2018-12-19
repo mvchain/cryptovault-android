@@ -65,30 +65,33 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
                     break;
             }
         });
+        initRecyclerLoadmore();
     }
 
     @Override
     protected void initData() {
         super.initData();
         if (projectType == 0) {
-            mPresenter.getComingSoon(getToken(), 1, 0, projectType, 0);
+            mPresenter.getComingSoon(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 1) {
-            mPresenter.getProcess(getToken(), 1, 0, projectType, 0);
+            mPresenter.getProcess(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 2) {
-            mPresenter.getToEnd(getToken(), 1, 0, projectType, 0);
+            mPresenter.getToEnd(getToken(), 10, 0, projectType, 0);
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void eventRefresh(TogeFragmentEvent fragmentEvent){
+    public void eventRefresh(TogeFragmentEvent fragmentEvent) {
         mData.clear();
         if (projectType == 0) {
-            mPresenter.getComingSoon(getToken(), 1, 0, projectType, 0);
+            mPresenter.getComingSoon(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 1) {
-            mPresenter.getProcess(getToken(), 1, 0, projectType, 0);
+            mPresenter.getProcess(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 2) {
-            mPresenter.getToEnd(getToken(), 1, 0, projectType, 0);
+            mPresenter.getToEnd(getToken(), 10, 0, projectType, 0);
         }
     }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_child_list_rv;
@@ -100,19 +103,19 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     }
 
     public void refresh() {
-        mData.clear();
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(true));
         if (projectType == 0) {
-            mPresenter.getComingSoon(getToken(), 1, 0, projectType, 0);
+            mPresenter.getComingSoon(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 1) {
-            mPresenter.getProcess(getToken(), 1, 0, projectType, 0);
+            mPresenter.getProcess(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 2) {
-            mPresenter.getToEnd(getToken(), 1, 0, projectType, 0);
+            mPresenter.getToEnd(getToken(), 10, 0, projectType, 0);
         }
     }
 
     @Override
     public void showSuccess(List<TogeBean.DataBean> msgs) {
+        mData.clear();
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mChildRvToge.setVisibility(View.VISIBLE);
         mNullData.setVisibility(View.GONE);
@@ -131,5 +134,33 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+    }
+
+    private void initRecyclerLoadmore() {
+        mChildRvToge.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager.getItemCount() > 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
+                    int projectId = mData.get(mData.size() - 1).getProjectId();
+                    switch (projectType) {
+                        case 0:
+                            mPresenter.getComingSoon(getToken(), 10, projectId, projectType, 0);
+                            break;
+                        case 1:
+                            mPresenter.getProcess(getToken(), 10, projectId, projectType, 0);
+                            break;
+                        case 2:
+                            mPresenter.getToEnd(getToken(), 10, projectId, projectType, 0);
+                            break;
+                    }
+                }
+            }
+        });
     }
 }

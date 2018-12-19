@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
-import com.mvc.cryptovault_android.base.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
@@ -57,7 +57,7 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
                     if (defaule_symbol.equals("")) {
                         String symbol = dataBean.getName();
                         String newSymbol = symbol.substring(0, 1);
-                        SPUtils.getInstance().put(DEFAULE_SYMBOL, newSymbol);
+                        SPUtils.getInstance().put(DEFAULE_SYMBOL, newSymbol + " ");
                     }
                     SPUtils.getInstance().put(RATE_LIST, JsonHelper.jsonToString(exchangeRateBean));
                     return RetrofitUtils.client(ApiStore.class).getCurrencyAll(token).compose(RxHelper.rxSchedulerHelper());

@@ -18,5 +18,6 @@ public interface MineContract {
 
     interface IMineView extends IBaseFragment {
         void setUser(UserInfoBean user);
+        void serverError();
     }
 }

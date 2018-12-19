@@ -243,7 +243,6 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     public void showSuccess(IDToTransferBean.DataBean data) {
         this.mTransBean = data;
         mPriceBtc.setText("余额：" + TextUtils.doubleToFour(data.getBalance()));
-        LogUtils.e("TextUtils", "data.getFee():" + data.getFee());
         mSxfBtc.setText(TextUtils.doubleToSix(data.getFee()) + " " + data.getFeeTokenName());
     }
 

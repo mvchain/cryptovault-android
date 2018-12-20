@@ -1,15 +1,25 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ShareCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -18,6 +28,9 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.ReceiptBean;
 import com.mvc.cryptovault_android.contract.ReceiptQRContract;
 import com.mvc.cryptovault_android.presenter.MineReceiptPresenter;
+import com.mvc.cryptovault_android.view.DialogHelper;
+import com.per.rslibrary.IPermissionRequest;
+import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract.ReceiptQRPresenter> implements ReceiptQRContract.IReceiptQRView, View.OnClickListener {
@@ -30,6 +43,8 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
     private ImageView mProtraitM;
     private int tokenId;
     private String tokenName;
+    private RelativeLayout mLayoutShare;
+    private DialogHelper dialogHelper;
 
     @Override
     protected void initMVPData() {
@@ -40,16 +55,18 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        dialogHelper = DialogHelper.getInstance();
         tokenName = getIntent().getStringExtra("tokenName");
         mBackM = findViewById(R.id.m_back);
+        mLayoutShare = findViewById(R.id.share_layout);
         mTitleM = findViewById(R.id.m_title);
         mShareM = findViewById(R.id.m_share);
         mContentM = findViewById(R.id.m_content);
         mHashM = findViewById(R.id.m_hash);
         mQcImgM = findViewById(R.id.m_qc_img);
         mProtraitM = findViewById(R.id.m_protrait);
-        mTitleM.setText(tokenName+"收款");
-        mContentM.setText(tokenName+"收款地址");
+        mTitleM.setText(tokenName + "收款");
+        mContentM.setText(tokenName + "收款地址");
         mBackM.setOnClickListener(this);
         mShareM.setOnClickListener(this);
         mHashM.setOnClickListener(this);
@@ -89,7 +106,35 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
                 break;
             case R.id.m_share:
                 // TODO 18/12/07
+                /** * 分享图片 */
+                RsPermission.getInstance().setiPermissionRequest(new IPermissionRequest() {
+                    @Override
+                    public void toSetting() {
+                        RsPermission.getInstance().toSettingPer();
+                    }
 
+                    @Override
+                    public void cancle(int i) {
+                        dialogHelper.create(MineReceiptQRCodeActivity.this, R.drawable.miss_icon, "权限不足").show();
+                        dialogHelper.dismissDelayed(null, 1000);
+                    }
+
+                    @Override
+                    public void success(int i) {
+                        mLayoutShare.setDrawingCacheEnabled(true);
+                        Bitmap drawingCache = Bitmap.createBitmap(mLayoutShare.getDrawingCache());
+                        Intent parintent = new Intent();
+                        Uri parseUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), drawingCache, null, null));
+                        parintent.setAction(Intent.ACTION_SEND);//设置分享行为
+                        parintent.setType("image/*");  //设置分享内容的类型
+                        parintent.putExtra(Intent.EXTRA_STREAM, parseUri);
+                        //创建分享的Dialog
+                        Intent share_intent = Intent.createChooser(parintent, "分享到:");
+                        startActivity(share_intent);
+                        drawingCache.recycle();
+                        mLayoutShare.setDrawingCacheEnabled(false);
+                    }
+                }).requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 break;
             case R.id.m_hash:
                 // TODO 18/12/07
@@ -110,8 +155,14 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
         Bitmap mBitmap = CodeUtils.createImage(hash, 400, 400, BitmapFactory.decodeResource(getResources(), R.mipmap.vp_logo));
         Glide.with(this).load(mBitmap).into(mQcImgM);
     }
+
     @Override
     public void showError() {
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        RsPermission.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

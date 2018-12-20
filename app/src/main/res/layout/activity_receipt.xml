@@ -46,8 +46,10 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/share_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white_tras"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="20dp">

@@ -1,6 +1,14 @@
 package com.mvc.cryptovault_android.activity;
 
+import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +24,9 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.DetailBean;
 import com.mvc.cryptovault_android.contract.DetailContract;
 import com.mvc.cryptovault_android.presenter.DetailPresenter;
+import com.mvc.cryptovault_android.view.DialogHelper;
+import com.per.rslibrary.IPermissionRequest;
+import com.per.rslibrary.RsPermission;
 
 public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresenter> implements DetailContract.IDetailView, View.OnClickListener {
     private View mBarStatus;
@@ -38,6 +49,8 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     private LinearLayout mHashLayoutDetail;
     private int id;
     private boolean isTransfer;
+    private DialogHelper dialogHelper;
+    private LinearLayout mLayoutShare;
 
     @Override
     protected void initMVPData() {
@@ -51,6 +64,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        dialogHelper = DialogHelper.getInstance();
         mBarStatus = findViewById(R.id.status_bar);
         mBackDetail = findViewById(R.id.detail_back);
         mBackDetail.setOnClickListener(this);
@@ -71,6 +85,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
         mHashTitleDetail = findViewById(R.id.detail_hash_title);
         mHashContentDetail = findViewById(R.id.detail_hash_content);
         mHashLayoutDetail = findViewById(R.id.detail_hash_layout);
+        mLayoutShare = findViewById(R.id.share_layout);
     }
 
     @Override
@@ -106,6 +121,36 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                 break;
             case R.id.detail_share:
                 // TODO 18/12/01
+                // TODO 18/12/07
+                /** * 分享图片 */
+                RsPermission.getInstance().setiPermissionRequest(new IPermissionRequest() {
+                    @Override
+                    public void toSetting() {
+                        RsPermission.getInstance().toSettingPer();
+                    }
+
+                    @Override
+                    public void cancle(int i) {
+                        dialogHelper.create(DetailActivity.this, R.drawable.miss_icon, "权限不足").show();
+                        dialogHelper.dismissDelayed(null, 1000);
+                    }
+
+                    @Override
+                    public void success(int i) {
+                        mLayoutShare.setDrawingCacheEnabled(true);
+                        Bitmap drawingCache = Bitmap.createBitmap(mLayoutShare.getDrawingCache());
+                        Intent parintent = new Intent();
+                        Uri parseUri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), drawingCache, null, null));
+                        parintent.setAction(Intent.ACTION_SEND);//设置分享行为
+                        parintent.setType("image/*");  //设置分享内容的类型
+                        parintent.putExtra(Intent.EXTRA_STREAM, parseUri);
+                        //创建分享的Dialog
+                        Intent share_intent = Intent.createChooser(parintent, "分享到:");
+                        startActivity(share_intent);
+                        drawingCache.recycle();
+                        mLayoutShare.setDrawingCacheEnabled(false);
+                    }
+                }).requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 break;
         }
     }
@@ -140,12 +185,29 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
             }
             mFeesContentDetail.setText(data.getFee() + " " + data.getFeeTokenType());
             mColladdContentDetail.setText(data.getToAddress());
+            mColladdContentDetail.setOnLongClickListener(view -> {
+                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData = ClipData.newPlainText("hash", mHashContentDetail.getText().toString());
+                // 将ClipData内容放到系统剪贴板里。
+                cm.setPrimaryClip(mClipData);
+                Toast.makeText(DetailActivity.this, "内容已复制至剪贴板", Toast.LENGTH_SHORT).show();
+                return true;
+            });
             mHashContentDetail.setText(data.getHash());
-            mHashContentDetail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(DetailActivity.this, data.getHashLink(), Toast.LENGTH_SHORT).show();
-                }
+            mHashContentDetail.setOnClickListener(v -> {
+                Uri uri = Uri.parse(bean.getData().getHashLink());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            });
+            mHashContentDetail.setOnLongClickListener(view -> {
+                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData = ClipData.newPlainText("hash", mHashContentDetail.getText().toString());
+                // 将ClipData内容放到系统剪贴板里。
+                cm.setPrimaryClip(mClipData);
+                Toast.makeText(DetailActivity.this, "内容已复制至剪贴板", Toast.LENGTH_SHORT).show();
+                return true;
             });
         } else if (classify == 1) { //订单交易
             mFeesLayoutDetail.setVisibility(View.GONE);

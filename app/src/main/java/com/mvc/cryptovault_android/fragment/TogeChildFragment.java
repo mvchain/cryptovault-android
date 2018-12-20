@@ -152,13 +152,13 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
                         int projectId = mData.get(mData.size() - 1).getProjectId();
                         switch (projectType) {
                             case 0:
-                                mPresenter.getComingSoon(getToken(), 10, projectId, projectType, 0);
+                                mPresenter.getComingSoon(getToken(), 10, projectId, projectType, 1);
                                 break;
                             case 1:
-                                mPresenter.getProcess(getToken(), 10, projectId, projectType, 0);
+                                mPresenter.getProcess(getToken(), 10, projectId, projectType, 1);
                                 break;
                             case 2:
-                                mPresenter.getToEnd(getToken(), 10, projectId, projectType, 0);
+                                mPresenter.getToEnd(getToken(), 10, projectId, projectType, 1);
                                 break;
                         }
                     }

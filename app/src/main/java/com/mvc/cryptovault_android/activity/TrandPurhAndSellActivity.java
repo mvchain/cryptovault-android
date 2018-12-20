@@ -76,6 +76,8 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
     private DialogHelper dialogHelper;
     private Dialog mPurhDialog;
     private TextView mHintError;
+    private double tokenBalance;
+    private double balance;
 
     @Override
     protected int getLayoutId() {
@@ -101,6 +103,8 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                         mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
                         mHintPrice.setText(TrandPurhAndSellActivity.this.data.getTokenName() + "余额");
                         mPriceCurrent.setText("当前价格" + TextUtils.doubleToDouble(data.getPrice()) + "VRT");
+                        this.tokenBalance = data.getTokenBalance();
+                        this.balance = data.getBalance();
                         double seekMin = Math.abs(100 + data.getMin());
                         double seekMax = Math.abs(100 + data.getMax());
                         mSeekPurh.setMax((int) (seekMax - seekMin) * 100);
@@ -220,6 +224,17 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                     dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
+                LogUtils.e("TrandPurhAndSellActivit", tokenBalance + " ---------------- " + balance);
+                if (type == 1 && Double.valueOf(currentNum) > tokenBalance) {
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + tokenBalance).show();
+                    dialogHelper.dismissDelayed(null, 1000);
+                    return;
+                }
+                if (type == 2 && Double.valueOf(currentNum) > balance) {
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + balance).show();
+                    dialogHelper.dismissDelayed(null, 1000);
+                    return;
+                }
                 String type = (this.type == 1 ? data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()) : unitPrice);
                 String numType = (this.type == 1 ? data.getPair().substring(0, data.getPair().indexOf("/")) : data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 String payNum = currentAllPrice.split(" ")[0];
@@ -266,7 +281,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                 object.put("id", 0);
                                 object.put("pairId", data.getPairId());
                                 object.put("password", num);
-                                object.put("price", mPricePurh.getText().toString().replace("VRT", ""));
+                                object.put("price", mPricePurh.getText().toString().replace("VRT", "").trim());
                                 object.put("transactionType", this.type);
                                 object.put("value", currentNum);
                             } catch (JSONException e) {
@@ -305,13 +320,13 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                     finish();
                 });
             } else if (updateBean.getCode() == 400) {
-                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
+                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.INVISIBLE);
                 dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });
             } else {
-                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
+                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
                 dialogHelper.dismissDelayed(() -> {
@@ -319,7 +334,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 });
             }
         }, throwable -> {
-            dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
+            dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, throwable.getMessage());
             dialogHelper.dismissDelayed(() -> {
                 KeyboardUtils.hideSoftInput(this);
             });
@@ -343,13 +358,13 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                     finish();
                 });
             } else if (updateBean.getCode() == 400) {
-                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
+                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.INVISIBLE);
                 dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });
             } else {
-                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
+                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 mHintError.setVisibility(View.VISIBLE);
                 mHintError.setText(updateBean.getMessage());
                 dialogHelper.dismissDelayed(() -> {
@@ -357,7 +372,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 });
             }
         }, throwable -> {
-            dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "发布失败");
+            dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, throwable.getMessage());
             dialogHelper.dismissDelayed(() -> {
                 KeyboardUtils.hideSoftInput(this);
             });

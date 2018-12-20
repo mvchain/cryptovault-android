@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'vpay'
+            keyPassword 'vpay_android'
+            storeFile file('D:/Project/cryptovault-android/vpay.jks')
+            storePassword 'vpay_android'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.mvc.cryptovault_android"
@@ -14,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
@@ -30,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27+'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -45,18 +54,18 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     //rx
-    implementation "io.reactivex.rxjava2:rxjava:2.2.4"
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
     implementation 'com.android.support:design:27+'
     implementation 'com.android.support:cardview-v7:27+'
-//    Adapter
+    //    Adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     implementation 'com.github.Huazhiling:CustomRecyclerView:1.1.14'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.github.lygttpod:SuperTextView:2.1.8'
     implementation 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
-//    glide
+    //    glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.github.Huazhiling:RsPermission:v1.0.7'

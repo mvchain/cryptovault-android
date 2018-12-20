@@ -1,6 +1,8 @@
 package com.mvc.cryptovault_android.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.RegexUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -30,7 +33,10 @@ import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.IPayWindowListener;
 import com.mvc.cryptovault_android.presenter.BTCTransferPresenter;
 import com.mvc.cryptovault_android.utils.PointLengthFilter;
+import com.mvc.cryptovault_android.utils.RxgularUtils;
 import com.mvc.cryptovault_android.utils.TextUtils;
+import com.mvc.cryptovault_android.utils.ViewDrawUtils;
+import com.mvc.cryptovault_android.view.ClearEditText;
 import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.PopViewHelper;
 import com.per.rslibrary.IPermissionRequest;
@@ -44,7 +50,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     private TextView mTitleM;
     private ImageView mQCodeM;
     private LinearLayout mTitleLayoutBtc;
-    private EditText mTransAddressBtc;
+    private ClearEditText mTransAddressBtc;
     private EditText mTransPriceBtc;
     private TextView mPriceBtc;
     private TextView mSxfBtc;
@@ -123,6 +129,19 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                 }
             }
         });
+        mTransAddressBtc.addTextChangedListener(new EditTextChange() {
+            @TargetApi(Build.VERSION_CODES.M)
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String updateTv = s.toString();
+                if (!updateTv.equals("")) {
+                    ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mTransAddressBtc);
+                } else {
+                    ViewDrawUtils.clearDraw(mTransAddressBtc);
+                }
+            }
+        });
         mBackM.setOnClickListener(this);
         mQCodeM.setOnClickListener(this);
         mSubmitBtc.setOnClickListener(this);
@@ -161,13 +180,29 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                 String transAddress = mTransAddressBtc.getText().toString();
                 String priceBtc = mTransPriceBtc.getText().toString();
                 if (transAddress.equals("")) {
-                    Toast.makeText(this, "收款地址不能为空", Toast.LENGTH_SHORT).show();
+                    dialogHelper.create(this, R.drawable.miss_icon, "收款地址不能为空").show();
+                    dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
                 if (priceBtc.equals("")) {
-                    Toast.makeText(this, "转账金额不能为空", Toast.LENGTH_SHORT).show();
+                    dialogHelper.create(this, R.drawable.miss_icon, "转账金额不能为空").show();
+                    dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
+                if (tokenId == 4) {
+                    if (!RxgularUtils.isBTC(transAddress.trim())) {
+                        dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
+                        dialogHelper.dismissDelayed(null, 1000);
+                        return;
+                    }
+                } else {
+                    if (!RxgularUtils.isETH(transAddress.trim())) {
+                        dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
+                        dialogHelper.dismissDelayed(null, 1000);
+                        return;
+                    }
+                }
+
 //                startActivity(PayCodeActivity.class);
                 mPopView = PopViewHelper.getInstance()
                         .create(this

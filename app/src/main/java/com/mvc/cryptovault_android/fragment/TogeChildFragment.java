@@ -34,6 +34,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     private int projectType;
     private SwipeRefreshLayout mItemSwipHis;
     private ImageView mNullData;
+    private boolean isRefresh = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     @Override
     protected void initData() {
         super.initData();
+        isRefresh = true;
         if (projectType == 0) {
             mPresenter.getComingSoon(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 1) {
@@ -83,6 +85,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventRefresh(TogeFragmentEvent fragmentEvent) {
         mData.clear();
+        isRefresh = true;
         if (projectType == 0) {
             mPresenter.getComingSoon(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 1) {
@@ -104,6 +107,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     public void refresh() {
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(true));
+        isRefresh = true;
         if (projectType == 0) {
             mPresenter.getComingSoon(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 1) {
@@ -115,6 +119,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     @Override
     public void showSuccess(List<TogeBean.DataBean> msgs) {
+        isRefresh = false;
         mData.clear();
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mChildRvToge.setVisibility(View.VISIBLE);
@@ -125,6 +130,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     @Override
     public void showNull() {
+        isRefresh = false;
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mChildRvToge.setVisibility(View.GONE);
         mNullData.setVisibility(View.VISIBLE);
@@ -140,26 +146,28 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
         mChildRvToge.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
+                        int projectId = mData.get(mData.size() - 1).getProjectId();
+                        switch (projectType) {
+                            case 0:
+                                mPresenter.getComingSoon(getToken(), 10, projectId, projectType, 0);
+                                break;
+                            case 1:
+                                mPresenter.getProcess(getToken(), 10, projectId, projectType, 0);
+                                break;
+                            case 2:
+                                mPresenter.getToEnd(getToken(), 10, projectId, projectType, 0);
+                                break;
+                        }
+                    }
+                }
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
-                    int projectId = mData.get(mData.size() - 1).getProjectId();
-                    switch (projectType) {
-                        case 0:
-                            mPresenter.getComingSoon(getToken(), 10, projectId, projectType, 0);
-                            break;
-                        case 1:
-                            mPresenter.getProcess(getToken(), 10, projectId, projectType, 0);
-                            break;
-                        case 2:
-                            mPresenter.getToEnd(getToken(), 10, projectId, projectType, 0);
-                            break;
-                    }
-                }
+
             }
         });
     }

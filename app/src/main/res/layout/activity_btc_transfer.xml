@@ -21,11 +21,11 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:scaleType="center"
             android:id="@+id/m_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="6dp"
+            android:scaleType="center"
             android:src="@drawable/back_icon_black" />
 
         <TextView
@@ -69,15 +69,20 @@
             android:textColor="@color/btc_gray"
             android:textSize="13sp" />
 
-        <EditText
+        <com.mvc.cryptovault_android.view.ClearEditText
             android:id="@+id/btc_trans_address"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_round_gray_5dp"
+            android:drawablePadding="10dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical"
             android:hint="输入地址"
-            android:singleLine="true"
             android:paddingLeft="12dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
             android:textSize="15sp" />
 
         <TextView
@@ -95,10 +100,10 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_round_gray_5dp"
-            android:hint="输入转账金额"
-            android:paddingLeft="12dp"
-            android:inputType="numberDecimal"
             android:digits="1234567890."
+            android:hint="输入转账金额"
+            android:inputType="numberDecimal"
+            android:paddingLeft="12dp"
             android:singleLine="true"
             android:textSize="15sp" />
 
@@ -125,9 +130,9 @@
             android:id="@+id/btc_sxf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
+            android:text="-"
             android:textColor="@color/login_content"
             android:textSize="13sp" />
     </LinearLayout>

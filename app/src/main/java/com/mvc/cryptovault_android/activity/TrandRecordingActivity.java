@@ -69,12 +69,14 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         RecordingFragment sellFragment = new RecordingFragment();
         Bundle sellBundle = new Bundle();
         sellBundle.putInt("transType", 2);
+        sellBundle.putInt("transionType", 1);
         sellBundle.putInt("pairId", data.getPairId());
         sellFragment.setArguments(sellBundle);
         mFragment.add(sellFragment);
         RecordingFragment purhFragment = new RecordingFragment();
         Bundle purhBundle = new Bundle();
         purhBundle.putInt("transType", 1);
+        purhBundle.putInt("transionType", 2); //如果获取的是购买挂单列表，那id就是
         purhBundle.putInt("pairId", data.getPairId());
         purhFragment.setArguments(purhBundle);
         mFragment.add(purhFragment);
@@ -232,8 +234,8 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
                 // TODO 18/12/13
                 intent.setClass(this, TrandPurhAndSellActivity.class);
                 intent.putExtra("title", "出售" + data.getTokenName());
+                intent.putExtra("unit_price", data.getPair().substring(0, data.getPair().indexOf("/")));
                 intent.putExtra("data", data);
-                intent.putExtra("unit_price", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 intent.putExtra("type", 2);
                 startActivity(intent);
                 break;
@@ -241,7 +243,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
                 // TODO 18/12/13
                 intent.setClass(this, TrandPurhAndSellActivity.class);
                 intent.putExtra("title", "购买" + data.getTokenName());
-                intent.putExtra("unit_price", data.getPair().substring(0, data.getPair().indexOf("/")));
+                intent.putExtra("unit_price", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 intent.putExtra("data", data);
                 intent.putExtra("type", 1);
                 startActivity(intent);

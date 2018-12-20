@@ -1,20 +1,33 @@
 package com.mvc.cryptovault_android.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.TrandOrderActivity;
 import com.mvc.cryptovault_android.adapter.TrandPagerAdapter;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseFragment;
+import com.mvc.cryptovault_android.bean.TrandChildBean;
+import com.mvc.cryptovault_android.utils.JsonHelper;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
+import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.utils.TabLayoutUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 
 import java.util.ArrayList;
+
+import io.reactivex.functions.Consumer;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.TRAND_LIST;
 
 public class TrandFragment extends BaseFragment implements View.OnClickListener {
     private TabLayout mTableTrand;
@@ -23,6 +36,7 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
     private ArrayList<Fragment> mFragments;
     private TrandPagerAdapter trandPagerAdapter;
 
+    @SuppressLint("CheckResult")
     @Override
     protected void initData() {
         TrandChildFragment vrtFragment = new TrandChildFragment();
@@ -39,6 +53,12 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
         mVpTrand.setAdapter(trandPagerAdapter);
         mTableTrand.setupWithViewPager(mVpTrand);
         TabLayoutUtils.setIndicator(mTableTrand, 40, 40);
+        //保存所有交易对
+        RetrofitUtils.client(ApiStore.class).getAllVrtAndBalance(getToken())
+                .compose(RxHelper.rxSchedulerHelper())
+                .subscribe(trandChildBean ->
+                                SPUtils.getInstance().put(TRAND_LIST, JsonHelper.jsonToString(trandChildBean))
+                        , throwable -> LogUtils.e("TrandFragment", throwable.getMessage()));
     }
 
     @Override

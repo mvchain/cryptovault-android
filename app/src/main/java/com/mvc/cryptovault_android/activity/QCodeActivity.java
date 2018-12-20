@@ -69,7 +69,6 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
             Bundle bundle = new Bundle();
             bundle.putInt(CodeUtils.RESULT_TYPE, CodeUtils.RESULT_SUCCESS);
             bundle.putString(CodeUtils.RESULT_STRING, result);
-            LogUtils.e("QCodeActivity", "tokenId:" + tokenId);
             if (tokenId == 0) {
                 bundle.putBoolean("QODE", false);
             } else if (tokenId == 4) {

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.activity.LoginActivity;
 import com.mvc.cryptovault_android.common.Constant;
@@ -79,6 +80,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        KeyboardUtils.hideSoftInput(this);
         super.onDestroy();
     }
 

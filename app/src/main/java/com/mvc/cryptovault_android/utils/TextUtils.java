@@ -43,6 +43,10 @@ public class TextUtils {
         return Float.valueOf(price);
     }
 
+    public static String toBigDecimal(double price) {
+        return new BigDecimal(Double.toString(price)).setScale(4, RoundingMode.DOWN).toString();
+    }
+
     public static String toFourFloat(float price) {
         DecimalFormat format = new DecimalFormat("0.0000");
         return format.format(price);

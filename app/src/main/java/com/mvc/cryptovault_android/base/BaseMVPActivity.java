@@ -27,7 +27,6 @@ public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActiv
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        KeyboardUtils.hideSoftInput(this);
         if (mPresenter != null) {
             mPresenter.detachMVP();
         }

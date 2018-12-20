@@ -23,6 +23,6 @@ public interface MsgContract {
 
     interface IMsgView extends IBaseActivity {
         void showSuccess(MsgBean msgs);
-        void showNullMsh();
+        void showNullMsg();
     }
 }

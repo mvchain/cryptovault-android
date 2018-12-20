@@ -43,7 +43,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_increase_edit"
             android:drawableLeft="@drawable/serch_icon_drawable_edit"
-            android:hint="搜索币种"
+            android:hint="搜索项目名称"
             android:maxLines="1"
             android:paddingLeft="15dp"
             android:textColorHint="@color/edit_tv"

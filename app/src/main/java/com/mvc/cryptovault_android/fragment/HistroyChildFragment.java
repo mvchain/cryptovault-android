@@ -83,25 +83,27 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mRvChild.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
+                        switch (action) {
+                            case 0:
+                                mPresenter.getAll(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
+                                break;
+                            case 1:
+                                mPresenter.getOut(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
+                                break;
+                            case 2:
+                                mPresenter.getIn(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
+                                break;
+                        }
+                    }
+                }
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
-                    switch (action) {
-                        case 0:
-                            mPresenter.getAll(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
-                            break;
-                        case 1:
-                            mPresenter.getOut(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
-                            break;
-                        case 2:
-                            mPresenter.getIn(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
-                            break;
-                    }
-                }
+
             }
         });
     }
@@ -125,6 +127,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     @Override
     protected void initData() {
         super.initData();
+        isRefresh = true;
         switch (action) {
             case 0:
                 mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);
@@ -158,6 +161,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
 
     @Override
     public void showNull() {
+        isRefresh = false;
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         if (mHisData.size() > 0 && isRefresh) {
 //            Toast.makeText(context, "没有新的交易信息", Toast.LENGTH_SHORT).show();

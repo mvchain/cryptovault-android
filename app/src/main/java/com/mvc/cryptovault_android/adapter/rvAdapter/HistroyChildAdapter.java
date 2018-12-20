@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.bean.HistroyBean;
+import com.mvc.cryptovault_android.utils.TextUtils;
 
 import java.util.List;
 
@@ -30,9 +31,10 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         ImageView icon = helper.getView(R.id.his_child_icon);
         helper.setText(R.id.his_child_title, item.getTokenName());
         helper.setText(R.id.his_child_time, TimeUtils.millis2String(item.getCreatedAt()));
-        helper.setText(R.id.his_child_price, item.getTransactionType() == 1 ? "+" + (item.getValue()) : "-" + (item.getValue()));
+        String price = TextUtils.toBigDecimal(item.getValue());
+        helper.setText(R.id.his_child_price, (item.getTransactionType() == 1 ? "+" : "-") + price);
         TextView mStatusTv = helper.getView(R.id.his_child_status);
-        mStatusTv.setText(status[item.getStatus()]);
+        mStatusTv.setText(status[item.getStatus() > 3 ? 3 : item.getStatus()]);
         if (item.getClassify() == 0) {
             mStatusTv.setVisibility(View.VISIBLE);
         } else {
@@ -49,7 +51,7 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         } else if (item.getClassify() == 2) {
             iconType = 2;
         }
-        mStatusTv.setTextColor(status_color[item.getStatus()]);
+        mStatusTv.setTextColor(status_color[item.getStatus() > 3 ? 3 : item.getStatus()]);
         Glide.with(mContext).load(status_icon[iconType]).into(icon);
         helper.addOnClickListener(R.id.his_layout);
     }

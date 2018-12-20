@@ -2,9 +2,11 @@ package com.mvc.cryptovault_android;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.adapter.HomePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -15,6 +17,10 @@ import com.mvc.cryptovault_android.fragment.TrandFragment;
 import com.mvc.cryptovault_android.fragment.WalletFragment;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;

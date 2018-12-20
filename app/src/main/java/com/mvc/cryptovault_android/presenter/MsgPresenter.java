@@ -15,7 +15,7 @@ public class MsgPresenter extends MsgContract.MsgPresenter {
     public void getMsg(String token, long timestamp, int type, int pageSize) {
         rxUtils.register(mIModel.getMsg(token, timestamp, type, pageSize).subscribe(msgBean -> {
             if (msgBean.getData().size() == 0) {
-                mIView.showNullMsh();
+                mIView.showNullMsg();
             } else {
                 mIView.showSuccess(msgBean);
             }

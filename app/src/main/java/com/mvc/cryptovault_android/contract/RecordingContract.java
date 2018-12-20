@@ -22,5 +22,6 @@ public interface RecordingContract {
         void showSuccess(List<RecorBean.DataBean> bean);
 
         void showNull();
+        void serverError();
     }
 }

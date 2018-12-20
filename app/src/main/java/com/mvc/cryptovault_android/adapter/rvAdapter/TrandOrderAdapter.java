@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
@@ -38,7 +39,10 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
 
     public TrandOrderAdapter(int layoutResId, @Nullable List<TrandOrderBean.DataBean> data) {
         super(layoutResId, data);
-        orderBean = ((TrandChildBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(Constant.SP.TRAND_LIST), TrandChildBean.class)).getData();
+        TrandChildBean trandChildBean = (TrandChildBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(Constant.SP.TRAND_LIST), TrandChildBean.class);
+        if (trandChildBean != null) {
+            orderBean = trandChildBean.getData();
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -52,6 +56,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         TextView mOrderNum = helper.getView(R.id.order_item_num);
         TextView mPurchase = helper.getView(R.id.order_item_purchase);
         TextView mPendContent = helper.getView(R.id.order_item_pendpurh);
+        helper.setText(R.id.order_item_time, TimeUtils.millis2String(item.getCreatedAt()));
         int position = 0;
         if (item.getTransactionType() == 1) {
             mSellerHint.setText("买家");

@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.activity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
     private View mBarStatus;
     private SwipeRefreshLayout mSwipMsg;
     private TextView mMsgNull;
+    private boolean isRefresh = false;
 
     @Override
 
@@ -69,6 +71,7 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
 
     @Override
     protected void initMVPData() {
+        isRefresh = true;
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         mPresenter.getMsg(getToken(), 0, 0, 10);
     }
@@ -88,10 +91,15 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
         mRvMsg.setAdapter(msgAdapter);
         mSwipMsg.post(() -> mSwipMsg.setRefreshing(true));
         mSwipMsg.setOnRefreshListener(this::refresh);
+        initRecyclerLoadmore();
     }
 
     @Override
     public void showSuccess(MsgBean msgs) {
+        if (isRefresh) {
+            mBeans.clear();
+            isRefresh = false;
+        }
         mSwipMsg.post(() -> mSwipMsg.setRefreshing(false));
         mRvMsg.setVisibility(View.VISIBLE);
         mMsgNull.setVisibility(View.INVISIBLE);
@@ -99,11 +107,32 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
         msgAdapter.notifyDataSetChanged();
     }
 
+    private void initRecyclerLoadmore() {
+        mRvMsg.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
+                        LogUtils.e("MsgActivity", "onScrolled");
+                        mPresenter.getMsg(getToken(), mBeans.get(mBeans.size() - 1).getCreatedAt(), 1, 10);
+                    }
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+            }
+        });
+    }
+
     @Override
-    public void showNullMsh() {
+    public void showNullMsg() {
+        isRefresh = false;
         mSwipMsg.post(() -> mSwipMsg.setRefreshing(false));
         if (mBeans.size() > 0) {
-            Toast.makeText(this, "没有新消息", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "没有新消息", Toast.LENGTH_SHORT).show();
         } else {
             mRvMsg.setVisibility(View.INVISIBLE);
             mMsgNull.setVisibility(View.VISIBLE);
@@ -111,11 +140,8 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
     }
 
     public void refresh() {
-        if (mBeans.size() == 0) {
-            mPresenter.getMsg(getToken(), 0, 0, 10);
-        } else {
-            mPresenter.getMsg(getToken(), mBeans.get(0).getCreatedAt(), 0, 10);
-        }
+        isRefresh = true;
+        mPresenter.getMsg(getToken(), 0, 0, 10);
     }
 
     @Override

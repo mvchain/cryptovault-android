@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
@@ -110,14 +112,14 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                             mSeekPurh.setProgress(mSeekPurh.getMax() / 2);
                         }
                         mAllPricePurh.setText("0.00 " + unitPrice);
-                        mPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + "VRT");
+                        mPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " VRT");
                         mSeekNumPurh.setText((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100)) + "%");
                         mSeekPurh.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                             @Override
                             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                                 double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(progress / 100));
                                 mSeekNumPurh.setText(currentPro + "%");
-                                mPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * currentPro / 100) + "VRT");
+                                mPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * currentPro / 100) + " VRT");
                                 if (!mEditPurh.getText().toString().equals("")) {
                                     double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
                                     mAllPricePurh.setText(TextUtils.doubleToDouble(allPrice) + " " + unitPrice);
@@ -214,17 +216,26 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 String currentNum = mEditPurh.getText().toString();
                 String currentAllPrice = mAllPricePurh.getText().toString();
                 if (currentNum.equals("") || Double.valueOf(currentNum) <= 0) {
-                    Toast.makeText(this, type == 1 ? "购买数量不正确" : "出售数量不正确", Toast.LENGTH_SHORT).show();
+                    dialogHelper.create(this, R.drawable.miss_icon, type == 1 ? "购买数量不正确" : "出售数量不正确").show();
+                    dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
+                String type = (this.type == 1 ? data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()) : unitPrice);
+                String numType = (this.type == 1 ? data.getPair().substring(0, data.getPair().indexOf("/")) : data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
+                String payNum = currentAllPrice.split(" ")[0];
+                String unitPrice = mPricePurh.getText().toString().split(" ")[0];
+                double allPrice = Double.parseDouble(unitPrice) * Double.parseDouble(currentNum);
+                String allPrichType = this.type == 1 ? TextUtils.doubleToFour(allPrice) : payNum;
+                LogUtils.e("TrandPurhAndSellActivit", "Double.parseDouble(currentNum) * Double.parseDouble(unitPrice):" + (Double.parseDouble(currentNum) * Double.parseDouble(unitPrice)));
+                String buyPrice = this.type == 1 ? currentNum : TextUtils.doubleToFour(Double.parseDouble(currentNum) * Double.parseDouble(unitPrice));
                 mPopView = createPopWindow(this, R.layout.layout_paycode
-                        , type == 1 ? "确认购买" : "确认发布"
-                        , type == 1 ? "总计需支付" : "需支付"
-                        , currentAllPrice
-                        , type == 1 ? "购买数量" : "出售数量"
-                        , currentNum + (type == 1 ? "VRT" : data.getTokenName())
-                        , type == 1 ? "购买价格" : "出售价格"
-                        , currentAllPrice
+                        , this.type == 1 ? "确认购买" : "确认发布"
+                        , "总计需支付"
+                        , allPrichType + " " + type
+                        , this.type == 1 ? "购买数量" : "总价"
+                        , buyPrice + " " + numType
+                        , this.type == 1 ? "购买单价" : "出售单价"
+                        , unitPrice + " " + data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length())
                         , new IPayWindowListener() {
                             @Override
                             public void onclick(View view) {
@@ -256,13 +267,13 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                 object.put("pairId", data.getPairId());
                                 object.put("password", num);
                                 object.put("price", mPricePurh.getText().toString().replace("VRT", ""));
-                                object.put("transactionType", type);
+                                object.put("transactionType", this.type);
                                 object.put("value", currentNum);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
-                            if (type == 1) {
+                            if (this.type == 1) {
                                 releasePurh(body);
                             } else {
                                 releaseSell(body);

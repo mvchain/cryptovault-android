@@ -29,6 +29,7 @@ public class RecordingPresenter extends RecordingContract.RecordingPresenter {
                 mIView.showNull();
             }
         }, throwable -> {
+            mIView.serverError();
             LogUtils.e("RecordingPresenter", throwable.getMessage());
         }));
     }

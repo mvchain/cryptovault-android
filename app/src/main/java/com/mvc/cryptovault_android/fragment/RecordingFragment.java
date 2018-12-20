@@ -31,6 +31,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
     private List<RecorBean.DataBean> bean;
     private RecorAdapter mRecorAdapter;
     private int transType;
+    private int transionType;
     private int pairId;
 
     @Override
@@ -60,7 +61,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
             switch (view.getId()) {
                 case R.id.recording_layout:
                     // TODO 18/12/13
-                    ((TrandRecordingActivity) activity).startPurhActivity(transType,bean.get(position).getId());
+                    ((TrandRecordingActivity) activity).startPurhActivity(transionType,bean.get(position).getId());
                     break;
             }
         });
@@ -69,13 +70,13 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
 
     @Subscribe
     public void eventRefresh(RecordingEvent recordingEvent) {
-        bean.clear();
         mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
     }
 
     private void initArgument() {
         Bundle arguments = getArguments();
         transType = arguments.getInt("transType");
+        transionType= arguments.getInt("transionType");
         pairId = arguments.getInt("pairId");
     }
 
@@ -97,6 +98,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
 
     @Override
     public void showSuccess(List<RecorBean.DataBean> bean) {
+        this.bean.clear();
         this.bean.addAll(bean);
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mRvChild.setVisibility(View.VISIBLE);
@@ -116,8 +118,14 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
         }
     }
 
+    @Override
+    public void serverError() {
+        mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
+        mRvChild.setVisibility(View.GONE);
+        mNullData.setVisibility(View.VISIBLE);
+    }
+
     private void refresh() {
-        bean.clear();
         mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
     }
 }

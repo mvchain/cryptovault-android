@@ -1,5 +1,8 @@
 package com.mvc.cryptovault_android.presenter;
 
+import android.util.Log;
+
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.contract.TrandChildContract;
@@ -32,24 +35,10 @@ public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter 
 
     @Override
     public void getBalanceTransactions(String token, int pairType) {
-        rxUtils.register(mIModel.getVrt(token, pairType).subscribe(list -> {
+        rxUtils.register(mIModel.getBalanceTransactions(token, pairType).subscribe(list -> {
             if (list.getCode() == 200) {
                 SPUtils.getInstance().put(TRAND_BALANCE_LIST, JsonHelper.jsonToString(list));
                 mIView.showSuccess(list.getData());
-            } else {
-                mIView.showNull();
-            }
-        }, throwable ->
-        {
-            mIView.showError();
-        }));
-    }
-
-    @Override
-    public void getAll(String token) {
-        rxUtils.register(mIModel.getAll(token).subscribe(list -> {
-            if (list.getCode() == 200) {
-                mIView.saveAll(list);
             } else {
                 mIView.showNull();
             }

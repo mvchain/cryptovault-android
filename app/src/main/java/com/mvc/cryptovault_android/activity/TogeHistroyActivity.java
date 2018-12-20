@@ -39,9 +39,10 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
     private TogeHisAdapter hisAdapter;
     private TogeHisAdapter searchAdapter;
     private boolean isSerach = false;
-
+    private boolean isRefresh = false;
     @Override
     protected void initMVPData() {
+        isRefresh = true;
         mPresenter.getReservation(getToken(), 0, 10, 0);
     }
 
@@ -72,6 +73,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
     }
 
     private void refresh() {
+        isRefresh = true;
         mPresenter.getReservation(getToken(), 0, 10, 0);
     }
 
@@ -111,15 +113,16 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
         mRvTogehis.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
+                        mPresenter.getReservation(getToken(), beans.get(beans.size() - 1).getId(), 10, 1);
+                    }
+                }
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
-                    mPresenter.getReservation(getToken(), beans.get(beans.size() - 1).getId(), 10, 1);
-                }
             }
         });
     }
@@ -184,6 +187,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
 
     @Override
     public void showSuccess(List<TogeHisBean.DataBean> beanList) {
+        isRefresh = false;
         beans.clear();
         mSerachRefresh.post(()->mSerachRefresh.setRefreshing(false));
         beans.addAll(beanList);

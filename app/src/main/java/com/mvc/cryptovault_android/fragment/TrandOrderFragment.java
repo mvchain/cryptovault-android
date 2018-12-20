@@ -34,6 +34,7 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
     private Dialog mHintDialog;
     private String pairId;
     private String transactionType;
+    private boolean isRefresh = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +60,6 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
         orderAdapter = new TrandOrderAdapter(R.layout.item_trand_order, dataBeans);
         mRvOrder.setAdapter(orderAdapter);
         mSwipOrder.setOnRefreshListener(() -> {
-            dataBeans.clear();
             mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
         });
         mSwipOrder.post(() -> mSwipOrder.setRefreshing(true));
@@ -70,15 +70,17 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
         mRvOrder.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
+                        mPresenter.getTrandOrder(getToken(), dataBeans.get(dataBeans.size() - 1).getId(), 10, pairId, status, transactionType, 1);
+                    }
+                }
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7) {
-                    mPresenter.getTrandOrder(getToken(), dataBeans.get(dataBeans.size() - 1).getId(), 10, pairId, status, transactionType, 0);
-                }
+
             }
         });
     }
@@ -90,6 +92,7 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
 
     @Override
     public void showSuccess(List<TrandOrderBean.DataBean> dataBeans) {
+        isRefresh = false;
         mSwipOrder.post(() -> mSwipOrder.setRefreshing(false));
         this.dataBeans.addAll(dataBeans);
         mNullOrder.setVisibility(View.INVISIBLE);
@@ -99,7 +102,9 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
 
     @Subscribe
     public void refresh(TrandOrderEvent orderEvent) {
+        isRefresh = true;
         dataBeans.clear();
+        orderAdapter.notifyDataSetChanged();
         if (orderEvent.getPariId() != null && orderEvent.getTransactionType() != null) {
             mPresenter.getTrandOrder(getToken(), 0, 10, orderEvent.getPariId(), status, orderEvent.getTransactionType(), 0);
             pairId = orderEvent.getPariId();
@@ -118,14 +123,20 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
     @Override
     protected void initData() {
         super.initData();
+        isRefresh = true;
         mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
     }
 
     @Override
     public void showNull() {
+        isRefresh = false;
         mSwipOrder.post(() -> mSwipOrder.setRefreshing(false));
-        mNullOrder.setVisibility(View.VISIBLE);
-        mRvOrder.setVisibility(View.INVISIBLE);
+        if (dataBeans.size() > 0) {
+
+        } else {
+            mNullOrder.setVisibility(View.VISIBLE);
+            mRvOrder.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

@@ -72,6 +72,10 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     private double price;
     private int pairId;
     private String unitPrice;
+    private double tokenBalance;
+    private double balance;
+    private double currentPrice;
+
 
 
     @Override
@@ -95,11 +99,14 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 .subscribe(trandPurhBean -> {
                     if (trandPurhBean.getCode() == 200) {
                         TrandPurhBean.DataBean data = trandPurhBean.getData();
+                        this.tokenBalance = data.getTokenBalance();
+                        this.balance = data.getBalance();
+                        this.currentPrice = data.getPrice();
                         mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
                         mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
                         mHintPrice.setText(TrandPurhAndSellItemActivity.this.data.getTokenName() + "余额");
                         price = data.getPrice();
-                        mPriceCurrent.setText(TextUtils.doubleToDouble(data.getPrice()) + "VRT");
+                        mPriceCurrent.setText("当前价格" + TextUtils.doubleToDouble(data.getPrice()) + "VRT");
                         mAllPricePurh.setText("0.00 " + unitPrice);
                         mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
                         mEditPurh.setFilters(new InputFilter[]{new PointLengthFilter()});
@@ -175,17 +182,34 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 String currentNum = mEditPurh.getText().toString();
                 String currentAllPrice = mAllPricePurh.getText().toString();
                 if (currentNum.equals("") || Double.valueOf(currentNum) <= 0) {
-                    Toast.makeText(this, type == 1 ? "购买数量不正确" : "出售数量不正确", Toast.LENGTH_SHORT).show();
+                    dialogHelper.create(this, R.drawable.miss_icon, type == 1 ? "购买数量不正确" : "出售数量不正确").show();
+                    dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
+                if (type == 1 && Double.valueOf(currentNum) > tokenBalance) {
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + tokenBalance).show();
+                    dialogHelper.dismissDelayed(null, 1000);
+                    return;
+                }
+                if (type == 2 && Double.valueOf(currentNum) > balance) {
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + balance).show();
+                    dialogHelper.dismissDelayed(null, 1000);
+                    return;
+                }
+                String type = (this.type == 1 ? data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()) : unitPrice);
+                String numType = (this.type == 1 ? data.getPair().substring(0, data.getPair().indexOf("/")) : data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
+                String payNum = currentAllPrice.split(" ")[0];
+                double allPrice = currentPrice * Double.parseDouble(currentNum);
+                String allPrichType = this.type == 1 ? TextUtils.doubleToFour(allPrice) : payNum;
+                String buyPrice = this.type == 1 ? currentNum : TextUtils.doubleToFour(Double.parseDouble(currentNum) * currentPrice);
                 mPopView = createPopWindow(this, R.layout.layout_paycode
-                        , type == 1 ? "确认购买" : "确认发布"
-                        , type == 1 ? "总计需支付" : "需支付"
-                        , currentAllPrice
-                        , type == 1 ? "购买数量" : "出售数量"
-                        , currentNum + (type == 1 ? "VRT" : data.getTokenName())
-                        , type == 1 ? "购买价格" : "出售价格"
-                        , currentAllPrice
+                        , this.type == 1 ? "确认购买" : "确认发布"
+                        , "总计需支付"
+                        , allPrichType + " " + type
+                        , this.type == 1 ? "购买数量" : "总价"
+                        , buyPrice + " " + numType
+                        , this.type == 1 ? "购买单价" : "出售单价"
+                        , currentPrice + " " + data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length())
                         , new IPayWindowListener() {
                             @Override
                             public void onclick(View view) {
@@ -219,14 +243,14 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                 object.put("pairId", data.getPairId());
                                 object.put("password", num);
                                 object.put("price", price);
-                                object.put("transactionType", type);
+                                object.put("transactionType", this.type);
                                 object.put("value", currentNum);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
                             KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
-                            if (type == 1) {
+                            if (this.type == 1) {
                                 releasePurh(body);
                             } else {
                                 releaseSell(body);

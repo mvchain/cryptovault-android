@@ -260,10 +260,10 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
 //        unitPrice
         if (transType == 1) {
             intent.putExtra("title", "购买" + data.getTokenName());
-            intent.putExtra("unit_price", data.getPair().substring(0, data.getPair().indexOf("/")));
+            intent.putExtra("unit_price", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
         } else {
             intent.putExtra("title", "出售" + data.getTokenName());
-            intent.putExtra("unit_price", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
+            intent.putExtra("unit_price", data.getPair().substring(0, data.getPair().indexOf("/")));
         }
         startActivity(intent);
     }

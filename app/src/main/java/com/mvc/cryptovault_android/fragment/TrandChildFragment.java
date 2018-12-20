@@ -79,9 +79,11 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
         mSwipeTc.post(() -> mSwipeTc.setRefreshing(true));
     }
 
-    @Subscribe(sticky = true)
+    @Subscribe()
     public void refreshRate(TrandFragmentEvent fragmentEvent) {
-        childAdapter.notifyDataSetChanged();
+        if (childAdapter != null) {
+            childAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

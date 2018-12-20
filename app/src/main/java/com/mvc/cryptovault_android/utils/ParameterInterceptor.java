@@ -56,7 +56,6 @@ public class ParameterInterceptor implements Interceptor {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             Utils.getApp().startActivity(intent);
         }
-        response.header("Accept-Language", "zh-cn");
         return response;
     }
 

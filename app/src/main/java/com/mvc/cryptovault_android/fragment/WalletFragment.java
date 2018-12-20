@@ -308,8 +308,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         AllAssetBean assetBean = (AllAssetBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(ALLASSETS), AllAssetBean.class);
         mPriceAssets.setText(TextUtils.rateToPrice(assetBean.getData()));
         assetsAdapter.notifyDataSetChanged();
-        EventBus.getDefault().postSticky(new TrandFragmentEvent());
-//        EventBus.getDefault().post(new TrandFragmentEvent());
+        EventBus.getDefault().post(new TrandFragmentEvent());
     }
 
     @Override

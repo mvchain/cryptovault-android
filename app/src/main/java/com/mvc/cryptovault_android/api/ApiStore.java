@@ -38,39 +38,52 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiStore {
+
+    @Headers("Accept-Language: zh-cn")
     @POST(HttpUrl.LOGIN)
     Observable<LoginBean> login(@Body RequestBody loginInfo);
 
+    @Headers("Accept-Language: zh-cn")
     @POST(HttpUrl.TOKEN_REFRESH)
     Call<HttpTokenBean> refreshToken(@Header("Authorization") String token);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_USER_INFO)
     Observable<UserInfoBean> getUserInfo(@Header("Authorization") String token);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_ASSET_LIST)
     Observable<AssetListBean> getAssetList(@Header("Authorization") String token);
 
+    @Headers("Accept-Language: zh-cn")
     @PUT(HttpUrl.GET_ASSET_LIST)
     Observable<UpdateBean> updateAssetList(@Header("Authorization") String token, @Body RequestBody putBody);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_ASSET_ALL)
     Observable<AllAssetBean> getAssetAll(@Header("Authorization") String token);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_CURRENCY_ALL)
     Observable<CurrencyBean> getCurrencyAll(@Header("Authorization") String token);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_MESSAGE)
     Observable<MsgBean> getMsg(@Header("Authorization") String token, @Query("timestamp") long timestamp, @Query("type") int type, @Query("pageSize") int pageSize);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_PAIR)
     Observable<TrandChildBean> getVrtAndBalance(@Header("Authorization") String token, @Query("pairType") int pairType);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_PAIR)
     Observable<TrandChildBean> getAllVrtAndBalance(@Header("Authorization") String token);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_RATE)
     Observable<ExchangeRateBean> getExchangeRate(@Header("Authorization") String token);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_TRANSACTIONS)
     Observable<HistroyBean> getHistroyRecording(@Header("Authorization") String token,
                                                 @Query("id") int id,
@@ -79,6 +92,7 @@ public interface ApiStore {
                                                 @Query("transactionType") int transactionType,
                                                 @Query("type") int type);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_CROWDFUNDING)
     Observable<TogeBean> getCrowdfunding(@Header("Authorization") String token,
                                          @Query("pageSize") int pageSize,
@@ -86,38 +100,46 @@ public interface ApiStore {
                                          @Query("projectType") int projectType,
                                          @Query("type") int type);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_QCODE)
     Observable<ReceiptBean> getRecriptQCode(@Header("Authorization") String token, @Query("tokenId") int tokenId);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_TRANASTION)
     Observable<IDToTransferBean> getTranstion(@Header("Authorization") String token, @Query("tokenId") int tokenId);
 
+    @Headers("Accept-Language: zh-cn")
     @POST(HttpUrl.GET_TRANASTION)
     Observable<UpdateBean> sendTransferRequest(@Header("Authorization") String token, @Body RequestBody body);
 
-
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_TRANASTION + "/{id}")
     Observable<DetailBean> getDetailOnID(@Header("Authorization") String token, @Path("id") int id);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_DEBIT)
     Observable<VPBalanceBean> getBalance(@Header("Authorization") String token);
 
+    @Headers("Accept-Language: zh-cn")
     @POST(HttpUrl.GET_DEBIT)
     Observable<UpdateBean> sendDebitMsg(@Header("Authorization") String token, @Body RequestBody body);
 
-
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_RESERVATION)
     Observable<TogeHisBean> getReservation(@Header("Authorization") String token,
                                            @Query("id") int id,
                                            @Query("pageSize") int pageSize,
                                            @Query("type") int type);
 
+    @Headers("Accept-Language: zh-cn")
     @GET("/project/{id}/purchase")
     Observable<PurchaseBean> getPurchaseOnID(@Header("Authorization") String token, @Path("id") int id);
 
+    @Headers("Accept-Language: zh-cn")
     @POST("/project/{id}/purchase")
     Observable<UpdateBean> sendReservationRequest(@Header("Authorization") String token, @Body RequestBody body, @Path("id") int id);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_RECORDING)
     Observable<RecorBean> getRecording(@Header("Authorization") String token,
                                        @Query("id") int id,
@@ -132,15 +154,18 @@ public interface ApiStore {
      * @param token
      * @return
      */
+    @Headers("Accept-Language: zh-cn")
     @POST(HttpUrl.GET_RECORDING)
     Observable<UpdateBean> releaseOrder(@Header("Authorization") String token,
                                         @Body RequestBody body);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_TRANSACTIONINFO)
     Observable<TrandPurhBean> getTransactionInfo(@Header("Authorization") String token,
                                                  @Query("pairId") int pairId,
                                                  @Query("transactionType") int transactionType);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_TPARTAKE)
     Observable<TrandOrderBean> getTpartake(@Header("Authorization") String token,
                                            @Query("id") int id,
@@ -156,10 +181,12 @@ public interface ApiStore {
      * @param token
      * @return
      */
+    @Headers("Accept-Language: zh-cn")
     @DELETE(HttpUrl.GET_RECORDING + "/{id}")
     Observable<UpdateBean> cancleOrder(@Header("Authorization") String token,
                                        @Path("id") int id);
 
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_KLINE)
     Observable<KLineBean> getKLine(@Header("Authorization") String token,
                                    @Query("pairId") int pairId);
@@ -170,6 +197,7 @@ public interface ApiStore {
      * @param cellphone
      * @return
      */
+    @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.SEND_CODE)
     Observable<UpdateBean> sendCode(@Query("cellphone") String cellphone);
 

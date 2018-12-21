@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,7 +69,11 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
         });
         initRecyclerLoadmore();
     }
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
+    }
     @Override
     protected void initData() {
         super.initData();

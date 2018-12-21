@@ -36,7 +36,7 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         String price = TextUtils.toBigDecimal(item.getValue());
         helper.setText(R.id.his_child_price, (item.getTransactionType() == 1 ? "+" : "-") + price);
         TextView mStatusTv = helper.getView(R.id.his_child_status);
-        if (item.getClassify() == 0) {
+        if (item.getClassify() == 0 && item.getTransactionType() != 1) {
             mStatusTv.setVisibility(View.VISIBLE);
             mStatusTv.setText(status[item.getStatus() > 3 ? 3 : item.getStatus()]);
             mStatusTv.setTextColor(status_color[item.getStatus() > 3 ? 3 : item.getStatus()]);

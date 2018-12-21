@@ -23,7 +23,8 @@ import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.BalanceContract;
 import com.mvc.cryptovault_android.event.HistroyEvent;
-import com.mvc.cryptovault_android.event.WalletAssetsListEvent;
+import com.mvc.cryptovault_android.event.HistroyFragmentEvent;
+import com.mvc.cryptovault_android.event.WalletMsgEvent;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.IPayWindowListener;
 import com.mvc.cryptovault_android.presenter.VPBalancePresenter;
@@ -113,8 +114,9 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
             Dialog dialog = dialogHelper.create(this, R.drawable.pending_icon, "提取成功");
             dialog.show();
             dialogHelper.dismissDelayed(() -> {
-                EventBus.getDefault().post(new HistroyEvent());
-                EventBus.getDefault().post(new WalletAssetsListEvent());
+                EventBus.getDefault().post(new HistroyEvent(mBwPriceVp.getText().toString().trim()));
+                EventBus.getDefault().post(new HistroyFragmentEvent());
+                EventBus.getDefault().post(new WalletMsgEvent());
                 finish();
             }, 1500);
             new Handler().postDelayed(() -> dialog.dismiss(), 1000);

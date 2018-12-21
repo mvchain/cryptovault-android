@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -28,6 +27,7 @@ import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.bean.PurchaseBean;
 import com.mvc.cryptovault_android.bean.TogeBean;
 import com.mvc.cryptovault_android.event.TogeFragmentEvent;
+import com.mvc.cryptovault_android.event.WalletMsgEvent;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.IPayWindowListener;
 import com.mvc.cryptovault_android.utils.PointLengthFilter;
@@ -96,7 +96,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         minPurchase = purchaseBean.getData().getProjectMin();
                         mInfoMaxM.setText("最多预约：" + maxPurchase);
                         mInfoMinM.setText("最少预约：" + minPurchase);
-                        mAvailableM.setText("可用余额：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
+                        mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
                     }
                 }, throwable -> {
                     LogUtils.e("CrowdfundingAppointment", throwable.getMessage());
@@ -115,37 +115,39 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         mNumHint.setText("超出最大预约数量！");
                         mNumHint.setVisibility(View.VISIBLE);
                         mSubmitM.setEnabled(false);
+                        mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else if (currentNum < minPurchase) {
                         mNumHint.setText("低于最小预约数量！");
                         mNumHint.setVisibility(View.VISIBLE);
                         mSubmitM.setEnabled(false);
+                        mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else if (currentNum == 0) {
                         mSubmitM.setEnabled(false);
                     } else {
                         mNumHint.setVisibility(View.INVISIBLE);
                         mSubmitM.setEnabled(true);
+                        mSubmitM.setBackgroundResource(R.drawable.bg_login_submit);
                     }
                     mPriceM.setText(TextUtils.doubleToDouble(currentNum * dataBean.getRatio()));
                     if (currentNum * dataBean.getRatio() > purchaseBean.getData().getBalance()) {
-                        mAvailableM.setText("可用金额不足！");
+                        mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "不足！");
                         mAvailableM.setTextColor(getColor(R.color.red));
                         mSubmitM.setEnabled(false);
+                        mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else {
                         if (purchaseBean != null) {
-                            mAvailableM.setText("可用余额：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
+                            mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
                             mAvailableM.setTextColor(getColor(R.color.trand_gray));
                             mSubmitM.setEnabled(true);
+                            mSubmitM.setBackgroundResource(R.drawable.bg_login_submit);
                         }
                     }
                 } else {
                     ViewDrawUtils.clearDraw(mBwPriceM);
                     mNumHint.setVisibility(View.INVISIBLE);
                     mPriceM.setText("0.00");
-                    if (purchaseBean != null) {
-                        mAvailableM.setText("可用余额：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
-                        mAvailableM.setTextColor(getColor(R.color.trand_gray));
-                        mSubmitM.setEnabled(true);
-                    }
+                    mSubmitM.setEnabled(false);
+                    mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                 }
             }
         });
@@ -255,11 +257,13 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(updateBean -> {
                     EventBus.getDefault().post(new TogeFragmentEvent());
+                    EventBus.getDefault().post(new WalletMsgEvent());
                     if (updateBean.getCode() == 200) {
                         dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.success_icon, "预约成功");
                         new Handler().postDelayed(() -> {
                             mReservationDialog.dismiss();
                             mErrorHint.setVisibility(View.INVISIBLE);
+                            EventBus.getDefault().post(new WalletMsgEvent());
                             finish();
                         }, 1000);
                     } else {

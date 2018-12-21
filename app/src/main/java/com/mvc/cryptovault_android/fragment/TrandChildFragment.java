@@ -2,10 +2,12 @@ package com.mvc.cryptovault_android.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mvc.cryptovault_android.R;
@@ -47,7 +49,11 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mSwipeTc.post(() -> mSwipeTc.setRefreshing(false));
+    }
     @Override
     protected void initView() {
         mCurrencyTc = rootView.findViewById(R.id.tc_currency);

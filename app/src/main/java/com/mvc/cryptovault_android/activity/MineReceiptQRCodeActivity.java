@@ -10,16 +10,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ShareCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -43,7 +39,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
     private ImageView mProtraitM;
     private int tokenId;
     private String tokenName;
-    private RelativeLayout mLayoutShare;
+    private LinearLayout mLayoutShare;
     private DialogHelper dialogHelper;
 
     @Override

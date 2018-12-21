@@ -8,9 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.DetailActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.HistroyChildAdapter;
@@ -18,8 +16,9 @@ import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.HistroyBean;
 import com.mvc.cryptovault_android.contract.HistroyChildContract;
-import com.mvc.cryptovault_android.event.HistroyEvent;
+import com.mvc.cryptovault_android.event.HistroyFragmentEvent;
 import com.mvc.cryptovault_android.presenter.HistroyChildPresenter;
+import com.mvc.cryptovault_android.view.RuleRecyclerLines;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,6 +55,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mDataNull = rootView.findViewById(R.id.data_null);
         mItemSwipHis = rootView.findViewById(R.id.his_item_swip);
         mRvChild.setLayoutManager(new LinearLayoutManager(activity));
+        mRvChild.addItemDecoration(new RuleRecyclerLines(activity, RuleRecyclerLines.HORIZONTAL_LIST, 1));
         histroyChildAdapter = new HistroyChildAdapter(R.layout.item_histroy_child_list, mHisData);
         histroyChildAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
@@ -189,7 +189,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     }
 
     @Subscribe
-    public void eventRefresh(HistroyEvent event) {
+    public void eventRefresh(HistroyFragmentEvent event) {
         isRefresh = true;
         switch (action) {
             case 0:

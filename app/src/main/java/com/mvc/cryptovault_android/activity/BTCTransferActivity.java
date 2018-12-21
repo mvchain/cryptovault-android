@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.RegexUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -29,6 +28,8 @@ import com.mvc.cryptovault_android.bean.IDToTransferBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.BTCTransferContract;
 import com.mvc.cryptovault_android.event.HistroyEvent;
+import com.mvc.cryptovault_android.event.HistroyFragmentEvent;
+import com.mvc.cryptovault_android.event.WalletMsgEvent;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.IPayWindowListener;
 import com.mvc.cryptovault_android.presenter.BTCTransferPresenter;
@@ -122,7 +123,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                         mPriceBtc.setTextColor(getColor(R.color.red));
                         mSubmitBtc.setEnabled(false);
                     } else {
-                        mPriceBtc.setText("余额：" + TextUtils.doubleToFour(mTransBean.getBalance()));
+                        mPriceBtc.setText(String.format("可用%s：" + TextUtils.doubleToFour(mTransBean.getBalance()), tokenName));
                         mPriceBtc.setTextColor(getColor(R.color.login_edit_bg));
                         mSubmitBtc.setEnabled(true);
                     }
@@ -211,7 +212,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                 , "转账金额"
                                 , priceBtc + mTransBean.getFeeTokenName()
                                 , transAddress
-                                , mTransBean.getFee() + mTransBean.getFeeTokenName()
+                                , TextUtils.doubleToSix(mTransBean.getFee()) + mTransBean.getFeeTokenName()
                                 , true
                                 , new IPayWindowListener() {
                                     @Override
@@ -237,7 +238,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                         setAlpha(1f);
                                     }
                                 }, num -> {
-                                    dialogHelper.create(this, R.drawable.pending_icon, "转账成功").show();
+                                    dialogHelper.create(this, R.drawable.pending_icon, "转账中").show();
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                     mPresenter.sendTransferMsg(getToken(), transAddress.trim(), num, tokenId, priceBtc);
                                     mPopView.dismiss();
@@ -277,7 +278,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     @Override
     public void showSuccess(IDToTransferBean.DataBean data) {
         this.mTransBean = data;
-        mPriceBtc.setText("余额：" + TextUtils.doubleToFour(data.getBalance()));
+        mPriceBtc.setText(String.format("可用%s：" + TextUtils.doubleToFour(data.getBalance()), tokenName));
         mSxfBtc.setText(TextUtils.doubleToSix(data.getFee()) + " " + data.getFeeTokenName());
     }
 
@@ -286,7 +287,9 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
         if (bean.getCode() == 200) {
             dialogHelper.resetDialogResource(this, R.drawable.success_icon, "转账成功");
             dialogHelper.dismissDelayed(() -> {
-                EventBus.getDefault().post(new HistroyEvent());
+                EventBus.getDefault().post(new HistroyEvent(mTransPriceBtc.getText().toString().trim()));
+                EventBus.getDefault().post(new HistroyFragmentEvent());
+                EventBus.getDefault().post(new WalletMsgEvent());
                 finish();
             }, 1500);
         } else {

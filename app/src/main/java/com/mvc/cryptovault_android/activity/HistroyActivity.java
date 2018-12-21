@@ -10,12 +10,14 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -26,6 +28,8 @@ import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.contract.HistroyContract;
+import com.mvc.cryptovault_android.event.HistroyEvent;
+import com.mvc.cryptovault_android.event.HistroyFragmentEvent;
 import com.mvc.cryptovault_android.event.WalletFragmentEvent;
 import com.mvc.cryptovault_android.fragment.HistroyChildFragment;
 import com.mvc.cryptovault_android.listener.IPopViewListener;
@@ -39,6 +43,7 @@ import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,8 +171,14 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
 
+    }
 
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -205,7 +216,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                     @Override
                     public void success(int i) {
                         Intent intent = new Intent(HistroyActivity.this, QCodeActivity.class);
-                        intent.putExtra("tokenId",tokenId);
+                        intent.putExtra("tokenId", tokenId);
                         startActivityForResult(intent, 200);
                     }
                 }).requestPermission(this, Manifest.permission.CAMERA);
@@ -286,5 +297,13 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                     break;
             }
         }
+    }
+
+    @Subscribe
+    public void changePrice(HistroyEvent event) {
+        String price = event.getPrice();
+        mActualHis.setText(TextUtils.doubleToFour(Double.parseDouble(mActualHis.getText().toString().split(" ")[0]) - Double.parseDouble(price)));
+        String newsPrice = mActualHis.getText().toString().split(" ")[0];
+        mPriceHis.setText(TextUtils.rateToPrice(Double.parseDouble(newsPrice)*dataBean.getRatio()));
     }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.MsgAdapter;
@@ -21,6 +22,8 @@ import com.mvc.cryptovault_android.presenter.MsgPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.READ_MSG;
 
 public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> implements MsgContract.IMsgView, View.OnClickListener {
     private ImageView mBackMsg;
@@ -146,6 +149,7 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
 
     @Override
     protected void onDestroy() {
+        SPUtils.getInstance().put(READ_MSG, false);
         setResult(200);
         super.onDestroy();
     }

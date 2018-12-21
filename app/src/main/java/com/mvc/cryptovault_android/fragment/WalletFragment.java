@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.fragment;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -34,6 +35,7 @@ import com.mvc.cryptovault_android.contract.WallteContract;
 import com.mvc.cryptovault_android.event.TrandFragmentEvent;
 import com.mvc.cryptovault_android.event.WalletAssetsListEvent;
 import com.mvc.cryptovault_android.event.WalletFragmentEvent;
+import com.mvc.cryptovault_android.event.WalletMsgEvent;
 import com.mvc.cryptovault_android.listener.IPopViewListener;
 import com.mvc.cryptovault_android.presenter.WalletPresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
@@ -147,6 +149,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @Override
     protected void initData() {
         super.initData();
+        if (SPUtils.getInstance().getLong(MSG_TIME) == -1) {
+            SPUtils.getInstance().put(MSG_TIME, System.currentTimeMillis());
+        }
         mRvAssets.setLayoutManager(new LinearLayoutManager(activity));
         assetsAdapter = new WalletAssetsAdapter(R.layout.item_home_assets_type, mData);
         assetsAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -261,7 +266,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             AllAssetBean allAssetBean = (AllAssetBean) JsonHelper.stringToJson(allAsset, AllAssetBean.class);
             mPriceAssets.setText(TextUtils.rateToPrice(allAssetBean.getData()));
         }
-        mSwipAsstes.setRefreshing(false);
+        mSwipAsstes.post(() -> mSwipAsstes.setRefreshing(false));
     }
 
     /**
@@ -272,6 +277,25 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mPresenter.getAllAsset(getToken());
         mPresenter.getAssetList(getToken());
         long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
+        mPresenter.getMsg(getToken(), msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mSwipAsstes.post(() -> mSwipAsstes.setRefreshing(false));
+    }
+
+    /**
+     * 异步刷新接口
+     */
+    @Subscribe
+    public void msgRefresh(WalletMsgEvent msgEvent) {
+//        mData.clear();
+        mPresenter.getAllAsset(getToken());
+        mPresenter.getAssetList(getToken());
+        long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
+        LogUtils.e("WalletFragment", "SPUtils.getInstance().getLong(MSG_TIME):" + SPUtils.getInstance().getLong(MSG_TIME));
         mPresenter.getMsg(getToken(), msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
     }
 

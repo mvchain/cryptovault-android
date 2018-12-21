@@ -138,7 +138,7 @@
             android:button="@null"
             android:checked="true"
             android:gravity="center"
-            android:text="购买USDT"
+            android:text="出售订单"
             android:textColor="@color/select_recording_radio" />
 
         <RadioButton
@@ -149,7 +149,7 @@
             android:background="@drawable/select_recording_radio_right"
             android:button="@null"
             android:gravity="center"
-            android:text="出售USDT"
+            android:text="购买订单"
             android:textColor="@color/select_recording_radio" />
     </RadioGroup>
 

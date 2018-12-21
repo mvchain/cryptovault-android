@@ -29,6 +29,7 @@ import com.mvc.cryptovault_android.adapter.TrandRecorAdapter;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.bean.KLineBean;
+import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.fragment.RecordingFragment;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
@@ -83,8 +84,6 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         recorAdapter = new TrandRecorAdapter(getSupportFragmentManager(), mFragment);
         mVpRecording.setAdapter(recorAdapter);
         mTitleTrand.setText(data.getPair());
-        mInRadioRecording.setText("出售" + data.getTokenName());
-        mOutRadioRecording.setText("购买" + data.getTokenName());
         String subTitle = data.getPair().substring(0, data.getPair().indexOf("/"));
         SPUtils.getInstance().put(RECORDING_UNIT, subTitle);
         mChartRecording.setDragEnabled(false);
@@ -234,6 +233,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
                 // TODO 18/12/13
                 intent.setClass(this, TrandPurhAndSellActivity.class);
                 intent.putExtra("title", "出售" + data.getTokenName());
+                intent.putExtra("allprice_unit", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 intent.putExtra("unit_price", data.getPair().substring(0, data.getPair().indexOf("/")));
                 intent.putExtra("data", data);
                 intent.putExtra("type", 2);
@@ -244,6 +244,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
                 intent.setClass(this, TrandPurhAndSellActivity.class);
                 intent.putExtra("title", "购买" + data.getTokenName());
                 intent.putExtra("unit_price", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
+                intent.putExtra("allprice_unit", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 intent.putExtra("data", data);
                 intent.putExtra("type", 1);
                 startActivity(intent);
@@ -251,20 +252,21 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         }
     }
 
-    public void startPurhActivity(int transType,int id) {
+    public void startPurhActivity(int transType, int id, RecorBean.DataBean recorBean) {
         Intent intent = new Intent(this, TrandPurhAndSellItemActivity.class);
         intent.putExtra("id", id);
         intent.putExtra("data", data);
+        intent.putExtra("recorBean", recorBean);
         intent.putExtra("type", transType);
         LogUtils.e("TrandRecordingActivity", "transType:" + transType);
 //        unitPrice
+        intent.putExtra("title", data.getTokenName());
         if (transType == 1) {
-            intent.putExtra("title", "购买" + data.getTokenName());
             intent.putExtra("unit_price", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
         } else {
-            intent.putExtra("title", "出售" + data.getTokenName());
             intent.putExtra("unit_price", data.getPair().substring(0, data.getPair().indexOf("/")));
         }
+        intent.putExtra("allprice_unit", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
         startActivity(intent);
     }
 }

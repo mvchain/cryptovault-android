@@ -24,7 +24,7 @@ public class RecorAdapter extends BaseQuickAdapter<RecorBean.DataBean, BaseViewH
     protected void convert(BaseViewHolder helper, RecorBean.DataBean item) {
         ImageView recIcon = helper.getView(R.id.recor_icon);
         helper.setText(R.id.recor_nickname, item.getNickname());
-        helper.setText(R.id.recor_max, "购买限额：" + item.getLimitValue());
+        helper.setText(R.id.recor_max, (item.getTransactionType() == 2 ? "剩余可购买量：" : "剩余可出售量：") + item.getLimitValue());
         helper.setText(R.id.recor_price, TextUtils.doubleToFour(item.getTotal() * item.getPrice()) + " " + SPUtils.getInstance().getString(RECORDING_UNIT));
         Glide.with(mContext).load(item.getHeadImage()).into(recIcon);
         helper.addOnClickListener(R.id.recording_layout);

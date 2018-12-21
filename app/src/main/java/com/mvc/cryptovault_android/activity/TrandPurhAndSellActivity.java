@@ -72,6 +72,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
     private boolean isNetWork;
     private int type;
     private String unitPrice;
+    private String allPriceUnit;
     private PopupWindow mPopView;
     private DialogHelper dialogHelper;
     private Dialog mPurhDialog;
@@ -91,8 +92,9 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         mTitleTrand.setText(getIntent().getStringExtra("title"));
         type = getIntent().getIntExtra("type", 0);
         unitPrice = getIntent().getStringExtra("unit_price");
+        allPriceUnit = getIntent().getStringExtra("allprice_unit");
         mEditPurh.setHint("输入" + (type == 1 ? "购买" : "出售") + "数量");
-        mTitlePrice.setText((type == 1 ? "购买" : "出售") + "价");
+        mTitlePrice.setText((type == 1 ? "购买" : "出售") + "单价：");
         mNumPrice.setText((type == 1 ? "购买" : "出售") + "数量");
         RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
@@ -102,7 +104,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                         mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
                         mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
                         mHintPrice.setText(TrandPurhAndSellActivity.this.data.getTokenName() + "余额");
-                        mPriceCurrent.setText("当前价格" + TextUtils.doubleToDouble(data.getPrice()) + "VRT");
+                        mPriceCurrent.setText("当前价格" + TextUtils.doubleToFour(data.getPrice()) + "VRT");
                         this.tokenBalance = data.getTokenBalance();
                         this.balance = data.getBalance();
                         double seekMin = Math.abs(100 + data.getMin());
@@ -115,7 +117,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                         } else {
                             mSeekPurh.setProgress(mSeekPurh.getMax() / 2);
                         }
-                        mAllPricePurh.setText("0.00 " + unitPrice);
+                        mAllPricePurh.setText("0.0000 " + allPriceUnit);
                         mPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " VRT");
                         mSeekNumPurh.setText((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100)) + "%");
                         mSeekPurh.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -123,10 +125,10 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                                 double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(progress / 100));
                                 mSeekNumPurh.setText(currentPro + "%");
-                                mPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * currentPro / 100) + " VRT");
+                                mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * currentPro / 100) + " VRT");
                                 if (!mEditPurh.getText().toString().equals("")) {
                                     double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
-                                    mAllPricePurh.setText(TextUtils.doubleToDouble(allPrice) + " " + unitPrice);
+                                    mAllPricePurh.setText(TextUtils.doubleToFour(allPrice) + " " + allPriceUnit);
                                 }
                             }
 
@@ -149,14 +151,14 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                 if (!numText.equals("")) {
                                     Double num = Double.valueOf(numText);
                                     if (num == 0) {
-                                        mAllPricePurh.setText("0.00 " + unitPrice);
+                                        mAllPricePurh.setText("0.0000 " + allPriceUnit);
                                     } else {
                                         double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100));
                                         double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
-                                        mAllPricePurh.setText(TextUtils.doubleToDouble(allPrice) + " " + unitPrice);
+                                        mAllPricePurh.setText(TextUtils.doubleToFour(allPrice) + " " + allPriceUnit);
                                     }
                                 } else {
-                                    mAllPricePurh.setText("0.00 " + unitPrice);
+                                    mAllPricePurh.setText("0.0000 " + allPriceUnit);
                                 }
                             }
                         });

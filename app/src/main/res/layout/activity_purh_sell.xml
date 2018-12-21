@@ -151,16 +151,7 @@
                         android:id="@+id/price_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="出售价"
-                        android:textColor="@color/trand_gray"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/current_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="当前价格100 VRT"
+                        android:text="出售单价："
                         android:textColor="@color/trand_gray"
                         android:textSize="13sp" />
 
@@ -168,11 +159,12 @@
                         android:id="@+id/purh_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/price_title"
-                        android:layout_marginTop="8dp"
+                        android:layout_alignBaseline="@id/price_title"
+                        android:layout_toRightOf="@id/price_title"
                         android:text="0.00 VRT "
-                        android:textColor="@color/trand_gray"
-                        android:textSize="15sp" />
+                        android:textColor="@color/login_content"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:id="@+id/process_layout"
@@ -216,11 +208,20 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/price_num"
+                        android:id="@+id/current_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/process_layout"
-                        android:layout_marginTop="24dp"
+                        android:text="当前价格100 VRT"
+                        android:textColor="@color/trand_gray"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/price_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/current_price"
+                        android:layout_marginTop="20dp"
                         android:text="出售价"
                         android:textColor="@color/trand_gray"
                         android:textSize="13sp" />

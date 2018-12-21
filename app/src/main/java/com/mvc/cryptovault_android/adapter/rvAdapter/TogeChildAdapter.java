@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
@@ -56,7 +57,9 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
         helper.setText(R.id.toge_child_xg, item.getProjectLimit() + item.getTokenName());
         helper.setText(R.id.toge_child_jg, "1" + item.getTokenName() + " = " + item.getRatio() + item.getBaseTokenName());
         helper.setText(R.id.toge_child_bl, item.getReleaseValue() + "%");
-        Glide.with(mContext).load(item.getProjectImage()).into(togeIcon);
+        RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
+        Glide.with(mContext).load(item.getProjectImage()).apply(options).into(togeIcon);
+        helper.getView(R.id.toge_child_submit).setOnClickListener(null);
         helper.addOnClickListener(R.id.toge_child_submit);
     }
 }

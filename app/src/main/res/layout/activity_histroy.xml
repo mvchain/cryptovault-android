@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/his_title"
                 android:layout_width="match_parent"
@@ -33,21 +34,23 @@
                 android:text="VP余额"
                 android:textColor="@color/white"
                 android:textSize="17sp" />
+
             <ImageView
                 android:id="@+id/his_back"
-                android:scaleType="center"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="6dp"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="6dp"
+                android:scaleType="center"
                 android:src="@drawable/back_icon_white" />
+
             <ImageView
                 android:id="@+id/his_qcode"
                 android:layout_width="40dp"
-                android:layout_centerVertical="true"
                 android:layout_height="40dp"
-                android:layout_marginLeft="6dp"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="6dp"
                 android:padding="8dp"
                 android:src="@drawable/code_icon_white" />
         </RelativeLayout>
@@ -60,10 +63,10 @@
                 android:id="@+id/his_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:maxLength="13"
                 android:layout_marginLeft="11dp"
                 android:layout_marginTop="25dp"
+                android:maxLength="13"
+                android:maxLines="1"
                 android:textColor="@color/white"
                 android:textSize="34sp" />
 
@@ -97,12 +100,12 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/his_tab"
         android:layout_width="match_parent"
-        app:tabSelectedTextColor="@color/login_content"
-        app:tabIndicatorColor="@color/login_content"
         android:layout_height="44dp"
         android:layout_marginTop="12dp"
         android:background="@color/white"
-        app:tabGravity="fill" />
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/login_content"
+        app:tabSelectedTextColor="@color/login_content" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/his_vp"
@@ -128,7 +131,7 @@
             android:background="@drawable/bg_toge_child_item_tv_blue"
             android:gravity="center"
             android:text="取出VP余额"
-            android:textColor="@color/white"
+            android:textColor="@color/select_button_tv_color"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -143,7 +146,7 @@
             android:background="@drawable/bg_his_out"
             android:gravity="center"
             android:text="转账"
-            android:textColor="@color/white"
+            android:textColor="@color/select_button_tv_color"
             android:textSize="15sp"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -160,7 +163,7 @@
             android:background="@drawable/bg_his_in"
             android:gravity="center"
             android:text="收款"
-            android:textColor="@color/white"
+            android:textColor="@color/select_button_tv_color"
             android:textSize="15sp"
             android:textStyle="bold"
             android:visibility="gone" />

@@ -71,7 +71,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         UserInfoBean.DataBean data = user.getData();
         mNameUser.setText(data.getNickname());
         mPhoneUser.setText(data.getUsername());
-        RequestOptions options = new RequestOptions().error(R.drawable.portrait_icon);
+        RequestOptions options = new RequestOptions().fallback( R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon);
         Glide.with(activity).load(data.getHeadImage()).apply(options).into(mImgUser);
     }
 
@@ -89,7 +89,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
                 UserInfoBean.DataBean data = infoBean.getData();
                 mNameUser.setText(data.getNickname());
                 mPhoneUser.setText(data.getUsername());
-                RequestOptions options = new RequestOptions().error(R.drawable.portrait_icon);
+                RequestOptions options = new RequestOptions().fallback(R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon);
                 Glide.with(activity).load(data.getHeadImage()).apply(options).into(mImgUser);
             }
         }

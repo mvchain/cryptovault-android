@@ -92,9 +92,12 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
 
     @Override
     public void showSuccess(List<TrandOrderBean.DataBean> dataBeans) {
-        isRefresh = false;
-        mSwipOrder.post(() -> mSwipOrder.setRefreshing(false));
+        if (isRefresh) {
+            isRefresh = false;
+            this.dataBeans.clear();
+        }
         this.dataBeans.addAll(dataBeans);
+        mSwipOrder.post(() -> mSwipOrder.setRefreshing(false));
         mNullOrder.setVisibility(View.INVISIBLE);
         mRvOrder.setVisibility(View.VISIBLE);
         orderAdapter.notifyDataSetChanged();

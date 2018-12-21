@@ -76,7 +76,7 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
         if (!serach.equals("")) {
             for (int i = 0; i < mList.size(); i++) {
                 IncreaseBean increaseBean = mList.get(i);
-                if (increaseBean.getZhContent().contains(serach) || increaseBean.getTitle().contains(serach)) {
+                if (increaseBean.getZhContent().toLowerCase().contains(serach.toLowerCase()) || increaseBean.getTitle().contains(serach) || increaseBean.getZhContent().toLowerCase().contains(serach.toLowerCase())) {
                     mSearchList.add(increaseBean);
                 }
             }

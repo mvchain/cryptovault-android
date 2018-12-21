@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
@@ -60,6 +62,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
     private TextView mPriceM;
     private TextView mAvailableM;
     private TextView mSubmitM;
+    private TextView mPriceType;
     private TogeBean.DataBean dataBean;
     private int maxPurchase;
     private int minPurchase;
@@ -78,8 +81,12 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
     protected void initData() {
         Intent intent = getIntent();
         dataBean = intent.getParcelableExtra("databean");
-        Glide.with(this).load(dataBean.getProjectImage()).into(mInfoIconM);
+        mTitleM.setText("预约" + dataBean.getProjectName());
+        mInfoTitleM.setText(dataBean.getProjectName());
+        RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
+        Glide.with(this).load(dataBean.getProjectImage()).apply(options).into(mInfoIconM);
         mInfoBlM.setText("兑换比例 1" + dataBean.getTokenName() + " = " + dataBean.getRatio() + dataBean.getBaseTokenName());
+        mPriceType.setText(dataBean.getBaseTokenName());
         RetrofitUtils.client(ApiStore.class).getPurchaseOnID(getToken(), dataBean.getProjectId())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(purchaseBean -> {
@@ -162,6 +169,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
         mPriceM = findViewById(R.id.m_price);
         mAvailableM = findViewById(R.id.m_available);
         mSubmitM = findViewById(R.id.m_submit);
+        mPriceType = findViewById(R.id.price_type);
         mBackM.setOnClickListener(this);
         mSubmitM.setOnClickListener(this);
         mBwPriceM.setFocusable(true);

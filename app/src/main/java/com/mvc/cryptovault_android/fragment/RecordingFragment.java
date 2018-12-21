@@ -61,7 +61,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
             switch (view.getId()) {
                 case R.id.recording_layout:
                     // TODO 18/12/13
-                    ((TrandRecordingActivity) activity).startPurhActivity(transionType,bean.get(position).getId());
+                    ((TrandRecordingActivity) activity).startPurhActivity(transionType,bean.get(position).getId(),bean.get(position));
                     break;
             }
         });

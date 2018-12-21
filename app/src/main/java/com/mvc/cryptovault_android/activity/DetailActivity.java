@@ -210,10 +210,15 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                 return true;
             });
         } else if (classify == 1) { //订单交易
+
+            mIconDetail.setImageDrawable(getDrawable(R.drawable.jy_icon));
+            mTitleDetail.setText("BTC/VRT 交易收入");
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
         } else if (classify == 2) { //众筹交易
+            mIconDetail.setImageDrawable(getDrawable(R.drawable.zc_icon));
+            mTitleDetail.setText("项目名称 众筹收入");
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);

@@ -36,7 +36,7 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         type.setText(item.getTokenName());
         money.setText(SPUtils.getInstance().getString(DEFAULE_SYMBOL) + TextUtils.rateToPrice(item.getRatio() * item.getValue()));
         actual.setText(TextUtils.doubleToFour(item.getValue()) + " " + tokenName);
-        RequestOptions options = new RequestOptions().error(R.mipmap.vp_logo);
+        RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
         Glide.with(mContext).load(item.getTokenImage()).apply(options).into(icon);
     }
 }

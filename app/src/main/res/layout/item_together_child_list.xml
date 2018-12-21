@@ -81,7 +81,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/bg_toge_child_item_tv_blue"
-                android:clickable="true"
                 android:gravity="center"
                 android:text="立即参与"
                 android:textColor="@color/select_button_tv_color"

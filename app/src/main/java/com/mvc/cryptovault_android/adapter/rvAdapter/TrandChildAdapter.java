@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
@@ -48,7 +49,8 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
         helper.setText(R.id.trand_child_ratio, TextUtils.doubleToFour(item.getRatio()) + " " + item.getPair().substring(0, item.getPair().indexOf("/")));
         helper.setText(R.id.trand_child_title, item.getTokenName());
         helper.setText(R.id.trand_child_pair, SPUtils.getInstance().getString(DEFAULE_SYMBOL) + TextUtils.rateToPrice(item.getRatio()));
-        Glide.with(mContext).load(item.getTokenImage()).into(icon);
+        RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
+        Glide.with(mContext).load(item.getTokenImage()).apply(options).into(icon);
         helper.addOnClickListener(R.id.trand_layout);
     }
 }

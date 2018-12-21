@@ -289,8 +289,8 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                 EventBus.getDefault().post(new HistroyEvent());
                 finish();
             }, 1500);
-        } else if (bean.getCode() == 400) {
-            dialogHelper.resetDialogResource(this, R.drawable.miss_icon, "转账失败");
+        } else {
+            dialogHelper.resetDialogResource(this, R.drawable.miss_icon, bean.getMessage());
             dialogHelper.dismissDelayed(null, 1500);
         }
     }

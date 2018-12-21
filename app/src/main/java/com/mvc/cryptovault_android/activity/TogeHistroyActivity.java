@@ -40,6 +40,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
     private TogeHisAdapter searchAdapter;
     private boolean isSerach = false;
     private boolean isRefresh = false;
+
     @Override
     protected void initMVPData() {
         isRefresh = true;
@@ -67,7 +68,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
         mSerachRvTogehis.setAdapter(searchAdapter);
         mSerachRvTogehis.addItemDecoration(new RuleRecyclerLines(this, RuleRecyclerLines.HORIZONTAL_LIST, 1));
         mSerachRefresh.setOnRefreshListener(this::refresh);
-        mSerachRefresh.post(()->mSerachRefresh.setRefreshing(true));
+        mSerachRefresh.post(() -> mSerachRefresh.setRefreshing(true));
         initRecyclerLoadmore();
         initSearch();
     }
@@ -92,7 +93,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
                     mRvTogehis.setVisibility(View.GONE);
                     for (int i = 0; i < beans.size(); i++) {
                         TogeHisBean.DataBean dataBean = beans.get(i);
-                        if (dataBean.getProjectName().contains(searchTv)) {
+                        if (dataBean.getProjectName().toLowerCase().contains(searchTv.toLowerCase())) {
                             searchBean.add(dataBean);
                         }
                     }
@@ -189,7 +190,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
     public void showSuccess(List<TogeHisBean.DataBean> beanList) {
         isRefresh = false;
         beans.clear();
-        mSerachRefresh.post(()->mSerachRefresh.setRefreshing(false));
+        mSerachRefresh.post(() -> mSerachRefresh.setRefreshing(false));
         beans.addAll(beanList);
         hisAdapter.notifyDataSetChanged();
     }

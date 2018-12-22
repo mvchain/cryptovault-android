@@ -260,7 +260,8 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                 case 200:
                     boolean qode = data.getBooleanExtra("QODE", false);
                     if (!qode) {
-                        Toast.makeText(this, "无效地址", Toast.LENGTH_SHORT).show();
+                        dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
+                        dialogHelper.dismissDelayed(null, 1000);
                         return;
                     }
                     String hash = data.getStringExtra(CodeUtils.RESULT_STRING);
@@ -285,7 +286,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     @Override
     public void transferCallBack(UpdateBean bean) {
         if (bean.getCode() == 200) {
-            dialogHelper.resetDialogResource(this, R.drawable.success_icon, "转账成功");
+            dialogHelper.resetDialogResource(this, R.drawable.success_icon, "操作成功");
             dialogHelper.dismissDelayed(() -> {
                 EventBus.getDefault().post(new HistroyEvent(mTransPriceBtc.getText().toString().trim()));
                 EventBus.getDefault().post(new HistroyFragmentEvent());

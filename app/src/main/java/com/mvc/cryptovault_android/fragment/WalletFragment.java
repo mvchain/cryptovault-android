@@ -170,6 +170,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                     intent.putExtra("tokenId", mData.get(position).getTokenId());
                     intent.putExtra("tokenName", mData.get(position).getTokenName());
                     intent.putExtra("data", mData.get(position));
+                    intent.putExtra("rate_type", mTypeAssets.getText().toString());
                     startActivity(intent);
                     break;
             }

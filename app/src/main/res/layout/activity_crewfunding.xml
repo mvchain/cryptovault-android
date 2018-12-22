@@ -80,19 +80,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="6dp"
             android:layout_toRightOf="@id/m_info_icon"
-            android:text="最多预约：15000"
-            android:textColor="@color/login_edit_bg"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/m_info_min"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/m_info_max"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/m_info_icon"
-            android:text="最少预约：100"
+            android:text="限购额：15000"
             android:textColor="@color/login_edit_bg"
             android:textSize="11sp" />
 
@@ -100,11 +88,11 @@
             android:id="@+id/m_info_bl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/m_info_max"
-            android:layout_alignParentRight="true"
             android:layout_marginLeft="12dp"
+            android:layout_below="@id/m_info_max"
             android:layout_marginTop="4dp"
             android:text="兑换比例 1 PTO=500 VRT"
+            android:layout_toRightOf="@id/m_info_icon"
             android:textColor="@color/login_edit_bg"
             android:textSize="11sp" />
     </RelativeLayout>

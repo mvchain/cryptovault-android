@@ -38,6 +38,7 @@ import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.TabLayoutUtils;
 import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.utils.ViewDrawUtils;
+import com.mvc.cryptovault_android.view.DialogHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -71,6 +72,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private int type;
     private int tokenId;
     private String tokenName;
+    private String rateType;
     private AssetListBean.DataBean dataBean;
 
     @Override
@@ -132,6 +134,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         tokenId = intent.getIntExtra("tokenId", 0);
         tokenName = intent.getStringExtra("tokenName");
         dataBean = intent.getParcelableExtra("data");
+        rateType = intent.getStringExtra("rate_type");
         mTitleHis.setText(tokenName);
         switch (type) {
             case 0:
@@ -155,8 +158,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         }
         mPriceHis.setText(TextUtils.rateToPrice(dataBean.getRatio() * dataBean.getValue()));
         mActualHis.setText(TextUtils.doubleToFour(dataBean.getValue()) + " " + dataBean.getTokenName());
-        ExchangeRateBean.DataBean defalutBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(getDefalutRate(), ExchangeRateBean.DataBean.class);
-        mTypeHis.setText(defalutBean.getName());
+        mTypeHis.setText(rateType);
     }
 
     @Override
@@ -285,7 +287,9 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 case 200:
                     boolean qode = data.getBooleanExtra("QODE", false);
                     if (!qode) {
-                        Toast.makeText(this, "无效地址", Toast.LENGTH_SHORT).show();
+                        DialogHelper dialogHelper = DialogHelper.getInstance();
+                        dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
+                        dialogHelper.dismissDelayed(null, 1000);
                         return;
                     }
                     String stringExtra = data.getStringExtra(CodeUtils.RESULT_STRING);

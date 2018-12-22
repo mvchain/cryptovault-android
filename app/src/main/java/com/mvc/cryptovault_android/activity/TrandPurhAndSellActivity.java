@@ -56,7 +56,6 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
     private RelativeLayout mToolbarAbout;
     private TextView mHintPrice;
     private TextView mPrice;
-    private TextView mHintVrt;
     private TextView mPriceVrt;
     private TextView mTitlePrice;
     private TextView mPriceCurrent;
@@ -67,6 +66,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
     private TextView mNumPrice;
     private EditText mEditPurh;
     private TextView mPriceHintAll;
+    private TextView mNumErrorHint;
     private TextView mAllPricePurh;
     private TextView mSubmitPurh;
     private boolean isNetWork;
@@ -76,9 +76,9 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
     private PopupWindow mPopView;
     private DialogHelper dialogHelper;
     private Dialog mPurhDialog;
-    private TextView mHintError;
     private double tokenBalance;
     private double balance;
+    private double currentPricePurh;
 
     @Override
     protected int getLayoutId() {
@@ -103,7 +103,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                         TrandPurhBean.DataBean data = trandPurhBean.getData();
                         mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
                         mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
-                        mHintPrice.setText(TrandPurhAndSellActivity.this.data.getTokenName() + "余额");
+                        mHintPrice.setText("可用" + TrandPurhAndSellActivity.this.data.getTokenName());
                         mPriceCurrent.setText("当前价格" + TextUtils.doubleToFour(data.getPrice()) + "VRT");
                         this.tokenBalance = data.getTokenBalance();
                         this.balance = data.getBalance();
@@ -126,6 +126,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                 double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(progress / 100));
                                 mSeekNumPurh.setText(currentPro + "%");
                                 mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * currentPro / 100) + " VRT");
+                                currentPricePurh = data.getPrice() * currentPro / 100;
                                 if (!mEditPurh.getText().toString().equals("")) {
                                     double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
                                     mAllPricePurh.setText(TextUtils.doubleToFour(allPrice) + " " + allPriceUnit);
@@ -152,13 +153,35 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                     Double num = Double.valueOf(numText);
                                     if (num == 0) {
                                         mAllPricePurh.setText("0.0000 " + allPriceUnit);
+                                        mSubmitPurh.setEnabled(false);
+                                        mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
+                                        mNumErrorHint.setVisibility(View.INVISIBLE);
+
                                     } else {
                                         double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100));
                                         double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
                                         mAllPricePurh.setText(TextUtils.doubleToFour(allPrice) + " " + allPriceUnit);
+                                        if (type == 1 && allPrice > TrandPurhAndSellActivity.this.tokenBalance) {
+                                            mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
+                                            mSubmitPurh.setEnabled(false);
+                                            mNumErrorHint.setVisibility(View.VISIBLE);
+                                            mNumErrorHint.setText("超过最大购买金额");
+                                        } else if (type == 2 && allPrice > TrandPurhAndSellActivity.this.balance) {
+                                            mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
+                                            mSubmitPurh.setEnabled(false);
+                                            mNumErrorHint.setVisibility(View.VISIBLE);
+                                            mNumErrorHint.setText("超过最大可出售数量");
+                                        } else {
+                                            mNumErrorHint.setVisibility(View.INVISIBLE);
+                                            mSubmitPurh.setBackgroundResource(R.drawable.bg_login_submit);
+                                            mSubmitPurh.setEnabled(true);
+                                        }
                                     }
                                 } else {
+                                    mNumErrorHint.setVisibility(View.INVISIBLE);
                                     mAllPricePurh.setText("0.0000 " + allPriceUnit);
+                                    mSubmitPurh.setEnabled(false);
+                                    mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                 }
                             }
                         });
@@ -180,7 +203,6 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         mToolbarAbout = findViewById(R.id.about_toolbar);
         mHintPrice = findViewById(R.id.price_hint);
         mPrice = findViewById(R.id.price);
-        mHintVrt = findViewById(R.id.vrt_hint);
         mPriceVrt = findViewById(R.id.vrt_price);
         mTitlePrice = findViewById(R.id.price_title);
         mPriceCurrent = findViewById(R.id.current_price);
@@ -190,6 +212,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         mLayoutProcess = findViewById(R.id.process_layout);
         mNumPrice = findViewById(R.id.price_num);
         mEditPurh = findViewById(R.id.purh_edit);
+        mNumErrorHint = findViewById(R.id.num_error_hint);
         mPriceHintAll = findViewById(R.id.all_price_hint);
         mAllPricePurh = findViewById(R.id.purh_all_price);
         mSubmitPurh = findViewById(R.id.purh_submit);
@@ -197,7 +220,6 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         mHistroyTrand.setOnClickListener(this);
         mSubmitPurh.setOnClickListener(this);
         dialogHelper = DialogHelper.getInstance();
-        mHintError = findViewById(R.id.error_hint);
     }
 
     @Override
@@ -226,14 +248,13 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                     dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
-                LogUtils.e("TrandPurhAndSellActivit", tokenBalance + " ---------------- " + balance);
-                if (type == 1 && Double.valueOf(currentNum) > tokenBalance) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + tokenBalance).show();
+                if (type == 1 && Double.valueOf(currentNum) > balance) {
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToFour(balance)).show();
                     dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
-                if (type == 2 && Double.valueOf(currentNum) > balance) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + balance).show();
+                if (type == 2 && Double.parseDouble(currentNum) * Double.parseDouble(mPricePurh.getText().toString().split(" ")[0]) > tokenBalance) {
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToFour(tokenBalance)).show();
                     dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
@@ -283,7 +304,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                 object.put("id", 0);
                                 object.put("pairId", data.getPairId());
                                 object.put("password", num);
-                                object.put("price", mPricePurh.getText().toString().replace("VRT", "").trim());
+                                object.put("price", currentPricePurh);
                                 object.put("transactionType", this.type);
                                 object.put("value", currentNum);
                             } catch (JSONException e) {
@@ -315,7 +336,6 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         RetrofitUtils.client(ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.success_icon, "发布成功");
-                mHintError.setVisibility(View.INVISIBLE);
                 EventBus.getDefault().post(new RecordingEvent());
                 dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
@@ -323,14 +343,11 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 });
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, updateBean.getMessage());
-                mHintError.setVisibility(View.INVISIBLE);
                 dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, updateBean.getMessage());
-                mHintError.setVisibility(View.VISIBLE);
-                mHintError.setText(updateBean.getMessage());
                 dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });
@@ -353,7 +370,6 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         RetrofitUtils.client(ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.success_icon, "发布成功");
-                mHintError.setVisibility(View.INVISIBLE);
                 EventBus.getDefault().post(new RecordingEvent());
                 dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
@@ -361,14 +377,11 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 });
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, updateBean.getMessage());
-                mHintError.setVisibility(View.INVISIBLE);
                 dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, updateBean.getMessage());
-                mHintError.setVisibility(View.VISIBLE);
-                mHintError.setText(updateBean.getMessage());
                 dialogHelper.dismissDelayed(() -> {
                     KeyboardUtils.hideSoftInput(this);
                 });

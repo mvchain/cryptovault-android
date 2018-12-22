@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,6 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     private TextView mTitleTrand;
     private ImageView mBackTrand;
     private ImageView mHistroyTrand;
-    private TextView mHintError;
     private TextView mHintPrice;
     private TextView mPrice;
     private TextView mHintVrt;
@@ -77,6 +77,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     private double balance;
     private double currentPrice;
     private TextView mHintBusiness;
+    private TextView mNumErrorHint;
     private TextView mNameBusiness;
     private TextView mHintRemaining;
     private TextView mNumRemaining;
@@ -94,8 +95,8 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     protected void initData() {
         data = getIntent().getParcelableExtra("data");
         recorBean = getIntent().getParcelableExtra("recorBean");
-        mTitleTrand.setText((type == 1 ? "出售" : "购买") + getIntent().getStringExtra("title"));
         type = getIntent().getIntExtra("type", 0);
+        mTitleTrand.setText((type == 1 ? "购买" : "出售") + getIntent().getStringExtra("title"));
         pairId = getIntent().getIntExtra("id", 0);
         unitPrice = getIntent().getStringExtra("unit_price");
         allPriceUnit = getIntent().getStringExtra("allprice_unit");
@@ -105,7 +106,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         mPriceHintSale.setText((type == 1 ? "出售" : "购买") + "价格");
         mNameBusiness.setText(recorBean.getNickname());
         mNumRemaining.setText(recorBean.getLimitValue() + " " + getIntent().getStringExtra("title"));
-        mPriceNumSale.setText(TextUtils.doubleToFour(recorBean.getTotal() * recorBean.getPrice()) + " " + SPUtils.getInstance().getString(RECORDING_UNIT));
+        mPriceNumSale.setText(TextUtils.doubleToFour(recorBean.getPrice()) + " VRT");
         this.currentPrice = recorBean.getTotal() * recorBean.getPrice();
         mNumPrice.setText((type == 1 ? "购买" : "出售") + "量");
         RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
@@ -119,7 +120,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                         mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
                         mHintPrice.setText("可用" + TrandPurhAndSellItemActivity.this.data.getTokenName());
                         price = data.getPrice();
-                        mAllPricePurh.setText("0.00 " + allPriceUnit);
+                        mAllPricePurh.setText("0.0000 " + allPriceUnit);
                         mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
                         mEditPurh.setFilters(new InputFilter[]{new PointLengthFilter()});
                         mEditPurh.addTextChangedListener(new EditTextChange() {
@@ -129,12 +130,33 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                 if (!numText.equals("")) {
                                     Double num = Double.valueOf(numText);
                                     if (num == 0) {
-                                        mAllPricePurh.setText("0.00 " + allPriceUnit);
+                                        mNumErrorHint.setVisibility(View.INVISIBLE);
+                                        mAllPricePurh.setText("0.0000 " + allPriceUnit);
+                                        mSubmitPurh.setEnabled(false);
+                                        mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                     } else {
-                                        mAllPricePurh.setText(TextUtils.doubleToDouble(recorBean.getTotal() * recorBean.getPrice() * num) + " " + allPriceUnit);
+                                        mAllPricePurh.setText(TextUtils.doubleToFour(recorBean.getPrice() * num) + " " + allPriceUnit);
+                                        if (type == 1 && recorBean.getPrice() * num > TrandPurhAndSellItemActivity.this.balance) {
+                                            mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
+                                            mSubmitPurh.setEnabled(false);
+                                            mNumErrorHint.setVisibility(View.VISIBLE);
+                                            mNumErrorHint.setText("超过最大购买金额");
+                                        } else if (type == 2 && recorBean.getPrice() * num > TrandPurhAndSellItemActivity.this.tokenBalance) {
+                                            mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
+                                            mSubmitPurh.setEnabled(false);
+                                            mNumErrorHint.setVisibility(View.VISIBLE);
+                                            mNumErrorHint.setText("超过最大可出售数量");
+                                        } else {
+                                            mNumErrorHint.setVisibility(View.INVISIBLE);
+                                            mSubmitPurh.setBackgroundResource(R.drawable.bg_login_submit);
+                                            mSubmitPurh.setEnabled(true);
+                                        }
                                     }
                                 } else {
-                                    mAllPricePurh.setText("0.00 " + allPriceUnit);
+                                    mNumErrorHint.setVisibility(View.INVISIBLE);
+                                    mAllPricePurh.setText("0.0000 " + allPriceUnit);
+                                    mSubmitPurh.setEnabled(false);
+                                    mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                 }
                             }
                         });
@@ -165,8 +187,8 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         mPriceNumSale = findViewById(R.id.sale_price_num);
         mNumPrice = findViewById(R.id.price_num);
         mEditPurh = findViewById(R.id.purh_edit);
+        mNumErrorHint = findViewById(R.id.num_error_hint);
         mAllPricePurh = findViewById(R.id.purh_all_price);
-        mHintError = findViewById(R.id.error_hint);
         mSubmitPurh = findViewById(R.id.purh_submit);
         mBackTrand.setOnClickListener(this);
         mSubmitPurh.setOnClickListener(this);
@@ -200,13 +222,13 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                     dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
-                if (type == 1 && Double.valueOf(currentNum) > tokenBalance) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + tokenBalance).show();
+                if (type == 1 && Double.valueOf(currentNum) > balance) {
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToFour(balance)).show();
                     dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
-                if (type == 2 && Double.valueOf(currentNum) > balance) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + balance).show();
+                if (type == 2 && Double.valueOf(currentNum) > tokenBalance) {
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToFour(tokenBalance)).show();
                     dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
@@ -290,16 +312,12 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
                 EventBus.getDefault().post(new RecordingEvent());
-                mHintError.setVisibility(View.INVISIBLE);
                 dialogHelper.dismissDelayed(() -> finish(), 1000);
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
-                mHintError.setVisibility(View.INVISIBLE);
                 dialogHelper.dismissDelayed(null, 2000);
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
-                mHintError.setVisibility(View.VISIBLE);
-                mHintError.setText(updateBean.getMessage());
                 dialogHelper.dismissDelayed(null, 2000);
             }
         }, throwable -> {
@@ -319,17 +337,13 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         RetrofitUtils.client(ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
-                mHintError.setVisibility(View.INVISIBLE);
                 EventBus.getDefault().post(new RecordingEvent());
                 dialogHelper.dismissDelayed(() -> finish(), 1000);
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
-                mHintError.setVisibility(View.INVISIBLE);
                 dialogHelper.dismissDelayed(null, 2000);
             } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
-                mHintError.setVisibility(View.VISIBLE);
-                mHintError.setText(updateBean.getMessage());
                 dialogHelper.dismissDelayed(null, 2000);
             }
         }, throwable -> {

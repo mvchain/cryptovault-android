@@ -252,13 +252,21 @@
                         android:hint="输入出售数量"
                         android:paddingLeft="12dp"
                         android:textSize="15sp" />
-
+                    <TextView
+                        android:id="@+id/num_error_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/purh_edit"
+                        android:layout_marginTop="10dp"
+                        android:visibility="invisible"
+                        android:textColor="@color/red"
+                        android:textSize="13sp" />
                     <TextView
                         android:id="@+id/all_price_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/purh_edit"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="10dp"
                         android:text="总价格:"
                         android:textColor="@color/trand_gray"
                         android:textSize="13sp" />
@@ -296,9 +304,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_login_submit"
+        android:background="@drawable/bg_toge_child_item_tv_blue_nocheck"
         android:gravity="center"
         android:text="确认"
+        android:enabled="false"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold" />

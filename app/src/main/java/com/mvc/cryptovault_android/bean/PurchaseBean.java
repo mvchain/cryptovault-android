@@ -44,8 +44,8 @@ public class PurchaseBean {
          */
 
         private double balance;
-        private int limitValue;
-        private int projectMin;
+        private double limitValue;
+        private double projectMin;
 
         public double getBalance() {
             return balance;
@@ -55,19 +55,19 @@ public class PurchaseBean {
             this.balance = balance;
         }
 
-        public int getLimitValue() {
+        public double getLimitValue() {
             return limitValue;
         }
 
-        public void setLimitValue(int limitValue) {
+        public void setLimitValue(double limitValue) {
             this.limitValue = limitValue;
         }
 
-        public int getProjectMin() {
+        public double getProjectMin() {
             return projectMin;
         }
 
-        public void setProjectMin(int projectMin) {
+        public void setProjectMin(double projectMin) {
             this.projectMin = projectMin;
         }
     }

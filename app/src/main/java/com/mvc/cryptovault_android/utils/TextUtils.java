@@ -19,6 +19,10 @@ public class TextUtils {
         return Integer.valueOf(string);
     }
 
+    public static Integer doubleToInt(double db) {
+        return (int) db;
+    }
+
     public static Double stringToDouble(String string) {
         return Double.parseDouble(string);
     }

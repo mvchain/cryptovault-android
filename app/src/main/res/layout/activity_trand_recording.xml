@@ -121,6 +121,12 @@
         android:layout_width="match_parent"
         android:layout_height="180dp" />
 
+    <LinearLayout
+        android:id="@+id/time_group"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal" />
+
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="45dp"

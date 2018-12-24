@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.TrandRecordingActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.TrandChildAdapter;
@@ -26,6 +27,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
 
 public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.TrandChildPresenter> implements TrandChildContract.ITrandChildView {
     private TextView mCurrencyTc;
@@ -49,11 +52,13 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mSwipeTc.post(() -> mSwipeTc.setRefreshing(false));
     }
+
     @Override
     protected void initView() {
         mCurrencyTc = rootView.findViewById(R.id.tc_currency);
@@ -69,7 +74,9 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
             switch (view.getId()) {
                 case R.id.trand_layout:
                     Intent intent = new Intent(activity, TrandRecordingActivity.class);
-                    intent.putExtra("data", data.get(position));
+                    TrandChildBean.DataBean dataBean = data.get(position);
+                    intent.putExtra("data", dataBean);
+                    SPUtils.getInstance().put(RECORDING_TYPE, dataBean.getPair().substring(dataBean.getPair().indexOf("/") + 1, dataBean.getPair().length()));
                     startActivity(intent);
                     break;
             }

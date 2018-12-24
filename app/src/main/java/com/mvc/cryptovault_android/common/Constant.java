@@ -19,6 +19,8 @@ public class Constant {
         public static final String MSG_TIME = "msg_time";
         public static final String READ_MSG = "read_msg";
         public static final String USER_INFO = "user_info";
+        public static final String RECORDING_TYPE = "recording_type";
+
     }
 
     public static class LANGUAGE {

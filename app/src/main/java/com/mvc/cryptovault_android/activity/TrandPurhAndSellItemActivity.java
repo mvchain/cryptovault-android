@@ -48,6 +48,7 @@ import org.json.JSONObject;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
+import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_UNIT;
 
 public class TrandPurhAndSellItemActivity extends BaseActivity implements View.OnClickListener {
@@ -65,6 +66,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     private EditText mEditPurh;
     private TextView mAllPricePurh;
     private TextView mSubmitPurh;
+    private TextView mVRTHint;
     private Dialog mPurhDialog;
     private TrandChildBean.DataBean data;
     private RecorBean.DataBean recorBean;
@@ -104,10 +106,11 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         mHintBusiness.setText((type == 1 ? "卖家：" : "买家："));
         mHintRemaining.setText("剩余" + (type == 1 ? "出售" : "购买") + "量");
         mPriceHintSale.setText((type == 1 ? "出售" : "购买") + "价格");
+        mVRTHint.setText("可用"+SPUtils.getInstance().getString(RECORDING_TYPE));
         mNameBusiness.setText(recorBean.getNickname());
         mNumRemaining.setText(recorBean.getLimitValue() + " " + getIntent().getStringExtra("title"));
-        mPriceNumSale.setText(TextUtils.doubleToFour(recorBean.getPrice()) + " VRT");
-        this.currentPrice = recorBean.getTotal() * recorBean.getPrice();
+        mPriceNumSale.setText(TextUtils.doubleToFour(recorBean.getPrice()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
+        this.currentPrice = recorBean.getPrice();
         mNumPrice.setText((type == 1 ? "购买" : "出售") + "量");
         RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
@@ -190,6 +193,8 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         mNumErrorHint = findViewById(R.id.num_error_hint);
         mAllPricePurh = findViewById(R.id.purh_all_price);
         mSubmitPurh = findViewById(R.id.purh_submit);
+        mVRTHint = findViewById(R.id.vrt_hint);
+
         mBackTrand.setOnClickListener(this);
         mSubmitPurh.setOnClickListener(this);
         mHistroyTrand.setOnClickListener(this);

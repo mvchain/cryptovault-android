@@ -161,7 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@id/price_title"
                         android:layout_toRightOf="@id/price_title"
-                        android:text="0.00 VRT "
+                        android:text="0.0000 VRT "
                         android:textColor="@color/login_content"
                         android:textSize="17sp"
                         android:textStyle="bold" />

@@ -8,12 +8,14 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -34,6 +36,7 @@ import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.fragment.RecordingFragment;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
+import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -57,7 +60,9 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
     private TextView mPurhSubmitRecording;
     private TextView mSellSubmitRecording;
     private LineChart mChartRecording;
+    private LinearLayout mTimeGroup;
     private TrandRecorAdapter recorAdapter;
+    private String recordingType;
 
     @Override
     protected int getLayoutId() {
@@ -94,10 +99,8 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
 
         // no description text
         mChartRecording.getDescription().setEnabled(false);
-
         // enable touch gestures
         mChartRecording.setTouchEnabled(true);
-
         // enable scaling and dragging
         mChartRecording.setDragEnabled(true);
         mChartRecording.setScaleEnabled(true);
@@ -108,9 +111,9 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mChartRecording.setMaxHighlightDistance(300);
         XAxis x = mChartRecording.getXAxis();
         x.setEnabled(false);
-
+        x.setAxisLineColor(Color.RED);
         YAxis y = mChartRecording.getAxisLeft();
-        y.setLabelCount(6, false);
+        y.setLabelCount(4, false);
         y.setTextColor(Color.WHITE);
         y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         y.setDrawGridLines(false);
@@ -143,7 +146,8 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         long dayTime = currentTime - (20 * 60 * 60 * 1000);
         float max = 0;
         float min = 0;
-        mCurrentTvRecording.setText(updateBean.getData().getValueY().get(currentSize - 1) + " VRT");
+        LogUtils.e("TrandRecordingActivity", TimeUtils.millis2Date(currentTime).toString());
+        mCurrentTvRecording.setText(TextUtils.doubleToFour(updateBean.getData().getValueY().get(currentSize - 1)) + " VRT");
         LineDataSet dataSetByIndex;
         ArrayList<Entry> values = new ArrayList<>();
         List<Long> timeX = updateBean.getData().getTimeX();
@@ -155,11 +159,11 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
                 min = Math.min(valueY.get(i), valueY.get(i + 1));
             }
         }
-        mDayMaxTvRecording.setText(max + " VRT");
-        mDayMinTvRecording.setText(min + " VRT");
+        mDayMaxTvRecording.setText(TextUtils.doubleToFour(max) + " " + recordingType);
+        mDayMinTvRecording.setText(TextUtils.doubleToFour(min) + " " + recordingType);
         dataSetByIndex = new LineDataSet(values, "kline");
         dataSetByIndex.setValues(values);
-        dataSetByIndex.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        dataSetByIndex.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSetByIndex.setCubicIntensity(0.2f);
         dataSetByIndex.setDrawFilled(true);
         dataSetByIndex.setDrawCircles(false);
@@ -168,12 +172,13 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         dataSetByIndex.setCircleColor(Color.BLUE);
         dataSetByIndex.setHighLightColor(Color.RED);
         dataSetByIndex.setColor(Color.YELLOW);
-        dataSetByIndex.setFillColor(Color.GREEN);
+        dataSetByIndex.setFillColor(Color.parseColor("#007AFF"));
         dataSetByIndex.setFillAlpha(100);
         dataSetByIndex.setDrawHorizontalHighlightIndicator(false);
         dataSetByIndex.setFillFormatter(new IFillFormatter() {
             @Override
             public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
+                LogUtils.e("TrandRecordingActivity", "mChartRecording.getAxisLeft().getAxisMinimum():" + mChartRecording.getAxisLeft().getAxisMinimum());
                 return mChartRecording.getAxisLeft().getAxisMinimum();
             }
         });
@@ -186,6 +191,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
     protected void initView() {
         mFragment = new ArrayList<>();
         data = getIntent().getParcelableExtra("data");
+        recordingType = SPUtils.getInstance().getString("recording_type");
         mTitleTrand = findViewById(R.id.trand_title);
         mBackTrand = findViewById(R.id.trand_back);
         mHistroyTrand = findViewById(R.id.trand_histroy);
@@ -199,6 +205,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mPurhSubmitRecording = findViewById(R.id.recording_purh_submit);
         mSellSubmitRecording = findViewById(R.id.recording_sell_submit);
         mChartRecording = findViewById(R.id.recording_chart);
+        mTimeGroup = findViewById(R.id.time_group);
         mBackTrand.setOnClickListener(this);
         mHistroyTrand.setOnClickListener(this);
         mInRadioRecording.setOnClickListener(this);

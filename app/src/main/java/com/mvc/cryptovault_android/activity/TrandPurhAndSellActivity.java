@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
@@ -47,6 +48,8 @@ import org.json.JSONObject;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
+import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
+
 public class TrandPurhAndSellActivity extends BaseActivity implements View.OnClickListener {
 
     private TrandChildBean.DataBean data;
@@ -64,6 +67,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
     private TextView mSeekNumPurh;
     private LinearLayout mLayoutProcess;
     private TextView mNumPrice;
+    private TextView mVRTHint;
     private EditText mEditPurh;
     private TextView mPriceHintAll;
     private TextView mNumErrorHint;
@@ -95,6 +99,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         allPriceUnit = getIntent().getStringExtra("allprice_unit");
         mEditPurh.setHint("输入" + (type == 1 ? "购买" : "出售") + "数量");
         mTitlePrice.setText((type == 1 ? "购买" : "出售") + "单价：");
+        mVRTHint.setText("可用"+SPUtils.getInstance().getString(RECORDING_TYPE));
         mNumPrice.setText((type == 1 ? "购买" : "出售") + "数量");
         RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
@@ -107,6 +112,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                         mPriceCurrent.setText("当前价格" + TextUtils.doubleToFour(data.getPrice()) + "VRT");
                         this.tokenBalance = data.getTokenBalance();
                         this.balance = data.getBalance();
+                        this.currentPricePurh = data.getPrice();
                         double seekMin = Math.abs(100 + data.getMin());
                         double seekMax = Math.abs(100 + data.getMax());
                         mSeekPurh.setMax((int) (seekMax - seekMin) * 100);
@@ -118,7 +124,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                             mSeekPurh.setProgress(mSeekPurh.getMax() / 2);
                         }
                         mAllPricePurh.setText("0.0000 " + allPriceUnit);
-                        mPricePurh.setText(TextUtils.doubleToDouble(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " VRT");
+                        mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " VRT");
                         mSeekNumPurh.setText((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100)) + "%");
                         mSeekPurh.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                             @Override
@@ -212,6 +218,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         mLayoutProcess = findViewById(R.id.process_layout);
         mNumPrice = findViewById(R.id.price_num);
         mEditPurh = findViewById(R.id.purh_edit);
+        mVRTHint = findViewById(R.id.vrt_hint);
         mNumErrorHint = findViewById(R.id.num_error_hint);
         mPriceHintAll = findViewById(R.id.all_price_hint);
         mAllPricePurh = findViewById(R.id.purh_all_price);

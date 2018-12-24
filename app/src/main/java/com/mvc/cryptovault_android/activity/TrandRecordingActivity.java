@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -23,8 +25,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.highlight.ChartHighlighter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.TrandRecorAdapter;
@@ -38,8 +43,11 @@ import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
+import com.mvc.cryptovault_android.view.PopMarkerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_UNIT;
@@ -111,21 +119,20 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mChartRecording.setMaxHighlightDistance(300);
         XAxis x = mChartRecording.getXAxis();
         x.setEnabled(false);
-        x.setAxisLineColor(Color.RED);
+        x.setTextColor(Color.RED);
         YAxis y = mChartRecording.getAxisLeft();
-        y.setLabelCount(4, false);
-        y.setTextColor(Color.WHITE);
+        y.setLabelCount(7, false);
+        y.setTextColor(Color.BLACK);
         y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         y.setDrawGridLines(false);
-        y.setAxisLineColor(Color.WHITE);
+        y.setTextSize(8);
+        y.setAxisLineColor(Color.BLACK);
         mChartRecording.getAxisRight().setEnabled(false);
-
         mChartRecording.getLegend().setEnabled(false);
-
         mChartRecording.animateXY(2000, 2000);
-
         // don't forget to refresh the drawing
         mChartRecording.invalidate();
+        mChartRecording.setScaleYEnabled(false);
         initLineChartData();
     }
 
@@ -143,11 +150,15 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
 //        recording_current_tv
         int currentSize = updateBean.getData().getValueY().size();
         long currentTime = updateBean.getData().getTimeX().get(currentSize - 1);
-        long dayTime = currentTime - (20 * 60 * 60 * 1000);
+        long dayTime = currentTime - (24 * 60 * 60 * 1000);
         float max = 0;
         float min = 0;
-        LogUtils.e("TrandRecordingActivity", TimeUtils.millis2Date(currentTime).toString());
-        mCurrentTvRecording.setText(TextUtils.doubleToFour(updateBean.getData().getValueY().get(currentSize - 1)) + " VRT");
+        for (int i = 0; i < 7; i++) {
+            TextView timeView = getTimeView(currentTime);
+            currentTime -= (24 * 60 * 60 * 1000);
+            mTimeGroup.addView(timeView, 0);
+        }
+        mCurrentTvRecording.setText(TextUtils.doubleToFour(updateBean.getData().getValueY().get(currentSize - 1)) + " " + recordingType);
         LineDataSet dataSetByIndex;
         ArrayList<Entry> values = new ArrayList<>();
         List<Long> timeX = updateBean.getData().getTimeX();
@@ -168,22 +179,22 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         dataSetByIndex.setDrawFilled(true);
         dataSetByIndex.setDrawCircles(false);
         dataSetByIndex.setLineWidth(0.5f);
-        dataSetByIndex.setCircleRadius(0.8f);
+        dataSetByIndex.setCircleRadius(1f);
         dataSetByIndex.setCircleColor(Color.BLUE);
         dataSetByIndex.setHighLightColor(Color.RED);
         dataSetByIndex.setColor(Color.YELLOW);
         dataSetByIndex.setFillColor(Color.parseColor("#007AFF"));
         dataSetByIndex.setFillAlpha(100);
         dataSetByIndex.setDrawHorizontalHighlightIndicator(false);
-        dataSetByIndex.setFillFormatter(new IFillFormatter() {
-            @Override
-            public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
-                LogUtils.e("TrandRecordingActivity", "mChartRecording.getAxisLeft().getAxisMinimum():" + mChartRecording.getAxisLeft().getAxisMinimum());
-                return mChartRecording.getAxisLeft().getAxisMinimum();
-            }
-        });
+        dataSetByIndex.setFillFormatter((dataSet, dataProvider) -> mChartRecording.getAxisLeft().getAxisMinimum());
+        dataSetByIndex.setValueFormatter((value, entry, dataSetIndex, viewPortHandler) -> "");
         LineData data = new LineData(dataSetByIndex);
         mChartRecording.setData(data);
+//        mChartRecording.setVisibleXRangeMaximum(30);
+        mChartRecording.zoom(20,1f,0,0);
+        PopMarkerView popMarkerView = new PopMarkerView(this, R.layout.layout_chart_marker);
+        popMarkerView.setChartView(mChartRecording);
+        mChartRecording.setMarker(popMarkerView);
         mChartRecording.invalidate();
     }
 
@@ -275,5 +286,17 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         }
         intent.putExtra("allprice_unit", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
         startActivity(intent);
+    }
+
+    private TextView getTimeView(long time) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd");
+        SimpleDateFormat tes = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TextView timeView = new TextView(this);
+        timeView.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        timeView.setLayoutParams(params);
+        timeView.setTextSize(12);
+        timeView.setText(dateFormat.format(new Date(time)));
+        return timeView;
     }
 }

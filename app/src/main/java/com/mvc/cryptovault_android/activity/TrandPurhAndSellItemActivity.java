@@ -108,6 +108,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         mPriceHintSale.setText((type == 1 ? "出售" : "购买") + "价格");
         mVRTHint.setText("可用"+SPUtils.getInstance().getString(RECORDING_TYPE));
         mNameBusiness.setText(recorBean.getNickname());
+        price = recorBean.getPrice();
         mNumRemaining.setText(recorBean.getLimitValue() + " " + getIntent().getStringExtra("title"));
         mPriceNumSale.setText(TextUtils.doubleToFour(recorBean.getPrice()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
         this.currentPrice = recorBean.getPrice();
@@ -122,7 +123,6 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                         mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
                         mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
                         mHintPrice.setText("可用" + TrandPurhAndSellItemActivity.this.data.getTokenName());
-                        price = data.getPrice();
                         mAllPricePurh.setText("0.0000 " + allPriceUnit);
                         mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
                         mEditPurh.setFilters(new InputFilter[]{new PointLengthFilter()});

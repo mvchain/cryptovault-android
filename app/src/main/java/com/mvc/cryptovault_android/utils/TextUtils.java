@@ -28,8 +28,8 @@ public class TextUtils {
     }
 
     public static String doubleToFour(double price) {
-        DecimalFormat format = new DecimalFormat("0.0000");
-        return format.format(price);
+        BigDecimal decimal = new BigDecimal(Double.toString(price));
+        return decimal.setScale(4, RoundingMode.DOWN).toString();
     }
 
     public static String doubleToSix(double price) {

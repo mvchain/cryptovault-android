@@ -5,12 +5,15 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.TogeHisAdapter;
@@ -44,7 +47,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
     @Override
     protected void initMVPData() {
         isRefresh = true;
-        mPresenter.getReservation(getToken(), 0, 10, 0);
+        mPresenter.getReservation(getToken(), 0, 10, null, 0);
     }
 
     @Override
@@ -75,36 +78,21 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
 
     private void refresh() {
         isRefresh = true;
-        mPresenter.getReservation(getToken(), 0, 10, 0);
+        mPresenter.getReservation(getToken(), 0, 10, null, 0);
     }
 
     private void initSearch() {
         mEditTogehis.addTextChangedListener(new EditTextChange() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void afterTextChanged(Editable s) {
                 String searchTv = s.toString();
                 if (searchTv.equals("")) {
                     mSerachNullTogehis.setVisibility(View.GONE);
                     mSerachRvTogehis.setVisibility(View.GONE);
                     mRvTogehis.setVisibility(View.VISIBLE);
                 } else {
-                    searchBean.clear();
-                    searchAdapter.notifyDataSetChanged();
                     mRvTogehis.setVisibility(View.GONE);
-                    for (int i = 0; i < beans.size(); i++) {
-                        TogeHisBean.DataBean dataBean = beans.get(i);
-                        if (dataBean.getProjectName().toLowerCase().contains(searchTv.toLowerCase())) {
-                            searchBean.add(dataBean);
-                        }
-                    }
-                    if (searchBean.size() == 0) {
-                        mSerachNullTogehis.setVisibility(View.VISIBLE);
-                        mSerachRvTogehis.setVisibility(View.GONE);
-                    } else {
-                        mSerachNullTogehis.setVisibility(View.GONE);
-                        mSerachRvTogehis.setVisibility(View.VISIBLE);
-                        searchAdapter.notifyDataSetChanged();
-                    }
+                    mPresenter.getReservation(getToken(), 0, 10, searchTv, 0);
                 }
             }
         });
@@ -117,7 +105,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
-                        mPresenter.getReservation(getToken(), beans.get(beans.size() - 1).getId(), 10, 1);
+                        mPresenter.getReservation(getToken(), beans.get(beans.size() - 1).getId(), 10, null, 1);
                     }
                 }
             }
@@ -195,6 +183,20 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
         mSerachRefresh.post(() -> mSerachRefresh.setRefreshing(false));
         beans.addAll(beanList);
         hisAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showSearchList(List<TogeHisBean.DataBean> beanList) {
+        searchBean.clear();
+        searchBean.addAll(beanList);
+        if (searchBean.size() == 0) {
+            mSerachNullTogehis.setVisibility(View.VISIBLE);
+            mSerachRvTogehis.setVisibility(View.GONE);
+        } else {
+            mSerachNullTogehis.setVisibility(View.GONE);
+            mSerachRvTogehis.setVisibility(View.VISIBLE);
+            searchAdapter.notifyDataSetChanged();
+        }
     }
 
 }

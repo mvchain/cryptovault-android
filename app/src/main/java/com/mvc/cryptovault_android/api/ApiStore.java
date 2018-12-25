@@ -129,6 +129,7 @@ public interface ApiStore {
     Observable<TogeHisBean> getReservation(@Header("Authorization") String token,
                                            @Query("id") int id,
                                            @Query("pageSize") int pageSize,
+                                           @Query("projectName") String projectName,
                                            @Query("type") int type);
 
     @Headers("Accept-Language: zh-cn")

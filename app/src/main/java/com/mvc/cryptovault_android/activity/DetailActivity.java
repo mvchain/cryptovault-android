@@ -24,6 +24,7 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.DetailBean;
 import com.mvc.cryptovault_android.contract.DetailContract;
 import com.mvc.cryptovault_android.presenter.DetailPresenter;
+import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.view.DialogHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
@@ -160,9 +161,9 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     public void showDetail(DetailBean bean) {
         if (isTransfer) {
 //            detail_colladd_title
-            mColladdTitleDetail.setText("收款地址");
+            mColladdTitleDetail.setText("收款地址：");
         } else {
-            mColladdTitleDetail.setText("付款地址");
+            mColladdTitleDetail.setText("付款地址：");
         }
         DetailBean.DataBean data = bean.getData();
         int classify = data.getClassify();
@@ -184,46 +185,59 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                     break;
             }
             mFeesContentDetail.setText(data.getFee() + " " + data.getFeeTokenType());
-            mColladdContentDetail.setText(data.getToAddress());
-            mColladdContentDetail.setOnLongClickListener(view -> {
-                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                // 创建普通字符型ClipData
-                ClipData mClipData = ClipData.newPlainText("hash", mHashContentDetail.getText().toString());
-                // 将ClipData内容放到系统剪贴板里。
-                cm.setPrimaryClip(mClipData);
-                Toast.makeText(DetailActivity.this, "内容已复制至剪贴板", Toast.LENGTH_SHORT).show();
-                return true;
-            });
-            mHashContentDetail.setText(data.getHash());
-            mHashContentDetail.setOnClickListener(v -> {
-                Uri uri = Uri.parse(bean.getData().getHashLink());
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            });
-            mHashContentDetail.setOnLongClickListener(view -> {
-                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                // 创建普通字符型ClipData
-                ClipData mClipData = ClipData.newPlainText("hash", mHashContentDetail.getText().toString());
-                // 将ClipData内容放到系统剪贴板里。
-                cm.setPrimaryClip(mClipData);
-                Toast.makeText(DetailActivity.this, "内容已复制至剪贴板", Toast.LENGTH_SHORT).show();
-                return true;
-            });
+            String address = data.getToAddress();
+            if(!address.equals("")){
+                mColladdContentDetail.setText(data.getToAddress());
+                mColladdContentDetail.setOnLongClickListener(view -> {
+                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    // 创建普通字符型ClipData
+                    ClipData mClipData = ClipData.newPlainText("hash", mColladdContentDetail.getText().toString());
+                    // 将ClipData内容放到系统剪贴板里。
+                    cm.setPrimaryClip(mClipData);
+                    dialogHelper.create(this,R.drawable.success_icon,"内容已复制至剪贴板");
+                    dialogHelper.dismissDelayed(null,1500);
+                    return true;
+                });
+            }else{
+                mColladdContentDetail.setText("无");
+            }
+            String hash = data.getHash();
+            if(!hash.equals("")){
+                mHashContentDetail.setText(data.getHash());
+                mHashContentDetail.setOnClickListener(v -> {
+                    Uri uri = Uri.parse(bean.getData().getHashLink());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                });
+                mHashContentDetail.setOnLongClickListener(view -> {
+                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    // 创建普通字符型ClipData
+                    ClipData mClipData = ClipData.newPlainText("hash", mHashContentDetail.getText().toString());
+                    // 将ClipData内容放到系统剪贴板里。
+                    cm.setPrimaryClip(mClipData);
+                    dialogHelper.create(this,R.drawable.success_icon,"内容已复制至剪贴板");
+                    dialogHelper.dismissDelayed(null,1500);
+                    return true;
+                });
+            }else{
+
+                mHashContentDetail.setText("无");
+            }
         } else if (classify == 1) { //订单交易
 
             mIconDetail.setImageDrawable(getDrawable(R.drawable.jy_icon));
-            mTitleDetail.setText("BTC/VRT 交易收入");
+            mTitleDetail.setText(data.getOrderRemark() + " 交易");
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
         } else if (classify == 2) { //众筹交易
             mIconDetail.setImageDrawable(getDrawable(R.drawable.zc_icon));
-            mTitleDetail.setText("项目名称 众筹收入");
+            mTitleDetail.setText(data.getOrderRemark() + " 众筹收入");
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
         }
-        mPriceContentDetail.setText(data.getValue() + " " + data.getFeeTokenType());
+        mPriceContentDetail.setText(TextUtils.doubleToFour(data.getValue()) + " " + data.getFeeTokenType());
         mTimeDetail.setText(TimeUtils.millis2String(data.getCreatedAt()));
     }
 }

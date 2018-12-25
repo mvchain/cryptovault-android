@@ -123,6 +123,7 @@
 
     <LinearLayout
         android:id="@+id/time_group"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:orientation="horizontal" />

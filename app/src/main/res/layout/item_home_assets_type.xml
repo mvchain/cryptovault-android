@@ -10,9 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/coin_bg"
-        android:layout_marginRight="16dp">
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/coin_bg">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="55dp"
                 android:layout_marginTop="4dp"
                 android:textColor="#595971"
                 android:textSize="17sp" />
@@ -54,7 +54,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="29dp"
         android:background="@drawable/shape_round_white_6dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp">

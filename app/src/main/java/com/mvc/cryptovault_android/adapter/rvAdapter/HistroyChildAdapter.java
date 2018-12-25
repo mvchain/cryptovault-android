@@ -31,7 +31,6 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         int iconType = 0;
         int transactionType = item.getTransactionType();
         ImageView icon = helper.getView(R.id.his_child_icon);
-        helper.setText(R.id.his_child_title, item.getTokenName());
         helper.setText(R.id.his_child_time, TimeUtils.millis2String(item.getCreatedAt()));
         String price = TextUtils.toBigDecimal(item.getValue());
         helper.setText(R.id.his_child_price, (item.getTransactionType() == 1 ? "+" : "-") + price);
@@ -46,13 +45,17 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         if ((item.getClassify() == 0 || item.getClassify() == 3)) {
             if (transactionType == 1) {
                 iconType = 1;
+                helper.setText(R.id.his_child_title, item.getOrderRemark() + " 收入");
             } else {
                 iconType = 0;
+                helper.setText(R.id.his_child_title, item.getOrderRemark() + " 支出");
             }
         } else if (item.getClassify() == 1) {
             iconType = 3;
+            helper.setText(R.id.his_child_title, item.getOrderRemark() + " 交易");
         } else if (item.getClassify() == 2) {
             iconType = 2;
+            helper.setText(R.id.his_child_title, item.getOrderRemark() + " 众筹");
         }
         Glide.with(mContext).load(status_icon[iconType]).into(icon);
         helper.addOnClickListener(R.id.his_layout);

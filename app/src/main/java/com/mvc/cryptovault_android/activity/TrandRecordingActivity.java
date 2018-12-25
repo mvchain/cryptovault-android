@@ -52,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_UNIT;
 
 public class TrandRecordingActivity extends BaseActivity implements View.OnClickListener {
@@ -107,7 +108,6 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mChartRecording.setDoubleTapToZoomEnabled(false);
         mChartRecording.setViewPortOffsets(0, 0, 0, 0);
         mChartRecording.setBackgroundColor(Color.WHITE);
-
         // no description text
         mChartRecording.getDescription().setEnabled(false);
         // enable touch gestures
@@ -115,7 +115,6 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         // enable scaling and dragging
         mChartRecording.setDragEnabled(true);
         mChartRecording.setScaleEnabled(true);
-
         // if disabled, scaling can be done on x- and y-axis separately
         mChartRecording.setPinchZoom(false);
         mChartRecording.setDrawGridBackground(false);
@@ -134,6 +133,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mChartRecording.animateXY(2000, 2000);
         // don't forget to refresh the drawing
         mChartRecording.setScaleYEnabled(false);
+        mChartRecording.setScaleXEnabled(false);
         initLineChartData();
     }
 
@@ -194,11 +194,11 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         LineData data = new LineData(dataSetByIndex);
         mChartRecording.setData(data);
 //        mChartRecording.setVisibleXRangeMaximum(30);
-        mChartRecording.zoom(25, 1f, 0, 0);
+//        mChartRecording.zoom(25, 1f, 0, 0);
         PopMarkerView popMarkerView = new PopMarkerView(this, R.layout.layout_chart_marker);
         popMarkerView.setChartView(mChartRecording);
         mChartRecording.setMarker(popMarkerView);
-        mChartRecording.moveViewToX(timeX.size() - 1);
+//        mChartRecording.moveViewToX(timeX.size() - 1);
         mChartRecording.invalidate();
     }
 
@@ -206,7 +206,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
     protected void initView() {
         mFragment = new ArrayList<>();
         data = getIntent().getParcelableExtra("data");
-        recordingType = SPUtils.getInstance().getString("recording_type");
+        recordingType = SPUtils.getInstance().getString(RECORDING_TYPE);
         mTitleTrand = findViewById(R.id.trand_title);
         mBackTrand = findViewById(R.id.trand_back);
         mHistroyTrand = findViewById(R.id.trand_histroy);

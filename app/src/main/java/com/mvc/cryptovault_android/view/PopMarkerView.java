@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.MarkerView;
@@ -12,10 +12,14 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.utils.TextUtils;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
 
 public class PopMarkerView extends MarkerView {
     private TextView mTimeMarker;
     private TextView mValueMarker;
+    private final String recordingType;
 
     /**
      * Constructor. Sets up the MarkerView with a custom layout resource.
@@ -25,6 +29,7 @@ public class PopMarkerView extends MarkerView {
      */
     public PopMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
+        recordingType = SPUtils.getInstance().getString(RECORDING_TYPE);
         mTimeMarker = findViewById(R.id.marker_time);
         mValueMarker = findViewById(R.id.marker_value);
     }
@@ -32,7 +37,7 @@ public class PopMarkerView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         mTimeMarker.setText(TimeUtils.millis2String((long) e.getX()));
-        mValueMarker.setText((long) e.getY() + "");
+        mValueMarker.setText(TextUtils.doubleToFour(e.getY()) + " " + recordingType);
     }
 
     @Override

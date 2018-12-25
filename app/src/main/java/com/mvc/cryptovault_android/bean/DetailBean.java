@@ -50,6 +50,7 @@ public class DetailBean {
          * tokenName : string
          * updatedAt : 0
          * value : 0
+         * orderRemark
          */
 
         private int classify;
@@ -64,6 +65,23 @@ public class DetailBean {
         private String tokenName;
         private long updatedAt;
         private double value;
+        private String orderRemark;
+
+        public String getBlockHash() {
+            return blockHash;
+        }
+
+        public void setBlockHash(String blockHash) {
+            this.blockHash = blockHash;
+        }
+
+        public String getOrderRemark() {
+            return orderRemark;
+        }
+
+        public void setOrderRemark(String orderRemark) {
+            this.orderRemark = orderRemark;
+        }
 
         public int getClassify() {
             return classify;

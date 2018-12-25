@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -153,6 +154,12 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             SPUtils.getInstance().put(MSG_TIME, System.currentTimeMillis());
         }
         mRvAssets.setLayoutManager(new LinearLayoutManager(activity));
+//        mRvAssets.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return mAssetsLayout.onTouchEvent(event);
+//            }
+//        });
         assetsAdapter = new WalletAssetsAdapter(R.layout.item_home_assets_type, mData);
         assetsAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {

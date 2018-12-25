@@ -52,7 +52,6 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
         trandPagerAdapter = new TrandPagerAdapter(getChildFragmentManager(), mFragments);
         mVpTrand.setAdapter(trandPagerAdapter);
         mTableTrand.setupWithViewPager(mVpTrand);
-        TabLayoutUtils.setIndicator(mTableTrand, 20, 20);
         //保存所有交易对
         RetrofitUtils.client(ApiStore.class).getAllVrtAndBalance(getToken())
                 .compose(RxHelper.rxSchedulerHelper())

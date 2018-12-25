@@ -50,6 +50,7 @@ public class HistroyBean {
          * transactionType : 1
          * updatedAt : 0
          * value : 2
+         * orderRemark : ""
          */
 
         private int classify;
@@ -62,6 +63,15 @@ public class HistroyBean {
         private int transactionType;
         private long updatedAt;
         private double value;
+        private String orderRemark;
+
+        public String getOrderRemark() {
+            return orderRemark;
+        }
+
+        public void setOrderRemark(String orderRemark) {
+            this.orderRemark = orderRemark;
+        }
 
         public int getClassify() {
             return classify;

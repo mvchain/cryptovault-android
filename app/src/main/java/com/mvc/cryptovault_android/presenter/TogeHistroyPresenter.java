@@ -21,10 +21,16 @@ public class TogeHistroyPresenter extends TogeHistroyContract.TogeHistroyPresent
     }
 
     @Override
-    public void getReservation(String token, int id, int pageSize, int type) {
-        rxUtils.register(mIModel.getReservation(token, id, pageSize, type).subscribe(togeHisBean -> {
-            if (togeHisBean.getCode() == 200) {
-                mIView.showSuccess(togeHisBean.getData());
+    public void getReservation(String token, int id, int pageSize,String projectName, int type) {
+        rxUtils.register(mIModel.getReservation(token, id, pageSize, projectName,type).subscribe(togeHisBean -> {
+            if(projectName==null){
+                if (togeHisBean.getCode() == 200) {
+                    mIView.showSuccess(togeHisBean.getData());
+                }
+            }else{
+                if (togeHisBean.getCode() == 200) {
+                    mIView.showSearchList(togeHisBean.getData());
+                }
             }
         }, throwable -> LogUtils.e("TogeHistroyPresenter", throwable.getMessage())));
     }

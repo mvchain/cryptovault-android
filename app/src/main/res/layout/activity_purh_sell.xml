@@ -231,6 +231,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:layout_below="@id/price_num"
+                        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/shape_round_gray_5dp"
                         android:gravity="center_vertical"

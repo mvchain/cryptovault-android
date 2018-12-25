@@ -66,6 +66,7 @@
         <EditText
             android:id="@+id/vp_bw_price"
             android:layout_width="match_parent"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_round_gray_5dp"

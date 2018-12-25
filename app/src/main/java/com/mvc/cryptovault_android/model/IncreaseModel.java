@@ -49,6 +49,9 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
                     List<CurrencyBean.DataBean> currdata = currencyBean.getData();
                     List<AssetListBean.DataBean> assetBean = assetListBean.getData();
                     for (int i = 0; i < currdata.size(); i++) {
+                        if (currdata.get(i).getVisible() == 0) {
+                            continue;
+                        }
                         IncreaseBean increaseBean = new IncreaseBean();
                         increaseBean.setVisi(i >= 2);
                         increaseBean.setResId(currdata.get(i).getTokenImage());

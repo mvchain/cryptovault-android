@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.util.List;
 
-public class CurrencyBean implements Parcelable {
+public class CurrencyBean implements Parcelable{
 
 
     /**
@@ -72,7 +72,8 @@ public class CurrencyBean implements Parcelable {
         dest.writeTypedList(data);
     }
 
-    public static class DataBean implements Parcelable {
+
+    public static class DataBean implements Parcelable{
         /**
          * timestamp : 0
          * tokenCnName : VRT
@@ -90,6 +91,7 @@ public class CurrencyBean implements Parcelable {
         private String tokenImage;
         private String tokenName;
         private int tokenType;
+        private int visible;
 
         protected DataBean(Parcel in) {
             timestamp = in.readInt();
@@ -99,6 +101,7 @@ public class CurrencyBean implements Parcelable {
             tokenImage = in.readString();
             tokenName = in.readString();
             tokenType = in.readInt();
+            visible = in.readInt();
         }
 
         public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
@@ -112,6 +115,14 @@ public class CurrencyBean implements Parcelable {
                 return new DataBean[size];
             }
         };
+
+        public int getVisible() {
+            return visible;
+        }
+
+        public void setVisible(int visible) {
+            this.visible = visible;
+        }
 
         public int getTimestamp() {
             return timestamp;
@@ -183,6 +194,7 @@ public class CurrencyBean implements Parcelable {
             dest.writeString(tokenImage);
             dest.writeString(tokenName);
             dest.writeInt(tokenType);
+            dest.writeInt(visible);
         }
     }
 }

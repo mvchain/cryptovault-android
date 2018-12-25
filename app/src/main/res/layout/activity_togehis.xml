@@ -47,6 +47,7 @@
             android:hint="搜索项目名称"
             android:maxLines="1"
             android:paddingLeft="15dp"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
             android:textColorHint="@color/edit_tv"
             android:textSize="15sp"
             android:visibility="gone" />

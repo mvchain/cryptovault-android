@@ -248,6 +248,7 @@
                         android:layout_below="@id/price_num"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/shape_round_gray_5dp"
+                        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
                         android:gravity="center_vertical"
                         android:hint="输入出售数量"
                         android:paddingLeft="12dp"

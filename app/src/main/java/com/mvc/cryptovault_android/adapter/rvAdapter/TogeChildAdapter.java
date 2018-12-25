@@ -43,7 +43,7 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
             helper.setText(R.id.toge_child_sj, TimeUtils.getFitTimeSpan(new Date(item.getStopAt()),new Date(System.currentTimeMillis()), 4));
         } else if (item.getStatus() == 0) {
             submit.setVisibility(View.GONE);
-            helper.setText(R.id.toge_child_sj, TimeUtils.getFitTimeSpan(new Date(item.getStopAt()),new Date(System.currentTimeMillis()), 4));
+            helper.setText(R.id.toge_child_sj, "即将开始");
         } else {
             submit.setText(R.string.toge_end);
             submit.setVisibility(View.VISIBLE);

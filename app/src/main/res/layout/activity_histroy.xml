@@ -132,8 +132,7 @@
             android:gravity="center"
             android:text="取出VP余额"
             android:textColor="@color/select_button_tv_color"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/his_out"
@@ -148,7 +147,6 @@
             android:text="转账"
             android:textColor="@color/select_button_tv_color"
             android:textSize="15sp"
-            android:textStyle="bold"
             android:visibility="gone" />
 
         <TextView
@@ -165,7 +163,6 @@
             android:text="收款"
             android:textColor="@color/select_button_tv_color"
             android:textSize="15sp"
-            android:textStyle="bold"
             android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

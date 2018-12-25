@@ -44,6 +44,7 @@
             android:background="@drawable/bg_increase_edit"
             android:drawableLeft="@drawable/serch_icon_drawable_edit"
             android:hint="搜索币种"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
             android:maxLines="1"
             android:paddingLeft="15dp"
             android:textColorHint="@color/edit_tv"

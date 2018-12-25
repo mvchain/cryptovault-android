@@ -3,7 +3,9 @@ package com.mvc.cryptovault_android.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -77,6 +79,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         return R.layout.activity_trand_recording;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void initData() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
@@ -119,7 +122,6 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mChartRecording.setMaxHighlightDistance(300);
         XAxis x = mChartRecording.getXAxis();
         x.setEnabled(false);
-        x.setTextColor(Color.RED);
         YAxis y = mChartRecording.getAxisLeft();
         y.setLabelCount(7, false);
         y.setTextColor(Color.BLACK);
@@ -131,11 +133,11 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mChartRecording.getLegend().setEnabled(false);
         mChartRecording.animateXY(2000, 2000);
         // don't forget to refresh the drawing
-        mChartRecording.invalidate();
         mChartRecording.setScaleYEnabled(false);
         initLineChartData();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("CheckResult")
     private void initLineChartData() {
         RetrofitUtils.client(ApiStore.class).getKLine(getToken(), data.getPairId())
@@ -146,6 +148,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initLineChart(KLineBean updateBean) {
 //        recording_current_tv
         int currentSize = updateBean.getData().getValueY().size();
@@ -177,13 +180,13 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         dataSetByIndex.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSetByIndex.setCubicIntensity(0.2f);
         dataSetByIndex.setDrawFilled(true);
+        dataSetByIndex.setFillDrawable(getDrawable(R.drawable.shape_linechart_fill));
         dataSetByIndex.setDrawCircles(false);
         dataSetByIndex.setLineWidth(0.5f);
         dataSetByIndex.setCircleRadius(1f);
         dataSetByIndex.setCircleColor(Color.BLUE);
         dataSetByIndex.setHighLightColor(Color.RED);
-        dataSetByIndex.setColor(Color.YELLOW);
-        dataSetByIndex.setFillColor(Color.parseColor("#007AFF"));
+        dataSetByIndex.setColor(Color.parseColor("#99007AFF"));
         dataSetByIndex.setFillAlpha(100);
         dataSetByIndex.setDrawHorizontalHighlightIndicator(false);
         dataSetByIndex.setFillFormatter((dataSet, dataProvider) -> mChartRecording.getAxisLeft().getAxisMinimum());
@@ -191,10 +194,11 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         LineData data = new LineData(dataSetByIndex);
         mChartRecording.setData(data);
 //        mChartRecording.setVisibleXRangeMaximum(30);
-        mChartRecording.zoom(20,1f,0,0);
+        mChartRecording.zoom(25, 1f, 0, 0);
         PopMarkerView popMarkerView = new PopMarkerView(this, R.layout.layout_chart_marker);
         popMarkerView.setChartView(mChartRecording);
         mChartRecording.setMarker(popMarkerView);
+        mChartRecording.moveViewToX(timeX.size() - 1);
         mChartRecording.invalidate();
     }
 

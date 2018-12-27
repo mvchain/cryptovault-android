@@ -34,5 +34,6 @@
     <color name="aoi_bg_ching">#0AA8A5</color>
     <color name="lines_bg">#F6F7FB</color>
     <color name="light_grey">#F6F7Fb</color>
+    <color name="fragment_grey">#F5F6FB</color>
 
 </resources>

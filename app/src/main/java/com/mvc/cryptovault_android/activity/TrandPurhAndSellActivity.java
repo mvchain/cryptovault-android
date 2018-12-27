@@ -83,6 +83,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
     private double tokenBalance;
     private double balance;
     private double currentPricePurh;
+    private double minLimit;
 
     @Override
     protected int getLayoutId() {
@@ -99,7 +100,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         allPriceUnit = getIntent().getStringExtra("allprice_unit");
         mEditPurh.setHint("输入" + (type == 1 ? "购买" : "出售") + "数量");
         mTitlePrice.setText((type == 1 ? "购买" : "出售") + "单价：");
-        mVRTHint.setText("可用"+SPUtils.getInstance().getString(RECORDING_TYPE));
+        mVRTHint.setText("可用" + SPUtils.getInstance().getString(RECORDING_TYPE));
         mNumPrice.setText((type == 1 ? "购买" : "出售") + "数量");
         RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
@@ -113,6 +114,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                         this.tokenBalance = data.getTokenBalance();
                         this.balance = data.getBalance();
                         this.currentPricePurh = data.getPrice();
+                        this.minLimit = data.getMinLimit();
                         double seekMin = Math.abs(100 + data.getMin());
                         double seekMax = Math.abs(100 + data.getMax());
                         mSeekPurh.setMax((int) (seekMax - seekMin) * 100);
@@ -135,7 +137,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                 currentPricePurh = data.getPrice() * currentPro / 100;
                                 if (!mEditPurh.getText().toString().equals("")) {
                                     double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
-                                    mAllPricePurh.setText(TextUtils.doubleToFour(allPrice) + " " + allPriceUnit);
+                                    mAllPricePurh.setText(TextUtils.doubleToFourPrice(allPrice) + " " + allPriceUnit);
                                 }
                             }
 
@@ -165,18 +167,25 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
 
                                     } else {
                                         double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100));
-                                        double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
-                                        mAllPricePurh.setText(TextUtils.doubleToFour(allPrice) + " " + allPriceUnit);
-                                        if (type == 1 && allPrice > TrandPurhAndSellActivity.this.tokenBalance) {
+                                        double allPrice = (data.getPrice() * currentPro / 100) * num;
+                                        LogUtils.e("TrandPurhAndSellActivit", data.getPrice() + "===========" + currentPro / 100 + "=============" + num);
+                                        LogUtils.e("TrandPurhAndSellActivit", "allPrice:" + allPrice);
+                                        mAllPricePurh.setText(TextUtils.doubleToFourPrice(allPrice) + " " + allPriceUnit);
+                                        if (type == 1 && allPrice > TrandPurhAndSellActivity.this.balance) {
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);
-                                            mNumErrorHint.setText("超过最大购买金额");
-                                        } else if (type == 2 && allPrice > TrandPurhAndSellActivity.this.balance) {
+                                            mNumErrorHint.setText(mVRTHint.getText() + "不足");
+                                        } else if (type == 2 && allPrice > TrandPurhAndSellActivity.this.tokenBalance) {
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);
-                                            mNumErrorHint.setText("超过最大可出售数量");
+                                            mNumErrorHint.setText(mHintPrice.getText() + "不足");
+                                        } else if (num < minLimit) {
+                                            mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
+                                            mSubmitPurh.setEnabled(false);
+                                            mNumErrorHint.setVisibility(View.VISIBLE);
+                                            mNumErrorHint.setText("最小挂单数量不可小于" + minLimit);
                                         } else {
                                             mNumErrorHint.setVisibility(View.INVISIBLE);
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_login_submit);
@@ -269,14 +278,11 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 String numType = (this.type == 1 ? data.getPair().substring(0, data.getPair().indexOf("/")) : data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 String payNum = currentAllPrice.split(" ")[0];
                 String unitPrice = mPricePurh.getText().toString().split(" ")[0];
-                double allPrice = Double.parseDouble(unitPrice) * Double.parseDouble(currentNum);
-                String allPrichType = this.type == 1 ? TextUtils.doubleToFour(allPrice) : payNum;
-                LogUtils.e("TrandPurhAndSellActivit", "Double.parseDouble(currentNum) * Double.parseDouble(unitPrice):" + (Double.parseDouble(currentNum) * Double.parseDouble(unitPrice)));
-                String buyPrice = this.type == 1 ? currentNum : TextUtils.doubleToFour(Double.parseDouble(currentNum) * Double.parseDouble(unitPrice));
+                String buyPrice = this.type == 1 ? currentNum : payNum;
                 mPopView = createPopWindow(this, R.layout.layout_paycode
                         , this.type == 1 ? "确认购买" : "确认发布"
                         , "总计需支付"
-                        , allPrichType + " " + type
+                        , (this.type == 1 ? payNum : currentNum) + " " + type
                         , this.type == 1 ? "购买数量" : "总价"
                         , buyPrice + " " + numType
                         , this.type == 1 ? "购买单价" : "出售单价"

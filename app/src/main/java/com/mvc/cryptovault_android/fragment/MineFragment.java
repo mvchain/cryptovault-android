@@ -33,6 +33,8 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     private SuperTextView mLanguageSys;
     private SuperTextView mAbout;
     private SwipeRefreshLayout mSwipMine;
+    private boolean createCarryOut;
+
 
     @Override
     protected void initData() {
@@ -46,6 +48,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
 
     @Override
     protected void initView() {
+        createCarryOut = true;
         mImgUser = rootView.findViewById(R.id.user_img);
         mNameUser = rootView.findViewById(R.id.user_name);
         mPhoneUser = rootView.findViewById(R.id.user_phone);
@@ -66,11 +69,21 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     public BasePresenter initPresenter() {
         return MinePresenter.newIntance();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mSwipMine.post(() -> mSwipMine.setRefreshing(false));
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && createCarryOut) {
+            refresh();
+        }
+    }
+
     @Override
     public void setUser(UserInfoBean user) {
         mSwipMine.post(() -> mSwipMine.setRefreshing(false));
@@ -78,7 +91,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         UserInfoBean.DataBean data = user.getData();
         mNameUser.setText(data.getNickname());
         mPhoneUser.setText(data.getUsername());
-        RequestOptions options = new RequestOptions().fallback( R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon);
+        RequestOptions options = new RequestOptions().fallback(R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon);
         Glide.with(activity).load(data.getHeadImage()).apply(options).into(mImgUser);
     }
 

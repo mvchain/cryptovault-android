@@ -87,7 +87,7 @@
                             android:id="@+id/price_hint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="USDT余额"
+                            android:text="可用USDT"
                             android:textColor="@color/btc_gray"
                             android:textSize="12sp" />
 
@@ -253,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/num_error_hint"
                         android:layout_marginTop="10dp"
-                        android:text="总计需支付:"
+                        android:text="总价:"
                         android:textColor="@color/trand_gray"
                         android:textSize="13sp" />
 

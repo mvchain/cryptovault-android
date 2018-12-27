@@ -44,6 +44,7 @@ public class TrandPurhBean {
          * price : 0
          * tokenBalance : 0
          * value : 0
+         * minLimit
          */
 
         private double balance;
@@ -52,6 +53,15 @@ public class TrandPurhBean {
         private double price;
         private double tokenBalance;
         private double value;
+        private double minLimit;
+
+        public double getMinLimit() {
+            return minLimit;
+        }
+
+        public void setMinLimit(double minLimit) {
+            this.minLimit = minLimit;
+        }
 
         public double getBalance() {
             return balance;

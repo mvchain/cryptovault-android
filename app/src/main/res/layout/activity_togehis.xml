@@ -78,7 +78,6 @@
             android:id="@+id/togehis_serach_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:visibility="gone"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 

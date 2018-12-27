@@ -72,6 +72,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private List<ExchangeRateBean.DataBean> mExchange;
     private SwipeRefreshLayout mSwipAsstes;
     private PopupWindow mPopView;
+    private boolean createCarryOut;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,6 +98,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mAddAssets.setOnClickListener(this);
         mTypeAssets.setOnClickListener(this);
         mPriceAssets.setOnClickListener(this);
+        createCarryOut = true;
     }
 
     @Override
@@ -139,6 +141,19 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mPresenter.getAssetList(getToken());
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && createCarryOut) {
+            onRefresh();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtils.e("WalletFragment", "onResume");
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Subscribe

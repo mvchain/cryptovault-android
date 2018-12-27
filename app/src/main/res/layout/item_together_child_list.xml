@@ -129,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center_vertical|left"
-                    android:text="价格"
+                    android:text="兑换比例"
                     android:textColor="@color/toge_gray"
                     android:textSize="12sp" />
 

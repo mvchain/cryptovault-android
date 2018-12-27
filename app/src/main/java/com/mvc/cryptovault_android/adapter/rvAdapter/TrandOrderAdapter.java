@@ -23,6 +23,7 @@ import com.mvc.cryptovault_android.event.TrandOrderEvent;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
+import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -82,7 +83,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         TrandChildBean.DataBean dataBean = orderBean.get(position);
         mPurchase.setText(item.getDeal() + " " + dataBean.getTokenName());
         mPendContent.setText(item.getDeal() + " " + dataBean.getTokenName());
-        mPrice.setText(item.getPrice() + dataBean.getPair().substring(0, dataBean.getPair().indexOf("/")));
+        mPrice.setText(TextUtils.doubleToFour(item.getPrice()) + " " + dataBean.getPair().substring(0, dataBean.getPair().indexOf("/")));
         if (item.getStatus() == 0) {//进行中的订单
             helper.getView(R.id.order_item_num_layout).setVisibility(View.GONE);
             helper.getView(R.id.order_item_seller_layout).setVisibility(View.GONE);

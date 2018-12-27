@@ -36,6 +36,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     private SwipeRefreshLayout mItemSwipHis;
     private ImageView mNullData;
     private boolean isRefresh = false;
+    private boolean createCarryOut;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     @Override
     protected void initView() {
+        createCarryOut = true;
         mData = new ArrayList<>();
         mItemSwipHis = rootView.findViewById(R.id.his_item_swip);
         mNullData = rootView.findViewById(R.id.data_null);
@@ -119,6 +121,14 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
             mPresenter.getProcess(getToken(), 10, 0, projectType, 0);
         } else if (projectType == 2) {
             mPresenter.getToEnd(getToken(), 10, 0, projectType, 0);
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && createCarryOut) {
+            refresh();
         }
     }
 

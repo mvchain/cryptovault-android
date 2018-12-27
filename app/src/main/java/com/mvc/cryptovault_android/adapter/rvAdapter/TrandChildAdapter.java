@@ -46,7 +46,7 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
         } else {
             increase.setText(TextUtils.doubleToDouble(incre) + "%");
         }
-        helper.setText(R.id.trand_child_ratio, TextUtils.doubleToFour(item.getRatio()) + " " + item.getPair().substring(0, item.getPair().indexOf("/")));
+        helper.setText(R.id.trand_child_ratio, TextUtils.doubleToFour(item.getRatio()) + " " + item.getPair().substring(item.getPair().indexOf("/") + 1, item.getPair().length()));
         helper.setText(R.id.trand_child_title, item.getTokenName());
         helper.setText(R.id.trand_child_pair, SPUtils.getInstance().getString(DEFAULE_SYMBOL) + TextUtils.rateToPrice(item.getRatio()));
         RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);

@@ -52,6 +52,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     private boolean isTransfer;
     private DialogHelper dialogHelper;
     private LinearLayout mLayoutShare;
+    private TextView mTvTitle;
 
     @Override
     protected void initMVPData() {
@@ -87,6 +88,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
         mHashContentDetail = findViewById(R.id.detail_hash_content);
         mHashLayoutDetail = findViewById(R.id.detail_hash_layout);
         mLayoutShare = findViewById(R.id.share_layout);
+        mTvTitle = findViewById(R.id.title_tv);
     }
 
     @Override
@@ -168,7 +170,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
         DetailBean.DataBean data = bean.getData();
         int classify = data.getClassify();
         //区块链和转账
-        if (classify == 0 || classify == 3) {
+        if (classify == 0) {
             switch (data.getStatus()) {
                 case 0:
                 case 1:
@@ -186,7 +188,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
             }
             mFeesContentDetail.setText(data.getFee() + " " + data.getFeeTokenType());
             String address = data.getToAddress();
-            if(!address.equals("")){
+            if (!address.equals("")) {
                 mColladdContentDetail.setText(data.getToAddress());
                 mColladdContentDetail.setOnLongClickListener(view -> {
                     ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -194,15 +196,15 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                     ClipData mClipData = ClipData.newPlainText("hash", mColladdContentDetail.getText().toString());
                     // 将ClipData内容放到系统剪贴板里。
                     cm.setPrimaryClip(mClipData);
-                    dialogHelper.create(this,R.drawable.success_icon,"内容已复制至剪贴板");
-                    dialogHelper.dismissDelayed(null,1500);
+                    dialogHelper.create(this, R.drawable.success_icon, "内容已复制至剪贴板");
+                    dialogHelper.dismissDelayed(null, 1500);
                     return true;
                 });
-            }else{
+            } else {
                 mColladdContentDetail.setText("无");
             }
             String hash = data.getHash();
-            if(!hash.equals("")){
+            if (!hash.equals("")) {
                 mHashContentDetail.setText(data.getHash());
                 mHashContentDetail.setOnClickListener(v -> {
                     Uri uri = Uri.parse(bean.getData().getHashLink());
@@ -215,11 +217,11 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                     ClipData mClipData = ClipData.newPlainText("hash", mHashContentDetail.getText().toString());
                     // 将ClipData内容放到系统剪贴板里。
                     cm.setPrimaryClip(mClipData);
-                    dialogHelper.create(this,R.drawable.success_icon,"内容已复制至剪贴板");
-                    dialogHelper.dismissDelayed(null,1500);
+                    dialogHelper.create(this, R.drawable.success_icon, "内容已复制至剪贴板");
+                    dialogHelper.dismissDelayed(null, 1500);
                     return true;
                 });
-            }else{
+            } else {
 
                 mHashContentDetail.setText("无");
             }
@@ -232,12 +234,31 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
             mCollLayoutDetail.setVisibility(View.GONE);
         } else if (classify == 2) { //众筹交易
             mIconDetail.setImageDrawable(getDrawable(R.drawable.zc_icon));
-            mTitleDetail.setText(data.getOrderRemark() + " 众筹收入");
+            StringBuffer buffer = new StringBuffer();
+            switch (data.getStatus()) {
+                case 9:
+                    buffer.append("退回");
+                    break;
+                case 2:
+                    buffer.append("发币");
+                    break;
+                case 0:
+                    buffer.append("预约");
+                    break;
+            }
+            mTitleDetail.setText(data.getOrderRemark() + " 众筹" + buffer.toString());
+            mFeesLayoutDetail.setVisibility(View.GONE);
+            mHashLayoutDetail.setVisibility(View.GONE);
+            mCollLayoutDetail.setVisibility(View.GONE);
+        } else if (classify == 3) {
+            mIconDetail.setImageDrawable(data.getStatus() == 2 ? getDrawable(R.drawable.success_icon) : getDrawable(R.drawable.miss_icon));
+            mTitleDetail.setText("存入" + (data.getStatus() == 9 ? "失败" : "成功"));
+            mTvTitle.setText(data.getOrderRemark() + " " + (data.getStatus() == 9 ? "支出" : "收入"));
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
         }
-        mPriceContentDetail.setText(TextUtils.doubleToFour(data.getValue()) + " " + data.getFeeTokenType());
+        mPriceContentDetail.setText((data.getStatus() == 2 ? "+" : "-") + TextUtils.doubleToFour(data.getValue()) + " " + data.getFeeTokenType());
         mTimeDetail.setText(TimeUtils.millis2String(data.getCreatedAt()));
     }
 }

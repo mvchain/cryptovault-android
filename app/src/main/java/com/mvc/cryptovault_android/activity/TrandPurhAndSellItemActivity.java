@@ -138,17 +138,17 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                         mSubmitPurh.setEnabled(false);
                                         mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                     } else {
-                                        mAllPricePurh.setText(TextUtils.doubleToFour(recorBean.getPrice() * num) + " " + allPriceUnit);
+                                        mAllPricePurh.setText(TextUtils.doubleToFourPrice(recorBean.getPrice() * num) + " " + allPriceUnit);
                                         if (type == 1 && recorBean.getPrice() * num > TrandPurhAndSellItemActivity.this.balance) {
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);
-                                            mNumErrorHint.setText("超过最大购买金额");
+                                            mNumErrorHint.setText(mVRTHint.getText()+"不足");
                                         } else if (type == 2 && recorBean.getPrice() * num > TrandPurhAndSellItemActivity.this.tokenBalance) {
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);
-                                            mNumErrorHint.setText("超过最大可出售数量");
+                                            mNumErrorHint.setText(mHintPrice.getText()+"不足");
                                         } else {
                                             mNumErrorHint.setVisibility(View.INVISIBLE);
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_login_submit);
@@ -241,7 +241,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 String numType = (this.type == 1 ? data.getPair().substring(0, data.getPair().indexOf("/")) : data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 String payNum = currentAllPrice.split(" ")[0];
                 double allPrice = currentPrice * Double.parseDouble(currentNum);
-                String allPrichType = this.type == 1 ? TextUtils.doubleToFour(allPrice) : payNum;
+                String allPrichType = this.type == 1 ? TextUtils.doubleToFourPrice(allPrice) : payNum;
                 String buyPrice = this.type == 1 ? currentNum : TextUtils.doubleToFour(Double.parseDouble(currentNum) * currentPrice);
                 mPopView = createPopWindow(this, R.layout.layout_paycode
                         , this.type == 1 ? "确认购买" : "确认发布"

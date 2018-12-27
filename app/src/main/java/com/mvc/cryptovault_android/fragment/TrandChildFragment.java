@@ -40,6 +40,7 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
     private List<TrandChildBean.DataBean> data;
     private TrandChildAdapter childAdapter;
     private int pairType;
+    private boolean createCarryOut;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +61,16 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && createCarryOut) {
+            refresh();
+        }
+    }
+
+    @Override
     protected void initView() {
+        createCarryOut = true;
         mCurrencyTc = rootView.findViewById(R.id.tc_currency);
         mPriceTc = rootView.findViewById(R.id.tc_price);
         mAmountOfIncreaseTc = rootView.findViewById(R.id.tc_amount_of_increase);

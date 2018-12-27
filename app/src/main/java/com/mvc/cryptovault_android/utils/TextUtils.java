@@ -32,6 +32,10 @@ public class TextUtils {
         return decimal.setScale(4, RoundingMode.DOWN).toString();
     }
 
+    public static String doubleToFourPrice(double price) {
+        DecimalFormat format = new DecimalFormat("0.0000");
+        return format.format(price);
+    }
     public static String doubleToSix(double price) {
         BigDecimal decimal = new BigDecimal(Double.toString(price));
         return decimal.setScale(6, RoundingMode.DOWN).toString();

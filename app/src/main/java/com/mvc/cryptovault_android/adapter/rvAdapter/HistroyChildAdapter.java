@@ -55,7 +55,20 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
             helper.setText(R.id.his_child_title, item.getOrderRemark() + " 交易");
         } else if (item.getClassify() == 2) {
             iconType = 2;
-            helper.setText(R.id.his_child_title, item.getOrderRemark() + " 众筹");
+            LogUtils.e(TAG, "item.getStatus():" + item.getStatus());
+            StringBuffer buffer = new StringBuffer();
+            switch (item.getStatus()) {
+                case 9:
+                    buffer.append("退回");
+                    break;
+                case 2:
+                    buffer.append("发币");
+                    break;
+                case 0:
+                    buffer.append("预约");
+                    break;
+            }
+            helper.setText(R.id.his_child_title, item.getOrderRemark() + " 众筹" + buffer.toString());
         }
         Glide.with(mContext).load(status_icon[iconType]).into(icon);
         helper.addOnClickListener(R.id.his_layout);

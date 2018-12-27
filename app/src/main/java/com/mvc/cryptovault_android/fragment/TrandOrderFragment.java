@@ -60,6 +60,7 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
         orderAdapter = new TrandOrderAdapter(R.layout.item_trand_order, dataBeans);
         mRvOrder.setAdapter(orderAdapter);
         mSwipOrder.setOnRefreshListener(() -> {
+            isRefresh = true;
             mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
         });
         mSwipOrder.post(() -> mSwipOrder.setRefreshing(true));
@@ -106,8 +107,6 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
     @Subscribe
     public void refresh(TrandOrderEvent orderEvent) {
         isRefresh = true;
-        dataBeans.clear();
-        orderAdapter.notifyDataSetChanged();
         if (orderEvent.getPariId() != null && orderEvent.getTransactionType() != null) {
             mPresenter.getTrandOrder(getToken(), 0, 10, orderEvent.getPariId(), status, orderEvent.getTransactionType(), 0);
             pairId = orderEvent.getPariId();

@@ -154,23 +154,24 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         int currentSize = updateBean.getData().getValueY().size();
         long currentTime = updateBean.getData().getTimeX().get(currentSize - 1);
         long dayTime = currentTime - (24 * 60 * 60 * 1000);
+        Float lastPrice = updateBean.getData().getValueY().get(currentSize - 1);
         float max = 0;
-        float min = 0;
+        float min = lastPrice;
         for (int i = 0; i < 7; i++) {
             TextView timeView = getTimeView(currentTime);
             currentTime -= (24 * 60 * 60 * 1000);
             mTimeGroup.addView(timeView, 0);
         }
-        mCurrentTvRecording.setText(TextUtils.doubleToFour(updateBean.getData().getValueY().get(currentSize - 1)) + " " + recordingType);
+        mCurrentTvRecording.setText(TextUtils.doubleToFour(lastPrice) + " " + recordingType);
         LineDataSet dataSetByIndex;
         ArrayList<Entry> values = new ArrayList<>();
         List<Long> timeX = updateBean.getData().getTimeX();
         List<Float> valueY = updateBean.getData().getValueY();
         for (int i = 0; i < timeX.size(); i++) {
             values.add(new Entry(timeX.get(i), valueY.get(i)));
-            if (timeX.get(i) > dayTime && i < timeX.size() - 1) {
-                max = Math.max(valueY.get(i), valueY.get(i + 1));
-                min = Math.min(valueY.get(i), valueY.get(i + 1));
+            if (timeX.get(i) >= dayTime) {
+                max = Math.max(max, valueY.get(i));
+                min = Math.min(min, valueY.get(i));
             }
         }
         mDayMaxTvRecording.setText(TextUtils.doubleToFour(max) + " " + recordingType);

@@ -9,7 +9,6 @@
         android:id="@+id/item_increase_icon"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:layout_marginLeft="16dp"
         android:src="@mipmap/vp_logo" />
 
     <LinearLayout
@@ -42,7 +41,6 @@
         android:id="@+id/item_increase_add"
         android:layout_width="75dp"
         android:layout_height="30dp"
-        android:layout_marginRight="15dp"
         android:background="@drawable/shape_round_ching_15dp"
         android:gravity="center"
         android:text="添加"

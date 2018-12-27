@@ -30,7 +30,7 @@
                     android:id="@+id/assets_hint"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
-                    android:padding="15dp"
+                    android:scaleType="center"
                     android:src="@drawable/home_note_icon" />
 
                 <TextView
@@ -47,7 +47,7 @@
                     android:id="@+id/assets_add"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
-                    android:padding="15dp"
+                    android:scaleType="center"
                     android:src="@drawable/add_icon_white" />
             </LinearLayout>
 
@@ -113,7 +113,8 @@
                                 android:layout_below="@id/assets_type"
                                 android:layout_centerHorizontal="true"
                                 android:textColor="@color/white"
-                                android:textSize="36sp" />
+                                android:textSize="36sp"
+                                android:textStyle="bold" />
                         </RelativeLayout>
                     </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 

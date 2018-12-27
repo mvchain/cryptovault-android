@@ -44,10 +44,10 @@
             android:background="@drawable/bg_increase_edit"
             android:drawableLeft="@drawable/serch_icon_drawable_edit"
             android:hint="搜索币种"
-            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
             android:maxLines="1"
             android:paddingLeft="15dp"
             android:textColorHint="@color/edit_tv"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
             android:textSize="15sp"
             android:visibility="gone" />
 
@@ -61,6 +61,7 @@
     </LinearLayout>
 
     <FrameLayout
+        android:background="@color/fragment_grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -68,8 +69,9 @@
             android:id="@+id/increase_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/increase_serach_rv"

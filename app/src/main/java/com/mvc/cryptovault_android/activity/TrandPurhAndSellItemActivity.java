@@ -240,13 +240,11 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 String type = (this.type == 1 ? data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()) : unitPrice);
                 String numType = (this.type == 1 ? data.getPair().substring(0, data.getPair().indexOf("/")) : data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 String payNum = currentAllPrice.split(" ")[0];
-                double allPrice = currentPrice * Double.parseDouble(currentNum);
-                String allPrichType = this.type == 1 ? TextUtils.doubleToFourPrice(allPrice) : payNum;
                 String buyPrice = this.type == 1 ? currentNum : TextUtils.doubleToFour(Double.parseDouble(currentNum) * currentPrice);
                 mPopView = createPopWindow(this, R.layout.layout_paycode
                         , this.type == 1 ? "确认购买" : "确认发布"
                         , "总计需支付"
-                        , allPrichType + " " + type
+                        , (this.type == 1 ? payNum : currentNum) + " " + type
                         , this.type == 1 ? "购买数量" : "总价"
                         , buyPrice + " " + numType
                         , this.type == 1 ? "购买单价" : "出售单价"

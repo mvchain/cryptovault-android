@@ -119,13 +119,13 @@
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/recording_chart"
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="150dp"/>
 
     <LinearLayout
         android:id="@+id/time_group"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="20dp"
+        android:background="@color/white"
         android:orientation="horizontal" />
 
     <RadioGroup

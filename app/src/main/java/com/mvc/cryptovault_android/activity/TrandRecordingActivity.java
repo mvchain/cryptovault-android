@@ -129,6 +129,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         y.setTextSize(8);
         y.setAxisLineColor(Color.BLACK);
         mChartRecording.getAxisRight().setEnabled(false);
+        mChartRecording.getAxisLeft().setEnabled(false);
         mChartRecording.getLegend().setEnabled(false);
         mChartRecording.animateXY(2000, 2000);
         // don't forget to refresh the drawing

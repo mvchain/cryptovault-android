@@ -49,7 +49,6 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     private TextView mHashContentDetail;
     private LinearLayout mHashLayoutDetail;
     private int id;
-    private boolean isTransfer;
     private DialogHelper dialogHelper;
     private LinearLayout mLayoutShare;
     private TextView mTvTitle;
@@ -57,7 +56,6 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     @Override
     protected void initMVPData() {
         id = getIntent().getIntExtra("id", -1);
-        isTransfer = getIntent().getBooleanExtra("transType", false);
         if (id != -1) {
             mPresenter.getDetailOnID(getToken(), id);
         }
@@ -161,13 +159,13 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void showDetail(DetailBean bean) {
-        if (isTransfer) {
-//            detail_colladd_title
-            mColladdTitleDetail.setText("收款地址：");
-        } else {
-            mColladdTitleDetail.setText("付款地址：");
-        }
         DetailBean.DataBean data = bean.getData();
+        int transactionType = data.getTransactionType();
+        if (transactionType == 1) {
+            mColladdTitleDetail.setText("付款地址：");
+        } else {
+            mColladdTitleDetail.setText("收款地址：");
+        }
         int classify = data.getClassify();
         //区块链和转账
         if (classify == 0) {
@@ -175,21 +173,22 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                 case 0:
                 case 1:
                     mIconDetail.setImageDrawable(getDrawable(R.drawable.pending_status_icon));
-                    mTitleDetail.setText("转账中");
+                    mTitleDetail.setText(transactionType == 1 ? "收款中" : "转账中");
                     break;
                 case 2:
                     mIconDetail.setImageDrawable(getDrawable(R.drawable.success_status_icon));
-                    mTitleDetail.setText("转账成功");
+                    mTitleDetail.setText(transactionType == 1 ? "收款成功" : "转账成功");
                     break;
                 case 9:
                     mIconDetail.setImageDrawable(getDrawable(R.drawable.defeat_status_icon));
-                    mTitleDetail.setText("转账失败");
+                    mTitleDetail.setText(transactionType == 1 ? "收款失败" : "转账失败");
                     break;
             }
-            mFeesContentDetail.setText(data.getFee() + " " + data.getFeeTokenType());
+            mFeesContentDetail.setText(TextUtils.doubleToFour(data.getFee()) + " " + data.getFeeTokenType());
             String address = data.getToAddress();
+            String fromAddress = data.getFromAddress();
             if (!address.equals("")) {
-                mColladdContentDetail.setText(data.getToAddress());
+                mColladdContentDetail.setText(transactionType == 1 ? fromAddress : address);
                 mColladdContentDetail.setOnLongClickListener(view -> {
                     ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                     // 创建普通字符型ClipData
@@ -258,7 +257,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
         }
-        mPriceContentDetail.setText((data.getStatus() == 2 ? "+" : "-") + TextUtils.doubleToFour(data.getValue()) + " " + data.getFeeTokenType());
+        mPriceContentDetail.setText((transactionType == 1 ? "+" : "-") + TextUtils.doubleToFour(data.getValue()) + " " + data.getTokenName());
         mTimeDetail.setText(TimeUtils.millis2String(data.getCreatedAt()));
     }
 }

@@ -58,7 +58,6 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
 
     @Override
     public BasePresenter initPresenter() {
-        LogUtils.e("MsgActivity", "initPresenter");
         return MsgPresenter.newIntance();
     }
 
@@ -74,8 +73,8 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
 
     @Override
     protected void initMVPData() {
-        isRefresh = true;
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        isRefresh = true;
         mPresenter.getMsg(getToken(), 0, 0, 10);
     }
 
@@ -114,10 +113,11 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
         mRvMsg.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
-                        LogUtils.e("MsgActivity", "onScrolled");
+                    int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                    if (lastVisibleItemPosition + 1 == msgAdapter.getItemCount() && msgAdapter.getItemCount() >= 10 && !isRefresh) {
+                        //发送网络请求获取更多数据
                         mPresenter.getMsg(getToken(), mBeans.get(mBeans.size() - 1).getCreatedAt(), 1, 10);
                     }
                 }

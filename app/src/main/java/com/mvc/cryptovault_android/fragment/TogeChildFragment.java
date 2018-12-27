@@ -163,7 +163,8 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
+                    int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                    if (lastVisibleItemPosition + 1 == togeChildAdapter.getItemCount() && togeChildAdapter.getItemCount() >= 10 && !isRefresh) {
                         int projectId = mData.get(mData.size() - 1).getProjectId();
                         switch (projectType) {
                             case 0:

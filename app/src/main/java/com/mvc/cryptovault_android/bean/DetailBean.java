@@ -41,6 +41,7 @@ public class DetailBean {
          * classify : 0
          * createdAt : 0
          * fee : 0
+         * transactionType
          * feeTokenType : string
          * fromAddress : string
          * hash : string
@@ -66,6 +67,15 @@ public class DetailBean {
         private long updatedAt;
         private double value;
         private String orderRemark;
+        private int transactionType;
+
+        public int getTransactionType() {
+            return transactionType;
+        }
+
+        public void setTransactionType(int transactionType) {
+            this.transactionType = transactionType;
+        }
 
         public String getBlockHash() {
             return blockHash;

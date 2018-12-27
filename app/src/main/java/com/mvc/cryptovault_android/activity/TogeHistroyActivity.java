@@ -104,7 +104,8 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
+                    int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                    if (lastVisibleItemPosition + 1 == hisAdapter.getItemCount() && hisAdapter.getItemCount() >= 10 && !isRefresh) {
                         mPresenter.getReservation(getToken(), beans.get(beans.size() - 1).getId(), 10, null, 1);
                     }
                 }

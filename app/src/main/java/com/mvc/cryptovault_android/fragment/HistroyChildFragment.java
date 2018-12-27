@@ -62,11 +62,6 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
                 case R.id.his_layout:
                     Intent intent = new Intent(activity, DetailActivity.class);
                     intent.putExtra("id", mHisData.get(position).getId());
-                    if (mHisData.get(position).getTransactionType() == 1) {
-                        intent.putExtra("transType", false);
-                    } else {
-                        intent.putExtra("transType", true);
-                    }
                     startActivity(intent);
                     break;
             }
@@ -85,7 +80,8 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    if (layoutManager.getItemCount() >= 10 && layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() * 0.7 && !isRefresh) {
+                    int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                    if (lastVisibleItemPosition + 1 == histroyChildAdapter.getItemCount() && histroyChildAdapter.getItemCount() >= 10 && !isRefresh) {
                         switch (action) {
                             case 0:
                                 mPresenter.getAll(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);

@@ -104,7 +104,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_child_list_rv;
+        return R.layout.fragment_toge_list_rv;
     }
 
     @Override

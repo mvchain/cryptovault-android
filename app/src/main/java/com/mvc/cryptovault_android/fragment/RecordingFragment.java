@@ -17,6 +17,7 @@ import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.bean.RecordingEvent;
 import com.mvc.cryptovault_android.contract.RecordingContract;
 import com.mvc.cryptovault_android.presenter.RecordingPresenter;
+import com.mvc.cryptovault_android.view.RuleRecyclerLines;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -55,13 +56,14 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(true));
         mItemSwipHis.setOnRefreshListener(this::refresh);
         mRvChild.setLayoutManager(new LinearLayoutManager(activity));
+        mRvChild.addItemDecoration(new RuleRecyclerLines(activity, RuleRecyclerLines.HORIZONTAL_LIST, 1));
         mRecorAdapter = new RecorAdapter(R.layout.item_recording_rv, bean);
         mRvChild.setAdapter(mRecorAdapter);
         mRecorAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.recording_layout:
                     // TODO 18/12/13
-                    ((TrandRecordingActivity) activity).startPurhActivity(transionType,bean.get(position).getId(),bean.get(position));
+                    ((TrandRecordingActivity) activity).startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
                     break;
             }
         });
@@ -76,7 +78,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
     private void initArgument() {
         Bundle arguments = getArguments();
         transType = arguments.getInt("transType");
-        transionType= arguments.getInt("transionType");
+        transionType = arguments.getInt("transionType");
         pairId = arguments.getInt("pairId");
     }
 

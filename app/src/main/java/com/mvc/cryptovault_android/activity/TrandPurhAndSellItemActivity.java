@@ -71,7 +71,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     private TrandChildBean.DataBean data;
     private RecorBean.DataBean recorBean;
     private int type;
-    private double price;
+    private String price;
     private int pairId;
     private String unitPrice;
     private String allPriceUnit;
@@ -96,7 +96,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     @Override
     protected void initData() {
         data = getIntent().getParcelableExtra("data");
-        recorBean = getIntent().getParcelableExtra("recorBean");
+        recorBean = (RecorBean.DataBean) getIntent().getSerializableExtra("recorBean");
         type = getIntent().getIntExtra("type", 0);
         mTitleTrand.setText((type == 1 ? "购买" : "出售") + getIntent().getStringExtra("title"));
         pairId = getIntent().getIntExtra("id", 0);
@@ -106,12 +106,12 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         mHintBusiness.setText((type == 1 ? "卖家：" : "买家："));
         mHintRemaining.setText("剩余" + (type == 1 ? "出售" : "购买") + "量");
         mPriceHintSale.setText((type == 1 ? "出售" : "购买") + "价格");
-        mVRTHint.setText("可用"+SPUtils.getInstance().getString(RECORDING_TYPE));
+        mVRTHint.setText("可用" + SPUtils.getInstance().getString(RECORDING_TYPE));
         mNameBusiness.setText(recorBean.getNickname());
-        price = recorBean.getPrice();
+        price = recorBean.getPrice().toString();
         mNumRemaining.setText(recorBean.getLimitValue() + " " + getIntent().getStringExtra("title"));
-        mPriceNumSale.setText(TextUtils.doubleToFour(recorBean.getPrice()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
-        this.currentPrice = recorBean.getPrice();
+        mPriceNumSale.setText(TextUtils.doubleToFour(recorBean.getPrice().doubleValue()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
+        this.currentPrice = recorBean.getPrice().doubleValue();
         mNumPrice.setText((type == 1 ? "购买" : "出售") + "量");
         RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
@@ -138,17 +138,17 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                         mSubmitPurh.setEnabled(false);
                                         mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                     } else {
-                                        mAllPricePurh.setText(TextUtils.doubleToFourPrice(recorBean.getPrice() * num) + " " + allPriceUnit);
-                                        if (type == 1 && recorBean.getPrice() * num > TrandPurhAndSellItemActivity.this.balance) {
+                                        mAllPricePurh.setText(TextUtils.doubleToFourPrice(recorBean.getPrice().doubleValue() * num) + " " + allPriceUnit);
+                                        if (type == 1 && recorBean.getPrice().doubleValue() * num > TrandPurhAndSellItemActivity.this.balance) {
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);
-                                            mNumErrorHint.setText(mVRTHint.getText()+"不足");
+                                            mNumErrorHint.setText(mVRTHint.getText() + "不足");
                                         } else if (type == 2 && num > TrandPurhAndSellItemActivity.this.tokenBalance) {
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);
-                                            mNumErrorHint.setText(mHintPrice.getText()+"不足");
+                                            mNumErrorHint.setText(mHintPrice.getText() + "不足");
                                         } else {
                                             mNumErrorHint.setVisibility(View.INVISIBLE);
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_login_submit);

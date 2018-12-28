@@ -248,24 +248,20 @@
                         android:layout_below="@id/price_num"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/shape_round_gray_5dp"
-                        android:digits="1234567890."
+                        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
                         android:gravity="center_vertical"
                         android:hint="输入出售数量"
-                        android:inputType="numberDecimal"
                         android:paddingLeft="12dp"
-                        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
                         android:textSize="15sp" />
-
                     <TextView
                         android:id="@+id/num_error_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/purh_edit"
                         android:layout_marginTop="10dp"
+                        android:visibility="invisible"
                         android:textColor="@color/red"
-                        android:textSize="13sp"
-                        android:visibility="invisible" />
-
+                        android:textSize="13sp" />
                     <TextView
                         android:id="@+id/all_price_hint"
                         android:layout_width="wrap_content"
@@ -310,9 +306,9 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/bg_toge_child_item_tv_blue_nocheck"
-        android:enabled="false"
         android:gravity="center"
         android:text="确认"
+        android:enabled="false"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold" />

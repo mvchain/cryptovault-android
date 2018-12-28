@@ -179,7 +179,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         mDayMinTvRecording.setText(TextUtils.doubleToFour(min) + " " + recordingType);
         dataSetByIndex = new LineDataSet(values, "kline");
         dataSetByIndex.setValues(values);
-        dataSetByIndex.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        dataSetByIndex.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         dataSetByIndex.setCubicIntensity(0.2f);
         dataSetByIndex.setDrawFilled(true);
         dataSetByIndex.setFillDrawable(getDrawable(R.drawable.shape_linechart_fill));
@@ -282,7 +282,6 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         intent.putExtra("data", data);
         intent.putExtra("recorBean", recorBean);
         intent.putExtra("type", transType);
-        LogUtils.e("TrandRecordingActivity", "transType:" + transType);
 //        unitPrice
         intent.putExtra("title", data.getTokenName());
         if (transType == 1) {
@@ -296,7 +295,6 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
 
     private TextView getTimeView(long time) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd");
-        SimpleDateFormat tes = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         TextView timeView = new TextView(this);
         timeView.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1);

@@ -5,9 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.TrandRecordingActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.RecorAdapter;
@@ -34,6 +36,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
     private int transType;
     private int transionType;
     private int pairId;
+    private boolean isRefresh = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,15 +66,39 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
             switch (view.getId()) {
                 case R.id.recording_layout:
                     // TODO 18/12/13
+                    LogUtils.e("RecordingFragment", "bean.get(position).getPrice():" + bean.get(position).getPrice());
                     ((TrandRecordingActivity) activity).startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
                     break;
             }
         });
         initArgument();
+        initRecyclerLoadmore();
+    }
+
+    private void initRecyclerLoadmore() {
+        mRvChild.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                    if (lastVisibleItemPosition + 1 == mRecorAdapter.getItemCount() && mRecorAdapter.getItemCount() >= 10 && !isRefresh) {
+                        //发送网络请求获取更多数据
+                        mPresenter.getRecorList(getToken(), bean.get(bean.size() - 1).getId(), 10, pairId, transType, 1);
+                    }
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+            }
+        });
     }
 
     @Subscribe
     public void eventRefresh(RecordingEvent recordingEvent) {
+        isRefresh = true;
         mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
     }
 
@@ -100,7 +127,10 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
 
     @Override
     public void showSuccess(List<RecorBean.DataBean> bean) {
-        this.bean.clear();
+        if (isRefresh) {
+            this.bean.clear();
+            isRefresh = false;
+        }
         this.bean.addAll(bean);
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mRvChild.setVisibility(View.VISIBLE);
@@ -128,6 +158,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
     }
 
     private void refresh() {
+        isRefresh = true;
         mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
     }
 }

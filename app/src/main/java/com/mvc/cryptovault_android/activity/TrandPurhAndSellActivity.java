@@ -176,7 +176,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);
                                             mNumErrorHint.setText(mVRTHint.getText() + "不足");
-                                        } else if (type == 2 && allPrice > TrandPurhAndSellActivity.this.tokenBalance) {
+                                        } else if (type == 2 && num > TrandPurhAndSellActivity.this.tokenBalance) {
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);
@@ -264,12 +264,12 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                     dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
-                if (type == 1 && Double.valueOf(currentNum) > balance) {
+                if (type == 1 && Double.parseDouble(currentNum) > balance) {
                     dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToFour(balance)).show();
                     dialogHelper.dismissDelayed(null, 1000);
                     return;
                 }
-                if (type == 2 && Double.parseDouble(currentNum) * Double.parseDouble(mPricePurh.getText().toString().split(" ")[0]) > tokenBalance) {
+                if (type == 2 && Double.parseDouble(currentNum) > tokenBalance) {
                     dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToFour(tokenBalance)).show();
                     dialogHelper.dismissDelayed(null, 1000);
                     return;

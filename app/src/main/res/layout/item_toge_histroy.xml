@@ -21,8 +21,7 @@
             android:id="@+id/toge_histroy_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginTop="5dp"
-            android:src="@color/red" />
+            android:layout_marginTop="5dp" />
 
         <TextView
             android:id="@+id/toge_histroy_title"

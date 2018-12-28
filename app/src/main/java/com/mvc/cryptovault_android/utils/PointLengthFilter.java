@@ -3,6 +3,9 @@ package com.mvc.cryptovault_android.utils;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
+
+import com.blankj.utilcode.util.LogUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,14 +39,12 @@ public class PointLengthFilter implements InputFilter {
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         String sourceText = source.toString();
         String destText = dest.toString();
-
-        //验证删除等按键
+//        //验证删除等按键
         if (TextUtils.isEmpty(sourceText)) {
             return "";
         }
-
         Matcher matcher = mPattern.matcher(source);
-        //已经输入小数点的情况下，只能输入数字
+//        //已经输入小数点的情况下，只能输入数字
         if(destText.contains(POINTER)) {
             if (!matcher.matches()) {
                 return "";
@@ -82,7 +83,6 @@ public class PointLengthFilter implements InputFilter {
         if (sumText > MAX_VALUE) {
             return dest.subSequence(dstart, dend);
         }
-
         return dest.subSequence(dstart, dend) + sourceText;
     }
 }

@@ -144,7 +144,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);
                                             mNumErrorHint.setText(mVRTHint.getText()+"不足");
-                                        } else if (type == 2 && recorBean.getPrice() * num > TrandPurhAndSellItemActivity.this.tokenBalance) {
+                                        } else if (type == 2 && num > TrandPurhAndSellItemActivity.this.tokenBalance) {
                                             mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                             mSubmitPurh.setEnabled(false);
                                             mNumErrorHint.setVisibility(View.VISIBLE);

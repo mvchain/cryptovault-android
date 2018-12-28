@@ -51,13 +51,12 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
     private ImageView mBackM;
     private TextView mTitleM;
     private TextView mNumHint;
-    private TextView mErrorHint;
     private LinearLayout mTitleLayoutM;
     private ImageView mInfoIconM;
     private TextView mInfoTitleM;
     private TextView mInfoMaxM;
     private TextView mInfoBlM;
-    private RelativeLayout mInfoLayoutM;
+    private LinearLayout mInfoLayoutM;
     private ClearEditText mBwPriceM;
     private TextView mPriceM;
     private TextView mAvailableM;
@@ -110,7 +109,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 if (!updateTv.equals("")) {
                     ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mBwPriceM);
                     Double currentNum = Double.valueOf(updateTv);
-                    mPriceM.setText(TextUtils.doubleToDouble(currentNum * dataBean.getRatio()));
+                    mPriceM.setText(TextUtils.doubleToFour(currentNum * dataBean.getRatio()));
                     if (currentNum * dataBean.getRatio() > purchaseBean.getData().getBalance()) {
                         mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "不足！");
                         mAvailableM.setTextColor(getColor(R.color.red));
@@ -144,7 +143,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 } else {
                     ViewDrawUtils.clearDraw(mBwPriceM);
                     mNumHint.setVisibility(View.INVISIBLE);
-                    mPriceM.setText("0.00");
+                    mPriceM.setText("0.0000");
                     mSubmitM.setEnabled(false);
                     mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                 }
@@ -158,7 +157,6 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
         mBackM = findViewById(R.id.m_back);
         mTitleM = findViewById(R.id.m_title);
         mNumHint = findViewById(R.id.num_hint);
-        mErrorHint = findViewById(R.id.error_hint);
         mTitleLayoutM = findViewById(R.id.m_title_layout);
         mInfoIconM = findViewById(R.id.m_info_icon);
         mInfoTitleM = findViewById(R.id.m_info_title);
@@ -260,7 +258,6 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.success_icon, "预约成功");
                         new Handler().postDelayed(() -> {
                             mReservationDialog.dismiss();
-                            mErrorHint.setVisibility(View.INVISIBLE);
                             EventBus.getDefault().post(new WalletMsgEvent());
                             finish();
                         }, 1000);
@@ -270,12 +267,9 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
 
                         } else {
                             dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, "预约失败");
-                            mErrorHint.setVisibility(View.VISIBLE);
                         }
-                        mErrorHint.setText(updateBean.getMessage());
                         new Handler().postDelayed(() -> {
                             mReservationDialog.dismiss();
-                            mErrorHint.setVisibility(View.INVISIBLE);
                         }, 2000);
                     }
                 }, throwable -> {
@@ -283,12 +277,9 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, "无网络连接，请检查网络");
                     } else {
                         dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, "预约失败");
-                        mErrorHint.setVisibility(View.VISIBLE);
                     }
-                    mErrorHint.setText(throwable.getMessage());
                     new Handler().postDelayed(() -> {
                         mReservationDialog.dismiss();
-                        mErrorHint.setVisibility(View.INVISIBLE);
                     }, 2000);
                 });
     }

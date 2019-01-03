@@ -12,6 +12,7 @@ public class Constant {
         public static final String CURRENCY_LIST = "currency_list";
         public static final String REFRESH_TOKEN = "refreshToken";
         public static final String TOKEN = "token";
+        public static final String USER_ID = "user_id";
         public static final String RECORDING_UNIT = "recording_unit";
         public static final String TRAND_LIST = "trand_list";
         public static final String TRAND_VRT_LIST = "vrt_list";
@@ -20,7 +21,7 @@ public class Constant {
         public static final String READ_MSG = "read_msg";
         public static final String USER_INFO = "user_info";
         public static final String RECORDING_TYPE = "recording_type";
-
+        public static final String TAG_NAME = "tag_name";
     }
 
     public static class LANGUAGE {

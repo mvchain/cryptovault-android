@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MainActivity;
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.LoginBean;
@@ -26,15 +28,23 @@ import com.mvc.cryptovault_android.contract.LoginContract;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack;
 import com.mvc.cryptovault_android.presenter.LoginPresenter;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
+import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.utils.TimeVerification;
 import com.mvc.cryptovault_android.utils.ViewDrawUtils;
 import com.mvc.cryptovault_android.view.ClearEditText;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
+import java.util.HashSet;
+
+import cn.jpush.android.api.JPushInterface;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.TAG_NAME;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 
 public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener, LoginContract.ILoginView {
@@ -102,11 +112,30 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         }
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void saveUserInfo(LoginBean loginBean) {
         LoginBean.DataBean data = loginBean.getData();
         SPUtils.getInstance().put(REFRESH_TOKEN, data.getRefreshToken());
         SPUtils.getInstance().put(TOKEN, data.getToken());
+        SPUtils.getInstance().put(USER_ID, data.getUserId());
+        RetrofitUtils.client(ApiStore.class).getPushTag(TOKEN).compose(RxHelper.rxSchedulerHelper())
+                .subscribe(tagBean -> {
+                    if (tagBean.getCode() == 200 && tagBean.getData() != null) {
+                        SPUtils.getInstance().put(TAG_NAME, tagBean.getData());
+                        String[] tags = tagBean.getData().split(",");
+                        for (int i = 0; i < tags.length; i++) {
+                            if (i == 0) {
+                                JPushInterface.setTags(getApplication().getApplicationContext(), Integer.parseInt(tags[i]), new HashSet<>(Arrays.asList(tags[i])));
+                            } else {
+                                JPushInterface.addTags(getApplication().getApplicationContext(), Integer.parseInt(tags[i]), new HashSet<>(Arrays.asList(tags[i])));
+                            }
+                        }
+                    }
+                    JPushInterface.setAlias(getApplicationContext(), loginBean.getData().getUserId(), String.valueOf(loginBean.getData().getUserId()));
+                }, throwable -> {
+                    LogUtils.e("ParameterInterceptor", throwable.getMessage());
+                });
     }
 
     @Override

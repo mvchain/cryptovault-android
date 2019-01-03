@@ -253,12 +253,10 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(updateBean -> {
                     EventBus.getDefault().post(new TogeFragmentEvent());
-                    EventBus.getDefault().post(new WalletMsgEvent());
                     if (updateBean.getCode() == 200) {
                         dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.success_icon, "预约成功");
                         new Handler().postDelayed(() -> {
                             mReservationDialog.dismiss();
-                            EventBus.getDefault().post(new WalletMsgEvent());
                             finish();
                         }, 1000);
                     } else {

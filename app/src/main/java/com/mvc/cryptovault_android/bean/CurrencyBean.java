@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.util.List;
 
-public class CurrencyBean implements Parcelable{
+public class CurrencyBean implements Parcelable {
 
 
     /**
@@ -73,7 +73,7 @@ public class CurrencyBean implements Parcelable{
     }
 
 
-    public static class DataBean implements Parcelable{
+    public static class DataBean implements Parcelable {
         /**
          * timestamp : 0
          * tokenCnName : VRT

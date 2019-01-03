@@ -1,20 +1,28 @@
 package com.mvc.cryptovault_android.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
+import com.mvc.cryptovault_android.bean.TagBean;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 
+import cn.jpush.android.api.JPushInterface;
+import io.reactivex.functions.Consumer;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.TAG_NAME;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 
 /**
@@ -40,6 +48,7 @@ public class ParameterInterceptor implements Interceptor {
                     //重新请求
                     SPUtils.getInstance().put(TOKEN, httpTokenBean.getData());
                     String token = SPUtils.getInstance().getString(TOKEN);
+                    refreshPushTag(token);
                     Request newRequest = chain.request()
                             .newBuilder()
                             .header("Authorization", token)
@@ -57,6 +66,32 @@ public class ParameterInterceptor implements Interceptor {
             Utils.getApp().startActivity(intent);
         }
         return response;
+    }
+
+    /**
+     * 刷新推送tag  只有刷新令牌的时候会调用
+     *
+     * @param token
+     */
+    @SuppressLint("CheckResult")
+    private void refreshPushTag(String token) {
+        RetrofitUtils.client(ApiStore.class).getPushTag(token).compose(RxHelper.rxSchedulerHelper())
+                .subscribe(tagBean -> {
+                    if (tagBean.getCode() == 200) {
+                        SPUtils.getInstance().put(TAG_NAME, tagBean.getData());
+                    }
+                    String[] tags = tagBean.getData().split(",");
+                    for (int i = 0; i < tags.length; i++) {
+                        if (i == 0) {
+                            JPushInterface.setTags(Utils.getApp().getApplicationContext(), Integer.parseInt(tags[i]), new HashSet<>(Arrays.asList(tags[i])));
+                        } else {
+                            JPushInterface.addTags(Utils.getApp().getApplicationContext(), Integer.parseInt(tags[i]), new HashSet<>(Arrays.asList(tags[i])));
+                        }
+                    }
+                }, throwable -> {
+                    LogUtils.e("ParameterInterceptor", throwable.getMessage());
+                });
+
     }
 
     /**

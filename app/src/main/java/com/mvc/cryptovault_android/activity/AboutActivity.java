@@ -12,8 +12,11 @@ import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.listener.IDialogViewClickListener;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
+import cn.jpush.android.api.JPushInterface;
+
 import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 public class AboutActivity extends BaseActivity implements View.OnClickListener {
 
@@ -23,6 +26,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     private TextView mSingoutAbout;
     private ImageView mBackAbout;
     private Dialog mOutDialog;
+    private DialogHelper dialogHelper;
 
     @Override
     protected int getLayoutId() {
@@ -34,7 +38,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     }
 
     protected void initView() {
-
         mBarStatus = findViewById(R.id.status_bar);
         mIconAbout = findViewById(R.id.about_icon);
         mVersionAbout = findViewById(R.id.about_version);
@@ -42,6 +45,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         mSingoutAbout.setOnClickListener(this);
         mBackAbout = findViewById(R.id.about_back);
         mBackAbout.setOnClickListener(this);
+        dialogHelper = DialogHelper.getInstance();
     }
 
     @Override
@@ -53,22 +57,21 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.about_singout:
                 // TODO 18/11/30
-                mOutDialog = DialogHelper.getInstance().create(this, "确定要登出VPay?", new IDialogViewClickListener() {
-                    @Override
-                    public void click(int viewId) {
-                        switch (viewId) {
-                            case R.id.hint_enter:
-                                SPUtils.getInstance().remove(REFRESH_TOKEN);
-                                SPUtils.getInstance().remove(TOKEN);
-                                startTaskActivity(AboutActivity.this);
-                                break;
-                            case R.id.hint_cancle:
-                                mOutDialog.dismiss();
-                                break;
-                        }
+                dialogHelper.create(this, "确定要登出VPay?", viewId -> {
+                    switch (viewId) {
+                        case R.id.hint_enter:
+                            dialogHelper.dismiss();
+                            SPUtils.getInstance().remove(REFRESH_TOKEN);
+                            SPUtils.getInstance().remove(TOKEN);
+                            JPushInterface.deleteAlias(getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
+                            SPUtils.getInstance().remove(USER_ID);
+                            startTaskActivity(AboutActivity.this);
+                            break;
+                        case R.id.hint_cancle:
+                            dialogHelper.dismiss();
+                            break;
                     }
-                });
-                mOutDialog.show();
+                }).show();
                 break;
         }
     }

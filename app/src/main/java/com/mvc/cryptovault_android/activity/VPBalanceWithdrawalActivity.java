@@ -111,7 +111,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
     @Override
     public void callBack(UpdateBean bean) {
         if (bean.getCode() == 200) {
-            Dialog dialog = dialogHelper.create(this, R.drawable.pending_icon, "提取成功");
+            Dialog dialog = dialogHelper.create(this, R.drawable.success_icon, "提取成功");
             dialog.show();
             dialogHelper.dismissDelayed(() -> {
                 EventBus.getDefault().post(new HistroyEvent(mBwPriceVp.getText().toString().trim()));

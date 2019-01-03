@@ -105,6 +105,10 @@ public class HttpUrl {
      * 获取验证码
      */
     public static final String SEND_CODE = "/user/sms";
+    /**
+     * 获取推送tag
+     */
+    public static final String GET_PUSH_TAG = "/user/tag";
 
 
 }

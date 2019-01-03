@@ -50,6 +50,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 import static com.mvc.cryptovault_android.common.Constant.SP.ALLASSETS;
 import static com.mvc.cryptovault_android.common.Constant.SP.ASSETS_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.CURRENCY_LIST;
@@ -70,6 +72,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private WalletAssetsAdapter assetsAdapter;
     private List<AssetListBean.DataBean> mData;
     private List<ExchangeRateBean.DataBean> mExchange;
+    private List<MsgBean.DataBean> mMsgBean;
     private SwipeRefreshLayout mSwipAsstes;
     private PopupWindow mPopView;
     private boolean createCarryOut;
@@ -84,6 +87,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     protected void initView() {
         mData = new ArrayList<>();
         mExchange = new ArrayList<>();
+        mMsgBean = new ArrayList<>();
         mHintAssets = rootView.findViewById(R.id.assets_hint);
         mNullAssets = rootView.findViewById(R.id.assets_null);
         mAddAssets = rootView.findViewById(R.id.assets_add);
@@ -129,8 +133,13 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             case R.id.assets_type:
                 // TODO 18/11/28
                 if (mPopView != null) {
-                    mPopView.showAsDropDown(mTypeAssets, -80, -10, Gravity.CENTER);
-                    ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.down_icon), mTypeAssets);
+                    LogUtils.e("WalletFragment", "mPopView.isShowing():" + mPopView.isShowing());
+                    if (mPopView.isShowing()) {
+                        mPopView.dismiss();
+                    } else {
+                        mPopView.showAsDropDown(mTypeAssets, -80, -10, Gravity.CENTER);
+                        ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.down_icon), mTypeAssets);
+                    }
                 }
                 break;
         }
@@ -149,12 +158,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        LogUtils.e("WalletFragment", "onResume");
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Subscribe
     public void updateRate(WalletFragmentEvent fragmentEvent) {
@@ -168,6 +171,8 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         if (SPUtils.getInstance().getLong(MSG_TIME) == -1) {
             SPUtils.getInstance().put(MSG_TIME, System.currentTimeMillis());
         }
+        JPushInterface.requestPermission(activity);
+        LogUtils.e("WalletFragment", JPushInterface.getRegistrationID(activity));
         mRvAssets.setLayoutManager(new LinearLayoutManager(activity));
 //        mRvAssets.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
@@ -250,7 +255,8 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @Override
     public void refreshMsg(MsgBean msgBean) {
         if (msgBean.getData().size() > 0) {
-            SPUtils.getInstance().put(MSG_TIME, msgBean.getData().get(0).getCreatedAt());
+            mMsgBean.clear();
+            mMsgBean.addAll(msgBean.getData());
             mHintAssets.setImageResource(R.drawable.home_newnote_icon);
         } else {
             if (SPUtils.getInstance().getBoolean(READ_MSG, false)) {
@@ -318,7 +324,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mPresenter.getAllAsset(getToken());
         mPresenter.getAssetList(getToken());
         long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
-        LogUtils.e("WalletFragment", "SPUtils.getInstance().getLong(MSG_TIME):" + SPUtils.getInstance().getLong(MSG_TIME));
         mPresenter.getMsg(getToken(), msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
     }
 
@@ -368,6 +373,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200) {
+            if(mMsgBean!=null && mMsgBean.size()>0){
+                SPUtils.getInstance().put(MSG_TIME, mMsgBean.get(0).getCreatedAt());
+            }
             SPUtils.getInstance().put(READ_MSG, false);
             mHintAssets.setImageResource(R.drawable.home_note_icon);
         }

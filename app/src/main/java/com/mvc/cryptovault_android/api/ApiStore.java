@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.api;
 
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.TagBean;
 import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
@@ -201,5 +202,15 @@ public interface ApiStore {
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.SEND_CODE)
     Observable<UpdateBean> sendCode(@Query("cellphone") String cellphone);
+
+    /**
+     * 获取用户推送分组
+     *
+     * @param token
+     * @return
+     */
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.GET_PUSH_TAG)
+    Observable<TagBean> getPushTag(@Header("Authorization") String token);
 
 }

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -182,7 +183,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         dataSetByIndex.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         dataSetByIndex.setCubicIntensity(0.2f);
         dataSetByIndex.setDrawFilled(true);
-        dataSetByIndex.setFillDrawable(getDrawable(R.drawable.shape_linechart_fill));
+        dataSetByIndex.setFillDrawable(ContextCompat.getDrawable(TrandRecordingActivity.this,R.drawable.shape_linechart_fill));
         dataSetByIndex.setDrawCircles(false);
         dataSetByIndex.setLineWidth(0.5f);
         dataSetByIndex.setCircleRadius(1f);

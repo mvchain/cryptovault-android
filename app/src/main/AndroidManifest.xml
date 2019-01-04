@@ -118,7 +118,11 @@
         <activity
             android:name=".activity.TrandOrderActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.FilterOrderActivity" />
+        <activity
+            android:name=".activity.LanguageActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.FilterOrderActivity"
+            android:screenOrientation="portrait"  />
         <receiver
             android:name=".receiver.PushReceiver"
             android:exported="false"
@@ -144,6 +148,14 @@
                 <category android:name="com.mvc.cryptovault_android"/>
             </intent-filter>
         </receiver>
+        <!--适配华为（hw）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true"/>
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
     </application>
 
 </manifest>

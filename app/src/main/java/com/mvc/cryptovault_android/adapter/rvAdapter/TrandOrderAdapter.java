@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.adapter.rvAdapter;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -92,8 +93,8 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
             helper.getView(R.id.order_item_forsale_layout).setVisibility(View.VISIBLE);
             mSubmit.setText(R.string.trand_withdrawal);
             mSubmit.setVisibility(View.VISIBLE);
-            mSubmit.setBackground(mContext.getDrawable(R.drawable.bg_toge_child_item_tv_blue));
-            mSubmit.setTextColor(mContext.getColor(R.color.white));
+            mSubmit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_toge_child_item_tv_blue));
+            mSubmit.setTextColor(ContextCompat.getColor(mContext,R.color.white));
             mSubmit.setEnabled(true);
             if (item.getTransactionType() == 1) {
             }
@@ -101,8 +102,8 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         } else { //已完成订单
             mSubmit.setText(R.string.trand_withdrawal);
             mSubmit.setVisibility(View.VISIBLE);
-            mSubmit.setBackground(mContext.getDrawable(R.drawable.bg_toge_child_item_tv_gray));
-            mSubmit.setTextColor(mContext.getColor(R.color.gray_white));
+            mSubmit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_toge_child_item_tv_gray));
+            mSubmit.setTextColor(ContextCompat.getColor(mContext,R.color.gray_white));
             mSubmit.setEnabled(false);
             helper.getView(R.id.order_item_num_layout).setVisibility(View.VISIBLE);
             helper.getView(R.id.order_item_seller_layout).setVisibility(View.VISIBLE);

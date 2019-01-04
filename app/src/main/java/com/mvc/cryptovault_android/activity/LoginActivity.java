@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
@@ -192,7 +193,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mLoginPhone);
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this,R.drawable.clean_icon_edit), mLoginPhone);
                 } else {
                     ViewDrawUtils.clearDraw(mLoginPhone);
                 }
@@ -205,7 +206,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mLoginPwd);
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this,R.drawable.clean_icon_edit), mLoginPwd);
                 } else {
                     ViewDrawUtils.clearDraw(mLoginPwd);
                 }
@@ -218,7 +219,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mLoginPwd);
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this,R.drawable.clean_icon_edit), mLoginPwd);
                 } else {
                     ViewDrawUtils.clearDraw(mLoginPwd);
                 }

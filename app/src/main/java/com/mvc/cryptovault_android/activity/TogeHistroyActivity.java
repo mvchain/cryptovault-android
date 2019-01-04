@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.activity;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -155,14 +156,14 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
                 // TODO 18/12/07
                 isSerach = !isSerach;
                 if (isSerach) {
-                    mSerachTogehis.setImageDrawable(getDrawable(R.drawable.cancel_icon_black));
+                    mSerachTogehis.setImageDrawable(ContextCompat.getDrawable(TogeHistroyActivity.this,R.drawable.cancel_icon_black));
                     mEditTogehis.setVisibility(View.VISIBLE);
                     mTitleTogehis.setVisibility(View.GONE);
                     mEditTogehis.setFocusable(true);
                     mEditTogehis.requestFocus();
                     KeyboardUtils.showSoftInput(this);
                 } else {
-                    mSerachTogehis.setImageDrawable(getDrawable(R.drawable.serch_icon_black));
+                    mSerachTogehis.setImageDrawable(ContextCompat.getDrawable(TogeHistroyActivity.this,R.drawable.serch_icon_black));
                     mEditTogehis.setVisibility(View.GONE);
                     mTitleTogehis.setVisibility(View.VISIBLE);
 //                    在关闭搜索框的时候搜索内容也关闭掉

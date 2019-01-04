@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.adapter.rvAdapter;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,10 +30,10 @@ public class IncreaseAdapter extends BaseQuickAdapter<IncreaseBean, BaseViewHold
         helper.setText(R.id.item_increase_content, item.getZhContent());
         add.setVisibility(item.isVisi() ? View.VISIBLE : View.GONE);
         if (!item.isAdd()) {
-            add.setBackground(mContext.getDrawable(R.drawable.shape_round_orangey_15dp));
+            add.setBackground(ContextCompat.getDrawable(mContext,R.drawable.shape_round_orangey_15dp));
             add.setText(R.string.increase_remove);
         } else {
-            add.setBackground(mContext.getDrawable(R.drawable.shape_round_ching_15dp));
+            add.setBackground(ContextCompat.getDrawable(mContext,R.drawable.shape_round_ching_15dp));
             add.setText(R.string.increase_add);
         }
         Glide.with(mContext).load(item.getResId()).into(icon);

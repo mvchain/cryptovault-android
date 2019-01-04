@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -148,14 +149,14 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
                 // TODO 18/12/03
                 isSerach = !isSerach;
                 if (isSerach) {
-                    mSerachIncrease.setImageDrawable(getDrawable(R.drawable.cancel_icon_black));
+                    mSerachIncrease.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.cancel_icon_black));
                     mEditIncrease.setVisibility(View.VISIBLE);
                     mTitleIncrease.setVisibility(View.GONE);
                     mEditIncrease.setFocusable(true);
                     mEditIncrease.requestFocus();
                     KeyboardUtils.showSoftInput(this);
                 } else {
-                    mSerachIncrease.setImageDrawable(getDrawable(R.drawable.serch_icon_black));
+                    mSerachIncrease.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.serch_icon_black));
                     mEditIncrease.setVisibility(View.GONE);
                     mTitleIncrease.setVisibility(View.VISIBLE);
 //                    在关闭搜索框的时候搜索内容也关闭掉

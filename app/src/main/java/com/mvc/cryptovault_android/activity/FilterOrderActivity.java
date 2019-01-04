@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.activity;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -96,8 +97,8 @@ public class FilterOrderActivity extends BaseActivity implements View.OnClickLis
                     filterBean.setCheck(!filterBean.isCheck());
                     transactionType = position - 1 < 0 ? "" : String.valueOf(position - 1);
                     allFilterAdapter.notifyDataSetChanged();
-                    mTypeSubmitFilter.setTextColor(getColor(R.color.white));
-                    mTypeSubmitFilter.setBackground(getDrawable(R.drawable.shape_filter_blue_22dp_submit));
+                    mTypeSubmitFilter.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.white));
+                    mTypeSubmitFilter.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.shape_filter_blue_22dp_submit));
                     mTypeSubmitFilter.setEnabled(true);
                     break;
             }
@@ -116,8 +117,8 @@ public class FilterOrderActivity extends BaseActivity implements View.OnClickLis
                     vrtFilterAdapter.notifyDataSetChanged();
                     balanceFilterAdapter.notifyDataSetChanged();
                     paitId = mTypeVrt.get(position).getPariId() + "";
-                    mTypeSubmitFilter.setTextColor(getColor(R.color.white));
-                    mTypeSubmitFilter.setBackground(getDrawable(R.drawable.shape_filter_blue_22dp_submit));
+                    mTypeSubmitFilter.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.white));
+                    mTypeSubmitFilter.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.shape_filter_blue_22dp_submit));
                     mTypeSubmitFilter.setEnabled(true);
                     break;
             }
@@ -136,8 +137,8 @@ public class FilterOrderActivity extends BaseActivity implements View.OnClickLis
                     vrtFilterAdapter.notifyDataSetChanged();
                     balanceFilterAdapter.notifyDataSetChanged();
                     paitId = mTypeBalance.get(position).getPariId() + "";
-                    mTypeSubmitFilter.setTextColor(getColor(R.color.white));
-                    mTypeSubmitFilter.setBackground(getDrawable(R.drawable.shape_filter_blue_22dp_submit));
+                    mTypeSubmitFilter.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.white));
+                    mTypeSubmitFilter.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.shape_filter_blue_22dp_submit));
                     mTypeSubmitFilter.setEnabled(true);
                     break;
             }

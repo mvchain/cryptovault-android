@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.View;
@@ -75,11 +76,11 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
                 if (!chagePrice.equals("") && vpBalanceBean != null) {
                     if (TextUtils.stringToDouble(chagePrice) > vpBalanceBean.getData()) {
                         mPriceVp.setText("余额不足");
-                        mPriceVp.setTextColor(getColor(R.color.red));
+                        mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.red));
                         mSubmitVp.setEnabled(false);
                     } else {
                         mPriceVp.setText("余额：" + TextUtils.doubleToFour(vpBalanceBean.getData()));
-                        mPriceVp.setTextColor(getColor(R.color.login_edit_bg));
+                        mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.login_edit_bg));
                         mSubmitVp.setEnabled(true);
                     }
                 }

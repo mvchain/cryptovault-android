@@ -89,6 +89,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         attributes.alpha = alpha;
         getWindow().setAttributes(attributes);
     }
+
     protected String getDefalutRate() {
         return SPUtils.getInstance().getString(Constant.SP.SET_RATE);
     }

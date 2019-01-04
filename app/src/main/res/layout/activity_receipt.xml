@@ -40,8 +40,7 @@
             android:id="@+id/m_share"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="6dp"
-            android:padding="8dp"
+            android:layout_marginRight="6dp"
             android:src="@drawable/share_icon_black" />
     </LinearLayout>
     <LinearLayout

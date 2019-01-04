@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.View;
@@ -107,18 +108,18 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.clean_icon_edit), mBwPriceM);
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(),R.drawable.clean_icon_edit), mBwPriceM);
                     Double currentNum = Double.valueOf(updateTv);
                     mPriceM.setText(TextUtils.doubleToFour(currentNum * dataBean.getRatio()));
                     if (currentNum * dataBean.getRatio() > purchaseBean.getData().getBalance()) {
                         mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "不足！");
-                        mAvailableM.setTextColor(getColor(R.color.red));
+                        mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.red));
                         mSubmitM.setEnabled(false);
                         mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else {
                         if (purchaseBean != null) {
                             mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
-                            mAvailableM.setTextColor(getColor(R.color.trand_gray));
+                            mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.trand_gray));
                             mSubmitM.setEnabled(true);
                             mSubmitM.setBackgroundResource(R.drawable.bg_login_submit);
                         }

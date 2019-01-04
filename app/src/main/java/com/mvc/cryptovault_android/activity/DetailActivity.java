@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -172,15 +173,15 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
             switch (data.getStatus()) {
                 case 0:
                 case 1:
-                    mIconDetail.setImageDrawable(getDrawable(R.drawable.pending_status_icon));
+                    mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.pending_status_icon));
                     mTitleDetail.setText(transactionType == 1 ? "收款中" : "转账中");
                     break;
                 case 2:
-                    mIconDetail.setImageDrawable(getDrawable(R.drawable.success_status_icon));
+                    mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.success_status_icon));
                     mTitleDetail.setText(transactionType == 1 ? "收款成功" : "转账成功");
                     break;
                 case 9:
-                    mIconDetail.setImageDrawable(getDrawable(R.drawable.defeat_status_icon));
+                    mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.defeat_status_icon));
                     mTitleDetail.setText(transactionType == 1 ? "收款失败" : "转账失败");
                     break;
             }
@@ -226,13 +227,13 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
             }
         } else if (classify == 1) { //订单交易
 
-            mIconDetail.setImageDrawable(getDrawable(R.drawable.jy_icon));
+            mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.jy_icon));
             mTitleDetail.setText(data.getOrderRemark() + " 交易");
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
         } else if (classify == 2) { //众筹交易
-            mIconDetail.setImageDrawable(getDrawable(R.drawable.zc_icon));
+            mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.zc_icon));
             StringBuffer buffer = new StringBuffer();
             switch (data.getStatus()) {
                 case 9:
@@ -250,7 +251,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
         } else if (classify == 3) {
-            mIconDetail.setImageDrawable(data.getStatus() == 2 ? getDrawable(R.drawable.success_icon) : getDrawable(R.drawable.miss_icon));
+            mIconDetail.setImageDrawable(data.getStatus() == 2 ? ContextCompat.getDrawable(getBaseContext(), R.drawable.success_icon) : ContextCompat.getDrawable(getBaseContext(), R.drawable.miss_icon));
             mTitleDetail.setText("存入" + (data.getStatus() == 9 ? "失败" : "成功"));
             mTvTitle.setText(data.getOrderRemark() + " " + (data.getStatus() == 9 ? "支出" : "收入"));
             mFeesLayoutDetail.setVisibility(View.GONE);

@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -74,16 +75,16 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
             } else if (tokenId == 4) {
                 if (!RxgularUtils.isBTC(result)) {
                     bundle.putBoolean("QODE", false);
-                }else{
+                } else {
                     bundle.putBoolean("QODE", true);
                 }
             } else if (tokenId != 4) {
                 if (!RxgularUtils.isETH(result)) {
                     bundle.putBoolean("QODE", false);
-                }else{
+                } else {
                     bundle.putBoolean("QODE", true);
                 }
-            }else{
+            } else {
                 bundle.putBoolean("QODE", true);
             }
             resultIntent.putExtras(bundle);
@@ -112,22 +113,26 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.qcode_photo:
                 // TODO 18/12/07
-                RsPermission.getInstance().setRequestCode(200).setiPermissionRequest(new IPermissionRequest() {
-                    @Override
-                    public void toSetting() {
-                        RsPermission.getInstance().toSettingPer();
-                    }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    RsPermission.getInstance().setRequestCode(200).setiPermissionRequest(new IPermissionRequest() {
+                        @Override
+                        public void toSetting() {
+                            RsPermission.getInstance().toSettingPer();
+                        }
 
-                    @Override
-                    public void cancle(int i) {
-                        Toast.makeText(QCodeActivity.this, "未给予读取权限无法读取相册图片", Toast.LENGTH_SHORT).show();
-                    }
+                        @Override
+                        public void cancle(int i) {
+                            Toast.makeText(QCodeActivity.this, "未给予读取权限无法读取相册图片", Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void success(int i) {
-                        startPhotoActivity();
-                    }
-                }).requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        @Override
+                        public void success(int i) {
+                            startPhotoActivity();
+                        }
+                    }).requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                } else {
+                    startPhotoActivity();
+                }
                 break;
         }
     }

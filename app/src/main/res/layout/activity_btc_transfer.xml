@@ -84,6 +84,7 @@
             android:paddingLeft="12dp"
             android:paddingRight="10dp"
             android:singleLine="true"
+            android:textColorHint="#999A9D"
             android:textCursorDrawable="@drawable/bg_edit_cursor_color"
             android:textSize="15sp" />
 
@@ -107,6 +108,7 @@
             android:inputType="numberDecimal"
             android:paddingLeft="12dp"
             android:singleLine="true"
+            android:textColorHint="#999A9D"
             android:textCursorDrawable="@drawable/bg_edit_cursor_color"
             android:textSize="15sp" />
 

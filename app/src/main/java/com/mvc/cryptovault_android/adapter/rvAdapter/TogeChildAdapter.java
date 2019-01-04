@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,8 +38,8 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
         if (item.getStatus() == 1) {
             submit.setText(R.string.toge_com);
             submit.setVisibility(View.VISIBLE);
-            submit.setBackground(mContext.getDrawable(R.drawable.bg_toge_child_item_tv_blue));
-            submit.setTextColor(mContext.getColor(R.color.white));
+            submit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_toge_child_item_tv_blue));
+            submit.setTextColor(ContextCompat.getColor(mContext,R.color.white));
             submit.setEnabled(true);
             helper.setText(R.id.toge_child_sj, TimeUtils.getFitTimeSpan(new Date(item.getStopAt()),new Date(System.currentTimeMillis()), 4));
         } else if (item.getStatus() == 0) {
@@ -47,8 +48,8 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
         } else {
             submit.setText(R.string.toge_end);
             submit.setVisibility(View.VISIBLE);
-            submit.setBackground(mContext.getDrawable(R.drawable.bg_toge_child_item_tv_gray));
-            submit.setTextColor(mContext.getColor(R.color.gray_white));
+            submit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_toge_child_item_tv_gray));
+            submit.setTextColor(ContextCompat.getColor(mContext,R.color.gray_white));
             submit.setEnabled(false);
             helper.setText(R.id.toge_child_sj, R.string.toge_end);
         }

@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -204,24 +205,30 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_qcode:
                 // TODO 18/11/29
-                RsPermission.getInstance().setRequestCode(200).setiPermissionRequest(new IPermissionRequest() {
-                    @Override
-                    public void toSetting() {
-                        RsPermission.getInstance().toSettingPer();
-                    }
+                if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M) {
+                    RsPermission.getInstance().setRequestCode(200).setiPermissionRequest(new IPermissionRequest() {
+                        @Override
+                        public void toSetting() {
+                            RsPermission.getInstance().toSettingPer();
+                        }
 
-                    @Override
-                    public void cancle(int i) {
-                        Toast.makeText(HistroyActivity.this, "未给予相机权限将无法扫描二维码", Toast.LENGTH_SHORT).show();
-                    }
+                        @Override
+                        public void cancle(int i) {
+                            Toast.makeText(HistroyActivity.this, "未给予相机权限将无法扫描二维码", Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void success(int i) {
-                        Intent intent = new Intent(HistroyActivity.this, QCodeActivity.class);
-                        intent.putExtra("tokenId", tokenId);
-                        startActivityForResult(intent, 200);
-                    }
-                }).requestPermission(this, Manifest.permission.CAMERA);
+                        @Override
+                        public void success(int i) {
+                            Intent intent = new Intent(HistroyActivity.this, QCodeActivity.class);
+                            intent.putExtra("tokenId", tokenId);
+                            startActivityForResult(intent, 200);
+                        }
+                    }).requestPermission(this, Manifest.permission.CAMERA);
+                }else{
+                    intent.setClass(HistroyActivity.this, QCodeActivity.class);
+                    intent.putExtra("tokenId", tokenId);
+                    startActivityForResult(intent, 200);
+                }
                 break;
             case R.id.his_type:
                 // TODO 18/11/29
@@ -271,7 +278,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void dismiss() {
-        ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.up_icon), mTypeHis);
+        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(),R.drawable.up_icon), mTypeHis);
     }
 
     @Override

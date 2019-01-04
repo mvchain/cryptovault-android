@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -133,12 +134,11 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             case R.id.assets_type:
                 // TODO 18/11/28
                 if (mPopView != null) {
-                    LogUtils.e("WalletFragment", "mPopView.isShowing():" + mPopView.isShowing());
                     if (mPopView.isShowing()) {
                         mPopView.dismiss();
                     } else {
-                        mPopView.showAsDropDown(mTypeAssets, -80, -10, Gravity.CENTER);
-                        ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.down_icon), mTypeAssets);
+                        mPopView.showAsDropDown(mTypeAssets, -mTypeAssets.getWidth()+(mTypeAssets.getWidth()/3), 0, Gravity.CENTER);
+                        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.down_icon), mTypeAssets);
                     }
                 }
                 break;
@@ -348,7 +348,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void dismiss() {
-        ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.up_icon), mTypeAssets);
+        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.up_icon), mTypeAssets);
     }
 
     /**
@@ -356,7 +356,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void changeAssets() {
-        ViewDrawUtils.setRigthDraw(activity.getDrawable(R.drawable.up_icon), mTypeAssets);
+        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.up_icon), mTypeAssets);
         AllAssetBean assetBean = (AllAssetBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(ALLASSETS), AllAssetBean.class);
         mPriceAssets.setText(TextUtils.rateToPrice(assetBean.getData()));
         assetsAdapter.notifyDataSetChanged();

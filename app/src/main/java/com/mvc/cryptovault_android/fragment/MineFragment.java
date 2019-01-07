@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.AboutActivity;
+import com.mvc.cryptovault_android.activity.LanguageActivity;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
@@ -58,6 +59,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         mSwipMine.post(() -> mSwipMine.setRefreshing(true));
         mSwipMine.setOnRefreshListener(this::refresh);
         mAbout.setOnClickListener(this);
+        mLanguageSys.setOnClickListener(this);
     }
 
     @Override
@@ -120,6 +122,9 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         switch (v.getId()) {
             case R.id.about:
                 startActivity(new Intent(activity, AboutActivity.class));
+                break;
+            case R.id.sys_language:
+                startActivity(new Intent(activity, LanguageActivity.class));
                 break;
         }
     }

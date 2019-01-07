@@ -107,6 +107,8 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
     @Subscribe
     public void refresh(TrandOrderEvent orderEvent) {
         isRefresh = true;
+        dataBeans.clear();
+        orderAdapter.notifyDataSetChanged();
         if (orderEvent.getPariId() != null && orderEvent.getTransactionType() != null) {
             mPresenter.getTrandOrder(getToken(), 0, 10, orderEvent.getPariId(), status, orderEvent.getTransactionType(), 0);
             pairId = orderEvent.getPariId();

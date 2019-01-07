@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="详情"
+            android:text="@string/detail_title"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 

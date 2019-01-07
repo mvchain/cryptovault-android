@@ -4,6 +4,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -95,7 +96,7 @@ public class FilterOrderActivity extends BaseActivity implements View.OnClickLis
                     }
                     FilterBean filterBean = mType.get(position);
                     filterBean.setCheck(!filterBean.isCheck());
-                    transactionType = position - 1 < 0 ? "" : String.valueOf(position - 1);
+                    transactionType = position - 1 < 0 ? "" : String.valueOf(position);
                     allFilterAdapter.notifyDataSetChanged();
                     mTypeSubmitFilter.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.white));
                     mTypeSubmitFilter.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.shape_filter_blue_22dp_submit));

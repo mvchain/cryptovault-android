@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">VPAY</string>
-    <!--App login -->
-    <string name="login_success">ログインの成功</string>
-    <string name="login_faild">ログインの失敗</string>
-    <!--App exit-->
-    <string name="app_exit">アプリを終了するにはもう一度押してください</string>
-</resources>

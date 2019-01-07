@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,8 +12,12 @@ import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.activity.LoginActivity;
 import com.mvc.cryptovault_android.common.Constant;
+import com.mvc.cryptovault_android.utils.LanguageUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
+import java.util.Locale;
+
+import static com.mvc.cryptovault_android.common.Constant.LANGUAGE.CHINESE;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 
 public abstract class BaseActivity extends RxAppCompatActivity {
@@ -92,5 +97,10 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected String getDefalutRate() {
         return SPUtils.getInstance().getString(Constant.SP.SET_RATE);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LanguageUtils.Companion.wrapLocale(newBase, new Locale(LanguageUtils.Companion.getUserSetLocal())));
     }
 }

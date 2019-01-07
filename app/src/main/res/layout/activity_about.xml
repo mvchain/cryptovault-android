@@ -22,18 +22,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="关于"
+            android:text="@string/about_title"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 
         <ImageView
             android:id="@+id/about_back"
             android:layout_width="40dp"
+            android:layout_marginLeft="6dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:scaleType="center"
             android:src="@drawable/back_icon_black" />
-
     </RelativeLayout>
 
     <ImageView

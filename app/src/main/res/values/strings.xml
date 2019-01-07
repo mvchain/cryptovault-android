@@ -17,4 +17,8 @@
     <string name="trand_withdrawal">撤单</string>
     <string name="trand_over">已成交</string>
     <string name="select_photo">从相册选择</string>
+    <!--title-->
+    <string name="language_title">语言</string>
+    <string name="detail_title">详情</string>
+    <string name="about_title">关于</string>
 </resources>

@@ -9,11 +9,15 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.adapter.HomePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.bean.LanguageEvent;
 import com.mvc.cryptovault_android.fragment.MineFragment;
 import com.mvc.cryptovault_android.fragment.TogeFragment;
 import com.mvc.cryptovault_android.fragment.TrandFragment;
 import com.mvc.cryptovault_android.fragment.WalletFragment;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -26,7 +30,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;
-    private int[] colors = {R.color.status_blue,R.color.white,R.color.white,R.color.status_gray};
+    private int[] colors = {R.color.status_blue, R.color.white, R.color.white, R.color.status_gray};
     private ImmersionBar with;
 
     @Override
@@ -40,6 +44,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -113,5 +118,11 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         super.onDestroy();
         mMainVpHome.removeOnPageChangeListener(this);
         ImmersionBar.with(this).destroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void changeLanguage(LanguageEvent languageEvent) {
+        recreate();
     }
 }

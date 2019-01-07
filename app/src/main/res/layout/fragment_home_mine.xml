@@ -63,7 +63,7 @@
                 android:paddingRight="10dp"
                 app:sDividerLineHeight="1dp"
                 app:sLeftIconRes="@drawable/language_icon"
-                app:sLeftTextString="语言"
+                app:sLeftTextString="@string/language_title"
                 app:sRightIconRes="@drawable/next_icon_black" />
 
             <com.allen.library.SuperTextView
@@ -74,7 +74,7 @@
                 android:paddingRight="10dp"
                 app:sDividerLineHeight="0dp"
                 app:sLeftIconRes="@drawable/about_icon"
-                app:sLeftTextString="关于"
+                app:sLeftTextString="@string/about_title"
                 app:sRightIconRes="@drawable/next_icon_black" />
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>

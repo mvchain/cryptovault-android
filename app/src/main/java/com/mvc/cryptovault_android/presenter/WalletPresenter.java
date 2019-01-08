@@ -5,6 +5,10 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.contract.WallteContract;
 import com.mvc.cryptovault_android.model.WalletModel;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
+
 public class WalletPresenter extends WallteContract.WalletPresenter {
 
     public static BasePresenter newIntance() {

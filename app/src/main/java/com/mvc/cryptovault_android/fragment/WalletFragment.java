@@ -172,7 +172,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             SPUtils.getInstance().put(MSG_TIME, System.currentTimeMillis());
         }
         JPushInterface.requestPermission(activity);
-        LogUtils.e("WalletFragment", JPushInterface.getRegistrationID(activity));
         mRvAssets.setLayoutManager(new LinearLayoutManager(activity));
 //        mRvAssets.setOnTouchListener(new View.OnTouchListener() {
 //            @Override

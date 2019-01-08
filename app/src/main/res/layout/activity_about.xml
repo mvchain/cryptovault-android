@@ -68,7 +68,7 @@
         android:layout_marginBottom="54dp"
         android:background="@drawable/bg_toge_child_item_tv_blue"
         android:gravity="center"
-        android:text="退出登录"
+        android:text="@string/sing_out"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold" />

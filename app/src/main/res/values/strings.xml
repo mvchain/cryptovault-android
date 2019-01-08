@@ -9,16 +9,24 @@
     <!--应用内文字-->
     <string name="increase_add">添加</string>
     <string name="increase_remove">移除</string>
-    <string name="his_title_vp">VP余额</string>
-    <string name="his_title_bth">BTH</string>
-    <string name="his_title_znb">ZNB</string>
     <string name="toge_com">立即预约</string>
     <string name="toge_end">已结束</string>
     <string name="trand_withdrawal">撤单</string>
     <string name="trand_over">已成交</string>
     <string name="select_photo">从相册选择</string>
+    <!--navigation-->
+    <string name="navi_assets">资产</string>
+    <string name="navi_trand">交易</string>
+    <string name="navi_toge">众筹</string>
+    <string name="navi_mine">我的</string>
     <!--title-->
     <string name="language_title">语言</string>
     <string name="detail_title">详情</string>
     <string name="about_title">关于</string>
+    <!--content-->
+    <string name="sing_out">退出登录</string>
+    <string name="toge_get_on">预约中</string>
+    <string name="toge_comming_soon">即将预约</string>
+    <string name="toge_over">已结束</string>
+    <string name="toge_recording">众筹记录</string>
 </resources>

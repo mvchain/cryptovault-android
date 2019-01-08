@@ -38,7 +38,7 @@
             android:textSize="10sp"
             android:paddingTop="5dp"
             android:textColor="@color/select_home_button_wallet"
-            android:text="资产"/>
+            android:text="@string/navi_assets"/>
 
         <RadioButton
             android:id="@+id/home_trand"
@@ -50,7 +50,7 @@
             android:gravity="center"
             android:textSize="10sp"
             android:textColor="@color/select_home_button_wallet"
-            android:text="交易"
+            android:text="@string/navi_trand"
             android:drawableTop="@drawable/select_home_button_trand" />
 
         <RadioButton
@@ -63,7 +63,7 @@
             android:gravity="center"
             android:textSize="10sp"
             android:textColor="@color/select_home_button_wallet"
-            android:text="众筹"
+            android:text="@string/navi_toge"
             android:drawableTop="@drawable/select_home_button_together" />
 
         <RadioButton
@@ -74,7 +74,7 @@
             android:gravity="center"
             android:textSize="10sp"
             android:textColor="@color/select_home_button_wallet"
-            android:text="我的"
+            android:text="@string/navi_mine"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@drawable/select_home_button_main" />

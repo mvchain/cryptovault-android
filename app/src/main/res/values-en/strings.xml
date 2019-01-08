@@ -5,10 +5,24 @@
     <!--App login-->
     <string name="login_success">Login Successful</string>
     <string name="login_faild">Login failed</string>
-
+    <string name="login_load">logging in</string>
     <!--App exit-->
     <string name="app_exit">Please press again to exit the app</string>
+    <!--navigation-->
+    <string name="navi_assets">Assets</string>
+    <string name="navi_trand">Transaction</string>
+    <string name="navi_toge">Crowdfunding</string>
+    <string name="navi_mine">Mine</string>
+    <!--title-->
     <string name="language_title">Language</string>
     <string name="about_title">About</string>
     <string name="detail_title">Detail</string>
+    <!--content-->
+    <string name="sing_out">Sign out</string>
+    <string name="toge_get_on">Appointment</string>
+    <string name="toge_comming_soon">Appointment soon</string>
+    <string name="toge_over">Complete</string>
+    <string name="toge_recording">Crowdfunding record</string>
+    <string name="increase_add">Adding</string>
+    <string name="increase_remove">Remove</string>
 </resources>

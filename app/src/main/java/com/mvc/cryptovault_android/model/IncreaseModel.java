@@ -1,8 +1,5 @@
 package com.mvc.cryptovault_android.model;
 
-import android.util.Log;
-
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.Gson;
 import com.mvc.cryptovault_android.api.ApiStore;

@@ -33,7 +33,7 @@ public class RetrofitUtils {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
                         .setLevel(HttpLoggingInterceptor.Level.BODY))
-                .addInterceptor(new ParameterInterceptor())
+//                .addInterceptor(new ParameterInterceptor())
                 .writeTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(15, TimeUnit.SECONDS)

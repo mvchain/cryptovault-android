@@ -12,8 +12,8 @@ public class MsgPresenter extends MsgContract.MsgPresenter {
     }
 
     @Override
-    public void getMsg(String token, long timestamp, int type, int pageSize) {
-        rxUtils.register(mIModel.getMsg(token, timestamp, type, pageSize).subscribe(msgBean -> {
+    public void getMsg(long timestamp, int type, int pageSize) {
+        rxUtils.register(mIModel.getMsg(timestamp, type, pageSize).subscribe(msgBean -> {
             if (msgBean.getData().size() == 0) {
                 mIView.showNullMsg();
             } else {

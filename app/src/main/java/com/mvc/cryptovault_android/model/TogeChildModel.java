@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model;
 
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.TogeBean;
@@ -16,17 +17,17 @@ public class TogeChildModel extends BaseModel implements TogeChildContract.IToge
     }
 
     @Override
-    public Observable<TogeBean> getComingSoon(String token, int pageSize, int projectId, int projectType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getCrowdfunding(token, pageSize, projectId, projectType, type).compose(RxHelper.rxSchedulerHelper()).map(togeBean -> togeBean);
+    public Observable<TogeBean> getComingSoon(int pageSize, int projectId, int projectType, int type) {
+        return RetrofitUtils.client(ApiStore.class).getCrowdfunding(MyApplication.getTOKEN(), pageSize, projectId, projectType, type).compose(RxHelper.rxSchedulerHelper()).map(togeBean -> togeBean);
     }
 
     @Override
-    public Observable<TogeBean> getProcess(String token, int pageSize, int projectId, int projectType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getCrowdfunding(token, pageSize, projectId, projectType, type).compose(RxHelper.rxSchedulerHelper()).map(togeBean -> togeBean);
+    public Observable<TogeBean> getProcess(int pageSize, int projectId, int projectType, int type) {
+        return RetrofitUtils.client(ApiStore.class).getCrowdfunding(MyApplication.getTOKEN(), pageSize, projectId, projectType, type).compose(RxHelper.rxSchedulerHelper()).map(togeBean -> togeBean);
     }
 
     @Override
-    public Observable<TogeBean> getToEnd(String token, int pageSize, int projectId, int projectType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getCrowdfunding(token, pageSize, projectId, projectType, type).compose(RxHelper.rxSchedulerHelper()).map(togeBean -> togeBean);
+    public Observable<TogeBean> getToEnd(int pageSize, int projectId, int projectType, int type) {
+        return RetrofitUtils.client(ApiStore.class).getCrowdfunding(MyApplication.getTOKEN(), pageSize, projectId, projectType, type).compose(RxHelper.rxSchedulerHelper()).map(togeBean -> togeBean);
     }
 }

@@ -11,8 +11,8 @@ public class DetailPresenter extends DetailContract.DetailPresenter {
     }
 
     @Override
-    public void getDetailOnID(String token, int id) {
-        rxUtils.register(mIModel.getDetailOnID(token, id)
+    public void getDetailOnID(int id) {
+        rxUtils.register(mIModel.getDetailOnID(id)
                 .subscribe(bean -> mIView.showDetail(bean)
                         , throwable -> {
                             LogUtils.e("DetailPresenter", throwable.getMessage());

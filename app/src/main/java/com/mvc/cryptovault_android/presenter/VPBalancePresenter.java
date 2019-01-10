@@ -15,8 +15,8 @@ public class VPBalancePresenter extends BalanceContract.BalancePresenter {
     }
 
     @Override
-    public void getBalance(String token) {
-        rxUtils.register(mIModel.getBalance(token).subscribe(new Consumer<VPBalanceBean>() {
+    public void getBalance() {
+        rxUtils.register(mIModel.getBalance().subscribe(new Consumer<VPBalanceBean>() {
             @Override
             public void accept(VPBalanceBean vpBalanceBean) {
                 mIView.showSuccess(vpBalanceBean);
@@ -27,8 +27,8 @@ public class VPBalancePresenter extends BalanceContract.BalancePresenter {
     }
 
     @Override
-    public void sendDebitMsg(String token, String password, String value) {
-        rxUtils.register(mIModel.sendDebitMsg(token, password, value).subscribe(new Consumer<UpdateBean>() {
+    public void sendDebitMsg(String password, String value) {
+        rxUtils.register(mIModel.sendDebitMsg(password, value).subscribe(new Consumer<UpdateBean>() {
             @Override
             public void accept(UpdateBean updateBean) {
                 mIView.callBack(updateBean);

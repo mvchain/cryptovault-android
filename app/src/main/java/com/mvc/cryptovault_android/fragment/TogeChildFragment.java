@@ -81,11 +81,11 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
         super.initData();
         isRefresh = true;
         if (projectType == 0) {
-            mPresenter.getComingSoon(getToken(), 10, 0, projectType, 0);
+            mPresenter.getComingSoon(10, 0, projectType, 0);
         } else if (projectType == 1) {
-            mPresenter.getProcess(getToken(), 10, 0, projectType, 0);
+            mPresenter.getProcess(10, 0, projectType, 0);
         } else if (projectType == 2) {
-            mPresenter.getToEnd(getToken(), 10, 0, projectType, 0);
+            mPresenter.getToEnd(10, 0, projectType, 0);
         }
     }
 
@@ -94,11 +94,11 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
         mData.clear();
         isRefresh = true;
         if (projectType == 0) {
-            mPresenter.getComingSoon(getToken(), 10, 0, projectType, 0);
+            mPresenter.getComingSoon(10, 0, projectType, 0);
         } else if (projectType == 1) {
-            mPresenter.getProcess(getToken(), 10, 0, projectType, 0);
+            mPresenter.getProcess(10, 0, projectType, 0);
         } else if (projectType == 2) {
-            mPresenter.getToEnd(getToken(), 10, 0, projectType, 0);
+            mPresenter.getToEnd(10, 0, projectType, 0);
         }
     }
 
@@ -116,11 +116,11 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(true));
         isRefresh = true;
         if (projectType == 0) {
-            mPresenter.getComingSoon(getToken(), 10, 0, projectType, 0);
+            mPresenter.getComingSoon(10, 0, projectType, 0);
         } else if (projectType == 1) {
-            mPresenter.getProcess(getToken(), 10, 0, projectType, 0);
+            mPresenter.getProcess(10, 0, projectType, 0);
         } else if (projectType == 2) {
-            mPresenter.getToEnd(getToken(), 10, 0, projectType, 0);
+            mPresenter.getToEnd(10, 0, projectType, 0);
         }
     }
 
@@ -168,13 +168,13 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
                         int projectId = mData.get(mData.size() - 1).getProjectId();
                         switch (projectType) {
                             case 0:
-                                mPresenter.getComingSoon(getToken(), 10, projectId, projectType, 1);
+                                mPresenter.getComingSoon(10, projectId, projectType, 1);
                                 break;
                             case 1:
-                                mPresenter.getProcess(getToken(), 10, projectId, projectType, 1);
+                                mPresenter.getProcess(10, projectId, projectType, 1);
                                 break;
                             case 2:
-                                mPresenter.getToEnd(getToken(), 10, projectId, projectType, 1);
+                                mPresenter.getToEnd(10, projectId, projectType, 1);
                                 break;
                         }
                     }

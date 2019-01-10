@@ -77,3 +77,4 @@ public abstract class BaseFragment extends Fragment {
         return SPUtils.getInstance().getString(Constant.SP.SET_RATE);
     }
 }
+

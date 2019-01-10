@@ -58,7 +58,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     protected void initMVPData() {
         id = getIntent().getIntExtra("id", -1);
         if (id != -1) {
-            mPresenter.getDetailOnID(getToken(), id);
+            mPresenter.getDetailOnID(id);
         }
     }
 

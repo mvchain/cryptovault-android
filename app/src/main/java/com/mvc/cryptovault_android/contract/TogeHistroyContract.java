@@ -11,11 +11,11 @@ import io.reactivex.Observable;
 
 public interface TogeHistroyContract {
     abstract class TogeHistroyPresenter extends BasePresenter<ITogeHisMol, ITogeHisView> {
-        public abstract void getReservation(String token, int id, int pageSize,String projectName, int type);
+        public abstract void getReservation(int id, int pageSize,String projectName, int type);
     }
 
     interface ITogeHisMol extends IBaseModel {
-        Observable<TogeHisBean> getReservation(String token, int id, int pageSize, String projectName, int type);
+        Observable<TogeHisBean> getReservation(int id, int pageSize, String projectName, int type);
     }
 
     interface ITogeHisView extends IBaseActivity {

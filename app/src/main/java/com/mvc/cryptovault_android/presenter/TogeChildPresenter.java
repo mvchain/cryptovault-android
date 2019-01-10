@@ -22,8 +22,8 @@ public class TogeChildPresenter extends TogeChildContract.TogeChildPresenter {
 
 
     @Override
-    public void getComingSoon(String token, int pageSize, int projectId, int projectType, int type) {
-        rxUtils.register(mIModel.getComingSoon(token, pageSize, projectId, projectType, type)
+    public void getComingSoon(int pageSize, int projectId, int projectType, int type) {
+        rxUtils.register(mIModel.getComingSoon(pageSize, projectId, projectType, type)
                 .subscribe(togeBean ->
                         {
                             if (togeBean.getData().size()>0) {
@@ -38,8 +38,8 @@ public class TogeChildPresenter extends TogeChildContract.TogeChildPresenter {
     }
 
     @Override
-    public void getProcess(String token, int pageSize, int projectId, int projectType, int type) {
-        rxUtils.register(mIModel.getProcess(token, pageSize, projectId, projectType, type)
+    public void getProcess(int pageSize, int projectId, int projectType, int type) {
+        rxUtils.register(mIModel.getProcess(pageSize, projectId, projectType, type)
                 .subscribe(togeBean ->
                         {
                             if (togeBean.getData().size()>0) {
@@ -54,8 +54,8 @@ public class TogeChildPresenter extends TogeChildContract.TogeChildPresenter {
     }
 
     @Override
-    public void getToEnd(String token, int pageSize, int projectId, int projectType, int type) {
-        rxUtils.register(mIModel.getToEnd(token, pageSize, projectId, projectType, type)
+    public void getToEnd(int pageSize, int projectId, int projectType, int type) {
+        rxUtils.register(mIModel.getToEnd(pageSize, projectId, projectType, type)
                 .subscribe(togeBean ->
                         {
                             if (togeBean.getData().size()>0) {

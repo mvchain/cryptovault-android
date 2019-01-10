@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 
 public interface MsgContract {
     abstract class MsgPresenter extends BasePresenter<IMsgModel, IMsgView> {
-        public abstract void getMsg(String token,long timestamp,int type,int pagesize);
+        public abstract void getMsg(long timestamp,int type,int pagesize);
     }
 
     interface IMsgModel extends IBaseModel {
@@ -18,7 +18,7 @@ public interface MsgContract {
          *
          * @return
          */
-        Observable<MsgBean> getMsg(String token,long timestamp,int type,int pagesize);
+        Observable<MsgBean> getMsg(long timestamp,int type,int pagesize);
     }
 
     interface IMsgView extends IBaseActivity {

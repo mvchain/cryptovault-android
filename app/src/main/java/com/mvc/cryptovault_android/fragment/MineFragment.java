@@ -46,7 +46,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     }
 
     private void getUserInfo() {
-        mPresenter.getUserInfo(getToken());
+        mPresenter.getUserInfo();
     }
 
     @Override
@@ -90,7 +90,6 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
 
     @Override
     public void setUser(UserInfoBean user) {
-        LogUtils.e("LanguageActivity",LanguageUtils.Companion.getUserSetLocal());
         mSwipMine.post(() -> mSwipMine.setRefreshing(false));
         SPUtils.getInstance().put(USER_INFO, JsonHelper.jsonToString(user));
         UserInfoBean.DataBean data = user.getData();
@@ -101,7 +100,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     }
 
     private void refresh() {
-        mPresenter.getUserInfo(getToken());
+        mPresenter.getUserInfo();
     }
 
     @Override

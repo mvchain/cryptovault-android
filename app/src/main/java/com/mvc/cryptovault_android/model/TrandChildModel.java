@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.model;
 
 import android.support.annotation.Nullable;
 
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
@@ -23,14 +24,14 @@ public class TrandChildModel extends BaseModel implements TrandChildContract.ITr
     }
 
     @Override
-    public Observable<TrandChildBean> getVrt(String token,int pairType) {
+    public Observable<TrandChildBean> getVrt(int pairType) {
 
-        return RetrofitUtils.client(ApiStore.class).getVrtAndBalance(token, pairType).compose(RxHelper.rxSchedulerHelper()).map(trandChildBean -> trandChildBean);
+        return RetrofitUtils.client(ApiStore.class).getVrtAndBalance(MyApplication.getTOKEN(), pairType).compose(RxHelper.rxSchedulerHelper()).map(trandChildBean -> trandChildBean);
     }
 
     @Override
-    public Observable<TrandChildBean> getBalanceTransactions(String token,int pairType) {
-        return RetrofitUtils.client(ApiStore.class).getVrtAndBalance(token, pairType).compose(RxHelper.rxSchedulerHelper()).map(trandChildBean -> trandChildBean);
+    public Observable<TrandChildBean> getBalanceTransactions(int pairType) {
+        return RetrofitUtils.client(ApiStore.class).getVrtAndBalance(MyApplication.getTOKEN(), pairType).compose(RxHelper.rxSchedulerHelper()).map(trandChildBean -> trandChildBean);
 
     }
 }

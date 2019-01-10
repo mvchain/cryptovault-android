@@ -21,8 +21,8 @@ public class RecordingPresenter extends RecordingContract.RecordingPresenter {
     }
 
     @Override
-    public void getRecorList(String token, int id, int pageSize, int pairId, int transactionType, int type) {
-        rxUtils.register(mIModel.getRecorList(token, id, pageSize, pairId, transactionType, type).subscribe(recorBean -> {
+    public void getRecorList(int id, int pageSize, int pairId, int transactionType, int type) {
+        rxUtils.register(mIModel.getRecorList(id, pageSize, pairId, transactionType, type).subscribe(recorBean -> {
             if (recorBean.getCode() == 200 && recorBean.getData().size() > 0) {
                 mIView.showSuccess(recorBean.getData());
             } else {

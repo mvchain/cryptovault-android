@@ -92,7 +92,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     @Override
     protected void initMVPData() {
         mTransAddressBtc.setText(hash);
-        mPresenter.getDetail(getToken(), tokenId);
+        mPresenter.getDetail(tokenId);
     }
 
     @Override
@@ -247,7 +247,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                 }, num -> {
                                     dialogHelper.create(this, R.drawable.pending_icon, "转账中").show();
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
-                                    mPresenter.sendTransferMsg(getToken(), transAddress.trim(), num, tokenId, priceBtc);
+                                    mPresenter.sendTransferMsg(transAddress.trim(), num, tokenId, priceBtc);
                                     mPopView.dismiss();
                                 });
                 mPopView.showAtLocation(mSubmitBtc, Gravity.BOTTOM, 0, 0);

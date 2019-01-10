@@ -23,6 +23,7 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
@@ -87,7 +88,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
         Glide.with(this).load(dataBean.getProjectImage()).apply(options).into(mInfoIconM);
         mInfoBlM.setText("兑换比例：1 " + dataBean.getTokenName() + " = " + dataBean.getRatio() + dataBean.getBaseTokenName());
         mPriceType.setText(dataBean.getBaseTokenName());
-        RetrofitUtils.client(ApiStore.class).getPurchaseOnID(getToken(), dataBean.getProjectId())
+        RetrofitUtils.client(ApiStore.class).getPurchaseOnID(MyApplication.getTOKEN(), dataBean.getProjectId())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(purchaseBean -> {
                     if (purchaseBean.getCode() == 200) {
@@ -108,18 +109,18 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(),R.drawable.clean_icon_edit), mBwPriceM);
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(), R.drawable.clean_icon_edit), mBwPriceM);
                     Double currentNum = Double.valueOf(updateTv);
                     mPriceM.setText(TextUtils.doubleToFour(currentNum * dataBean.getRatio()));
                     if (currentNum * dataBean.getRatio() > purchaseBean.getData().getBalance()) {
                         mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "不足！");
-                        mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.red));
+                        mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
                         mSubmitM.setEnabled(false);
                         mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else {
                         if (purchaseBean != null) {
                             mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
-                            mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.trand_gray));
+                            mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.trand_gray));
                             mSubmitM.setEnabled(true);
                             mSubmitM.setBackgroundResource(R.drawable.bg_login_submit);
                         }
@@ -250,7 +251,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
         object.put("password", num);
         object.put("value", currentNum);
         RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
-        RetrofitUtils.client(ApiStore.class).sendReservationRequest(getToken(), body, dataBean.getProjectId())
+        RetrofitUtils.client(ApiStore.class).sendReservationRequest(MyApplication.getTOKEN(), body, dataBean.getProjectId())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(updateBean -> {
                     EventBus.getDefault().post(new TogeFragmentEvent());

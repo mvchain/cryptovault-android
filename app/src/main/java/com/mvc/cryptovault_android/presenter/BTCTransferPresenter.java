@@ -22,8 +22,8 @@ public class BTCTransferPresenter extends BTCTransferContract.BTCTransferPresent
 
 
     @Override
-    public void getDetail(String token, int id) {
-        rxUtils.register(mIModel.getDetail(token, id).subscribe(idToTransferBean -> {
+    public void getDetail(int id) {
+        rxUtils.register(mIModel.getDetail(id).subscribe(idToTransferBean -> {
             if (idToTransferBean.getCode() == 200) {
                 mIView.showSuccess(idToTransferBean.getData());
             } else {
@@ -35,8 +35,8 @@ public class BTCTransferPresenter extends BTCTransferContract.BTCTransferPresent
     }
 
     @Override
-    public void sendTransferMsg(String token, String address, String password, int tokenId, String value) {
-        rxUtils.register(mIModel.sendTransferMsg(token, address, password, tokenId, value).subscribe(updateBean -> {
+    public void sendTransferMsg(String address, String password, int tokenId, String value) {
+        rxUtils.register(mIModel.sendTransferMsg(address, password, tokenId, value).subscribe(updateBean -> {
             mIView.transferCallBack(updateBean);
         }, throwable -> {
             LogUtils.e("BTCTransferPresenter", throwable.getMessage());

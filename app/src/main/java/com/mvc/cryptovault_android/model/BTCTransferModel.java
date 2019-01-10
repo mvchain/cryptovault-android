@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model;
 
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.IDToTransferBean;
@@ -21,15 +22,15 @@ public class BTCTransferModel extends BaseModel implements BTCTransferContract.B
     }
 
     @Override
-    public Observable<IDToTransferBean> getDetail(String token, int id) {
-        return RetrofitUtils.client(ApiStore.class).getTranstion(token, id).compose(RxHelper.rxSchedulerHelper()).map(idbean -> idbean);
+    public Observable<IDToTransferBean> getDetail(int id) {
+        return RetrofitUtils.client(ApiStore.class).getTranstion(MyApplication.getTOKEN(), id).compose(RxHelper.rxSchedulerHelper()).map(idbean -> idbean);
     }
 
     @Override
-    public Observable<UpdateBean> sendTransferMsg(String token, String address, String password, int tokenId, String value) {
+    public Observable<UpdateBean> sendTransferMsg(String address, String password, int tokenId, String value) {
         JSONObject object = new JSONObject();
         try {
-            object.put("token", token);
+            object.put("token", MyApplication.getTOKEN());
             object.put("address", address);
             object.put("password", password);
             object.put("tokenId", tokenId);
@@ -38,6 +39,6 @@ public class BTCTransferModel extends BaseModel implements BTCTransferContract.B
             e.printStackTrace();
         }
         RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
-        return RetrofitUtils.client(ApiStore.class).sendTransferRequest(token, body).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+        return RetrofitUtils.client(ApiStore.class).sendTransferRequest(MyApplication.getTOKEN(), body).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
     }
 }

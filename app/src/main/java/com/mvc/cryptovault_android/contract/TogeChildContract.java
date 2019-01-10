@@ -11,11 +11,11 @@ import io.reactivex.Observable;
 
 public interface TogeChildContract {
     abstract class TogeChildPresenter extends BasePresenter<ITogeModel, ITogeView> {
-        public abstract void getComingSoon(String token, int pageSize, int projectId, int projectType, int type);
+        public abstract void getComingSoon(int pageSize, int projectId, int projectType, int type);
 
-        public abstract void getProcess(String token, int pageSize, int projectId, int projectType, int type);
+        public abstract void getProcess(int pageSize, int projectId, int projectType, int type);
 
-        public abstract void getToEnd(String token, int pageSize, int projectId, int projectType, int type);
+        public abstract void getToEnd(int pageSize, int projectId, int projectType, int type);
     }
 
     interface ITogeModel extends IBaseModel {
@@ -24,11 +24,11 @@ public interface TogeChildContract {
          *
          * @return
          */
-        Observable<TogeBean> getComingSoon(String token, int pageSize, int projectId, int projectType, int type);
+        Observable<TogeBean> getComingSoon(int pageSize, int projectId, int projectType, int type);
 
-        Observable<TogeBean> getProcess(String token, int pageSize, int projectId, int projectType, int type);
+        Observable<TogeBean> getProcess(int pageSize, int projectId, int projectType, int type);
 
-        Observable<TogeBean> getToEnd(String token, int pageSize, int projectId, int projectType, int type);
+        Observable<TogeBean> getToEnd(int pageSize, int projectId, int projectType, int type);
     }
 
     interface ITogeView extends IBaseFragment {

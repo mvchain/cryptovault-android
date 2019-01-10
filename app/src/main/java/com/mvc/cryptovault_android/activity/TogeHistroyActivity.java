@@ -48,7 +48,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
     @Override
     protected void initMVPData() {
         isRefresh = true;
-        mPresenter.getReservation(getToken(), 0, 10, null, 0);
+        mPresenter.getReservation(0, 10, null, 0);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
 
     private void refresh() {
         isRefresh = true;
-        mPresenter.getReservation(getToken(), 0, 10, null, 0);
+        mPresenter.getReservation(0, 10, null, 0);
     }
 
     private void initSearch() {
@@ -93,7 +93,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
                     mRvTogehis.setVisibility(View.VISIBLE);
                 } else {
                     mRvTogehis.setVisibility(View.GONE);
-                    mPresenter.getReservation(getToken(), 0, 10, searchTv, 0);
+                    mPresenter.getReservation(0, 10, searchTv, 0);
                 }
             }
         });
@@ -107,7 +107,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                     if (lastVisibleItemPosition + 1 == hisAdapter.getItemCount() && hisAdapter.getItemCount() >= 10 && !isRefresh) {
-                        mPresenter.getReservation(getToken(), beans.get(beans.size() - 1).getId(), 10, null, 1);
+                        mPresenter.getReservation(beans.get(beans.size() - 1).getId(), 10, null, 1);
                     }
                 }
             }

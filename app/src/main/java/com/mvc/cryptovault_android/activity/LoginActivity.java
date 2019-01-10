@@ -122,7 +122,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         SPUtils.getInstance().put(TOKEN, data.getToken());
         SPUtils.getInstance().put(USER_ID, data.getUserId());
         MyApplication.setTOKEN(data.getToken());
-        RetrofitUtils.client(ApiStore.class).getPushTag(TOKEN).compose(RxHelper.rxSchedulerHelper())
+        RetrofitUtils.client(ApiStore.class).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())
                 .subscribe(tagBean -> {
                     if (tagBean.getCode() == 200 && tagBean.getData() != null) {
                         SPUtils.getInstance().put(TAG_NAME, tagBean.getData());

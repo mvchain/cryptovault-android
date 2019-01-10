@@ -5,8 +5,10 @@ import android.content.res.Configuration
 import android.support.annotation.NonNull
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.mvc.cryptovault_android.bean.LanguageEvent
 import com.mvc.cryptovault_android.common.Constant
+import com.mvc.cryptovault_android.common.Constant.LANGUAGE.DEFAULT_ACCEPT_LANGUAGE
 import com.mvc.cryptovault_android.common.Constant.LANGUAGE.DEFAULT_LANGUAGE
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -31,14 +33,12 @@ class LanguageUtils {
             return wrapConfiguration(context, config)
         }
 
-        fun changeLocale(language: String, configuration: Configuration, baseContext: Context) {
-            LogUtils.e("LangUtils", Locale.getDefault().language)
+        fun changeLocale(language: String, accept_language: String, configuration: Configuration, baseContext: Context) {
             var locale = Locale(language)
             configuration.setLocale(locale)
-            LogUtils.e("LangUtils", locale.language)
-            LogUtils.e("LangUtils", configuration.locale.language)
             baseContext.createConfigurationContext(configuration)
             SPUtils.getInstance().put(DEFAULT_LANGUAGE, language)
+            SPUtils.getInstance().put(DEFAULT_ACCEPT_LANGUAGE, accept_language)
             EventBus.getDefault().post(LanguageEvent())
         }
     }

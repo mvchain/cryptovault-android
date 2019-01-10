@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model;
 
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.HistroyBean;
@@ -17,22 +18,22 @@ public class HistroyChildModel extends BaseModel implements HistroyChildContract
 
 
     @Override
-    public Observable<HistroyBean> getAll(String token, int id, int pageSize, int tokenId, int transactionType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getHistroyRecording(token, id, pageSize, tokenId, transactionType, type)
+    public Observable<HistroyBean> getAll(int id, int pageSize, int tokenId, int transactionType, int type) {
+        return RetrofitUtils.client(ApiStore.class).getHistroyRecording(MyApplication.getTOKEN(), id, pageSize, tokenId, transactionType, type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(histroyBean -> histroyBean);
     }
 
     @Override
-    public Observable<HistroyBean> getOut(String token, int id, int pageSize, int tokenId, int transactionType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getHistroyRecording(token, id, pageSize, tokenId, transactionType, type)
+    public Observable<HistroyBean> getOut(int id, int pageSize, int tokenId, int transactionType, int type) {
+        return RetrofitUtils.client(ApiStore.class).getHistroyRecording(MyApplication.getTOKEN(), id, pageSize, tokenId, transactionType, type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(histroyBean -> histroyBean);
     }
 
     @Override
-    public Observable<HistroyBean> getIn(String token, int id, int pageSize, int tokenId, int transactionType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getHistroyRecording(token, id, pageSize, tokenId, transactionType, type)
+    public Observable<HistroyBean> getIn(int id, int pageSize, int tokenId, int transactionType, int type) {
+        return RetrofitUtils.client(ApiStore.class).getHistroyRecording(MyApplication.getTOKEN(), id, pageSize, tokenId, transactionType, type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(histroyBean -> histroyBean);
     }

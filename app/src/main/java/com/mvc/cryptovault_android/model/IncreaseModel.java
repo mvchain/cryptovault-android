@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.model;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.google.gson.Gson;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.AssetListBean;
@@ -38,8 +39,8 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
     }
 
     @Override
-    public Observable<List<IncreaseBean>> getCurrencyAll(String token) {
-        return RetrofitUtils.client(ApiStore.class).getCurrencyAll(token)
+    public Observable<List<IncreaseBean>> getCurrencyAll() {
+        return RetrofitUtils.client(ApiStore.class).getCurrencyAll(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
                 .flatMap((Function<CurrencyBean, ObservableSource<List<IncreaseBean>>>) currencyBean -> {
                     SPUtils.getInstance().put(CURRENCY_LIST, JsonHelper.jsonToString(currencyBean));

@@ -11,11 +11,11 @@ import io.reactivex.Observable;
 
 public interface ITrandOrderContract {
     abstract class TrandOrderPresenter extends BasePresenter<ITrandOrderModel, ITrandOrderView> {
-        public abstract void getTrandOrder(String token, int id, int pageSize, String pairId, int status, String transactionType, int type);
+        public abstract void getTrandOrder(int id, int pageSize, String pairId, int status, String transactionType, int type);
     }
 
     interface ITrandOrderModel extends IBaseModel {
-        Observable<TrandOrderBean> getTrandOrder(String token, int id, int pageSize, String pairId, int status, String transactionType, int type);
+        Observable<TrandOrderBean> getTrandOrder(int id, int pageSize, String pairId, int status, String transactionType, int type);
     }
 
     interface ITrandOrderView extends IBaseFragment {

@@ -11,15 +11,15 @@ import io.reactivex.Observable;
 
 public interface TrandChildContract {
     abstract class TrandChildPresenter extends BasePresenter<ITrandChildModel, ITrandChildView> {
-        public abstract void getVrt(String token, int pairType);
+        public abstract void getVrt(int pairType);
 
-        public abstract void getBalanceTransactions(String token, int pairType);
+        public abstract void getBalanceTransactions(int pairType);
     }
 
     interface ITrandChildModel extends IBaseModel {
-        Observable<TrandChildBean> getVrt(String token, int pairType);
+        Observable<TrandChildBean> getVrt(int pairType);
 
-        Observable<TrandChildBean> getBalanceTransactions(String token, int pairType);
+        Observable<TrandChildBean> getBalanceTransactions(int pairType);
     }
 
     interface ITrandChildView extends IBaseFragment {

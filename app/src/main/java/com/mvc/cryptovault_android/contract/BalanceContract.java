@@ -10,15 +10,15 @@ import io.reactivex.Observable;
 
 public interface BalanceContract {
     abstract class BalancePresenter extends BasePresenter<BalanceModel, BalanceView> {
-        public abstract void getBalance(String token);
+        public abstract void getBalance();
 
-        public abstract void sendDebitMsg(String token, String password, String value);
+        public abstract void sendDebitMsg(String password, String value);
     }
 
     interface BalanceModel extends IBaseModel {
-        Observable<VPBalanceBean> getBalance(String token);
+        Observable<VPBalanceBean> getBalance();
 
-        Observable<UpdateBean> sendDebitMsg(String token, String password, String value);
+        Observable<UpdateBean> sendDebitMsg(String password, String value);
     }
 
     interface BalanceView extends IBaseActivity {

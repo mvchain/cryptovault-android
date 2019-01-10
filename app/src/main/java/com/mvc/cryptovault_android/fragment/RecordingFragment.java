@@ -66,7 +66,6 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
             switch (view.getId()) {
                 case R.id.recording_layout:
                     // TODO 18/12/13
-                    LogUtils.e("RecordingFragment", "bean.get(position).getPrice():" + bean.get(position).getPrice());
                     ((TrandRecordingActivity) activity).startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
                     break;
             }
@@ -84,7 +83,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
                     int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                     if (lastVisibleItemPosition + 1 == mRecorAdapter.getItemCount() && mRecorAdapter.getItemCount() >= 10 && !isRefresh) {
                         //发送网络请求获取更多数据
-                        mPresenter.getRecorList(getToken(), bean.get(bean.size() - 1).getId(), 10, pairId, transType, 1);
+                        mPresenter.getRecorList(bean.get(bean.size() - 1).getId(), 10, pairId, transType, 1);
                     }
                 }
             }
@@ -99,7 +98,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
     @Subscribe
     public void eventRefresh(RecordingEvent recordingEvent) {
         isRefresh = true;
-        mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
+        mPresenter.getRecorList(0, 10, pairId, transType, 0);
     }
 
     private void initArgument() {
@@ -117,7 +116,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
     @Override
     protected void initData() {
         super.initData();
-        mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
+        mPresenter.getRecorList(0, 10, pairId, transType, 0);
     }
 
     @Override
@@ -159,6 +158,6 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
 
     private void refresh() {
         isRefresh = true;
-        mPresenter.getRecorList(getToken(), 0, 10, pairId, transType, 0);
+        mPresenter.getRecorList(0, 10, pairId, transType, 0);
     }
 }

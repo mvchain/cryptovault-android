@@ -61,7 +61,7 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
         mRvOrder.setAdapter(orderAdapter);
         mSwipOrder.setOnRefreshListener(() -> {
             isRefresh = true;
-            mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
+            mPresenter.getTrandOrder( 0, 10, pairId, status, transactionType, 0);
         });
         mSwipOrder.post(() -> mSwipOrder.setRefreshing(true));
         initRecyclerLoadmore();
@@ -75,7 +75,7 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                     if (lastVisibleItemPosition + 1 == orderAdapter.getItemCount() && orderAdapter.getItemCount() >= 10 && !isRefresh) {
-                        mPresenter.getTrandOrder(getToken(), dataBeans.get(dataBeans.size() - 1).getId(), 10, pairId, status, transactionType, 1);
+                        mPresenter.getTrandOrder( dataBeans.get(dataBeans.size() - 1).getId(), 10, pairId, status, transactionType, 1);
                     }
                 }
             }
@@ -110,17 +110,17 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
         dataBeans.clear();
         orderAdapter.notifyDataSetChanged();
         if (orderEvent.getPariId() != null && orderEvent.getTransactionType() != null) {
-            mPresenter.getTrandOrder(getToken(), 0, 10, orderEvent.getPariId(), status, orderEvent.getTransactionType(), 0);
+            mPresenter.getTrandOrder( 0, 10, orderEvent.getPariId(), status, orderEvent.getTransactionType(), 0);
             pairId = orderEvent.getPariId();
             transactionType = orderEvent.getTransactionType();
         } else if (orderEvent.getPariId() != null) {
-            mPresenter.getTrandOrder(getToken(), 0, 10, orderEvent.getPariId(), status, transactionType, 0);
+            mPresenter.getTrandOrder( 0, 10, orderEvent.getPariId(), status, transactionType, 0);
             pairId = orderEvent.getPariId();
         } else if (orderEvent.getTransactionType() != null) {
-            mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, orderEvent.getTransactionType(), 0);
+            mPresenter.getTrandOrder( 0, 10, pairId, status, orderEvent.getTransactionType(), 0);
             transactionType = orderEvent.getTransactionType();
         } else {
-            mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
+            mPresenter.getTrandOrder( 0, 10, pairId, status, transactionType, 0);
         }
     }
 
@@ -128,7 +128,7 @@ public class TrandOrderFragment extends BaseMVPFragment<ITrandOrderContract.Tran
     protected void initData() {
         super.initData();
         isRefresh = true;
-        mPresenter.getTrandOrder(getToken(), 0, 10, pairId, status, transactionType, 0);
+        mPresenter.getTrandOrder( 0, 10, pairId, status, transactionType, 0);
     }
 
     @Override

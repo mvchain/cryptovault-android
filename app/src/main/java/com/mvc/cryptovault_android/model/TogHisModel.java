@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model;
 
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.TogeHisBean;
@@ -15,8 +16,8 @@ public class TogHisModel extends BaseModel implements TogeHistroyContract.ITogeH
     }
 
     @Override
-    public Observable<TogeHisBean> getReservation(String token, int id, int pageSize,String projectName, int type) {
-        return RetrofitUtils.client(ApiStore.class).getReservation(token, id, pageSize,projectName, type).compose(RxHelper.rxSchedulerHelper()).map(togeHisBean -> togeHisBean);
+    public Observable<TogeHisBean> getReservation(int id, int pageSize,String projectName, int type) {
+        return RetrofitUtils.client(ApiStore.class).getReservation(MyApplication.getTOKEN(), id, pageSize,projectName, type).compose(RxHelper.rxSchedulerHelper()).map(togeHisBean -> togeHisBean);
     }
 
 }

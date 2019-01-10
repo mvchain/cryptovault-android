@@ -17,13 +17,13 @@ class LanguageActivity : BaseActivity() {
 
     override fun initData() {
         switch_china.setOnSuperTextViewClickListener {
-            LanguageUtils.changeLocale(CHINESE, resources.configuration, baseContext)
+            LanguageUtils.changeLocale(CHINESE, ACCEPT_CHINESE, resources.configuration, baseContext)
             switch_china.setRightIcon(R.drawable.language_selected_icon)
             switch_english.setRightIcon(R.drawable.language_unselected_icon)
             recreate()
         }
         switch_english.setOnSuperTextViewClickListener {
-            LanguageUtils.changeLocale(ENGLISH, resources.configuration, baseContext)
+            LanguageUtils.changeLocale(ENGLISH, ACCEPT_ENGLISH, resources.configuration, baseContext)
             switch_english.setRightIcon(R.drawable.language_selected_icon)
             switch_china.setRightIcon(R.drawable.language_unselected_icon)
             recreate()

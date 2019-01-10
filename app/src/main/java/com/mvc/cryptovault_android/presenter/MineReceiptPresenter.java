@@ -13,8 +13,8 @@ public class MineReceiptPresenter extends ReceiptQRContract.ReceiptQRPresenter {
              return new MineReceiptPresenter();
      }
     @Override
-    public void getMineQcode(String token, int tokenId) {
-        rxUtils.register(mIModel.getMineQcode(token, tokenId).subscribe(new Consumer<ReceiptBean>() {
+    public void getMineQcode(int tokenId) {
+        rxUtils.register(mIModel.getMineQcode(tokenId).subscribe(new Consumer<ReceiptBean>() {
             @Override
             public void accept(ReceiptBean receiptBean) throws Exception {
                 if(!receiptBean.getData().equals("")){

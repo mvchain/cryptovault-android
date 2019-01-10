@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.presenter;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.contract.TogeHistroyContract;
 import com.mvc.cryptovault_android.model.TogHisModel;
@@ -21,8 +22,8 @@ public class TogeHistroyPresenter extends TogeHistroyContract.TogeHistroyPresent
     }
 
     @Override
-    public void getReservation(String token, int id, int pageSize,String projectName, int type) {
-        rxUtils.register(mIModel.getReservation(token, id, pageSize, projectName,type).subscribe(togeHisBean -> {
+    public void getReservation(int id, int pageSize,String projectName, int type) {
+        rxUtils.register(mIModel.getReservation( id, pageSize, projectName,type).subscribe(togeHisBean -> {
             if(projectName==null){
                 if (togeHisBean.getCode() == 200) {
                     mIView.showSuccess(togeHisBean.getData());

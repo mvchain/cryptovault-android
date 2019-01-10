@@ -9,10 +9,10 @@ import io.reactivex.Observable;
 
 public interface ReceiptQRContract {
     abstract class ReceiptQRPresenter extends BasePresenter<IReceiptQRModel,IReceiptQRView>{
-        public abstract void getMineQcode(String token,int tokenId);
+        public abstract void getMineQcode(int tokenId);
     }
     interface IReceiptQRModel extends IBaseModel{
-       Observable<ReceiptBean> getMineQcode(String token, int tokenId);
+       Observable<ReceiptBean> getMineQcode(int tokenId);
     }
     interface IReceiptQRView extends IBaseActivity{
         void showSuccess(ReceiptBean receiptBean);

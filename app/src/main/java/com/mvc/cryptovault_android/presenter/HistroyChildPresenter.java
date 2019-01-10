@@ -23,8 +23,8 @@ public class HistroyChildPresenter extends HistroyChildContract.HistroyChildPrec
     }
 
     @Override
-    public void getAll(String token, int id, int pageSize, int tokenId, int transactionType, int type) {
-        rxUtils.register(mIModel.getAll(token, id, pageSize, tokenId, transactionType, type).subscribe(histroyBean -> {
+    public void getAll( int id, int pageSize, int tokenId, int transactionType, int type) {
+        rxUtils.register(mIModel.getAll( id, pageSize, tokenId, transactionType, type).subscribe(histroyBean -> {
             if (histroyBean.getCode() == 200) {
                 if (histroyBean.getData().size() > 0) {
                     mIView.showSuccess(histroyBean.getData());
@@ -40,8 +40,8 @@ public class HistroyChildPresenter extends HistroyChildContract.HistroyChildPrec
     }
 
     @Override
-    public void getOut(String token, int id, int pageSize, int tokenId, int transactionType, int type) {
-        rxUtils.register(mIModel.getOut(token, id, pageSize, tokenId, transactionType, type).subscribe(histroyBean -> {
+    public void getOut( int id, int pageSize, int tokenId, int transactionType, int type) {
+        rxUtils.register(mIModel.getOut( id, pageSize, tokenId, transactionType, type).subscribe(histroyBean -> {
             if (histroyBean.getCode() == 200) {
                 if (histroyBean.getData().size() > 0) {
                     mIView.showSuccess(histroyBean.getData());
@@ -57,8 +57,8 @@ public class HistroyChildPresenter extends HistroyChildContract.HistroyChildPrec
     }
 
     @Override
-    public void getIn(String token, int id, int pageSize, int tokenId, int transactionType, int type) {
-        rxUtils.register(mIModel.getIn(token, id, pageSize, tokenId, transactionType, type).subscribe(new Consumer<HistroyBean>() {
+    public void getIn(int id, int pageSize, int tokenId, int transactionType, int type) {
+        rxUtils.register(mIModel.getIn( id, pageSize, tokenId, transactionType, type).subscribe(new Consumer<HistroyBean>() {
             @Override
             public void accept(HistroyBean histroyBean) throws Exception {
                 if (histroyBean.getCode() == 200) {

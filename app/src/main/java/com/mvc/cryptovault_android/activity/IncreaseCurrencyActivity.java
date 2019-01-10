@@ -84,7 +84,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
                 }
             }
         });
-        mPresenter.getCurrencyAll(getToken());
+        mPresenter.getCurrencyAll();
         searchIncreaseAdapter.setOnItemChildClickListener(this);
         allIncreaseAdapter.setOnItemChildClickListener(this);
     }

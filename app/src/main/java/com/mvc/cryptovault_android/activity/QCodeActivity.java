@@ -167,6 +167,7 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
                     Intent intent = new Intent();
                     intent.putExtra(CodeUtils.RESULT_STRING, images.get(0).path);
                     setResult(200, intent);
+                    finish();
                 } else {
                     Toast.makeText(this, "图片不正确，请重新选择", Toast.LENGTH_SHORT).show();
                 }

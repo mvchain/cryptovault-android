@@ -9,11 +9,11 @@ import io.reactivex.Observable;
 
 public interface MineContract {
     abstract class MinePresenter extends BasePresenter<IMineModel, IMineView> {
-      public abstract void getUserInfo(String token);
+      public abstract void getUserInfo();
     }
 
     interface IMineModel extends IBaseModel {
-        Observable<UserInfoBean> getUserInfo(String token);
+        Observable<UserInfoBean> getUserInfo();
     }
 
     interface IMineView extends IBaseFragment {

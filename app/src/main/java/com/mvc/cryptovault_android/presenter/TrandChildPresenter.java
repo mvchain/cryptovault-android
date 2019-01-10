@@ -19,8 +19,8 @@ public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter 
     }
 
     @Override
-    public void getVrt(String token, int pairType) {
-        rxUtils.register(mIModel.getVrt(token, pairType).subscribe(list -> {
+    public void getVrt(int pairType) {
+        rxUtils.register(mIModel.getVrt(pairType).subscribe(list -> {
             if (list.getCode() == 200) {
                 SPUtils.getInstance().put(TRAND_VRT_LIST, JsonHelper.jsonToString(list));
                 mIView.showSuccess(list.getData());
@@ -34,8 +34,8 @@ public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter 
     }
 
     @Override
-    public void getBalanceTransactions(String token, int pairType) {
-        rxUtils.register(mIModel.getBalanceTransactions(token, pairType).subscribe(list -> {
+    public void getBalanceTransactions(int pairType) {
+        rxUtils.register(mIModel.getBalanceTransactions(pairType).subscribe(list -> {
             if (list.getCode() == 200) {
                 SPUtils.getInstance().put(TRAND_BALANCE_LIST, JsonHelper.jsonToString(list));
                 mIView.showSuccess(list.getData());

@@ -84,13 +84,13 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
                     if (lastVisibleItemPosition + 1 == histroyChildAdapter.getItemCount() && histroyChildAdapter.getItemCount() >= 10 && !isRefresh) {
                         switch (action) {
                             case 0:
-                                mPresenter.getAll(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
+                                mPresenter.getAll(mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
                                 break;
                             case 1:
-                                mPresenter.getOut(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
+                                mPresenter.getOut( mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
                                 break;
                             case 2:
-                                mPresenter.getIn(getToken(), mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
+                                mPresenter.getIn(mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
                                 break;
                         }
                     }
@@ -126,13 +126,13 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         isRefresh = true;
         switch (action) {
             case 0:
-                mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);
+                mPresenter.getAll(0, 10, tokenId, action, 0);
                 break;
             case 1:
-                mPresenter.getOut(getToken(), 0, 10, tokenId, action, 0);
+                mPresenter.getOut(0, 10, tokenId, action, 0);
                 break;
             case 2:
-                mPresenter.getIn(getToken(), 0, 10, tokenId, action, 0);
+                mPresenter.getIn(0, 10, tokenId, action, 0);
                 break;
         }
     }
@@ -173,13 +173,13 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         isRefresh = true;
         switch (action) {
             case 0:
-                mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);
+                mPresenter.getAll(0, 10, tokenId, action, 0);
                 break;
             case 1:
-                mPresenter.getOut(getToken(), 0, 10, tokenId, action, 0);
+                mPresenter.getOut( 0, 10, tokenId, action, 0);
                 break;
             case 2:
-                mPresenter.getIn(getToken(), 0, 10, tokenId, action, 0);
+                mPresenter.getIn(0, 10, tokenId, action, 0);
                 break;
         }
     }
@@ -189,13 +189,13 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         isRefresh = true;
         switch (action) {
             case 0:
-                mPresenter.getAll(getToken(), 0, 10, tokenId, action, 0);
+                mPresenter.getAll(0, 10, tokenId, action, 0);
                 break;
             case 1:
-                mPresenter.getOut(getToken(), 0, 10, tokenId, action, 0);
+                mPresenter.getOut(0, 10, tokenId, action, 0);
                 break;
             case 2:
-                mPresenter.getIn(getToken(), 0, 10, tokenId, action, 0);
+                mPresenter.getIn(0, 10, tokenId, action, 0);
                 break;
         }
     }

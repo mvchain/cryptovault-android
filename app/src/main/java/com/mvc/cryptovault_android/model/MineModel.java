@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model;
 
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
@@ -16,8 +17,8 @@ public class MineModel extends BaseModel implements MineContract.IMineModel {
     }
 
     @Override
-    public Observable<UserInfoBean> getUserInfo(String token) {
-        return RetrofitUtils.client(ApiStore.class).getUserInfo(token)
+    public Observable<UserInfoBean> getUserInfo() {
+        return RetrofitUtils.client(ApiStore.class).getUserInfo(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(new Function<UserInfoBean, UserInfoBean>() {
             @Override

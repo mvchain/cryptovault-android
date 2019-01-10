@@ -10,12 +10,12 @@ import io.reactivex.Observable;
 
 public interface BTCTransferContract {
     abstract class BTCTransferPresenter extends BasePresenter<BTCTransferModel,BTCTransferView>{
-        public abstract void getDetail(String token,int id);
-        public abstract void sendTransferMsg(String token,String address,String password,int tokenId,String value);
+        public abstract void getDetail(int id);
+        public abstract void sendTransferMsg(String address,String password,int tokenId,String value);
     }
     interface BTCTransferModel extends IBaseModel{
-        Observable<IDToTransferBean> getDetail(String token,int id);
-        Observable<UpdateBean> sendTransferMsg(String token,String address,String password,int tokenId,String value);
+        Observable<IDToTransferBean> getDetail(int id);
+        Observable<UpdateBean> sendTransferMsg(String address,String password,int tokenId,String value);
     }
     interface BTCTransferView extends IBaseActivity{
         void showSuccess(IDToTransferBean.DataBean data);

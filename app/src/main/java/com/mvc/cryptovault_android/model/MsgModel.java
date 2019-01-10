@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.model;
 
 import android.support.annotation.Nullable;
 
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.MsgBean;
@@ -19,7 +20,7 @@ public class MsgModel extends BaseModel implements MsgContract.IMsgModel {
     }
 
     @Override
-    public Observable<MsgBean> getMsg(String token, long timestamp, int type, int pageSize) {
-        return RetrofitUtils.client(ApiStore.class).getMsg(token, timestamp, type, pageSize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
+    public Observable<MsgBean> getMsg(long timestamp, int type, int pageSize) {
+        return RetrofitUtils.client(ApiStore.class).getMsg(MyApplication.getTOKEN(), timestamp, type, pageSize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
     }
 }

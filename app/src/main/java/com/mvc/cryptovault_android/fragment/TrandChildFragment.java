@@ -113,9 +113,9 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
     protected void initData() {
         super.initData();
         if (pairType == 1) {
-            mPresenter.getVrt(getToken(), pairType);
+            mPresenter.getVrt(pairType);
         } else {
-            mPresenter.getBalanceTransactions(getToken(), pairType);
+            mPresenter.getBalanceTransactions(pairType);
         }
     }
 
@@ -149,9 +149,9 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
     public void refresh() {
         data.clear();
         if (pairType == 1) {
-            mPresenter.getVrt(getToken(), pairType);
+            mPresenter.getVrt(pairType);
         } else {
-            mPresenter.getBalanceTransactions(getToken(), pairType);
+            mPresenter.getBalanceTransactions(pairType);
         }
     }
 }

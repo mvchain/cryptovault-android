@@ -52,7 +52,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
 
     @Override
     protected void initMVPData() {
-        mPresenter.getBalance(getToken());
+        mPresenter.getBalance();
     }
 
     @Override
@@ -184,7 +184,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
                                     }
                                 }, num -> {
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
-                                    mPresenter.sendDebitMsg(getToken(), num, vpEditPrice);
+                                    mPresenter.sendDebitMsg(num, vpEditPrice);
                                     mPopView.dismiss();
                                 });
                 mPopView.showAtLocation(mSubmitVp, Gravity.BOTTOM, 0, 0);

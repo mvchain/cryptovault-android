@@ -45,7 +45,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
     @Override
     protected void initMVPData() {
         tokenId = getIntent().getIntExtra("tokenId", 0);
-        mPresenter.getMineQcode(getToken(), tokenId);
+        mPresenter.getMineQcode(tokenId);
     }
 
     @Override

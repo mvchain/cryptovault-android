@@ -9,12 +9,12 @@ import io.reactivex.Observable;
 
 public interface DetailContract {
     abstract class DetailPresenter extends BasePresenter<IDetailModel, IDetailView> {
-        public abstract void getDetailOnID(String token, int id);
+        public abstract void getDetailOnID(int id);
 
     }
 
     interface IDetailModel extends IBaseModel {
-        Observable<DetailBean> getDetailOnID(String token, int id);
+        Observable<DetailBean> getDetailOnID(int id);
     }
 
     interface IDetailView extends IBaseActivity {

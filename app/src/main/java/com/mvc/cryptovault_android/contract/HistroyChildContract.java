@@ -11,9 +11,9 @@ import io.reactivex.Observable;
 
 public interface HistroyChildContract {
     abstract class HistroyChildPrecenter extends BasePresenter<IHistroyChildModel, IHistroyChildView> {
-        public abstract void getAll(String token, int id, int pageSize, int tokenId, int transactionType, int type);
-        public abstract void getOut(String token, int id, int pageSize, int tokenId, int transactionType, int type);
-        public abstract void getIn(String token, int id, int pageSize, int tokenId, int transactionType, int type);
+        public abstract void getAll(int id, int pageSize, int tokenId, int transactionType, int type);
+        public abstract void getOut(int id, int pageSize, int tokenId, int transactionType, int type);
+        public abstract void getIn(int id, int pageSize, int tokenId, int transactionType, int type);
     }
 
     interface IHistroyChildModel extends IBaseModel {
@@ -22,21 +22,21 @@ public interface HistroyChildContract {
          *
          * @return
          */
-        Observable<HistroyBean> getAll(String token, int id, int pageSize, int tokenId, int transactionType, int type);
+        Observable<HistroyBean> getAll(int id, int pageSize, int tokenId, int transactionType, int type);
 
         /**
          * 请求转出数据
          *
          * @return
          */
-        Observable<HistroyBean> getOut(String token, int id, int pageSize, int tokenId, int transactionType, int type);
+        Observable<HistroyBean> getOut(int id, int pageSize, int tokenId, int transactionType, int type);
 
         /**
          * 请求收款数据
          *
          * @return
          */
-        Observable<HistroyBean> getIn(String token, int id, int pageSize, int tokenId, int transactionType, int type);
+        Observable<HistroyBean> getIn(int id, int pageSize, int tokenId, int transactionType, int type);
     }
 
     interface IHistroyChildView extends IBaseActivity {

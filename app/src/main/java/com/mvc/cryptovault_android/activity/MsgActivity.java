@@ -75,7 +75,7 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
     protected void initMVPData() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         isRefresh = true;
-        mPresenter.getMsg(getToken(), 0, 0, 10);
+        mPresenter.getMsg(0, 0, 10);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
                     int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                     if (lastVisibleItemPosition + 1 == msgAdapter.getItemCount() && msgAdapter.getItemCount() >= 10 && !isRefresh) {
                         //发送网络请求获取更多数据
-                        mPresenter.getMsg(getToken(), mBeans.get(mBeans.size() - 1).getCreatedAt(), 1, 10);
+                        mPresenter.getMsg(mBeans.get(mBeans.size() - 1).getCreatedAt(), 1, 10);
                     }
                 }
             }
@@ -144,7 +144,7 @@ public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> imple
 
     public void refresh() {
         isRefresh = true;
-        mPresenter.getMsg(getToken(), 0, 0, 10);
+        mPresenter.getMsg(0, 0, 10);
     }
 
     @Override

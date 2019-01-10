@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 
@@ -44,6 +45,7 @@ public class RxHelper {
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .doOnNext(httpTokenBean -> {
                                             SPUtils.getInstance().put(TOKEN, httpTokenBean.getData());
+                                            MyApplication.setTOKEN(httpTokenBean.getData());
                                             //使用新token重新注册极光
                                             RetrofitUtils.client(ApiStore.class).getPushTag(httpTokenBean.getData()).compose(RxHelper.rxSchedulerHelper())
                                                     .subscribe(tagBean -> {

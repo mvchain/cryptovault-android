@@ -36,6 +36,7 @@ public class PushReceiver extends BroadcastReceiver {
             try {
                 createNotification(context, intent);
             } catch (JSONException e) {
+                LogUtils.e(TAG, e.getMessage());
                 e.printStackTrace();
             }
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
@@ -59,7 +60,7 @@ public class PushReceiver extends BroadcastReceiver {
         String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
         String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
         JSONObject extraJson = new JSONObject(extra);
-        LogUtils.e(TAG, extraJson.toString());
+        LogUtils.e(TAG, extraJson.toString()+"========"+message);
         int orderId = extraJson.getInt("orderId");
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, String.valueOf(orderId));
         Intent msgIntent = new Intent(context, MsgActivity.class);

@@ -137,8 +137,8 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                     if (mPopView.isShowing()) {
                         mPopView.dismiss();
                     } else {
-                        mPopView.showAsDropDown(mTypeAssets, -mTypeAssets.getWidth()+(mTypeAssets.getWidth()/3), 0, Gravity.CENTER);
-                        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.down_icon), mTypeAssets);
+                        mPopView.showAsDropDown(mTypeAssets, -mTypeAssets.getWidth() + (mTypeAssets.getWidth() / 3), 0, Gravity.CENTER);
+                        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity, R.drawable.down_icon), mTypeAssets);
                     }
                 }
                 break;
@@ -147,7 +147,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
 
     @Subscribe
     public void updateAssets(WalletAssetsListEvent listEvent) {
-        mPresenter.getAssetList(getToken());
+        mPresenter.getAssetList();
     }
 
     @Override
@@ -203,9 +203,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         });
         mAssetsLayout.attachTo(mRvAssets);
         mRvAssets.setAdapter(assetsAdapter);
-        mPresenter.getAssetList(getToken());
+        mPresenter.getAssetList();
         long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
-        mPresenter.getMsg(getToken(), msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
+        mPresenter.getMsg(msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
         ExchangeRateBean.DataBean defalutBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(getDefalutRate(), ExchangeRateBean.DataBean.class);
         if (defalutBean != null) {
             String default_type = defalutBean.getName();
@@ -230,7 +230,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @Override
     public void refreshAssetList(AssetListBean asset) {
         SPUtils.getInstance().put(ASSETS_LIST, JsonHelper.jsonToString(asset));
-        mPresenter.getAllAsset(getToken());
+        mPresenter.getAllAsset();
         mNullAssets.setVisibility(View.GONE);
         mRvAssets.setVisibility(View.VISIBLE);
         mData.clear();
@@ -302,10 +302,10 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
      */
     public void onRefresh() {
 //        mData.clear();
-        mPresenter.getAllAsset(getToken());
-        mPresenter.getAssetList(getToken());
+        mPresenter.getAllAsset();
+        mPresenter.getAssetList();
         long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
-        mPresenter.getMsg(getToken(), msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
+        mPresenter.getMsg(msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
     }
 
     @Override
@@ -320,10 +320,10 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @Subscribe
     public void msgRefresh(WalletMsgEvent msgEvent) {
 //        mData.clear();
-        mPresenter.getAllAsset(getToken());
-        mPresenter.getAssetList(getToken());
+        mPresenter.getAllAsset();
+        mPresenter.getAssetList();
         long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
-        mPresenter.getMsg(getToken(), msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
+        mPresenter.getMsg(msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
     }
 
     /**
@@ -347,7 +347,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void dismiss() {
-        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.up_icon), mTypeAssets);
+        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity, R.drawable.up_icon), mTypeAssets);
     }
 
     /**
@@ -355,7 +355,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void changeAssets() {
-        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.up_icon), mTypeAssets);
+        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity, R.drawable.up_icon), mTypeAssets);
         AllAssetBean assetBean = (AllAssetBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(ALLASSETS), AllAssetBean.class);
         mPriceAssets.setText(TextUtils.rateToPrice(assetBean.getData()));
         assetsAdapter.notifyDataSetChanged();
@@ -372,7 +372,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 200) {
-            if(mMsgBean!=null && mMsgBean.size()>0){
+            if (mMsgBean != null && mMsgBean.size() > 0) {
                 SPUtils.getInstance().put(MSG_TIME, mMsgBean.get(0).getCreatedAt());
             }
             SPUtils.getInstance().put(READ_MSG, false);

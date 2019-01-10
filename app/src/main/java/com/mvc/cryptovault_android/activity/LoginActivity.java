@@ -19,6 +19,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MainActivity;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -120,6 +121,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         SPUtils.getInstance().put(REFRESH_TOKEN, data.getRefreshToken());
         SPUtils.getInstance().put(TOKEN, data.getToken());
         SPUtils.getInstance().put(USER_ID, data.getUserId());
+        MyApplication.setTOKEN(data.getToken());
         RetrofitUtils.client(ApiStore.class).getPushTag(TOKEN).compose(RxHelper.rxSchedulerHelper())
                 .subscribe(tagBean -> {
                     if (tagBean.getCode() == 200 && tagBean.getData() != null) {
@@ -193,7 +195,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this,R.drawable.clean_icon_edit), mLoginPhone);
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this, R.drawable.clean_icon_edit), mLoginPhone);
                 } else {
                     ViewDrawUtils.clearDraw(mLoginPhone);
                 }
@@ -206,7 +208,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this,R.drawable.clean_icon_edit), mLoginPwd);
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this, R.drawable.clean_icon_edit), mLoginPwd);
                 } else {
                     ViewDrawUtils.clearDraw(mLoginPwd);
                 }
@@ -219,7 +221,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this,R.drawable.clean_icon_edit), mLoginPwd);
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this, R.drawable.clean_icon_edit), mLoginPwd);
                 } else {
                     ViewDrawUtils.clearDraw(mLoginPwd);
                 }

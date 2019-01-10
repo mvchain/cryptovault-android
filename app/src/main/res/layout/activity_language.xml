@@ -43,14 +43,19 @@
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
         app:sLeftTextColor="@color/select_gray"
-        app:sLeftTextString="    中文"
-        app:sRightIconRes="@drawable/list_icon_black" />
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        app:sLeftTextString="中文"
+        app:sRightIconRes="@drawable/language_selected_icon" />
 
     <com.allen.library.SuperTextView
         android:id="@+id/switch_english"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        app:sDividerLineHeight="0dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         app:sLeftTextColor="@color/select_gray"
-        app:sLeftTextString="    English"
-        app:sRightIconRes="@drawable/code_icon_black" />
+        app:sLeftTextString="English"
+        app:sRightIconRes="@drawable/language_unselected_icon" />
 </LinearLayout>

@@ -11,9 +11,9 @@ import io.reactivex.Observable;
 
 public interface WallteContract {
     abstract class WalletPresenter extends BasePresenter<IWallteModel, IWallteView> {
-        public abstract void getAllAsset(String token);
-        public abstract void getAssetList(String token);
-        public abstract void getMsg(String token,long timestamp,int type,int pagesize);
+        public abstract void getAllAsset();
+        public abstract void getAssetList();
+        public abstract void getMsg(long timestamp,int type,int pagesize);
     }
 
     interface IWallteModel extends IBaseModel {
@@ -22,21 +22,20 @@ public interface WallteContract {
          *
          * @return
          */
-        Observable<AllAssetBean> getAllAsset(String token);
+        Observable<AllAssetBean> getAllAsset();
 
         /**
          * remove asset list
-         * @param token
          * @return
          */
-        Observable<AssetListBean> getAssetList(String token);
+        Observable<AssetListBean> getAssetList();
 
         /**
          * 请求数据
          *
          * @return
          */
-        Observable<MsgBean> getMsg(String token, long timestamp, int type, int pagesize);
+        Observable<MsgBean> getMsg(long timestamp, int type, int pagesize);
 
 
     }

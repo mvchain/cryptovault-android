@@ -27,13 +27,16 @@ class LanguageUtils {
             var res = context.resources
             var config = res.configuration
             config.setLocale(locale)
-            LogUtils.e(locale.language)
+            LogUtils.e("LangUtils", locale.language)
             return wrapConfiguration(context, config)
         }
 
         fun changeLocale(language: String, configuration: Configuration, baseContext: Context) {
+            LogUtils.e("LangUtils", Locale.getDefault().language)
             var locale = Locale(language)
             configuration.setLocale(locale)
+            LogUtils.e("LangUtils", locale.language)
+            LogUtils.e("LangUtils", configuration.locale.language)
             baseContext.createConfigurationContext(configuration)
             SPUtils.getInstance().put(DEFAULT_LANGUAGE, language)
             EventBus.getDefault().post(LanguageEvent())

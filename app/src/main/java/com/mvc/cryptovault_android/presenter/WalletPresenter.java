@@ -16,8 +16,8 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
     }
 
     @Override
-    public void getAssetList(String token) {
-        rxUtils.register(mIModel.getAssetList(token)
+    public void getAssetList() {
+        rxUtils.register(mIModel.getAssetList()
                 .subscribe(asset -> {
                             if (asset.getCode() == 200) {
                                 if (asset.getData().size() > 0) {
@@ -34,8 +34,8 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
     }
 
     @Override
-    public void getMsg(String token, long timestamp, int type, int pagesize) {
-        rxUtils.register(mIModel.getMsg(token, timestamp, type, pagesize)
+    public void getMsg(long timestamp, int type, int pagesize) {
+        rxUtils.register(mIModel.getMsg(timestamp, type, pagesize)
                 .subscribe(msgBean -> {
                             if (msgBean.getCode() == 200) {
                                 mIView.refreshMsg(msgBean);
@@ -47,8 +47,8 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
     }
 
     @Override
-    public void getAllAsset(String token) {
-        rxUtils.register(mIModel.getAllAsset(token)
+    public void getAllAsset() {
+        rxUtils.register(mIModel.getAllAsset()
                 .subscribe(asset -> {
                             if (asset.getCode() == 200) {
                                 mIView.refreshAllAsset(asset);

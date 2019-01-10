@@ -16,6 +16,8 @@ import com.mvc.cryptovault_android.utils.TextUtils;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_SYMBOL;
 
 public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean, BaseViewHolder> {
@@ -30,7 +32,7 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         String tokenName = item.getTokenName();
         TextView type = helper.getView(R.id.item_assets_type);
         TextView actual = helper.getView(R.id.item_assets_actual);
-        ImageView icon = helper.getView(R.id.item_assets_icon);
+        CircleImageView icon = helper.getView(R.id.item_assets_icon);
         TextView money = helper.getView(R.id.item_assets_money);
         helper.addOnClickListener(R.id.item_assets_layout); //add onclick to the layout to jump startActivity
         type.setText(item.getTokenName());

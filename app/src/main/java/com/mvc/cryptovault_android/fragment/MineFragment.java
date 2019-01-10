@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.allen.library.SuperTextView;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -21,6 +22,7 @@ import com.mvc.cryptovault_android.bean.UserInfoBean;
 import com.mvc.cryptovault_android.contract.MineContract;
 import com.mvc.cryptovault_android.presenter.MinePresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
+import com.mvc.cryptovault_android.utils.LanguageUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -88,6 +90,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
 
     @Override
     public void setUser(UserInfoBean user) {
+        LogUtils.e("LanguageActivity",LanguageUtils.Companion.getUserSetLocal());
         mSwipMine.post(() -> mSwipMine.setRefreshing(false));
         SPUtils.getInstance().put(USER_INFO, JsonHelper.jsonToString(user));
         UserInfoBean.DataBean data = user.getData();

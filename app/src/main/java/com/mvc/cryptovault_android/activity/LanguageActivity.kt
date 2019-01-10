@@ -18,14 +18,14 @@ class LanguageActivity : BaseActivity() {
     override fun initData() {
         switch_china.setOnSuperTextViewClickListener {
             LanguageUtils.changeLocale(CHINESE, resources.configuration, baseContext)
-            switch_china.setRightIcon(R.drawable.list_icon_black)
-            switch_english.setRightIcon(R.drawable.code_icon_black)
+            switch_china.setRightIcon(R.drawable.language_selected_icon)
+            switch_english.setRightIcon(R.drawable.language_unselected_icon)
             recreate()
         }
         switch_english.setOnSuperTextViewClickListener {
             LanguageUtils.changeLocale(ENGLISH, resources.configuration, baseContext)
-            switch_english.setRightIcon(R.drawable.list_icon_black)
-            switch_china.setRightIcon(R.drawable.code_icon_black)
+            switch_english.setRightIcon(R.drawable.language_selected_icon)
+            switch_china.setRightIcon(R.drawable.language_unselected_icon)
             recreate()
         }
         language_back.setOnClickListener {
@@ -37,13 +37,12 @@ class LanguageActivity : BaseActivity() {
     override fun initView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init()
         default_language = LanguageUtils.getUserSetLocal()
-        LogUtils.e(default_language)
         if (default_language == CHINESE) {
-            switch_china.setRightIcon(R.drawable.list_icon_black)
-            switch_english.setRightIcon(R.drawable.code_icon_black)
+            switch_china.setRightIcon(R.drawable.language_selected_icon)
+            switch_english.setRightIcon(R.drawable.language_unselected_icon)
         } else if (default_language == ENGLISH) {
-            switch_english.setRightIcon(R.drawable.list_icon_black)
-            switch_china.setRightIcon(R.drawable.code_icon_black)
+            switch_english.setRightIcon(R.drawable.language_selected_icon)
+            switch_china.setRightIcon(R.drawable.language_unselected_icon)
         }
     }
 }

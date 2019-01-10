@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
@@ -34,8 +35,8 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
     }
 
     @Override
-    public Observable<AssetListBean> getAssetList(String token) {
-        return RetrofitUtils.client(ApiStore.class).getExchangeRate(token)
+    public Observable<AssetListBean> getAssetList() {
+        return RetrofitUtils.client(ApiStore.class).getExchangeRate(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
                 .flatMap((Function<ExchangeRateBean, ObservableSource<CurrencyBean>>) exchangeRateBean -> {
                     //查看是否有默认汇率设置，没有的话保存一份  有的话忽略
@@ -63,25 +64,25 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
                     }
                     LogUtils.e("WalletModel", JsonHelper.jsonToString(exchangeRateBean));
                     SPUtils.getInstance().put(RATE_LIST, JsonHelper.jsonToString(exchangeRateBean));
-                    return RetrofitUtils.client(ApiStore.class).getCurrencyAll(token).compose(RxHelper.rxSchedulerHelper());
+                    return RetrofitUtils.client(ApiStore.class).getCurrencyAll(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper());
                 })
                 .flatMap((Function<CurrencyBean, ObservableSource<AssetListBean>>) currencyBean -> {
                     //保存全部令牌
                     SPUtils.getInstance().put(CURRENCY_LIST, JsonHelper.jsonToString(currencyBean));
-                    return RetrofitUtils.client(ApiStore.class).getAssetList(token).compose(RxHelper.rxSchedulerHelper());
+                    return RetrofitUtils.client(ApiStore.class).getAssetList(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper());
                 })
                 .map(assetListBean -> assetListBean);
     }
 
     @Override
-    public Observable<MsgBean> getMsg(String token, long timestamp, int type, int pagesize) {
-        return RetrofitUtils.client(ApiStore.class).getMsg(token, timestamp, type, pagesize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
+    public Observable<MsgBean> getMsg(long timestamp, int type, int pagesize) {
+        return RetrofitUtils.client(ApiStore.class).getMsg(MyApplication.getTOKEN(), timestamp, type, pagesize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
     }
 
 
     @Override
-    public Observable<AllAssetBean> getAllAsset(String token) {
-        return RetrofitUtils.client(ApiStore.class).getAssetAll(token).compose(RxHelper.rxSchedulerHelper()).map(allAssetBean -> allAssetBean);
+    public Observable<AllAssetBean> getAllAsset() {
+        return RetrofitUtils.client(ApiStore.class).getAssetAll(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(allAssetBean -> allAssetBean);
     }
 
 }

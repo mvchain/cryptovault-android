@@ -25,7 +25,7 @@ public class Constant {
 
     public static class LANGUAGE {
         public static final String DEFAULT_LANGUAGE = "default_language";
-        public static final String CHINESE = "zh_CH";
+        public static final String CHINESE = "zh_CN";
         public static final String ENGLISH = "en";
     }
 }

@@ -46,7 +46,7 @@ public interface ApiStore {
 
     @Headers("Accept-Language: zh-cn")
     @POST(HttpUrl.TOKEN_REFRESH)
-    Observable<HttpTokenBean> refreshToken(@Header("Authorization") String token);
+    Call<HttpTokenBean> refreshToken(@Header("Authorization") String token);
 
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_USER_INFO)

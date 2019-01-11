@@ -31,7 +31,7 @@ public class StartActivity extends BaseActivity {
             SPUtils.getInstance().put(DEFAULT_LANGUAGE, CHINESE);
         }
         //如果没有默认国际化语言  就设置为中文
-        if (defaule_language.equals("")) {
+        if (default_accept_language.equals("")) {
             SPUtils.getInstance().put(DEFAULT_ACCEPT_LANGUAGE, ACCEPT_CHINESE);
         }
         String refreshToken = SPUtils.getInstance().getString(REFRESH_TOKEN);

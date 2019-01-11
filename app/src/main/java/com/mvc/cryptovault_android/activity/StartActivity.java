@@ -1,7 +1,14 @@
 package com.mvc.cryptovault_android.activity;
 
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.webkit.WebView;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MainActivity;
@@ -17,6 +24,10 @@ import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 
 
 public class StartActivity extends BaseActivity {
+    private TextView mLogin;
+    private TextView mRegister;
+    private AlphaAnimation alphaAnimation;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_start;
@@ -24,10 +35,10 @@ public class StartActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        String defaule_language = SPUtils.getInstance().getString(DEFAULT_LANGUAGE);
+        String default_language = SPUtils.getInstance().getString(DEFAULT_LANGUAGE);
         String default_accept_language = SPUtils.getInstance().getString(DEFAULT_ACCEPT_LANGUAGE);
         //如果没有默认语言  就设置为中文
-        if (defaule_language.equals("")) {
+        if (default_language.equals("")) {
             SPUtils.getInstance().put(DEFAULT_LANGUAGE, CHINESE);
         }
         //如果没有默认国际化语言  就设置为中文
@@ -38,10 +49,25 @@ public class StartActivity extends BaseActivity {
         String token = SPUtils.getInstance().getString(TOKEN);
         new Handler().postDelayed(() -> {
             if (!refreshToken.equals("") && !token.equals("")) {
+//                SPUtils.getInstance().put(TOKEN, "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjEzMDc1ODAxOTMzIiwidXNlcklkIjoxMCwic2VydmljZSI6ImFwcCIsInR5cGUiOiJ0b2tlbiIsImV4cCI6MTU0NjkzNDQ0OX0.Lo3ZKEMlm43d21a1KnZh74W6ryLbCgst6N93Y4o6Aho");
                 startActivity(MainActivity.class);
                 finish();
             } else {
-                startTaskActivity(StartActivity.this);
+                mLogin.startAnimation(alphaAnimation);
+                mRegister.startAnimation(alphaAnimation);
+                mLogin.setVisibility(View.VISIBLE);
+                mRegister.setVisibility(View.VISIBLE);
+                mLogin.setOnClickListener(v -> {
+                    startActivity(LoginActivity.class);
+                    mLogin.clearAnimation();
+                    mRegister.clearAnimation();
+                });
+                mRegister.setOnClickListener(v ->
+                {
+                    startActivity(RegisterActivity.class);
+                    mLogin.clearAnimation();
+                    mRegister.clearAnimation();
+                });
             }
         }, 300);
     }
@@ -49,5 +75,10 @@ public class StartActivity extends BaseActivity {
     @Override
     protected void initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init();
+        mLogin = findViewById(R.id.login);
+        mRegister = findViewById(R.id.register);
+        alphaAnimation = new AlphaAnimation(0f, 1f);
+        alphaAnimation.setDuration(1000);
+        alphaAnimation.setFillAfter(true);
     }
 }

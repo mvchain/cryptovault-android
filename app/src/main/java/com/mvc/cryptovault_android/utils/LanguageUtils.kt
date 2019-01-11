@@ -29,7 +29,6 @@ class LanguageUtils {
             var res = context.resources
             var config = res.configuration
             config.setLocale(locale)
-            LogUtils.e("LangUtils", locale.language)
             return wrapConfiguration(context, config)
         }
 

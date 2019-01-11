@@ -216,7 +216,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private void initPop() {
         ArrayList<String> content = new ArrayList<>();
         String rate_list = SPUtils.getInstance().getString(RATE_LIST);
-        LogUtils.e("WalletFragment", rate_list);
         if (!rate_list.equals("")) {
             ExchangeRateBean rateBean = (ExchangeRateBean) JsonHelper.stringToJson(rate_list, ExchangeRateBean.class);
             for (ExchangeRateBean.DataBean dataBean : rateBean.getData()) {

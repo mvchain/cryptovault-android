@@ -22,7 +22,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
             return;
         }
         if (phone == null || phone.equals("")) {
-            mIView.showLoginStauts(false, "手机号不可为空");
+            mIView.showLoginStauts(false, "邮箱不可为空");
             return;
         }
         if (pwd == null || pwd.equals("")) {
@@ -39,7 +39,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                         mIView.showLoginStauts(true, "登录成功");
                         mIView.saveUserInfo(loginBean);
                     } else {
-                        mIView.showLoginStauts(false,loginBean.getMessage());
+                        mIView.showLoginStauts(false, loginBean.getMessage());
                     }
                 }, throwable -> {
                     mIView.showLoginStauts(false, throwable.getMessage());
@@ -50,7 +50,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
     @Override
     public void sendCode(String cellphone) {
         if (cellphone == null || cellphone.equals("")) {
-            mIView.showSendCode(false, "手机号不可为空");
+            mIView.showSendCode(false, "邮箱不可为空");
             return;
         }
         rxUtils.register(mIModel.sendCode(cellphone)

@@ -13,6 +13,7 @@
     <color name="red">#FF0000</color>
     <color name="status_blue">#0079fE</color>
     <color name="select_blue">#007AFF</color>
+    <color name="login_blue">#FF007AFF</color>
     <color name="status_gray">#76768a</color>
     <color name="select_gray">#7A7A7C</color>
     <color name="select_radio_gray">#EBF1FB</color>

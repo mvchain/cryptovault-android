@@ -213,4 +213,12 @@ public interface ApiStore {
     @GET(HttpUrl.GET_PUSH_TAG)
     Observable<TagBean> getPushTag(@Header("Authorization") String token);
 
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.REGSITER_EMAIL)
+    Observable<HttpTokenBean> sendInvitationRequest(@Body RequestBody body);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.SEND_EMAIL_CODE)
+    Observable<HttpTokenBean> sendValiCode(@Query("email") String email);
+
 }

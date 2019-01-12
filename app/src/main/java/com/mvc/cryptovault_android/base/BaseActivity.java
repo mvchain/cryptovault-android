@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.activity.LoginActivity;
+import com.mvc.cryptovault_android.activity.SelectLoginActivity;
 import com.mvc.cryptovault_android.activity.StartActivity;
 import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.utils.LanguageUtils;
@@ -67,7 +68,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected void startTaskActivity(Activity activity) {
-        Intent intent = new Intent(activity, StartActivity.class);
+        Intent intent = new Intent(activity, SelectLoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

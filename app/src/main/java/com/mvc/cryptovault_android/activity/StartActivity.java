@@ -1,14 +1,10 @@
 package com.mvc.cryptovault_android.activity;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MainActivity;
@@ -53,21 +49,7 @@ public class StartActivity extends BaseActivity {
                 startActivity(MainActivity.class);
                 finish();
             } else {
-                mLogin.startAnimation(alphaAnimation);
-                mRegister.startAnimation(alphaAnimation);
-                mLogin.setVisibility(View.VISIBLE);
-                mRegister.setVisibility(View.VISIBLE);
-                mLogin.setOnClickListener(v -> {
-                    startActivity(LoginActivity.class);
-                    mLogin.clearAnimation();
-                    mRegister.clearAnimation();
-                });
-                mRegister.setOnClickListener(v ->
-                {
-                    startActivity(RegisterActivity.class);
-                    mLogin.clearAnimation();
-                    mRegister.clearAnimation();
-                });
+                startTaskActivity(this);
             }
         }, 300);
     }
@@ -75,10 +57,5 @@ public class StartActivity extends BaseActivity {
     @Override
     protected void initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init();
-        mLogin = findViewById(R.id.login);
-        mRegister = findViewById(R.id.register);
-        alphaAnimation = new AlphaAnimation(0f, 1f);
-        alphaAnimation.setDuration(1000);
-        alphaAnimation.setFillAfter(true);
     }
 }

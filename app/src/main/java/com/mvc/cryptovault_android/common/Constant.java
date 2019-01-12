@@ -23,6 +23,7 @@ public class Constant {
         public static final String TAG_NAME = "tag_name";
         //  保存注册的时候用户信息   临时， 当注册且激活成功之后就移除这个SP
         public static final String REG_INVITATION = "reg_invitation";
+        public static final String REG_TEMPTOKEN = "reg_temptoken";
         public static final String REG_LOGINPWD = "reg_loginpwd";
         public static final String REG_PAYLOGIN = "reg_paylogin";
 

@@ -12,7 +12,7 @@ public class RecordingPresenter extends RecordingContract.RecordingPresenter {
 
     @Override
     protected RecordingContract.IRecordingModel getModel() {
-        return RecordingModel.getInstance();
+        return RecordingModel.Companion.getInstance();
     }
 
     @Override

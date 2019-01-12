@@ -1,7 +1,7 @@
 package com.mvc.cryptovault_android.common;
 
 public class HttpUrl {
-            public static final String BASE_URL = "http://192.168.15.31:10086/";
+    public static final String BASE_URL = "http://192.168.15.31:10086/";
 //    public static final String BASE_URL = "http://192.168.15.21:10086/";
 //    public static final String BASE_URL = "http://47.110.234.233:10086/";
 
@@ -109,6 +109,14 @@ public class HttpUrl {
      * 获取推送tag
      */
     public static final String GET_PUSH_TAG = "/user/tag";
+    /**
+     * 注册用户信息
+     */
+    public static final String REGSITER_EMAIL = "/user";
 
+    /**
+     * 发送邮箱验证码
+     */
+    public static final String SEND_EMAIL_CODE = "/user/email/logout";
 
 }

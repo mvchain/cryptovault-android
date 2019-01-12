@@ -12,7 +12,9 @@
     <!--极光必备权限-->
     <!-- Required -->
        
-    <permission android:name="com.mvc.cryptovault_android.permission.JPUSH_MESSAGE" android:protectionLevel="signature" />
+    <permission
+        android:name="com.mvc.cryptovault_android.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
     <!-- Required -->
     <uses-permission android:name="com.mvc.cryptovault_android.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -62,12 +64,10 @@
         </activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.RegisterActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:name=".activity.RegisterInvitationActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
@@ -125,37 +125,41 @@
         <activity
             android:name=".activity.LanguageActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.FilterOrderActivity"
-            android:screenOrientation="portrait"  />
+        <activity
+            android:name=".activity.FilterOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectLoginActivity"
+            android:screenOrientation="portrait" />
+
         <receiver
             android:name=".receiver.PushReceiver"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <!-- Required 用户注册SDK的intent -->
-                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
                 <!-- Required 用户接收SDK消息的intent -->
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
                 <!-- Required 用户接收SDK通知栏信息的intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
                 <!-- Required 用户打开自定义通知栏的intent -->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <action android:name="cn.jpush.android.intent.CONNECTION"/>
-                <category android:name="com.mvc.cryptovault_android"/>
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="com.mvc.cryptovault_android" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name=".receiver.MyJPushMessageReceiver">
+        <receiver android:name=".receiver.MyJPushMessageReceiver">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE"/>
-                <category android:name="com.mvc.cryptovault_android"/>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="com.mvc.cryptovault_android" />
             </intent-filter>
         </receiver>
         <!--适配华为（hw）刘海屏-->
         <meta-data
             android:name="android.notch_support"
-            android:value="true"/>
+            android:value="true" />
         <!--适配小米（xiaomi）刘海屏-->
         <meta-data
             android:name="notch.config"

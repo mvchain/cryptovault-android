@@ -6,8 +6,6 @@ import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseActivity
 
 class SelectLoginActivity : BaseActivity(), View.OnClickListener {
-
-
     override fun getLayoutId(): Int {
         return R.layout.activity_selectlogin
     }

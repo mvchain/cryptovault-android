@@ -27,9 +27,10 @@
         android:layout_marginRight="56dp"
         android:background="@drawable/shape_login_login"
         android:gravity="center"
+        android:onClick="onClick"
         android:text="登录"
         android:textColor="@color/login_blue"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/register"
@@ -40,7 +41,8 @@
         android:layout_marginRight="56dp"
         android:background="@drawable/shape_login_register"
         android:gravity="center"
+        android:onClick="onClick"
         android:text="注册"
         android:textColor="@color/white"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
 </LinearLayout>

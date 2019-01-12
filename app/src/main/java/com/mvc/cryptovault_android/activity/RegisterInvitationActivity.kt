@@ -1,19 +1,18 @@
 package com.mvc.cryptovault_android.activity
 
 import android.view.View
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
-import com.mvc.cryptovault_android.R.id.*
-import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.common.Constant.SP.REG_INVITATION
 import com.mvc.cryptovault_android.common.Constant.SP.REG_TEMPTOKEN
 import com.mvc.cryptovault_android.contract.RegisterInvitation
+import com.mvc.cryptovault_android.listener.OnTimeEndCallBack
 import com.mvc.cryptovault_android.presenter.RegisterInvitationPresenter
+import com.mvc.cryptovault_android.utils.TimeVerification
 import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
@@ -29,6 +28,10 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitation.RegisterIn
     }
 
     override fun initMVPView() {
+        if (SPUtils.getInstance().getString(REG_INVITATION) != "") {
+            startActivity(RegisterSetPwdActivity::class.java)
+            finish()
+        }
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         dialogHelper = DialogHelper.getInstance()
         reg_layout.viewTreeObserver.addOnDrawListener {
@@ -63,7 +66,7 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitation.RegisterIn
         when (v.id) {
             R.id.reg_submit -> {
                 if (checkNotNullValue()) {
-                    dialogHelper?.create(this, R.drawable.pending_icon, "请稍后")?.show()
+                    dialogHelper?.create(this, R.drawable.pending_icon_1, "请稍后")?.show()
                     mPresenter.sendInvitationRequest(reg_invitation.text.toString(), reg_email.text.toString(), reg_code.text.toString())
                 }
             }
@@ -73,7 +76,7 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitation.RegisterIn
                     dialogHelper?.dismissDelayed(null)
                     return
                 }
-                dialogHelper?.create(this, R.drawable.pending_icon, "发送验证码")?.show()
+                dialogHelper?.create(this, R.drawable.pending_icon_1, "发送验证码")?.show()
                 mPresenter.sendValiCode(reg_email.text.toString())
             }
             R.id.reg_back -> {
@@ -106,27 +109,38 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitation.RegisterIn
             dialogHelper?.dismissDelayed(null)
             return false
         }
-        invitationJson.put("invitation", reg_invitation.text.toString())
+        invitationJson.put("inviteCode", reg_invitation.text.toString())
         invitationJson.put("nickname", reg_nickname.text.toString())
         invitationJson.put("email", reg_email.text.toString())
-        invitationJson.put("code", reg_code.text.toString())
         return true
     }
 
     override fun startActivity() {
-
+        SPUtils.getInstance().put(REG_INVITATION, invitationJson.toString())
+        startActivity(RegisterSetPwdActivity::class.java)
     }
 
     override fun savaTempToken(token: String) {
         //如果存在临时token，保存之后再保存当前信息
-        SPUtils.getInstance().put(REG_TEMPTOKEN, token)
-        SPUtils.getInstance().put(REG_INVITATION, invitationJson.toString())
-
+        SPUtils.getInstance().put(REG_TEMPTOKEN, token) //校验临时token 确定重新进入时返回的页面
+        invitationJson.put("token", token)
+        dialogHelper?.dismissDelayed(null, 0)
     }
 
     override fun showValiCode(email: String) {
         dialogHelper?.resetDialogResource(this, R.drawable.success_icon, email)
         dialogHelper?.dismissDelayed { null }
+        TimeVerification.getInstence().setOnTimeEndCallBack(object : OnTimeEndCallBack {
+            override fun updata(time: Int) {
+                send_code.isEnabled = false
+                send_code.text = "${time}s后重新获取"
+            }
+
+            override fun exit() {
+                send_code.isEnabled = true
+                send_code.text = "重新获取验证码"
+            }
+        }).updataTime()
     }
 
     override fun showError(error: String) {

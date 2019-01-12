@@ -131,7 +131,12 @@
         <activity
             android:name=".activity.SelectLoginActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".activity.RegisterSetPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MineMnemonicsActivity"
+            android:screenOrientation="portrait" />
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"

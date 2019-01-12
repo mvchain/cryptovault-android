@@ -88,7 +88,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                 break;
             case R.id.send_code:
                 LogUtils.e("LoginActivity", "123");
-                dialogHelper.create(this, R.drawable.pending_icon, "发送验证码中").show();
+                dialogHelper.create(this, R.drawable.pending_icon_1, "发送验证码中").show();
                 mPresenter.sendCode(phone);
                 break;
         }

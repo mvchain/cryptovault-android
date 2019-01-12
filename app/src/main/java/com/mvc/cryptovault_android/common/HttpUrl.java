@@ -118,5 +118,9 @@ public class HttpUrl {
      * 发送邮箱验证码
      */
     public static final String SEND_EMAIL_CODE = "/user/email/logout";
+    /**
+     * 用户注册
+     */
+    public static final String USER_REGISTER = "/user/register";
 
 }

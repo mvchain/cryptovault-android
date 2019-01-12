@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.api;
 
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.MnemonicsBean;
 import com.mvc.cryptovault_android.bean.TagBean;
 import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.AllAssetBean;
@@ -214,11 +215,15 @@ public interface ApiStore {
     Observable<TagBean> getPushTag(@Header("Authorization") String token);
 
     @Headers("Accept-Language: zh-cn")
-    @GET(HttpUrl.REGSITER_EMAIL)
+    @POST(HttpUrl.REGSITER_EMAIL)
     Observable<HttpTokenBean> sendInvitationRequest(@Body RequestBody body);
 
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.SEND_EMAIL_CODE)
     Observable<HttpTokenBean> sendValiCode(@Query("email") String email);
+
+    @Headers("Accept-Language: zh-cn")
+    @POST(HttpUrl.USER_REGISTER)
+    Observable<MnemonicsBean> userRegister(@Body RequestBody email);
 
 }

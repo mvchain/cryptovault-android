@@ -31,7 +31,7 @@ class RegisterInvitationPresenter : RegisterInvitation.RegisterInvitationPresent
     override fun sendInvitationRequest(invitation: String, email: String, code: String) {
         rxUtils.register(mIModel.sendInvitationRequest(invitation, email, code).subscribe({ httpBean ->
             if (httpBean.code === 200) {
-                mIView.startActivity()
+                mIView.savaTempToken(httpBean.data)
                 mIView.startActivity()
             } else {
                 mIView.showError(httpBean.message)

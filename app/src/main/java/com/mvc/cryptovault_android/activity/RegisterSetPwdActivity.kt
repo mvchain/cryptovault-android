@@ -3,11 +3,13 @@ package com.mvc.cryptovault_android.activity
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
+import com.mvc.cryptovault_android.bean.MnemonicsBean
 import com.mvc.cryptovault_android.common.Constant.SP.*
 import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.utils.RetrofitUtils
@@ -40,16 +42,22 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                                 if (mnemon.code == 200) {
                                     dialogHelper?.dismissDelayed(null, 0)
                                     var sb = StringBuffer()
-                                    var datas = mnemon.dataBean.mnemonics
-                                    datas.forEach { sp -> sb.append("$sp,") }
+                                    var datas = mnemon.data.mnemonics
+
+                                    for (data in datas) {
+                                        LogUtils.e("$data,")
+                                        sb.append("$data,")
+                                    }
                                     SPUtils.getInstance().put(REG_MINEMNEMONICS, sb.toString())
-                                    SPUtils.getInstance().put(REG_PRIVATEKEY, mnemon.dataBean.privateKey)
+                                    SPUtils.getInstance().put(REG_PRIVATEKEY, mnemon.data.privateKey)
+                                    SPUtils.getInstance().put(REG_REGISTER, true)
                                     startActivity(MineMnemonicsActivity::class.java)
                                 } else {
                                     dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, mnemon.message)
                                     dialogHelper?.dismissDelayed { null }
                                 }
                             }, { t ->
+                                LogUtils.e(t.message)
                                 dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, t.message)
                                 dialogHelper?.dismissDelayed { null }
                             })

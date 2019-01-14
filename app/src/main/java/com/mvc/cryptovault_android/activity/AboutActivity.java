@@ -46,6 +46,9 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         mBackAbout = findViewById(R.id.about_back);
         mBackAbout.setOnClickListener(this);
         dialogHelper = DialogHelper.getInstance();
+        for (int i = 0; i < 3; i++) {
+
+        }
     }
 
     @Override

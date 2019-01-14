@@ -7,8 +7,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.common.Constant.SP.REG_INVITATION
-import com.mvc.cryptovault_android.common.Constant.SP.REG_TEMPTOKEN
+import com.mvc.cryptovault_android.common.Constant.SP.*
 import com.mvc.cryptovault_android.contract.RegisterInvitation
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack
 import com.mvc.cryptovault_android.presenter.RegisterInvitationPresenter
@@ -28,8 +27,8 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitation.RegisterIn
     }
 
     override fun initMVPView() {
-        if (SPUtils.getInstance().getString(REG_INVITATION) != "") {
-            startActivity(RegisterSetPwdActivity::class.java)
+        if (SPUtils.getInstance().getBoolean(REG_REGISTER)) {
+            startActivity(MineMnemonicsActivity::class.java)
             finish()
         }
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()

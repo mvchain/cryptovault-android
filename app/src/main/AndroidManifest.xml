@@ -100,7 +100,7 @@
             android:name=".activity.BTCTransferActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.PayCodeActivity"
+            android:name=".activity.MineMnemonicsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.VPBalanceWithdrawalActivity"
@@ -135,8 +135,9 @@
             android:name=".activity.RegisterSetPwdActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MineMnemonicsActivity"
+            android:name=".activity.VerificationMnemonicActivity"
             android:screenOrientation="portrait" />
+
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"

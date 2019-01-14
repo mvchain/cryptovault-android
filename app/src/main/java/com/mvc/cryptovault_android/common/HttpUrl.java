@@ -122,5 +122,10 @@ public class HttpUrl {
      * 用户注册
      */
     public static final String USER_REGISTER = "/user/register";
+    /**
+     * 获取用户助记词
+     */
+    public static final String USER_MNEMONICS = "/user/mnemonics";
+
 
 }

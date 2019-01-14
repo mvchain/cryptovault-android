@@ -29,6 +29,7 @@
         android:layout_marginLeft="38dp"
         android:layout_marginTop="10dp"
         android:text="注册"
+        android:textStyle="bold"
         android:textColor="@color/login_content"
         android:textSize="34sp" />
 

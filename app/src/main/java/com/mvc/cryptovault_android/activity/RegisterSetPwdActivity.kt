@@ -45,7 +45,6 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                                     var datas = mnemon.data.mnemonics
 
                                     for (data in datas) {
-                                        LogUtils.e("$data,")
                                         sb.append("$data,")
                                     }
                                     SPUtils.getInstance().put(REG_MINEMNEMONICS, sb.toString())
@@ -114,17 +113,6 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         dialogHelper = DialogHelper.getInstance()
-        reg_layout.viewTreeObserver.addOnDrawListener {
-            if (reg_login_pwd.text.toString() != ""
-                    && reg_pay_pwd.text.toString() != "") {
-                reg_submit.setBackgroundResource(R.drawable.bg_login_submit)
-                reg_submit.isEnabled = true
-            } else {
-                reg_submit.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
-                reg_submit.isEnabled = false
-            }
-        }
-
         reg_login_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var lenght = s!!.length

@@ -36,5 +36,6 @@
     <color name="lines_bg">#F6F7FB</color>
     <color name="light_grey">#F6F7Fb</color>
     <color name="fragment_grey">#F5F5F5</color>
+    <color name="verification_check">#8383AF</color>
 
 </resources>

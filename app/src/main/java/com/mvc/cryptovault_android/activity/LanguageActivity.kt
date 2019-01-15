@@ -8,13 +8,11 @@ import com.mvc.cryptovault_android.common.Constant.LANGUAGE.*
 import com.mvc.cryptovault_android.utils.LanguageUtils
 import kotlinx.android.synthetic.main.activity_language.*
 
-
 class LanguageActivity : BaseActivity() {
     lateinit var default_language: String
     override fun getLayoutId(): Int {
         return R.layout.activity_language
     }
-
     override fun initData() {
         switch_china.setOnSuperTextViewClickListener {
             LanguageUtils.changeLocale(CHINESE, ACCEPT_CHINESE, resources.configuration, baseContext)

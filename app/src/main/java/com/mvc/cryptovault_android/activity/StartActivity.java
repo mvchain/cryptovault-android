@@ -20,9 +20,6 @@ import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 
 
 public class StartActivity extends BaseActivity {
-    private TextView mLogin;
-    private TextView mRegister;
-    private AlphaAnimation alphaAnimation;
 
     @Override
     protected int getLayoutId() {

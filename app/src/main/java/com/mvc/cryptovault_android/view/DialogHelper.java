@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -71,25 +72,19 @@ public class DialogHelper {
     }
 
     public void dismissDelayed(IDialogDialog dialogDialog) {
-        new android.os.Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-                if (dialogDialog != null) {
-                    dialogDialog.callback();
-                }
+        new Handler().postDelayed(() -> {
+            dismiss();
+            if (dialogDialog != null) {
+                dialogDialog.callback();
             }
         }, 1000);
     }
 
     public void dismissDelayed(IDialogDialog dialogDialog, long delayMillis) {
-        new android.os.Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-                if (dialogDialog != null) {
-                    dialogDialog.callback();
-                }
+        new Handler().postDelayed(() -> {
+            dismiss();
+            if (dialogDialog != null) {
+                dialogDialog.callback();
             }
         }, delayMillis);
     }

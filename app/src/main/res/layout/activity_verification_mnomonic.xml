@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <View
@@ -31,22 +32,24 @@
         android:textStyle="bold" />
     <!--已选择的列表-->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/mnemonics_list"
+        android:id="@+id/mnemonics_check_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="38dp"
         android:background="@drawable/shape_mnemonics_5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         app:spanCount="3" />
     <!--待选择的列表-->
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/mnemonics_check_list"
+        android:id="@+id/mnemonics_sort_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="38dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="18dp"
         android:layout_marginRight="38dp"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         app:spanCount="3" />
@@ -56,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginLeft="116dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="116dp"
         android:background="@drawable/bg_login_submit"
         android:gravity="center"

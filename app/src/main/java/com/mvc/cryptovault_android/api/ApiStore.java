@@ -231,4 +231,8 @@ public interface ApiStore {
     @GET(HttpUrl.USER_MNEMONICS)
     Observable<UpsetMnemonicsBean> getUserMnemonic(@Query("email") String email);
 
+    @Headers("Accept-Language: zh-cn")
+    @POST(HttpUrl.USER_MNEMONICS)
+    Observable<LoginBean> postUserMnemonic(@Body RequestBody mne);
+
 }

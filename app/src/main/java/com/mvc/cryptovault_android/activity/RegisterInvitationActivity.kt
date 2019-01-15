@@ -33,18 +33,6 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitation.RegisterIn
         }
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         dialogHelper = DialogHelper.getInstance()
-        reg_layout.viewTreeObserver.addOnDrawListener {
-            if (reg_invitation.text.toString() != ""
-                    && reg_nickname.text.toString() != ""
-                    && reg_email.text.toString() != ""
-                    && reg_code.text.toString() != "") {
-                reg_submit.setBackgroundResource(R.drawable.bg_login_submit)
-                reg_submit.isEnabled = true
-            } else {
-                reg_submit.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
-                reg_submit.isEnabled = false
-            }
-        }
     }
 
     private var dialogHelper: DialogHelper? = null

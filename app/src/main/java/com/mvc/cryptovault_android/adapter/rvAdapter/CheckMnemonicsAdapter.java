@@ -17,5 +17,6 @@ public class CheckMnemonicsAdapter extends BaseQuickAdapter<VerificationMnemonic
     @Override
     protected void convert(BaseViewHolder helper, VerificationMnemonicBean item) {
         helper.setText(R.id.content, item.getContent());
+        helper.addOnClickListener(R.id.content);
     }
 }

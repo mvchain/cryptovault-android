@@ -63,6 +63,7 @@ class VerificationInfoActivity : BaseActivity(), View.OnClickListener {
                     } else {
                         var dataIntent = intent
                         dataIntent.putExtra("account",account.text.toString())
+                        dataIntent.putExtra("type",resetType)
                         startActivity(ResetPasswordActivity::class.java,dataIntent)
                     }
                 }

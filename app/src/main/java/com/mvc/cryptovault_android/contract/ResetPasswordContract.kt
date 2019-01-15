@@ -18,7 +18,7 @@ interface ResetPasswordContract {
     }
 
     interface ResetView : IBaseActivity {
-        fun showError()
-        fun getRequestBody()
+        fun showError(error:String)
+        fun getRequestBody(token:String)
     }
 }

@@ -55,7 +55,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
         }
         rxUtils.register(mIModel.sendCode(cellphone)
                 .subscribe(bean -> {
-                    if (bean.getCode() == 200 && bean.isData()) {
+                    if (bean.getCode() == 200) {
                         mIView.showSendCode(true, "验证码发送成功");
                     } else {
                         mIView.showSendCode(false, bean.getMessage());

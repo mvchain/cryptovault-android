@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
+import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.LoginContract;
@@ -43,9 +44,9 @@ public class LoginModel extends BaseModel implements LoginContract.ILoginModel {
     }
 
     @Override
-    public Observable<UpdateBean> sendCode(String cellphone) {
-        return RetrofitUtils.client(ApiStore.class).sendCode(cellphone)
+    public Observable<HttpTokenBean> sendCode(String cellphone) {
+        return RetrofitUtils.client(ApiStore.class).sendValiCode(cellphone)
                 .compose(RxHelper.rxSchedulerHelper())
-                .map(updateBean -> updateBean);
+                .map(httpTokenBean -> httpTokenBean);
     }
 }

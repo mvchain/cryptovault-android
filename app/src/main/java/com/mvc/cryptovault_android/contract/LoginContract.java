@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.contract;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.base.IBaseActivity;
 import com.mvc.cryptovault_android.base.IBaseModel;
+import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
 
@@ -25,7 +26,7 @@ public interface LoginContract {
          */
         Observable<LoginBean> getLoginStatus(String phone, String pwd, String code);
 
-        Observable<UpdateBean> sendCode(String cellphone);
+        Observable<HttpTokenBean> sendCode(String cellphone);
 
     }
 

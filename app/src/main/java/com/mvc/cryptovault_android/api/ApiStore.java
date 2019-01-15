@@ -219,6 +219,11 @@ public interface ApiStore {
     @POST(HttpUrl.REGSITER_EMAIL)
     Observable<HttpTokenBean> sendInvitationRequest(@Body RequestBody body);
 
+    /**
+     * 获取邮箱验证码
+     * @param email
+     * @return
+     */
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.SEND_EMAIL_CODE)
     Observable<HttpTokenBean> sendValiCode(@Query("email") String email);

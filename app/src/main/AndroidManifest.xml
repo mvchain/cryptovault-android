@@ -137,7 +137,13 @@
         <activity
             android:name=".activity.VerificationMnemonicActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.VerificationInfoActivity"
+            android:screenOrientation="portrait" />
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"

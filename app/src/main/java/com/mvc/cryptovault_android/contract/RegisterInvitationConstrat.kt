@@ -6,7 +6,7 @@ import com.mvc.cryptovault_android.base.IBaseModel
 import com.mvc.cryptovault_android.bean.HttpTokenBean
 import io.reactivex.Observable
 
-interface RegisterInvitation {
+interface RegisterInvitationConstrat {
     abstract class RegisterInvitationPresenter : BasePresenter<InvitationModel, InvitationView>() {
         abstract fun sendInvitationRequest(invitation: String, email: String, code: String)
         abstract fun sendValiCode(email: String)

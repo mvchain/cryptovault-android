@@ -8,7 +8,7 @@ import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.common.Constant.SP.*
-import com.mvc.cryptovault_android.contract.RegisterInvitation
+import com.mvc.cryptovault_android.contract.RegisterInvitationConstrat
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack
 import com.mvc.cryptovault_android.presenter.RegisterInvitationPresenter
 import com.mvc.cryptovault_android.utils.TimeVerification
@@ -16,7 +16,7 @@ import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
 
-class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitation.RegisterInvitationPresenter>(), View.OnClickListener, RegisterInvitation.InvitationView {
+class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitationConstrat.RegisterInvitationPresenter>(), View.OnClickListener, RegisterInvitationConstrat.InvitationView {
 
     override fun initPresenter(): BasePresenter<*, *> {
         return RegisterInvitationPresenter.newIntance()

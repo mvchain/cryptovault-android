@@ -42,7 +42,6 @@ public class StartActivity extends BaseActivity {
         String token = SPUtils.getInstance().getString(TOKEN);
         new Handler().postDelayed(() -> {
             if (!refreshToken.equals("") && !token.equals("")) {
-//                SPUtils.getInstance().put(TOKEN, "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjEzMDc1ODAxOTMzIiwidXNlcklkIjoxMCwic2VydmljZSI6ImFwcCIsInR5cGUiOiJ0b2tlbiIsImV4cCI6MTU0NjkzNDQ0OX0.Lo3ZKEMlm43d21a1KnZh74W6ryLbCgst6N93Y4o6Aho");
                 startActivity(MainActivity.class);
                 finish();
             } else {

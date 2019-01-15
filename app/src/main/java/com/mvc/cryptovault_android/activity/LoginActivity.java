@@ -75,21 +75,19 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     public void onClick(View v) {
-        String phone = mLoginPhone.getText().toString().trim();
+        String email = mLoginPhone.getText().toString().trim();
         switch (v.getId()) {
             case R.id.login_submit:
                 String pwd = mLoginPwd.getText().toString().trim();
                 String code = mCodeLogin.getText().toString().trim();
-                mPresenter.login(phone, pwd, code);
+                mPresenter.login(email, pwd, code);
                 break;
             case R.id.login_forget_pwd:
-                dialogHelper.create(this, R.layout.layout_forgetpwd_dialog).show();
-                dialogHelper.dismissDelayed(null, 2000);
+                startActivity(ForgetPasswordActivity.class);
                 break;
             case R.id.send_code:
-                LogUtils.e("LoginActivity", "123");
                 dialogHelper.create(this, R.drawable.pending_icon_1, "发送验证码中").show();
-                mPresenter.sendCode(phone);
+                mPresenter.sendCode(email);
                 break;
         }
     }

@@ -31,7 +31,6 @@ import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 
 public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresenter> implements DetailContract.IDetailView, View.OnClickListener {
-    private View mBarStatus;
     private ImageView mBackDetail;
     private ImageView mShareDetail;
     private ImageView mIconDetail;
@@ -66,7 +65,6 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         dialogHelper = DialogHelper.getInstance();
-        mBarStatus = findViewById(R.id.status_bar);
         mBackDetail = findViewById(R.id.detail_back);
         mBackDetail.setOnClickListener(this);
         mShareDetail = findViewById(R.id.detail_share);

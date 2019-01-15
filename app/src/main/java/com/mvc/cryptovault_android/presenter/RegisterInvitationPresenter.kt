@@ -1,10 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.RegisterInvitation
+import com.mvc.cryptovault_android.contract.RegisterInvitationConstrat
 import com.mvc.cryptovault_android.model.RegisterInvitationModel
 
-class RegisterInvitationPresenter : RegisterInvitation.RegisterInvitationPresenter() {
+class RegisterInvitationPresenter : RegisterInvitationConstrat.RegisterInvitationPresenter() {
 
 
     companion object {
@@ -42,7 +42,7 @@ class RegisterInvitationPresenter : RegisterInvitation.RegisterInvitationPresent
 
     }
 
-    override fun getModel(): RegisterInvitation.InvitationModel {
+    override fun getModel(): RegisterInvitationConstrat.InvitationModel {
         return RegisterInvitationModel.instance
     }
 }

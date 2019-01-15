@@ -12,6 +12,8 @@ import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.MainActivity
 import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
+import com.mvc.cryptovault_android.R.id.mnemonics_check_list
+import com.mvc.cryptovault_android.R.id.mnemonics_sort_list
 import com.mvc.cryptovault_android.adapter.rvAdapter.CheckMnemonicsAdapter
 import com.mvc.cryptovault_android.adapter.rvAdapter.SortMnemonicsAdapter
 import com.mvc.cryptovault_android.api.ApiStore
@@ -75,21 +77,6 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
     @SuppressLint("CheckResult")
     override fun initData() {
         initOutOrderToSort(list)
-//        RetrofitUtils.client(ApiStore::class.java).getUserMnemonic(email)
-//                .compose(RxHelper.rxSchedulerHelper())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({ upset ->
-//                    if (upset.code === 200) {
-//                        for (currentPosition in upset.data.indices) {
-//                            var data = upset.data
-//                            sortMnomonic.add(VerificationMnemonicBean(data[currentPosition], currentPosition, false))
-//                        }
-//                        sortAdapter.notifyDataSetChanged()
-//                    }
-//                }, { throwavle ->
-//                    LogUtils.e(throwavle.message)
-//                })
         back.setOnClickListener { finish() }
         submit.setOnClickListener {
             dialogHelper!!.create(this, R.drawable.pending_icon_1, "校验助记词中").show()
@@ -145,8 +132,7 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                     }, { error ->
                         dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, error.message)
                         dialogHelper!!.dismissDelayed { null }
-                    }
-                    )
+                    })
         }
     }
 

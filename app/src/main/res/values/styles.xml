@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="tras_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -17,7 +18,13 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
+
     <style name="Text_TextInputLayout" parent="@android:style/TextAppearance">
-        <item name="android:textColor">#C1C2CC</item>
+        <item name="android:textColor">@color/edit_bg</item>
+    </style>
+    <style name="Edit_Style" parent="@android:style/TextAppearance">
+        <item name="colorControlNormal">@color/line_gray</item>
+        <item name="colorControlActivated">@color/line_gray</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
 </resources>

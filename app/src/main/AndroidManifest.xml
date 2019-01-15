@@ -125,7 +125,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SelectLoginActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.login" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -144,6 +144,12 @@
         <activity
             android:name=".activity.VerificationInfoActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ResetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.ResetPasswordVerificationMnemonicsActivity"
+            android:screenOrientation="portrait" />
+
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"

@@ -12,6 +12,7 @@ import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,12 +52,12 @@ import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener, LoginContract.ILoginView {
 
-    private ClearEditText mLoginPhone;
-    private ClearEditText mLoginPwd;
+    private EditText mLoginPhone;
+    private EditText mLoginPwd;
     private TextView mLoginForgetPwd;
     private Button mLoginSubmit;
     private DialogHelper dialogHelper;
-    private ClearEditText mCodeLogin;
+    private EditText mCodeLogin;
     private TextView mCodeSend;
 
     @Override
@@ -88,6 +89,9 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             case R.id.send_code:
                 dialogHelper.create(this, R.drawable.pending_icon_1, "发送验证码中").show();
                 mPresenter.sendCode(email);
+                break;
+            case R.id.back:
+                finish();
                 break;
         }
     }
@@ -166,7 +170,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     public void show() {
-        dialogHelper.create(LoginActivity.this, R.drawable.pending_icon, getResources().getString(R.string.login_load)).show();
+        dialogHelper.create(LoginActivity.this, R.drawable.pending_icon_1, getResources().getString(R.string.login_load)).show();
     }
 
     @Override
@@ -186,45 +190,6 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         mCodeSend.setOnClickListener(this);
         mLoginSubmit.setOnClickListener(this);
         mLoginForgetPwd.setOnClickListener(this);
-        mLoginPhone.addTextChangedListener(new EditTextChange() {
-            @TargetApi(Build.VERSION_CODES.M)
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String updateTv = s.toString();
-                if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this, R.drawable.clean_icon_edit), mLoginPhone);
-                } else {
-                    ViewDrawUtils.clearDraw(mLoginPhone);
-                }
-            }
-        });
-        mLoginPwd.addTextChangedListener(new EditTextChange() {
-            @TargetApi(Build.VERSION_CODES.M)
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String updateTv = s.toString();
-                if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this, R.drawable.clean_icon_edit), mLoginPwd);
-                } else {
-                    ViewDrawUtils.clearDraw(mLoginPwd);
-                }
-            }
-        });
-        mCodeLogin.addTextChangedListener(new EditTextChange() {
-            @TargetApi(Build.VERSION_CODES.M)
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String updateTv = s.toString();
-                if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(LoginActivity.this, R.drawable.clean_icon_edit), mLoginPwd);
-                } else {
-                    ViewDrawUtils.clearDraw(mLoginPwd);
-                }
-            }
-        });
     }
 
     @Override

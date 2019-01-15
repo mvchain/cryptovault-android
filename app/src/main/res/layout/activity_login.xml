@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <View
@@ -11,126 +11,127 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
+    <ImageView
+        android:id="@+id/reg_back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="10dp"
+        android:onClick="onClick"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back_icon_black" />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="10dp"
         android:text="登录"
         android:textColor="@color/login_content"
-        android:textSize="34sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
-        android:text="手机号"
-        android:textColor="@color/login_content"
-        android:textSize="15sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
-    <com.mvc.cryptovault_android.view.ClearEditText
-        android:id="@+id/login_phone"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginLeft="16dp"
-        android:textColorHint="#999A9D"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/bg_login_edit"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical"
-        android:hint="请输入邮箱"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:paddingLeft="32dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/login_content"
-        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
-        android:textSize="15sp" />
-
-    <TextView
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="密码"
-        android:textColor="@color/login_content"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="40dp"
+        app:hintTextAppearance="@style/Text_TextInputLayout">
 
-    <com.mvc.cryptovault_android.view.ClearEditText
-        android:id="@+id/login_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="12dp"
-        android:textColorHint="#999A9D"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/bg_login_edit"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical"
-        android:hint="请输入密码"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:paddingLeft="32dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/login_content"
-        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
-        android:textSize="15sp" />
+        <EditText
+            android:id="@+id/login_phone"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:hint="邮箱"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/login_content"
+            android:textColorHint="@color/edit_bg"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+            android:textSize="14dp"
+            android:theme="@style/Edit_Style" />
+    </android.support.design.widget.TextInputLayout>
 
-    <TextView
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="验证码"
-        android:textColor="@color/login_content"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="40dp"
+        app:hintTextAppearance="@style/Text_TextInputLayout">
+
+        <EditText
+            android:id="@+id/login_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:hint="密码"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/login_content"
+            android:textColorHint="@color/edit_bg"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+            android:textSize="14dp"
+            android:theme="@style/Edit_Style" />
+    </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/bg_login_edit"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <com.mvc.cryptovault_android.view.ClearEditText
-            android:id="@+id/login_code"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:digits="1234567890"
-            android:focusable="true"
-            android:textColorHint="#999A9D"
-            android:focusableInTouchMode="true"
-            android:gravity="center_vertical"
-            android:hint="请输入邮箱验证码"
-            android:inputType="phone"
-            android:maxLength="6"
-            android:maxLines="1"
-            android:paddingLeft="32dp"
-            android:paddingRight="15dp"
-            android:textColor="@color/login_content"
-            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
-            android:textSize="15sp" />
+            app:hintTextAppearance="@style/Text_TextInputLayout">
+
+            <EditText
+                android:id="@+id/login_code"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginRight="17dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:hint="验证码"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="@color/login_content"
+                android:textColorHint="@color/edit_bg"
+                android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+                android:textSize="14dp"
+                android:theme="@style/Edit_Style" />
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:id="@+id/send_code"
-            android:layout_width="135dp"
-            android:layout_height="match_parent"
+            android:layout_width="105dp"
+            android:layout_height="35dp"
             android:background="@drawable/shape_sendcode_bg"
             android:gravity="center"
             android:text="获取验证码"
-            android:textColor="@color/white"
+            android:textColor="@color/login_content"
             android:textSize="15sp" />
-
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/login_submit"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="115dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginRight="115dp"
+        android:background="@drawable/bg_login_submit"
+        android:text="登录"
+        android:textColor="@color/white" />
 
     <View
         android:layout_width="match_parent"
@@ -141,21 +142,10 @@
         android:id="@+id/login_forget_pwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="30dp"
-        android:text="忘记密码？"
-        android:textColor="@color/login_content"
-        android:textSize="15sp" />
-
-    <Button
-        android:id="@+id/login_submit"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="40dp"
         android:layout_marginBottom="35dp"
-        android:background="@drawable/bg_login_submit"
-        android:text="登录"
-        android:textColor="@color/white" />
+        android:text="忘记密码？"
+        android:textColor="@color/trand_gray"
+        android:textSize="15sp" />
 </LinearLayout>

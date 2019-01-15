@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/status_blue"
     android:orientation="vertical">
 
     <View
@@ -16,7 +16,7 @@
         android:layout_height="300dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:src="@color/status_blue" />
+        android:src="@color/status_view" />
 
     <TextView
         android:id="@+id/login"
@@ -25,11 +25,11 @@
         android:layout_marginLeft="85dp"
         android:layout_marginTop="60dp"
         android:layout_marginRight="85dp"
-        android:background="@drawable/bg_login_submit"
+        android:background="@drawable/shape_login_login"
         android:gravity="center"
         android:onClick="onClick"
         android:text="登录"
-        android:textColor="@color/white"
+        android:textColor="@color/login_content"
         android:textSize="15sp" />
 
     <TextView
@@ -39,10 +39,10 @@
         android:layout_marginLeft="85dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="85dp"
-        android:background="@drawable/shape_login_login"
+        android:background="@drawable/shape_login_register"
         android:gravity="center"
         android:onClick="onClick"
         android:text="注册"
-        android:textColor="@color/login_content"
+        android:textColor="@color/white"
         android:textSize="15sp" />
 </LinearLayout>

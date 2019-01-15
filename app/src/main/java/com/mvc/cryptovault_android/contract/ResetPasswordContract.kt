@@ -9,16 +9,12 @@ import io.reactivex.Observable
 
 interface ResetPasswordContract {
     abstract class ResetPasswordPresenter : BasePresenter<ResetModel, ResetView>() {
-        abstract fun verificationEmail(email: String)
-        abstract fun verificationPrivateKey(privateKey:String)
-        abstract fun verificationMnenonics(mnemonics:String)
+        abstract fun verification(email: String, type:Int, value:String)
 
     }
 
     interface ResetModel : IBaseModel {
-        fun verificationEmail(email: String) : Observable<HttpTokenBean>
-        fun verificationPrivateKey(privateKey: String) : Observable<HttpTokenBean>
-        fun verificationMnenonics(mnemonics: String) : Observable<UpsetMnemonicsBean>
+        fun verification(email: String, type:Int, value:String) : Observable<HttpTokenBean>
     }
 
     interface ResetView : IBaseActivity {

@@ -1,42 +1,81 @@
 package com.mvc.cryptovault_android.activity
 
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
-import com.mvc.cryptovault_android.base.BaseActivity
+import com.mvc.cryptovault_android.base.BaseMVPActivity
+import com.mvc.cryptovault_android.base.BasePresenter
+import com.mvc.cryptovault_android.contract.VerificationInfoContract
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack
+import com.mvc.cryptovault_android.presenter.VerificationInfoPresenter
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.utils.TimeVerification
 import com.mvc.cryptovault_android.view.DialogHelper
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_verification_password.*
+import java.util.ArrayList
 
 /**
  * 验证信息的activity
  * 验证私钥，助记词，邮箱
  * 0邮箱 1私钥 2助记词
  */
-class VerificationInfoActivity : BaseActivity(), View.OnClickListener {
+class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.VerificationInfoPresenter>(), View.OnClickListener, VerificationInfoContract.VerificationInfoView {
+
+
     private val TYPE_EMAIL = 0
     private val TYPE_PRIVATEKEY = 1
     private val TYPE_MNEMONICS = 2
     private var resetType: Int = 0
     private lateinit var hintMsg: String
+    private lateinit var list: ArrayList<String>
     private var dialogHelper: DialogHelper? = null
+
+    override fun initPresenter(): BasePresenter<*, *> {
+        return VerificationInfoPresenter.newIntance()
+    }
+
+    override fun initMVPData() {
+
+    }
+
+    override fun initMVPView() {
+
+    }
+
+    override fun startActivity() {
+
+    }
+
+    override fun showError(error: String) {
+        dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, error)
+        dialogHelper?.dismissDelayed { null }
+    }
+
+    override fun getRequestBody(token: String) {
+        dialogHelper?.dismissDelayed({ null }, 0)
+        var tokenIntent = intent
+        tokenIntent.putExtra("token", token)
+        startActivity(ResetPasswordActivity::class.java, tokenIntent)
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.verification_back -> {
                 finish()
             }
             R.id.send_code -> {
-                if (resetType == 2 && code.text.toString() == "") {
-                    dialogHelper?.create(this, R.drawable.miss_icon, "验证码不可为空")?.show()
+                if (account.text.toString() == "") {
+                    dialogHelper?.create(this, R.drawable.miss_icon, "邮箱不可为空")?.show()
                     dialogHelper?.dismissDelayed(null)
                     return
                 }
                 dialogHelper?.create(this, R.drawable.pending_icon_1, "发送验证码")?.show()
-                RetrofitUtils.client(ApiStore::class.java).sendValiCode(code.text.toString())
+                RetrofitUtils.client(ApiStore::class.java).sendValiCode(account.text.toString())
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ httpTokenBean ->
                             if (httpTokenBean.code === 200) {
@@ -55,16 +94,39 @@ class VerificationInfoActivity : BaseActivity(), View.OnClickListener {
             R.id.submit -> {
                 if (checkNotNullValue(resetType)) {
                     //助记词需要先去请求助记词之后才允许跳转设置密码
-                    if (resetType == TYPE_MNEMONICS) {
-                        //传递邮箱过去 获取助记词
-                        var dataIntent = intent
-                        dataIntent.putExtra("account",account.text.toString())
-                        startActivity(ResetPasswordVerificationMnemonicsActivity::class.java,dataIntent)
-                    } else {
-                        var dataIntent = intent
-                        dataIntent.putExtra("account",account.text.toString())
-                        dataIntent.putExtra("type",resetType)
-                        startActivity(ResetPasswordActivity::class.java,dataIntent)
+                    dialogHelper?.create(this, R.drawable.pending_icon_1, "验证中")?.show()
+                    when (resetType) {
+                        TYPE_MNEMONICS -> {
+                            //获取助记词
+                            list.clear()
+                            RetrofitUtils.client(ApiStore::class.java).getUserMnemonic(account.text.toString())
+                                    .compose(RxHelper.rxSchedulerHelper())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe({ upset ->
+                                        //传递邮箱过去 获取助记词
+                                        if (upset.code === 200) {
+                                            list.addAll(upset.data)
+                                            dialogHelper?.dismissDelayed({ null }, 0)
+                                            var tokenIntent = intent
+                                            tokenIntent.putExtra("email", account.text.toString())
+                                            tokenIntent.putStringArrayListExtra("menmonicss", list)
+                                            startActivity(ResetPasswordVerificationMnemonicsActivity::class.java, tokenIntent)
+                                        } else {
+                                            dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, upset.message)
+                                            dialogHelper?.dismissDelayed { null }
+                                        }
+                                    }, { throwavle ->
+                                        dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, throwavle.message)
+                                        dialogHelper?.dismissDelayed { null }
+                                    })
+                        }
+                        TYPE_PRIVATEKEY -> {
+                            mPresenter.verification("", TYPE_PRIVATEKEY, account.text.toString())
+                        }
+                        else -> {
+                            mPresenter.verification(account.text.toString(), TYPE_EMAIL, code.text.toString())
+                        }
                     }
                 }
             }
@@ -76,13 +138,15 @@ class VerificationInfoActivity : BaseActivity(), View.OnClickListener {
             override fun updata(time: Int) {
                 send_code.isEnabled = false
                 send_code.setBackgroundResource(R.drawable.shape_load_sendcode_bg)
+                send_code.setTextColor(ContextCompat.getColor(baseContext,R.color.edit_bg))
                 send_code.text = "${time}s"
             }
 
             override fun exit() {
                 send_code.isEnabled = true
                 send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
-                send_code.text = "重新获取验证码"
+                send_code.setTextColor(ContextCompat.getColor(baseContext,R.color.login_content))
+                send_code.text = "重新获取"
             }
         }).updataTime()
     }
@@ -110,6 +174,7 @@ class VerificationInfoActivity : BaseActivity(), View.OnClickListener {
 
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
+        list = ArrayList()
         dialogHelper = DialogHelper.getInstance()
         var getIntent = intent
         resetType = getIntent.getIntExtra("type", -1)

@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.blankj.utilcode.util.SPUtils
 
@@ -120,12 +121,16 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitationConstrat.Re
         TimeVerification.getInstence().setOnTimeEndCallBack(object : OnTimeEndCallBack {
             override fun updata(time: Int) {
                 send_code.isEnabled = false
-                send_code.text = "${time}s后重新获取"
+                send_code.setBackgroundResource(R.drawable.shape_load_sendcode_bg)
+                send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.edit_bg))
+                send_code.text = "${time}s"
             }
 
             override fun exit() {
                 send_code.isEnabled = true
-                send_code.text = "重新获取验证码"
+                send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
+                send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.login_content))
+                send_code.text = "重新获取"
             }
         }).updataTime()
     }

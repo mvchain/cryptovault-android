@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.util.ArraySet;
 import android.util.Log;
@@ -59,6 +61,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     private DialogHelper dialogHelper;
     private EditText mCodeLogin;
     private TextView mCodeSend;
+    private TextInputLayout mPasswordLayout;
 
     @Override
     protected int getLayoutId() {
@@ -152,14 +155,16 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                 public void updata(int time) {
                     mCodeSend.setEnabled(false);
                     mCodeSend.setBackgroundResource(R.drawable.shape_load_sendcode_bg);
-                    mCodeSend.setText(time + "s后重新获取");
+                    mCodeSend.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.edit_bg));
+                    mCodeSend.setText(time + "s");
                 }
 
                 @Override
                 public void exit() {
                     mCodeSend.setEnabled(true);
                     mCodeSend.setBackgroundResource(R.drawable.shape_sendcode_bg);
-                    mCodeSend.setText("重新获取验证码");
+                    mCodeSend.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.login_content));
+                    mCodeSend.setText("重新获取");
                 }
             }).updataTime();
         } else {
@@ -183,6 +188,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         dialogHelper = DialogHelper.getInstance();
         mLoginPhone = findViewById(R.id.login_phone);
         mLoginPwd = findViewById(R.id.login_pwd);
+        mPasswordLayout = findViewById(R.id.password_layout);
         mLoginForgetPwd = findViewById(R.id.login_forget_pwd);
         mLoginSubmit = findViewById(R.id.login_submit);
         mCodeLogin = findViewById(R.id.login_code);
@@ -190,6 +196,17 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         mCodeSend.setOnClickListener(this);
         mLoginSubmit.setOnClickListener(this);
         mLoginForgetPwd.setOnClickListener(this);
+        mLoginPwd.addTextChangedListener(new EditTextChange(){
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int length = s.length();
+                if(length>0){
+                    mPasswordLayout.setPasswordVisibilityToggleEnabled(true);
+                }else{
+                    mPasswordLayout.setPasswordVisibilityToggleEnabled(false);
+                }
+            }
+        });
     }
 
     @Override

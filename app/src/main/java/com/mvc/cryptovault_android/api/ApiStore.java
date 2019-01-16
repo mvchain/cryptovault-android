@@ -221,6 +221,7 @@ public interface ApiStore {
 
     /**
      * 获取邮箱验证码
+     *
      * @param email
      * @return
      */
@@ -239,5 +240,13 @@ public interface ApiStore {
     @Headers("Accept-Language: zh-cn")
     @POST(HttpUrl.USER_MNEMONICS)
     Observable<LoginBean> postUserMnemonic(@Body RequestBody mne);
+
+    @Headers("Accept-Language: zh-cn")
+    @POST(HttpUrl.USER_RESET_VERRFICATION)
+    Observable<HttpTokenBean> updatePassword(@Body RequestBody mne);
+
+    @Headers("Accept-Language: zh-cn")
+    @PUT(HttpUrl.USER_FORGET)
+    Observable<UpdateBean> userForget(@Body RequestBody mne);
 
 }

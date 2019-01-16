@@ -16,16 +16,18 @@ import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.view.DialogHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_language.*
 import kotlinx.android.synthetic.main.activity_verification_mnomonic.*
-import kotlinx.android.synthetic.main.activity_verification_password.*
-import java.util.ArrayList
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import org.json.JSONObject
+import java.util.*
 
 class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdapter.OnItemChildClickListener {
     private lateinit var checkMnomonic: ArrayList<VerificationMnemonicBean>
     private lateinit var checkAdapter: CheckMnemonicsAdapter
     private lateinit var sortMnomonic: ArrayList<VerificationMnemonicBean>
     private lateinit var sortAdapter: SortMnemonicsAdapter
+    private lateinit var list: ArrayList<String>
     private var dialogHelper: DialogHelper? = null
     private lateinit var email: String
 
@@ -33,24 +35,44 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
         return R.layout.activity_reset_verification_mnomonic
     }
 
-    fun onClick(v:View){
-        when(v.id){
-            R.id.back->{
+    fun onClick(v: View) {
+        when (v.id) {
+            R.id.back -> {
                 finish()
             }
-            R.id.submit->{
+            R.id.submit -> {
                 var sb = StringBuffer()
                 for (mnomonic in checkMnomonic) {
                     sb.append("${mnomonic.content},")
                 }
                 var mnemonics = sb.toString().subSequence(0, sb.toString().length - 1)
-                var mneIntent = intent
-                mneIntent.putExtra("account",email)
-                mneIntent.putExtra("value",mnemonics)
-                startActivity(ResetPasswordActivity::class.java,mneIntent)
+                dialogHelper!!.create(this, R.drawable.pending_icon_1, "校验助记词中").show()
+                var json = JSONObject()
+                json.put("email", email)
+                json.put("resetType", 2)
+                json.put("value", mnemonics)
+                var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
+                RetrofitUtils.client(ApiStore::class.java)
+                        .updatePassword(body)
+                        .compose(RxHelper.rxSchedulerHelper())
+                        .subscribe({ httpToken ->
+                            if (httpToken.code === 200) {
+                                dialogHelper?.dismissDelayed({ null }, 0)
+                                var tokenIntent = intent
+                                tokenIntent.putExtra("token", httpToken.data)
+                                startActivity(ResetPasswordActivity::class.java, tokenIntent)
+                            } else {
+                                dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, httpToken.message)
+                                dialogHelper!!.dismissDelayed { null }
+                            }
+                        }, { error ->
+                            dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, error.message)
+                            dialogHelper!!.dismissDelayed { null }
+                        })
             }
         }
     }
+
     /**
      * 点击事件
      */
@@ -82,26 +104,24 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
 
     @SuppressLint("CheckResult")
     override fun initData() {
-        RetrofitUtils.client(ApiStore::class.java).getUserMnemonic(email)
-                .compose(RxHelper.rxSchedulerHelper())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ upset ->
-                    if (upset.code === 200) {
-                        for (currentPosition in upset.data.indices) {
-                            var data = upset.data
-                            sortMnomonic.add(VerificationMnemonicBean(data[currentPosition], currentPosition, false))
-                        }
-                        sortAdapter.notifyDataSetChanged()
-                    }
-                }, { throwavle ->
-                    LogUtils.e(throwavle.message)
-                })
+        initOutOrderToSort(list)
+    }
+
+    private fun initOutOrderToSort(list: ArrayList<String>) {
+        var index = 0
+        var random = Random()
+        while (list.size > 0) {
+            var rd = Math.abs(random.nextInt() % list.size)
+            sortMnomonic.add(VerificationMnemonicBean(list[rd], index, false))
+            list.removeAt(rd)
+            index++
+        }
     }
 
     override fun initView() {
         var emailIntent = intent
-        email = emailIntent.getStringExtra("account")
+        email = emailIntent.getStringExtra("email")
+        list = intent.getStringArrayListExtra("menmonicss")
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         dialogHelper = DialogHelper.getInstance()
         checkMnomonic = ArrayList()

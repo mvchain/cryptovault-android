@@ -123,9 +123,19 @@ public class HttpUrl {
      */
     public static final String USER_REGISTER = "/user/register";
     /**
-     * 获取用户助记词
+     * 校验/获取助记词
      */
     public static final String USER_MNEMONICS = "/user/mnemonics";
 
+
+    /**
+     * 重置密码验证信息的步骤，成功后返回一次性token，供修改密码使用
+     */
+    public static final String USER_RESET_VERRFICATION = "/user/reset";
+
+    /**
+     * 修改密码
+     */
+    public static final String USER_FORGET = "/user/forget";
 
 }

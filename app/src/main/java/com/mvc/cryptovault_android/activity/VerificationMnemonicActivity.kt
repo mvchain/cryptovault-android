@@ -115,7 +115,6 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                                     }, { throwable -> LogUtils.e("VerificationMnemonicActivity", throwable.message) })
                             dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "校验成功，登陆中")
                             dialogHelper?.dismissDelayed {
-                                LogUtils.e("callback")
                                 SPUtils.getInstance().remove(REG_TEMPTOKEN)
                                 SPUtils.getInstance().remove(REG_INVITATION)
                                 SPUtils.getInstance().remove(REG_MINEMNEMONICS)

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/reg_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,114 +31,121 @@
         android:layout_marginLeft="38dp"
         android:layout_marginTop="10dp"
         android:text="注册"
-        android:textStyle="bold"
         android:textColor="@color/login_content"
-        android:textSize="34sp" />
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
-    <com.mvc.cryptovault_android.view.ClearEditText
-        android:id="@+id/reg_invitation"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="38dp"
-        android:background="@drawable/bg_login_edit"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical"
         android:hint="请输入邀请码"
-        android:inputType="textEmailAddress"
-        android:maxLength="11"
-        android:maxLines="1"
-        android:paddingLeft="32dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/login_content"
-        android:textColorHint="#999A9D"
-        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
-        android:textSize="15sp" />
+        app:hintTextAppearance="@style/Text_TextInputLayout">
 
-    <com.mvc.cryptovault_android.view.ClearEditText
-        android:id="@+id/reg_nickname"
+        <EditText
+            android:id="@+id/reg_invitation"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/login_content"
+            android:textColorHint="@color/edit_bg"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+            android:textSize="15dp"
+            android:theme="@style/Edit_Style" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="38dp"
-        android:background="@drawable/bg_login_edit"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical"
         android:hint="设置昵称"
-        android:inputType="textEmailAddress"
-        android:maxLength="11"
-        android:maxLines="1"
-        android:paddingLeft="32dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/login_content"
-        android:textColorHint="#999A9D"
-        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
-        android:textSize="15sp" />
+        app:hintTextAppearance="@style/Text_TextInputLayout">
 
-    <com.mvc.cryptovault_android.view.ClearEditText
-        android:id="@+id/reg_email"
+        <EditText
+            android:id="@+id/reg_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/login_content"
+            android:textColorHint="@color/edit_bg"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+            android:textSize="15dp"
+            android:theme="@style/Edit_Style" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="38dp"
-        android:background="@drawable/bg_login_edit"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical"
         android:hint="请输入邮箱"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:paddingLeft="32dp"
-        android:paddingRight="15dp"
-        android:textColor="@color/login_content"
-        android:textColorHint="#999A9D"
-        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
-        android:textSize="15sp" />
+        app:hintTextAppearance="@style/Text_TextInputLayout">
+
+        <EditText
+            android:id="@+id/reg_email"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/login_content"
+            android:textColorHint="@color/edit_bg"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+            android:textSize="15dp"
+            android:theme="@style/Edit_Style" />
+    </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="38dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/reg_code"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/bg_login_edit"
-            android:digits="1234567890"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:hint="请输入邮箱验证码"
-            android:inputType="phone"
-            android:maxLength="6"
-            android:maxLines="1"
-            android:paddingLeft="32dp"
-            android:paddingRight="15dp"
-            android:textColor="@color/login_content"
-            android:textColorHint="#999A9D"
-            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
-            android:textSize="15sp" />
+            android:layout_weight="1"
+            app:hintTextAppearance="@style/Text_TextInputLayout">
+
+            <EditText
+                android:id="@+id/reg_code"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginRight="17dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="@color/login_content"
+                android:textColorHint="@color/edit_bg"
+                android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+                android:textSize="14dp"
+                android:theme="@style/Edit_Style" />
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:id="@+id/send_code"
-            android:layout_width="135dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_width="105dp"
+            android:layout_height="35dp"
+            android:background="@drawable/shape_sendcode_bg"
             android:onClick="onClick"
-            android:text="发送验证码"
+            android:gravity="center"
+            android:text="获取验证码"
             android:textColor="@color/login_content"
             android:textSize="15sp" />
-
     </LinearLayout>
 
     <TextView

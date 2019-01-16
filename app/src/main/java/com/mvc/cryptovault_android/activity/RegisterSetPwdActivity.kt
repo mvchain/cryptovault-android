@@ -9,7 +9,6 @@ import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
-import com.mvc.cryptovault_android.bean.MnemonicsBean
 import com.mvc.cryptovault_android.common.Constant.SP.*
 import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.utils.RetrofitUtils
@@ -62,26 +61,6 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                             })
                 }
             }
-            R.id.login_pwd_show -> {
-                if (reg_login_pwd.transformationMethod === PasswordTransformationMethod.getInstance()) {
-                    reg_login_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                    login_pwd_show.setImageResource(R.drawable.edit_show)
-                } else {
-                    reg_login_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
-                    login_pwd_show.setImageResource(R.drawable.edit_hide)
-                }
-                reg_login_pwd.setSelection(reg_login_pwd.text.length)
-            }
-            R.id.pay_pwd_show -> {
-                if (reg_pay_pwd.transformationMethod === PasswordTransformationMethod.getInstance()) {
-                    reg_pay_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                    pay_pwd_show.setImageResource(R.drawable.edit_show)
-                } else {
-                    reg_pay_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
-                    pay_pwd_show.setImageResource(R.drawable.edit_hide)
-                }
-                reg_pay_pwd.setSelection(reg_pay_pwd.text.length)
-            }
         }
     }
 
@@ -116,21 +95,13 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
         reg_login_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var lenght = s!!.length
-                if (lenght > 0) {
-                    login_pwd_show.visibility = View.VISIBLE
-                } else {
-                    login_pwd_show.visibility = View.INVISIBLE
-                }
+                login_pwd_layout.isPasswordVisibilityToggleEnabled = lenght > 0
             }
         })
         reg_pay_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var lenght = s!!.length
-                if (lenght > 0) {
-                    pay_pwd_show.visibility = View.VISIBLE
-                } else {
-                    pay_pwd_show.visibility = View.INVISIBLE
-                }
+                pay_pwd_layout.isPasswordVisibilityToggleEnabled = lenght > 0
             }
         })
     }

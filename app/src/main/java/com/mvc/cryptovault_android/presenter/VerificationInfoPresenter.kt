@@ -1,14 +1,12 @@
 package com.mvc.cryptovault_android.presenter
 
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.ResetPasswordContract
-import com.mvc.cryptovault_android.model.ResetModel
-import com.mvc.cryptovault_android.utils.RxHelper
+import com.mvc.cryptovault_android.contract.VerificationInfoContract
+import com.mvc.cryptovault_android.model.VerificationInfoModel
 
-class ResetPresenter : ResetPasswordContract.ResetPasswordPresenter() {
+class VerificationInfoPresenter : VerificationInfoContract.VerificationInfoPresenter() {
     override fun verification(email: String, type: Int, value: String) {
         rxUtils.register(mIModel.verification(email, type, value)
-                .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ httpToken ->
                     if (httpToken.code === 200) {
                         mIView.getRequestBody(httpToken.data)
@@ -22,12 +20,12 @@ class ResetPresenter : ResetPasswordContract.ResetPasswordPresenter() {
 
     companion object {
         fun newIntance(): BasePresenter<*, *> {
-            return ResetPresenter()
+            return VerificationInfoPresenter()
         }
     }
 
-    override fun getModel(): ResetPasswordContract.ResetModel {
-        return ResetModel.instance
+    override fun getModel(): VerificationInfoContract.ResetModel {
+        return VerificationInfoModel.instance
     }
 
     override fun onStart() {

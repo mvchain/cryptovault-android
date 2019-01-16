@@ -34,7 +34,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mnemonics_check_list"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="140dp"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="38dp"

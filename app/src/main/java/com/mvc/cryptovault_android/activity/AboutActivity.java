@@ -1,15 +1,17 @@
 package com.mvc.cryptovault_android.activity;
 
-import android.app.Dialog;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mvc.cryptovault_android.Manifest;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseActivity;
-import com.mvc.cryptovault_android.listener.IDialogViewClickListener;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
 import cn.jpush.android.api.JPushInterface;
@@ -20,12 +22,9 @@ import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 public class AboutActivity extends BaseActivity implements View.OnClickListener {
 
-    private View mBarStatus;
-    private ImageView mIconAbout;
     private TextView mVersionAbout;
     private TextView mSingoutAbout;
     private ImageView mBackAbout;
-    private Dialog mOutDialog;
     private DialogHelper dialogHelper;
 
     @Override
@@ -34,21 +33,17 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     }
 
     protected void initData() {
-        ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
+        mVersionAbout.setText(getVersionName(this));
     }
 
     protected void initView() {
-        mBarStatus = findViewById(R.id.status_bar);
-        mIconAbout = findViewById(R.id.about_icon);
+        ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         mVersionAbout = findViewById(R.id.about_version);
         mSingoutAbout = findViewById(R.id.about_singout);
         mSingoutAbout.setOnClickListener(this);
         mBackAbout = findViewById(R.id.about_back);
         mBackAbout.setOnClickListener(this);
         dialogHelper = DialogHelper.getInstance();
-        for (int i = 0; i < 3; i++) {
-
-        }
     }
 
     @Override
@@ -77,5 +72,24 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
                 }).show();
                 break;
         }
+    }
+
+    /**
+     * get App versionName
+     *
+     * @param context
+     * @return
+     */
+    public String getVersionName(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        PackageInfo packageInfo;
+        String versionName = "";
+        try {
+            packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            versionName = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "Version: " + versionName;
     }
 }

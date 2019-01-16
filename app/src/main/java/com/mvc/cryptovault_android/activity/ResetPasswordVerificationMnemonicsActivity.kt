@@ -66,7 +66,7 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
                                 dialogHelper!!.dismissDelayed { null }
                             }
                         }, { error ->
-                            dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, error.message)
+                            dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message)
                             dialogHelper!!.dismissDelayed { null }
                         })
             }

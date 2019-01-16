@@ -44,6 +44,12 @@ public interface LoginContract {
          * @param loginBean
          */
         void saveUserInfo(LoginBean loginBean);
+        /**
+         * 用户未激活
+         *
+         * @param mnemonicss
+         */
+        void userNotRegister(String mnemonicss);
 
         /**
          * 验证码是否发送成功

@@ -24,58 +24,115 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/home_bg_mine_page"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
+                android:layout_height="160dp"
+                android:background="@drawable/home_page_top_bg"
+                android:orientation="horizontal"
                 android:paddingBottom="25dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_img"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="50dp"
                     android:src="@drawable/portrait_icon" />
 
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="17sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="50dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp">
 
-                <TextView
-                    android:id="@+id/user_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/white"
-                    android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/user_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="middle"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
             </LinearLayout>
 
-            <com.allen.library.SuperTextView
-                android:id="@+id/sys_language"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="12dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="10dp"
-                app:sDividerLineHeight="1dp"
-                app:sLeftIconRes="@drawable/language_icon"
-                app:sLeftTextString="@string/language_title"
-                app:sRightIconRes="@drawable/next_icon_black" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="16dp"
+                app:cardElevation="0dp"
+                android:background="@drawable/shape_round_white_5dp"
+                app:cardCornerRadius="5dp">
 
-            <com.allen.library.SuperTextView
-                android:id="@+id/about"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="10dp"
-                app:sDividerLineHeight="0dp"
-                app:sLeftIconRes="@drawable/about_icon"
-                app:sLeftTextString="@string/about_title"
-                app:sRightIconRes="@drawable/next_icon_black" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.allen.library.SuperTextView
+                        android:id="@+id/account_security"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/ripple_bg"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="10dp"
+                        app:sDividerLineHeight="1dp"
+                        app:sLeftIconRes="@drawable/language_icon"
+                        app:sLeftTextString="@string/account_security"
+                        app:sRightIconRes="@drawable/next_icon_black"
+                        app:sUseRipple="false" />
+
+                    <com.allen.library.SuperTextView
+                        android:id="@+id/invitation_registration"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/ripple_bg"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="10dp"
+                        app:sDividerLineHeight="1dp"
+                        app:sLeftIconRes="@drawable/language_icon"
+                        app:sLeftTextString="@string/Invitation_registration"
+                        app:sRightIconRes="@drawable/next_icon_black"
+                        app:sUseRipple="false" />
+
+                    <com.allen.library.SuperTextView
+                        android:id="@+id/sys_language"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/ripple_bg"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="10dp"
+                        app:sDividerLineHeight="1dp"
+                        app:sLeftIconRes="@drawable/language_icon"
+                        app:sLeftTextString="@string/language_title"
+                        app:sRightIconRes="@drawable/next_icon_black"
+                        app:sUseRipple="false" />
+
+                    <com.allen.library.SuperTextView
+                        android:id="@+id/about"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@drawable/ripple_bg"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="10dp"
+                        app:sDividerLineHeight="0dp"
+                        app:sLeftIconRes="@drawable/about_icon"
+                        app:sLeftTextString="@string/about_title"
+                        app:sRightIconRes="@drawable/next_icon_black"
+                        app:sUseRipple="false" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

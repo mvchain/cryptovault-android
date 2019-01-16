@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.AboutActivity;
 import com.mvc.cryptovault_android.activity.LanguageActivity;
+import com.mvc.cryptovault_android.activity.SelectResetPasswordActivity;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
@@ -34,6 +35,8 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     private TextView mNameUser;
     private TextView mPhoneUser;
     private SuperTextView mLanguageSys;
+    private SuperTextView mAccountSecurity;
+    private SuperTextView mInvitationRegistration;
     private SuperTextView mAbout;
     private SwipeRefreshLayout mSwipMine;
     private boolean createCarryOut;
@@ -56,12 +59,16 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         mNameUser = rootView.findViewById(R.id.user_name);
         mPhoneUser = rootView.findViewById(R.id.user_phone);
         mLanguageSys = rootView.findViewById(R.id.sys_language);
+        mAccountSecurity = rootView.findViewById(R.id.account_security);
+        mInvitationRegistration = rootView.findViewById(R.id.invitation_registration);
         mAbout = rootView.findViewById(R.id.about);
         mSwipMine = rootView.findViewById(R.id.mine_swip);
         mSwipMine.post(() -> mSwipMine.setRefreshing(true));
         mSwipMine.setOnRefreshListener(this::refresh);
-        mAbout.setOnClickListener(this);
+        mAccountSecurity.setOnClickListener(this);
+        mInvitationRegistration.setOnClickListener(this);
         mLanguageSys.setOnClickListener(this);
+        mAbout.setOnClickListener(this);
     }
 
     @Override
@@ -122,12 +129,19 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.about:
-                startActivity(new Intent(activity, AboutActivity.class));
+            case R.id.account_security:
+                startActivity(new Intent(activity, SelectResetPasswordActivity.class));
+                break;
+            case R.id.invitation_registration:
+//                startActivity(new Intent(activity, LanguageActivity.class));
                 break;
             case R.id.sys_language:
                 startActivity(new Intent(activity, LanguageActivity.class));
                 break;
+            case R.id.about:
+                startActivity(new Intent(activity, AboutActivity.class));
+                break;
+
         }
     }
 }

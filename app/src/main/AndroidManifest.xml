@@ -149,6 +149,9 @@
         <activity android:name=".activity.ResetPasswordVerificationMnemonicsActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".activity.SelectResetPasswordActivity"
+            android:screenOrientation="portrait" />
+
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"

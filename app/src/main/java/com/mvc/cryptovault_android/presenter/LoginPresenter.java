@@ -38,7 +38,9 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                     if (loginBean.getCode() == 200) {
                         mIView.showLoginStauts(true, "登录成功");
                         mIView.saveUserInfo(loginBean);
-                    } else {
+                    } else if(loginBean.getCode() == 406){
+                        mIView.userNotRegister(loginBean.getMessage());
+                    }else{
                         mIView.showLoginStauts(false, loginBean.getMessage());
                     }
                 }, throwable -> {

@@ -14,6 +14,8 @@
     <string name="navi_toge">Crowdfunding</string>
     <string name="navi_mine">Mine</string>
     <!--title-->
+    <string name="account_security">Account Security</string>
+    <string name="Invitation_registration">Invitation Registration</string>
     <string name="language_title">Language</string>
     <string name="about_title">About</string>
     <string name="detail_title">Detail</string>

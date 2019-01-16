@@ -16,6 +16,7 @@
         android:background="@drawable/shape_round_white_5dp">
 
         <RelativeLayout
+            android:background="@drawable/ripple_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="15dp">

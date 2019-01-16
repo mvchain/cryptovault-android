@@ -20,6 +20,8 @@
     <string name="navi_toge">众筹</string>
     <string name="navi_mine">我的</string>
     <!--title-->
+    <string name="account_security">账户安全</string>
+    <string name="Invitation_registration">邀请注册</string>
     <string name="language_title">语言</string>
     <string name="detail_title">详情</string>
     <string name="about_title">关于</string>
@@ -29,4 +31,7 @@
     <string name="toge_comming_soon">即将预约</string>
     <string name="toge_over">已结束</string>
     <string name="toge_recording">众筹记录</string>
+    <string name="update_email">修改邮箱</string>
+    <string name="update_password">修改登录密码</string>
+    <string name="update_pay_password">修改支付密码</string>
 </resources>

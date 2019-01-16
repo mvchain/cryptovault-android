@@ -147,6 +147,11 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     }
 
     @Override
+    public void userNotRegister(String mnemonicss) {
+
+    }
+
+    @Override
     public void showSendCode(boolean isSuccess, String msg) {
         if (isSuccess) {
             dialogHelper.resetDialogResource(this, R.drawable.success_icon, msg);

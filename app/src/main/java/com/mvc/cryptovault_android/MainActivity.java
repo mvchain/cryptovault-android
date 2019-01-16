@@ -30,7 +30,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;
-    private int[] colors = {R.color.status_blue, R.color.white, R.color.white, R.color.status_gray};
+    private int[] colors = {R.color.status_blue, R.color.white, R.color.white,/* R.color.status_gray*/R.color.status_blue};
     private ImmersionBar with;
 
     @Override

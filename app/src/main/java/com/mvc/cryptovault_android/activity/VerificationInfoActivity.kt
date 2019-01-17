@@ -56,7 +56,7 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
         dialogHelper?.dismissDelayed { null }
     }
 
-    override fun getRequestBody(token: String) {
+    override fun showSuccess(token: String) {
         dialogHelper?.dismissDelayed({ null }, 0)
         var tokenIntent = intent
         tokenIntent.putExtra("token", token)

@@ -45,7 +45,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                     }
                 }, throwable -> {
                     mIView.showLoginStauts(false, throwable.getMessage());
-                    LogUtils.e("LoginPresenter", throwable.getMessage());
+                     LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));
     }
 

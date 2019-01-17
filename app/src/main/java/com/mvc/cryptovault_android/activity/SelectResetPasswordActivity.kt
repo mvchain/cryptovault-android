@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.content.Intent
 import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
@@ -18,6 +19,7 @@ class SelectResetPasswordActivity : BaseActivity() {
     }
 
     fun onClick(v: View) {
+        var updateIntent = Intent(this, SetLoginPasswordActivity::class.java)
         when (v.id) {
             R.id.back -> {
                 finish()
@@ -26,10 +28,12 @@ class SelectResetPasswordActivity : BaseActivity() {
 
             }
             R.id.update_password -> {
-//                startActivity(ForgetPasswordActivity::class.java)
+                updateIntent.putExtra("type", 0)
+                startActivity(updateIntent)
             }
             R.id.update_pay_password -> {
-
+                updateIntent.putExtra("type", 1)
+                startActivity(updateIntent)
             }
         }
     }

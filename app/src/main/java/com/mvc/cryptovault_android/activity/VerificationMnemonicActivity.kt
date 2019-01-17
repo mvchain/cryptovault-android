@@ -40,7 +40,7 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
     private lateinit var list: ArrayList<String>
     private var dialogHelper: DialogHelper? = null
 
-    private var email = JSONObject(SPUtils.getInstance().getString(REG_INVITATION)).getString("email")
+    private var email = SPUtils.getInstance().getString(REG_EMAIL)
     /**
      * 点击事件
      */

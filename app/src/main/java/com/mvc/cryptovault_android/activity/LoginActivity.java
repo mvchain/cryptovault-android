@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.activity;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
@@ -41,12 +42,15 @@ import com.mvc.cryptovault_android.view.ClearEditText;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.REG_EMAIL;
 import static com.mvc.cryptovault_android.common.Constant.SP.TAG_NAME;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
@@ -84,6 +88,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             case R.id.login_submit:
                 String pwd = mLoginPwd.getText().toString().trim();
                 String code = mCodeLogin.getText().toString().trim();
+                SPUtils.getInstance().put(REG_EMAIL, email);
                 mPresenter.login(email, pwd, code);
                 break;
             case R.id.login_forget_pwd:
@@ -147,8 +152,12 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     }
 
     @Override
-    public void userNotRegister(String mnemonicss) {
-
+    public void userNotRegister(String mnemo) {
+        dialogHelper.dismissDelayed(null, 0);
+        List<String> mnemonicss = Arrays.asList(mnemo.split(","));
+        Intent intent = new Intent(this, VerificationMnemonicActivity.class);
+        intent.putStringArrayListExtra("menmonicss", new ArrayList(mnemonicss));
+        startActivity(intent);
     }
 
     @Override
@@ -201,13 +210,13 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         mCodeSend.setOnClickListener(this);
         mLoginSubmit.setOnClickListener(this);
         mLoginForgetPwd.setOnClickListener(this);
-        mLoginPwd.addTextChangedListener(new EditTextChange(){
+        mLoginPwd.addTextChangedListener(new EditTextChange() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int length = s.length();
-                if(length>0){
+                if (length > 0) {
                     mPasswordLayout.setPasswordVisibilityToggleEnabled(true);
-                }else{
+                } else {
                     mPasswordLayout.setPasswordVisibilityToggleEnabled(false);
                 }
             }

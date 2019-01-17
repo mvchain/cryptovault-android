@@ -9,7 +9,7 @@ class VerificationInfoPresenter : VerificationInfoContract.VerificationInfoPrese
         rxUtils.register(mIModel.verification(email, type, value)
                 .subscribe({ httpToken ->
                     if (httpToken.code === 200) {
-                        mIView.getRequestBody(httpToken.data)
+                        mIView.showSuccess(httpToken.data)
                     } else {
                         mIView.showError(httpToken.message)
                     }

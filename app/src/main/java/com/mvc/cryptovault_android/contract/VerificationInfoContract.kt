@@ -18,6 +18,6 @@ interface VerificationInfoContract {
 
     interface VerificationInfoView : IBaseActivity {
         fun showError(error:String)
-        fun getRequestBody(token:String)
+        fun showSuccess(token:String)
     }
 }

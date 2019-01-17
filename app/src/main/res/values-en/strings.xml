@@ -15,6 +15,7 @@
     <string name="navi_mine">Mine</string>
     <!--title-->
     <string name="account_security">Account Security</string>
+    <string name="set_login_password">Modify the login password</string>
     <string name="Invitation_registration">Invitation Registration</string>
     <string name="language_title">Language</string>
     <string name="about_title">About</string>

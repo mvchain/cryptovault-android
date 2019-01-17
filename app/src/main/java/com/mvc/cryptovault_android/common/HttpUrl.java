@@ -134,8 +134,17 @@ public class HttpUrl {
     public static final String USER_RESET_VERRFICATION = "/user/reset";
 
     /**
-     * 修改密码
+     * 忘记密码_修改
      */
     public static final String USER_FORGET = "/user/forget";
+    /**
+     * 修改登录密码
+     */
+    public static final String USER_PASSWORD = "/user/password";
+    /**
+     * 修改支付密码
+     */
+    public static final String USER_TRANSACTIONPASSWORD = "/user/transactionPassword";
+
 
 }

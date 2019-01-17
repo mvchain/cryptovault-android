@@ -249,4 +249,13 @@ public interface ApiStore {
     @PUT(HttpUrl.USER_FORGET)
     Observable<UpdateBean> userForget(@Body RequestBody mne);
 
+
+    @Headers("Accept-Language: zh-cn")
+    @PUT(HttpUrl.USER_PASSWORD)
+    Observable<UpdateBean> setLoginPassword(@Body RequestBody mne);
+
+    @Headers("Accept-Language: zh-cn")
+    @PUT(HttpUrl.USER_TRANSACTIONPASSWORD)
+    Observable<UpdateBean> setPayPassword(@Body RequestBody mne);
+
 }

@@ -100,6 +100,7 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitationConstrat.Re
         invitationJson.put("inviteCode", reg_invitation.text.toString())
         invitationJson.put("nickname", reg_nickname.text.toString())
         invitationJson.put("email", reg_email.text.toString())
+        SPUtils.getInstance().put(REG_EMAIL, reg_email.text.toString())
         return true
     }
 

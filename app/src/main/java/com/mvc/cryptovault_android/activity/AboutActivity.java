@@ -59,10 +59,6 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
                     switch (viewId) {
                         case R.id.hint_enter:
                             dialogHelper.dismiss();
-                            SPUtils.getInstance().remove(REFRESH_TOKEN);
-                            SPUtils.getInstance().remove(TOKEN);
-                            JPushInterface.deleteAlias(getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
-                            SPUtils.getInstance().remove(USER_ID);
                             startTaskActivity(AboutActivity.this);
                             break;
                         case R.id.hint_cancle:

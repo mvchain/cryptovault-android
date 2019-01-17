@@ -22,6 +22,8 @@
     <!--title-->
     <string name="account_security">账户安全</string>
     <string name="set_login_password">修改登录密码</string>
+    <string name="account_verification">账户安全验证</string>
+    <string name="bind_new_email">绑定新邮箱</string>
     <string name="Invitation_registration">邀请注册</string>
     <string name="language_title">语言</string>
     <string name="detail_title">详情</string>

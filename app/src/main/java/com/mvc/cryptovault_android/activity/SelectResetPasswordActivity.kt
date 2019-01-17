@@ -19,19 +19,22 @@ class SelectResetPasswordActivity : BaseActivity() {
     }
 
     fun onClick(v: View) {
-        var updateIntent = Intent(this, SetLoginPasswordActivity::class.java)
+        var updateIntent = Intent()
         when (v.id) {
             R.id.back -> {
                 finish()
             }
             R.id.update_email -> {
-
+                updateIntent.setClass(this, SendEmailActivity::class.java)
+                startActivity(updateIntent)
             }
             R.id.update_password -> {
+                updateIntent.setClass(this, SetLoginPasswordActivity::class.java)
                 updateIntent.putExtra("type", 0)
                 startActivity(updateIntent)
             }
             R.id.update_pay_password -> {
+                updateIntent.setClass(this, SetLoginPasswordActivity::class.java)
                 updateIntent.putExtra("type", 1)
                 startActivity(updateIntent)
             }

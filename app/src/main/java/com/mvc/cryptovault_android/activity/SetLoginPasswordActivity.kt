@@ -22,7 +22,9 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
 
     override fun showSuccess(msg: String) {
         dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, msg)
-        dialogHelper!!.dismissDelayed { finish() }
+        dialogHelper!!.dismissDelayed {
+            startTaskActivity(this)
+        }
     }
 
     override fun initPresenter(): BasePresenter<*, *> {

@@ -95,7 +95,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                 startActivity(ForgetPasswordActivity.class);
                 break;
             case R.id.send_code:
-                dialogHelper.create(this, R.drawable.pending_icon_1, "发送验证码中").show();
+                dialogHelper.create(this, R.drawable.pending_icon_1, "发送验证码").show();
                 mPresenter.sendCode(email);
                 break;
             case R.id.back:
@@ -178,7 +178,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                     mCodeSend.setEnabled(true);
                     mCodeSend.setBackgroundResource(R.drawable.shape_sendcode_bg);
                     mCodeSend.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.login_content));
-                    mCodeSend.setText("重新获取");
+                    mCodeSend.setText("重新发送");
                 }
             }).updataTime();
         } else {

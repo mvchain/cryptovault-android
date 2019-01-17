@@ -156,6 +156,11 @@
         <activity android:name=".activity.SelectResetPasswordActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".activity.SendEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SetEmailActivity"
+            android:screenOrientation="portrait" />
+
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"

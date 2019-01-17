@@ -258,4 +258,16 @@ public interface ApiStore {
     @PUT(HttpUrl.USER_TRANSACTIONPASSWORD)
     Observable<UpdateBean> setPayPassword(@Body RequestBody mne);
 
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.USER_EMAIL)
+    Observable<HttpTokenBean> sendEmail(@Header("Authorization") String token);
+
+    @Headers("Accept-Language: zh-cn")
+    @POST(HttpUrl.USER_EMAIL)
+    Observable<HttpTokenBean> verificationCode(@Header("Authorization") String token, @Body RequestBody code);
+
+    @Headers("Accept-Language: zh-cn")
+    @PUT(HttpUrl.USER_EMAIL)
+    Observable<UpdateBean> bindNewsEmail(@Header("Authorization") String token, @Body RequestBody code);
+
 }

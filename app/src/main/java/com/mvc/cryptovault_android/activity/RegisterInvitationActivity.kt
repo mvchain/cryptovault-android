@@ -131,7 +131,7 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitationConstrat.Re
                 send_code.isEnabled = true
                 send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
                 send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.login_content))
-                send_code.text = "重新获取"
+                send_code.text = "重新发送"
             }
         }).updataTime()
     }

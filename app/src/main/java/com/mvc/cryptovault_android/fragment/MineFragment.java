@@ -115,7 +115,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         mSwipMine.post(() -> mSwipMine.setRefreshing(false));
         String userJson = SPUtils.getInstance().getString(USER_INFO);
         if (!userJson.equals("")) {
-            UserInfoBean infoBean = (UserInfoBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(USER_INFO), UserInfoBean.class);
+            UserInfoBean infoBean = (UserInfoBean) JsonHelper.stringToJson(userJson, UserInfoBean.class);
             if (infoBean != null) {
                 UserInfoBean.DataBean data = infoBean.getData();
                 mNameUser.setText(data.getNickname());

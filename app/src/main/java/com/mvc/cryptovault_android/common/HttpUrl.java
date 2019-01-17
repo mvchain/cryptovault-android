@@ -146,5 +146,9 @@ public class HttpUrl {
      */
     public static final String USER_TRANSACTIONPASSWORD = "/user/transactionPassword";
 
+    /**
+     * 直接发送验证码
+     */
+    public static final String USER_EMAIL = "/user/email";
 
 }

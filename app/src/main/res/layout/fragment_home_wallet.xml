@@ -119,10 +119,11 @@
                             <ImageView
                                 android:id="@+id/assets_sign_in"
                                 android:layout_width="77dp"
+                                android:visibility="invisible"
                                 android:layout_height="36dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginTop="7dp"
-                                android:layout_marginRight="-3dp"
+                                android:layout_marginRight="-80dp"
                                 android:src="@drawable/home_check_in_img" />
                         </RelativeLayout>
                     </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>

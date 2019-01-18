@@ -1,5 +1,9 @@
 package com.mvc.cryptovault_android.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,16 +14,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
-import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.HistroyActivity;
@@ -43,6 +46,7 @@ import com.mvc.cryptovault_android.presenter.WalletPresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.utils.ViewDrawUtils;
+import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.PopViewHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -66,6 +70,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private ImageView mHintAssets;
     private ImageView mNullAssets;
     private ImageView mAddAssets;
+    private ImageView mSignInView;
     private TextView mTypeAssets;
     private TextView mPriceAssets;
     private RecyclerViewHeader mAssetsLayout;
@@ -97,12 +102,14 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mRvAssets = rootView.findViewById(R.id.assets_rv);
         mAssetsLayout = rootView.findViewById(R.id.assets_layout);
         mSwipAsstes = rootView.findViewById(R.id.asstes_swip);
+        mSignInView = rootView.findViewById(R.id.assets_sign_in);
         mSwipAsstes.post(() -> mSwipAsstes.setRefreshing(true));
         mSwipAsstes.setOnRefreshListener(this::onRefresh);
         mHintAssets.setOnClickListener(this);
         mAddAssets.setOnClickListener(this);
         mTypeAssets.setOnClickListener(this);
         mPriceAssets.setOnClickListener(this);
+        mSignInView.setOnClickListener(this);
         createCarryOut = true;
     }
 
@@ -142,6 +149,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                     }
                 }
                 break;
+            case R.id.assets_sign_in:
+                mPresenter.putSignIn();
+                break;
         }
     }
 
@@ -173,12 +183,6 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         }
         JPushInterface.requestPermission(activity);
         mRvAssets.setLayoutManager(new LinearLayoutManager(activity));
-//        mRvAssets.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return mAssetsLayout.onTouchEvent(event);
-//            }
-//        });
         assetsAdapter = new WalletAssetsAdapter(R.layout.item_home_assets_type, mData);
         assetsAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
@@ -204,6 +208,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mAssetsLayout.attachTo(mRvAssets);
         mRvAssets.setAdapter(assetsAdapter);
         mPresenter.getAssetList();
+        mPresenter.getWhetherToSignIn();
         long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
         mPresenter.getMsg(msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
         ExchangeRateBean.DataBean defalutBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(getDefalutRate(), ExchangeRateBean.DataBean.class);
@@ -263,6 +268,43 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         }
     }
 
+    @Override
+    public void showSignin(boolean isSignin) {
+        if (!isSignin && mSignInView.getVisibility() == View.INVISIBLE) {
+            float width = mSignInView.getWidth();
+            mSignInView.setVisibility(View.VISIBLE);
+            infoLayoutStartAnimation(mAssetsLayout.getWidth() + width, mAssetsLayout.getWidth() - width + ConvertUtils.dp2px(3));
+        }
+    }
+
+    @Override
+    public void signRequest(boolean isSignin) {
+        if (isSignin && mSignInView.getVisibility() == View.VISIBLE) {
+            Dialog dialog = new Dialog(activity, R.style.translationDialog);
+            View dialogView = LayoutInflater.from(activity).inflate(R.layout.layout_signin_dialog, null);
+            ImageView cancleView = dialogView.findViewById(R.id.dialog_cancle);
+            cancleView.setOnClickListener(v -> dialog.dismiss());
+            dialog.setContentView(dialogView);
+            dialog.show();
+            float width = mSignInView.getWidth();
+            ObjectAnimator xAnimation = ObjectAnimator.ofFloat(mSignInView, "X", mAssetsLayout.getWidth() - width + ConvertUtils.dp2px(3), mAssetsLayout.getWidth() + width);
+            xAnimation.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mSignInView.setVisibility(View.INVISIBLE);
+                    super.onAnimationEnd(animation);
+                }
+            });
+            xAnimation.setDuration(200);
+            xAnimation.start();
+        }
+    }
+
+    private void infoLayoutStartAnimation(float startX, float endX) {
+        ObjectAnimator xAnimation = ObjectAnimator.ofFloat(mSignInView, "X", startX, endX);
+        xAnimation.setDuration(200);
+        xAnimation.start();
+    }
 
     @Override
     public void showNullAsset() {
@@ -303,6 +345,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
 //        mData.clear();
         mPresenter.getAllAsset();
         mPresenter.getAssetList();
+        mPresenter.getWhetherToSignIn();
         long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
         mPresenter.getMsg(msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
     }
@@ -321,6 +364,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
 //        mData.clear();
         mPresenter.getAllAsset();
         mPresenter.getAssetList();
+        mPresenter.getWhetherToSignIn();
         long msg_time = SPUtils.getInstance().getLong(MSG_TIME);
         mPresenter.getMsg(msg_time == -1 ? System.currentTimeMillis() : msg_time, 0, 1);
     }

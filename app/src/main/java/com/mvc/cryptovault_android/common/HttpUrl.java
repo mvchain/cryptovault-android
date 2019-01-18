@@ -159,4 +159,9 @@ public class HttpUrl {
      */
     public static final String USER_RECOMMEND = "/user/recommend";
 
+
+    /**
+     * 用户是否签到/签到
+     */
+    public static final String USER_SIGN = "/user/sign";
 }

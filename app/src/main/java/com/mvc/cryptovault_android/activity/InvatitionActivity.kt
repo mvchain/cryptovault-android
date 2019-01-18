@@ -172,8 +172,13 @@ class InvatitionActivity : BaseActivity() {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     var layoutManager = recyclerView?.layoutManager as LinearLayoutManager
                     var lastVisibleItemPosition = layoutManager?.findLastVisibleItemPosition()
+                    var fristVisibleItemPosition = layoutManager?.findFirstCompletelyVisibleItemPosition()
                     if (lastVisibleItemPosition + 1 == invaAdapter.itemCount && invaAdapter.itemCount >= 20) {
                         loadInvatationList(invaList[invaList.size - 1].userId)
+                    }else if(fristVisibleItemPosition == 0 ){
+                        mPop.dismiss()
+                        var height = info_layout.height
+                        infoLayoutStartAnimation(-height + 0f, 0f)
                     }
                 }
             }

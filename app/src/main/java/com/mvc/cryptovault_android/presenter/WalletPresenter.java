@@ -1,9 +1,12 @@
 package com.mvc.cryptovault_android.presenter;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.mvc.cryptovault_android.MyApplication;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.contract.WallteContract;
 import com.mvc.cryptovault_android.model.WalletModel;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -31,6 +34,36 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
                             mIView.serverError();
                             LogUtils.e("WalletPresenter", throwable.getMessage());
                         }));
+    }
+
+    @Override
+    public void getWhetherToSignIn() {
+        rxUtils.register(mIModel.getWhetherToSignIn().subscribe(
+                updateBean -> {
+                    if (updateBean.getCode() == 200) {
+                        mIView.showSignin(updateBean.isData());
+                    }
+                }
+                ,
+                throwable -> {
+                    mIView.showSignin(true);
+                }
+        ));
+    }
+
+    @Override
+    public void putSignIn() {
+        rxUtils.register(mIModel.putSignIn().subscribe(
+                updateBean -> {
+                    if (updateBean.getCode() == 200) {
+                        mIView.signRequest(updateBean.isData());
+                    }
+                }
+                ,
+                throwable -> {
+                    mIView.signRequest(true);
+                }
+        ));
     }
 
     @Override

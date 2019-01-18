@@ -279,4 +279,12 @@ public interface ApiStore {
     @GET(HttpUrl.USER_RECOMMEND)
     Observable<InvatationBean> getRecommendInvatation(@Header("Authorization") String token, @Query("inviteUserId") int inviteUserId, @Query("pageSize") int pageSize);
 
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.USER_SIGN)
+    Observable<UpdateBean> getWhetherToSignIn(@Header("Authorization") String token);
+
+    @Headers("Accept-Language: zh-cn")
+    @PUT(HttpUrl.USER_SIGN)
+    Observable<UpdateBean> putSignIn(@Header("Authorization") String token);
+
 }

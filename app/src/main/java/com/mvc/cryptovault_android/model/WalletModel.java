@@ -13,6 +13,7 @@ import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
 import com.mvc.cryptovault_android.bean.MsgBean;
+import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.WallteContract;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
@@ -72,6 +73,16 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
                     return RetrofitUtils.client(ApiStore.class).getAssetList(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper());
                 })
                 .map(assetListBean -> assetListBean);
+    }
+
+    @Override
+    public Observable<UpdateBean> getWhetherToSignIn() {
+        return RetrofitUtils.client(ApiStore.class).getWhetherToSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+    }
+
+    @Override
+    public Observable<UpdateBean> putSignIn() {
+        return RetrofitUtils.client(ApiStore.class).putSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
     }
 
     @Override

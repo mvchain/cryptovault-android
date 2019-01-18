@@ -290,11 +290,11 @@ public interface ApiStore {
     Observable<UpdateBean> putSignIn(@Header("Authorization") String token);
 
     @Headers("Accept-Language: zh-cn")
-    @PUT(HttpUrl.FINANCIAL)
+    @GET(HttpUrl.FINANCIAL)
     Observable<FinancialListBean> getFinancialList(@Header("Authorization") String token);
 
     @Headers("Accept-Language: zh-cn")
-    @PUT(HttpUrl.FINANCIAL_BALANCE)
+    @GET(HttpUrl.FINANCIAL_BALANCE)
     Observable<FinancialBean> getFinancialBalance(@Header("Authorization") String token);
 
 }

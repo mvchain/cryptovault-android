@@ -17,6 +17,8 @@
     <!--navigation-->
     <string name="navi_assets">资产</string>
     <string name="navi_trand">交易</string>
+    <string name="navi_financial">理财</string>
+
     <string name="navi_toge">众筹</string>
     <string name="navi_mine">我的</string>
     <!--title-->

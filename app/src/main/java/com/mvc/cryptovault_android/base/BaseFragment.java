@@ -1,6 +1,8 @@
 package com.mvc.cryptovault_android.base;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,9 +14,15 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.mvc.cryptovault_android.activity.SelectLoginActivity;
 import com.mvc.cryptovault_android.common.Constant;
 
+import cn.jpush.android.api.JPushInterface;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -32,7 +40,16 @@ public abstract class BaseFragment extends Fragment {
         }
         return rootView;
     }
-
+    protected void startTaskActivity(Activity activity) {
+        SPUtils.getInstance().remove(REFRESH_TOKEN);
+        SPUtils.getInstance().remove(UPDATE_PASSWORD_TYPE);
+        SPUtils.getInstance().remove(TOKEN);
+        JPushInterface.deleteAlias(activity.getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
+        SPUtils.getInstance().remove(USER_ID);
+        Intent intent = new Intent(activity, SelectLoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

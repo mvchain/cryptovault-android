@@ -69,7 +69,7 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
      */
     private fun checkNotNullValue(): Boolean {
         if (reg_login_pwd.text.toString() == "") {
-            dialogHelper?.create(this, R.drawable.miss_icon, "登陆密码不可为空")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为空")?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }

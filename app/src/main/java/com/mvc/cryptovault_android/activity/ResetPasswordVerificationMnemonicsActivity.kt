@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.activity
 import android.annotation.SuppressLint
 import android.view.View
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.SPUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
@@ -11,6 +12,7 @@ import com.mvc.cryptovault_android.adapter.rvAdapter.SortMnemonicsAdapter
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.bean.VerificationMnemonicBean
+import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.view.DialogHelper

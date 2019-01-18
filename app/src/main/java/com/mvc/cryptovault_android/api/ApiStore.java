@@ -1,6 +1,8 @@
 package com.mvc.cryptovault_android.api;
 
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.FinancialBean;
+import com.mvc.cryptovault_android.bean.FinancialListBean;
 import com.mvc.cryptovault_android.bean.InvatationBean;
 import com.mvc.cryptovault_android.bean.MnemonicsBean;
 import com.mvc.cryptovault_android.bean.TagBean;
@@ -286,5 +288,13 @@ public interface ApiStore {
     @Headers("Accept-Language: zh-cn")
     @PUT(HttpUrl.USER_SIGN)
     Observable<UpdateBean> putSignIn(@Header("Authorization") String token);
+
+    @Headers("Accept-Language: zh-cn")
+    @PUT(HttpUrl.FINANCIAL)
+    Observable<FinancialListBean> getFinancialList(@Header("Authorization") String token);
+
+    @Headers("Accept-Language: zh-cn")
+    @PUT(HttpUrl.FINANCIAL_BALANCE)
+    Observable<FinancialBean> getFinancialBalance(@Header("Authorization") String token);
 
 }

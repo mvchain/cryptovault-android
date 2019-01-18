@@ -39,6 +39,18 @@
             android:paddingTop="5dp"
             android:textColor="@color/select_home_button_wallet"
             android:text="@string/navi_assets"/>
+        <RadioButton
+            android:id="@+id/home_financial"
+            android:layout_width="0dp"
+            android:paddingTop="5dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textColor="@color/select_home_button_wallet"
+            android:text="@string/navi_financial"
+            android:drawableTop="@drawable/select_home_button_trand" />
 
         <RadioButton
             android:id="@+id/home_trand"

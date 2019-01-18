@@ -159,9 +159,19 @@ public class HttpUrl {
      */
     public static final String USER_RECOMMEND = "/user/recommend";
 
-
     /**
      * 用户是否签到/签到
      */
     public static final String USER_SIGN = "/user/sign";
+
+    /**
+     * 获取我的理财资产
+     */
+    public static final String FINANCIAL_BALANCE = "/financial/balance";
+
+    /**
+     * 获取理财列表
+     */
+    public static final String FINANCIAL = "/financial";
+
 }

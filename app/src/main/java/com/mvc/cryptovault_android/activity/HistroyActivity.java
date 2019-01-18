@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -54,19 +55,18 @@ import java.util.List;
 import static com.mvc.cryptovault_android.common.Constant.SP.ALLASSETS;
 import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
-public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener, IPopViewListener {
+public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener {
     private ImageView mBackHis;
     private ImageView mQcodeHis;
     private TextView mPriceHis;
-    private TextView mTypeHis;
     private TextView mActualHis;
     private TabLayout mTabHis;
     private ViewPager mVpHis;
-    private TextView mSubHis;
     private ArrayList<Fragment> fragments;
     private List<ExchangeRateBean.DataBean> mExchange;
     private HistroyPagerAdapter histroyPagerAdapter;
     private TextView mTitleHis;
+    private TextView mTyleAssets;
     private TextView mOutHis;
     private TextView mInHis;
     private LinearLayout mLayoutSub;
@@ -110,20 +110,17 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         histroyPagerAdapter = new HistroyPagerAdapter(getSupportFragmentManager(), fragments);
         mBackHis = findViewById(R.id.his_back);
         mTitleHis = findViewById(R.id.his_title);
+        mTyleAssets = findViewById(R.id.type_assets);
         mQcodeHis = findViewById(R.id.his_qcode);
         mPriceHis = findViewById(R.id.his_price);
-        mTypeHis = findViewById(R.id.his_type);
         mActualHis = findViewById(R.id.his_actual);
         mTabHis = findViewById(R.id.his_tab);
         mVpHis = findViewById(R.id.his_vp);
-        mSubHis = findViewById(R.id.his_sub);
         mOutHis = findViewById(R.id.his_out);
         mInHis = findViewById(R.id.his_in);
         mLayoutSub = findViewById(R.id.sub_layout);
         mBackHis.setOnClickListener(this);
         mQcodeHis.setOnClickListener(this);
-        mTypeHis.setOnClickListener(this);
-        mSubHis.setOnClickListener(this);
         mOutHis.setOnClickListener(this);
         mInHis.setOnClickListener(this);
         initIntent();
@@ -138,12 +135,12 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         dataBean = intent.getParcelableExtra("data");
         rateType = intent.getStringExtra("rate_type");
         mTitleHis.setText(tokenName);
+        mTyleAssets.setText(tokenName + "资产");
         switch (type) {
             case 0:
                 mLayoutSub.setVisibility(View.VISIBLE);
                 mOutHis.setVisibility(View.GONE);
                 mInHis.setVisibility(View.GONE);
-                mSubHis.setVisibility(View.VISIBLE);
                 mQcodeHis.setVisibility(View.GONE);
                 break;
             case 1:
@@ -154,13 +151,12 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 mLayoutSub.setVisibility(View.VISIBLE);
                 mOutHis.setVisibility(View.VISIBLE);
                 mInHis.setVisibility(View.VISIBLE);
-                mSubHis.setVisibility(View.GONE);
                 mQcodeHis.setVisibility(View.VISIBLE);
                 break;
         }
-        mPriceHis.setText(TextUtils.rateToPrice(dataBean.getRatio() * dataBean.getValue()));
+        mPriceHis.setText(new SpanUtils().append(TextUtils.rateToPrice(dataBean.getRatio() * dataBean.getValue()) + " ").setFontSize(36,true)
+                .append(rateType).setFontSize(10,true).create());
         mActualHis.setText(TextUtils.doubleToFour(dataBean.getValue()) + " " + dataBean.getTokenName());
-        mTypeHis.setText(rateType);
     }
 
     @Override
@@ -206,7 +202,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 break;
             case R.id.his_qcode:
                 // TODO 18/11/29
-                if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     RsPermission.getInstance().setRequestCode(200).setiPermissionRequest(new IPermissionRequest() {
                         @Override
                         public void toSetting() {
@@ -225,22 +221,11 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                             startActivityForResult(intent, 200);
                         }
                     }).requestPermission(this, Manifest.permission.CAMERA);
-                }else{
+                } else {
                     intent.setClass(HistroyActivity.this, QCodeActivity.class);
                     intent.putExtra("tokenId", tokenId);
                     startActivityForResult(intent, 200);
                 }
-                break;
-            case R.id.his_type:
-                // TODO 18/11/29
-//                mPopView.showAsDropDown(mTypeHis, -50, -10, Gravity.CENTER);
-//                ViewDrawUtils.setRigthDraw(getDrawable(R.drawable.down_icon), mTypeHis);
-                break;
-            case R.id.his_sub:
-                // TODO 18/11/29
-                intent.setClass(this, VPBalanceWithdrawalActivity.class);
-                intent.putExtra("tokenId", tokenId);
-                startActivityForResult(intent, 300);
                 break;
             case R.id.his_out:// TODO 18/12/05
                 intent.setClass(this, BTCTransferActivity.class);
@@ -260,26 +245,6 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     @Override
     public void showSuccess(List<String> msgs) {
 
-    }
-
-    @Override
-    public void changeRate(int position) {
-        ExchangeRateBean.DataBean dataBean = mExchange.get(position);
-        SPUtils.getInstance().put(SET_RATE, JsonHelper.jsonToString(dataBean));
-        mTypeHis.setText(dataBean.getName());
-        changeAssets(position);
-    }
-
-    private void changeAssets(int position) {
-        AllAssetBean assetBean = (AllAssetBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(ALLASSETS), AllAssetBean.class);
-        mPriceHis.setText(TextUtils.rateToPrice(assetBean.getData()));
-        EventBus.getDefault().post(new WalletFragmentEvent(position));
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    public void dismiss() {
-        ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(),R.drawable.up_icon), mTypeHis);
     }
 
     @Override
@@ -316,6 +281,6 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         String price = event.getPrice();
         mActualHis.setText(TextUtils.doubleToFour(Double.parseDouble(mActualHis.getText().toString().split(" ")[0]) - Double.parseDouble(price)));
         String newsPrice = mActualHis.getText().toString().split(" ")[0];
-        mPriceHis.setText(TextUtils.rateToPrice(Double.parseDouble(newsPrice)*dataBean.getRatio()));
+        mPriceHis.setText(TextUtils.rateToPrice(Double.parseDouble(newsPrice) * dataBean.getRatio()));
     }
 }

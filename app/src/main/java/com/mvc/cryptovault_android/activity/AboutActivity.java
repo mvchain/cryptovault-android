@@ -13,12 +13,10 @@ import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
 
-public class AboutActivity extends BaseActivity implements View.OnClickListener {
+public class AboutActivity extends BaseActivity{
 
     private TextView mVersionAbout;
-    private TextView mSingoutAbout;
     private ImageView mBackAbout;
-    private DialogHelper dialogHelper;
 
     @Override
     protected int getLayoutId() {
@@ -32,35 +30,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     protected void initView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         mVersionAbout = findViewById(R.id.about_version);
-        mSingoutAbout = findViewById(R.id.about_singout);
-        mSingoutAbout.setOnClickListener(this);
         mBackAbout = findViewById(R.id.about_back);
-        mBackAbout.setOnClickListener(this);
-        dialogHelper = DialogHelper.getInstance();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.about_back:
-                // TODO 18/11/30
-                finish();
-                break;
-            case R.id.about_singout:
-                // TODO 18/11/30
-                dialogHelper.create(this, "确定要登出VPay?", viewId -> {
-                    switch (viewId) {
-                        case R.id.hint_enter:
-                            dialogHelper.dismiss();
-                            startTaskActivity(AboutActivity.this);
-                            break;
-                        case R.id.hint_cancle:
-                            dialogHelper.dismiss();
-                            break;
-                    }
-                }).show();
-                break;
-        }
     }
 
     /**

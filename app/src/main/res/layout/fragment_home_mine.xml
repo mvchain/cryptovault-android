@@ -133,6 +133,16 @@
                         app:sUseRipple="false" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/singout"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="16dp"
+                android:text="@string/sing_out"
+                android:gravity="center"
+                android:background="@drawable/shape_round_white_5dp"
+                android:layout_marginRight="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="44dp" />
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

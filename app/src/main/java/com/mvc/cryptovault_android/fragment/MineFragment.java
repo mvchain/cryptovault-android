@@ -25,6 +25,7 @@ import com.mvc.cryptovault_android.contract.MineContract;
 import com.mvc.cryptovault_android.presenter.MinePresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.LanguageUtils;
+import com.mvc.cryptovault_android.view.DialogHelper;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,6 +42,8 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
     private SuperTextView mAbout;
     private SwipeRefreshLayout mSwipMine;
     private boolean createCarryOut;
+    private DialogHelper dialogHelper;
+    private TextView mSingOut;
 
 
     @Override
@@ -55,11 +58,13 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
 
     @Override
     protected void initView() {
+        dialogHelper = DialogHelper.getInstance();
         createCarryOut = true;
         mImgUser = rootView.findViewById(R.id.user_img);
         mNameUser = rootView.findViewById(R.id.user_name);
         mPhoneUser = rootView.findViewById(R.id.user_phone);
         mLanguageSys = rootView.findViewById(R.id.sys_language);
+        mSingOut = rootView.findViewById(R.id.singout);
         mAccountSecurity = rootView.findViewById(R.id.account_security);
         mInvitationRegistration = rootView.findViewById(R.id.invitation_registration);
         mAbout = rootView.findViewById(R.id.about);
@@ -70,6 +75,8 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         mInvitationRegistration.setOnClickListener(this);
         mLanguageSys.setOnClickListener(this);
         mAbout.setOnClickListener(this);
+        mSingOut.setOnClickListener(this);
+
     }
 
     @Override
@@ -141,6 +148,19 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
                 break;
             case R.id.about:
                 startActivity(new Intent(activity, AboutActivity.class));
+                break;
+            case R.id.singout:
+                dialogHelper.create(activity, "确定要登出VPay?", viewId -> {
+                    switch (viewId) {
+                        case R.id.hint_enter:
+                            dialogHelper.dismiss();
+                            startTaskActivity(activity);
+                            break;
+                        case R.id.hint_cancle:
+                            dialogHelper.dismiss();
+                            break;
+                    }
+                }).show();
                 break;
 
         }

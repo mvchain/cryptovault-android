@@ -10,6 +10,7 @@ import com.mvc.cryptovault_android.adapter.HomePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.LanguageEvent;
+import com.mvc.cryptovault_android.fragment.FinancialManagementFragment;
 import com.mvc.cryptovault_android.fragment.MineFragment;
 import com.mvc.cryptovault_android.fragment.TogeFragment;
 import com.mvc.cryptovault_android.fragment.TrandFragment;
@@ -30,7 +31,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;
-    private int[] colors = {R.color.status_blue, R.color.white, R.color.white,/* R.color.status_gray*/R.color.status_blue};
+    private int[] colors = {R.color.status_blue, R.color.white,R.color.white, R.color.white,/* R.color.status_gray*/R.color.status_blue};
     private ImmersionBar with;
 
     @Override
@@ -88,6 +89,8 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     protected void initMVPData() {
         WalletFragment walletFragment = new WalletFragment();
         mFragment.add(walletFragment);
+        FinancialManagementFragment financial = new FinancialManagementFragment();
+        mFragment.add(financial);
         TrandFragment trandFragment = new TrandFragment();
         mFragment.add(trandFragment);
         TogeFragment togeFragment = new TogeFragment();

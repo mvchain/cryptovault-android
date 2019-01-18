@@ -113,7 +113,7 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                                         }
                                         JPushInterface.setAlias(applicationContext, loginBean.data.userId, loginBean.data.userId.toString())
                                     }, { throwable -> LogUtils.e("VerificationMnemonicActivity", throwable.message) })
-                            dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "校验成功，登陆中")
+                            dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "校验成功，登录中")
                             dialogHelper?.dismissDelayed {
                                 SPUtils.getInstance().remove(REG_TEMPTOKEN)
                                 SPUtils.getInstance().remove(REG_INVITATION)

@@ -53,6 +53,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.REG_EMAIL;
 import static com.mvc.cryptovault_android.common.Constant.SP.TAG_NAME;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 
@@ -92,6 +93,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                 mPresenter.login(email, pwd, code);
                 break;
             case R.id.login_forget_pwd:
+                SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "1");
                 startActivity(ForgetPasswordActivity.class);
                 break;
             case R.id.send_code:

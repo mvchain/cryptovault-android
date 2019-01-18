@@ -1,10 +1,12 @@
 package com.mvc.cryptovault_android.activity
 
 import android.view.View
+import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
+import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
 import com.mvc.cryptovault_android.contract.SetPasswordContract
 import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.presenter.SetLoginPresenter
@@ -98,9 +100,11 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
             }
             R.id.forget_pwd -> {
                 if (type == 0) {
+                    SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "1")
                     startActivity(ForgetPasswordActivity::class.java)
                 } else if (type == 1) {
-
+                    SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "2")
+                    startActivity(ForgetPasswordActivity::class.java)
                 }
             }
         }

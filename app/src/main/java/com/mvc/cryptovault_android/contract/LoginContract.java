@@ -18,7 +18,7 @@ public interface LoginContract {
 
     interface ILoginModel extends IBaseModel {
         /**
-         * 请求登陆
+         * 请求登录
          *
          * @param phone
          * @param pwd

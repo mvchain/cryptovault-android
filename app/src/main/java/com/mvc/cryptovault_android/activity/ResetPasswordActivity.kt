@@ -1,10 +1,12 @@
 package com.mvc.cryptovault_android.activity
 
 import android.view.View
+import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
+import com.mvc.cryptovault_android.common.Constant
 
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
@@ -19,11 +21,25 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
     private lateinit var account: String
     private var type: Int = 0
     private lateinit var value: String
+    private var passwordType = SPUtils.getInstance().getString(Constant.SP.UPDATE_PASSWORD_TYPE)
+    private val TYPE_LOGIN_PASSWORD = "1"
+    private val TYPE_PAY_PASSWORD = "2"
+
+
+
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         dialogHelper = DialogHelper.getInstance()
         account = intent.getStringExtra("token")
         type = intent.getIntExtra("type", -1)
+        when(passwordType){
+            TYPE_LOGIN_PASSWORD->{
+                account_hint.hint = "登录密码"
+            }
+            TYPE_PAY_PASSWORD->{
+
+            }
+        }
     }
 
     override fun getLayoutId(): Int {
@@ -41,7 +57,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
             R.id.submit -> {
                 value = login_pwd.text.toString()
                 if (value == "") {
-                    dialogHelper?.create(this, R.drawable.miss_icon, "登陆密码不可为空")?.show()
+                    dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为空")?.show()
                     dialogHelper?.dismissDelayed(null)
                     return
                 }
@@ -49,6 +65,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 var json = JSONObject()
                 json.put("token", account)
                 json.put("password", value)
+                json.put("type", passwordType)
                 var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
                 RetrofitUtils.client(ApiStore::class.java).userForget(body)
                         .compose(RxHelper.rxSchedulerHelper())

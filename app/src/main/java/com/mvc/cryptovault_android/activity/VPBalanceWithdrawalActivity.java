@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -122,7 +123,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
             }, 1500);
             new Handler().postDelayed(() -> dialog.dismiss(), 1000);
         } else {
-            Toast.makeText(this, bean.getMessage(), Toast.LENGTH_SHORT).show();
+            ToastUtils.showLong(bean.getMessage());
         }
     }
 
@@ -147,7 +148,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
                 // TODO 18/12/11
                 String vpEditPrice = mBwPriceVp.getText().toString();
                 if (vpEditPrice.equals("")) {
-                    Toast.makeText(this, "取出余额不可为空", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showLong("取出余额不可为空");
                     return;
                 }
                 mPopView = PopViewHelper.getInstance()
@@ -165,7 +166,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
                                         switch (view.getId()) {
                                             case R.id.pay_close:
                                                 mPopView.dismiss();
-                                                Toast.makeText(VPBalanceWithdrawalActivity.this, "取消交易", Toast.LENGTH_SHORT).show();
+                                                ToastUtils.showLong("取消交易");
                                                 break;
                                             case R.id.pay_text:
                                                 KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));

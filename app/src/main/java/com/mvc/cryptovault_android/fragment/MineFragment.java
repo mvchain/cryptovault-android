@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.AboutActivity;
+import com.mvc.cryptovault_android.activity.InvatitionActivity;
 import com.mvc.cryptovault_android.activity.LanguageActivity;
 import com.mvc.cryptovault_android.activity.SelectResetPasswordActivity;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
@@ -133,7 +134,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
                 startActivity(new Intent(activity, SelectResetPasswordActivity.class));
                 break;
             case R.id.invitation_registration:
-//                startActivity(new Intent(activity, LanguageActivity.class));
+                startActivity(new Intent(activity, InvatitionActivity.class));
                 break;
             case R.id.sys_language:
                 startActivity(new Intent(activity, LanguageActivity.class));

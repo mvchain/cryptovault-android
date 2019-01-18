@@ -102,7 +102,7 @@
                         android:paddingRight="10dp"
                         app:sDividerLineHeight="1dp"
                         app:sLeftIconRes="@drawable/language_icon"
-                        app:sLeftTextString="@string/Invitation_registration"
+                        app:sLeftTextString="@string/invitation_registration"
                         app:sRightIconRes="@drawable/next_icon_black"
                         app:sUseRipple="false" />
 

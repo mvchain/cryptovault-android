@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.gyf.barlibrary.ImmersionBar;
@@ -192,7 +193,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 // TODO 18/12/12
                 String currentNum = mBwPriceM.getText().toString();
                 if (currentNum.equals("")) {
-                    Toast.makeText(this, "购买数量不可为空", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showLong("购买数量不可为空");
                     return;
                 }
                 mPopView = PopViewHelper.getInstance()
@@ -208,7 +209,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                                         switch (view.getId()) {
                                             case R.id.pay_close:
                                                 mPopView.dismiss();
-                                                Toast.makeText(CrowdfundingAppointmentActivity.this, "取消交易", Toast.LENGTH_SHORT).show();
+                                                ToastUtils.showLong("取消交易");
                                                 break;
                                             case R.id.pay_text:
                                                 KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));

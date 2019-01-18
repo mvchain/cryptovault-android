@@ -139,26 +139,29 @@
         <activity
             android:name=".activity.ForgetPasswordActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.SetLoginPasswordActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.VerificationInfoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ResetPasswordActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.ResetPasswordVerificationMnemonicsActivity"
+        <activity
+            android:name=".activity.ResetPasswordVerificationMnemonicsActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".activity.SelectResetPasswordActivity"
+        <activity
+            android:name=".activity.SelectResetPasswordActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".activity.SendEmailActivity"
+        <activity
+            android:name=".activity.SendEmailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SetEmailActivity"
+        <activity
+            android:name=".activity.SetEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.InvatitionActivity"
             android:screenOrientation="portrait" />
 
         <receiver

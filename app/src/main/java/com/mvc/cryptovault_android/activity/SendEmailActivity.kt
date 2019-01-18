@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
@@ -9,9 +10,11 @@ import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.bean.UserInfoBean
 import com.mvc.cryptovault_android.common.Constant.SP.USER_INFO
+import com.mvc.cryptovault_android.listener.OnTimeEndCallBack
 import com.mvc.cryptovault_android.utils.JsonHelper
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
+import com.mvc.cryptovault_android.utils.TimeVerification
 import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_send_email.*
 import okhttp3.MediaType
@@ -40,6 +43,7 @@ class SendEmailActivity : BaseActivity() {
                         .subscribe({ codeBean ->
                             if (codeBean.code === 200) {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "验证码发送成功")
+                                setViewStatus()
                             } else {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, codeBean.message)
                             }
@@ -62,7 +66,7 @@ class SendEmailActivity : BaseActivity() {
                                 if (codeBean.code === 200) {
                                     dialogHelper!!.dismissDelayed({ null }, 0)
                                     var dataIntent = intent
-                                    dataIntent.putExtra("token", codeBean.code)
+                                    dataIntent.putExtra("token", codeBean.data)
                                     startActivity(SetEmailActivity::class.java, dataIntent)
                                 } else {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, codeBean.message)
@@ -78,6 +82,26 @@ class SendEmailActivity : BaseActivity() {
             }
         }
     }
+
+    private fun setViewStatus() {
+        TimeVerification.getInstence().setOnTimeEndCallBack(object : OnTimeEndCallBack {
+            override fun updata(time: Int) {
+                send_code.isEnabled = false
+                send_code.setBackgroundResource(R.drawable.shape_load_sendcode_bg)
+                send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.edit_bg))
+                send_code.text = "${time}s"
+            }
+
+            override fun exit() {
+                send_code.isEnabled = true
+                send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
+                send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.login_content))
+                send_code.text = "重新发送"
+            }
+        }).updataTime()
+    }
+
+
 
     private fun checkNotNullValue(): Boolean {
         if (email_code.text.toString() == "") {

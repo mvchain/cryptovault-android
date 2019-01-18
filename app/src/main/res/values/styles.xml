@@ -22,9 +22,15 @@
     <style name="Text_TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/edit_bg</item>
     </style>
+
     <style name="Edit_Style" parent="@android:style/TextAppearance">
         <item name="colorControlNormal">@color/line_gray</item>
         <item name="colorControlActivated">@color/line_gray</item>
         <item name="android:dividerHeight">1dp</item>
+    </style>
+
+    <style name="MyPopupWindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popupwindow_show_anim</item>
+        <item name="android:windowExitAnimation">@anim/popupwindow_hidden_anim</item>
     </style>
 </resources>

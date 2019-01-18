@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.HistroyPagerAdapter;
@@ -214,7 +215,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
                         @Override
                         public void cancle(int i) {
-                            Toast.makeText(HistroyActivity.this, "未给予相机权限将无法扫描二维码", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showLong("未给予相机权限将无法扫描二维码");
                         }
 
                         @Override

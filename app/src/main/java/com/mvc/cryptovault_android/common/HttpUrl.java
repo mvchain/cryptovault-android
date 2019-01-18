@@ -150,5 +150,13 @@ public class HttpUrl {
      * 直接发送验证码
      */
     public static final String USER_EMAIL = "/user/email";
+    /**
+     * 获取邀请码
+     */
+    public static final String USER_INVITATION = "/user/invitation";
+    /**
+     * 获取推荐人列表
+     */
+    public static final String USER_RECOMMEND = "/user/recommend";
 
 }

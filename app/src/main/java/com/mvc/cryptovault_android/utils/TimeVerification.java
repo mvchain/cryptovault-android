@@ -108,6 +108,8 @@ public class TimeVerification {
             mHandler = null;
             mRunnable = null;
             timeVerification = null;
+            timeTemp = 60;//默认60s
+            mDiminished = 1;
         }
     }
 }

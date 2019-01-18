@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.api;
 
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
+import com.mvc.cryptovault_android.bean.InvatationBean;
 import com.mvc.cryptovault_android.bean.MnemonicsBean;
 import com.mvc.cryptovault_android.bean.TagBean;
 import com.mvc.cryptovault_android.bean.UpsetMnemonicsBean;
@@ -269,5 +270,13 @@ public interface ApiStore {
     @Headers("Accept-Language: zh-cn")
     @PUT(HttpUrl.USER_EMAIL)
     Observable<UpdateBean> bindNewsEmail(@Header("Authorization") String token, @Body RequestBody code);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.USER_INVITATION)
+    Observable<HttpTokenBean> getInvitation(@Header("Authorization") String token);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.USER_RECOMMEND)
+    Observable<InvatationBean> getRecommendInvatation(@Header("Authorization") String token, @Query("inviteUserId") int inviteUserId, @Query("pageSize") int pageSize);
 
 }

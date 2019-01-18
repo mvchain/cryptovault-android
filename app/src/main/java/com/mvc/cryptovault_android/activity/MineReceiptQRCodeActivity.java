@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -139,7 +140,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
                 ClipData mClipData = ClipData.newPlainText("hash", mHashM.getText().toString());
                 // 将ClipData内容放到系统剪贴板里。
                 cm.setPrimaryClip(mClipData);
-                Toast.makeText(this, "内容已复制至剪贴板", Toast.LENGTH_SHORT).show();
+                ToastUtils.showLong("内容已复制至剪贴板");
                 break;
         }
     }

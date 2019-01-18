@@ -7,6 +7,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.adapter.rvAdapter.MineMnemonicsAdapter
@@ -45,7 +46,7 @@ class MineMnemonicsActivity : BaseActivity(), View.OnClickListener {
                 var clipManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 var clipText = ClipData.newPlainText("private_key", private_key.text.toString())
                 clipManager.primaryClip = clipText
-                Toast.makeText(this, "内容已复制至剪贴板", Toast.LENGTH_SHORT).show()
+                ToastUtils.showLong("内容已复制至剪贴板")
             }
             R.id.submit -> {
                 var intent = Intent(this, VerificationMnemonicActivity::class.java)

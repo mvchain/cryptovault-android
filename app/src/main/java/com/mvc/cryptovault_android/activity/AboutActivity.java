@@ -7,18 +7,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
-import com.mvc.cryptovault_android.Manifest;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
-import cn.jpush.android.api.JPushInterface;
-
-import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
-import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
-import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 public class AboutActivity extends BaseActivity implements View.OnClickListener {
 

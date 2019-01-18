@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
@@ -129,9 +130,9 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
                                 .subscribe(updateBean -> {
                                     if (updateBean.getCode() == 200) {
                                         EventBus.getDefault().post(new TrandOrderEvent());
-                                        Toast.makeText(mContext, "订单撤销成功", Toast.LENGTH_SHORT).show();
+                                        ToastUtils.showLong("订单撤销成功");
                                     } else {
-                                        Toast.makeText(mContext, "取消失败", Toast.LENGTH_SHORT).show();
+                                        ToastUtils.showLong("取消失败");
                                     }
                                 }, throwable -> {
                                     LogUtils.e(TAG, throwable.getMessage());

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
@@ -122,7 +123,7 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
 
                         @Override
                         public void cancle(int i) {
-                            Toast.makeText(QCodeActivity.this, "未给予读取权限无法读取相册图片", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showLong("未给予读取权限无法读取相册图片");
                         }
 
                         @Override
@@ -169,7 +170,7 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
                     setResult(200, intent);
                     finish();
                 } else {
-                    Toast.makeText(this, "图片不正确，请重新选择", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showLong("图片不正确，请重新选择");
                 }
             }
         }

@@ -10,11 +10,13 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.mvc.cryptovault_android.activity.LoginActivity;
 import com.mvc.cryptovault_android.activity.SelectLoginActivity;
 import com.mvc.cryptovault_android.activity.StartActivity;
 import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.utils.LanguageUtils;
+import com.mvc.cryptovault_android.utils.TimeVerification;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.Locale;
@@ -82,11 +84,11 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected void showToast(String toast) {
-        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
+        ToastUtils.showLong(toast);
     }
 
     protected void showToast(int msgId) {
-        Toast.makeText(this, getResources().getText(msgId), Toast.LENGTH_SHORT).show();
+        ToastUtils.showLong(msgId);
     }
 
     protected String getToken() {
@@ -95,6 +97,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        TimeVerification.getInstence().onExit();
         KeyboardUtils.hideSoftInput(this);
         super.onDestroy();
     }

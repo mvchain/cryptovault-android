@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -167,7 +168,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
 
                         @Override
                         public void cancle(int i) {
-                            Toast.makeText(BTCTransferActivity.this, "未给予相机权限将无法扫描二维码", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showLong("未给予相机权限将无法扫描二维码");
                         }
 
                         @Override
@@ -227,7 +228,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                         switch (view.getId()) {
                                             case R.id.pay_close:
                                                 mPopView.dismiss();
-                                                Toast.makeText(BTCTransferActivity.this, "取消交易", Toast.LENGTH_SHORT).show();
+                                                ToastUtils.showLong("取消交易");
                                                 break;
                                             case R.id.pay_text:
                                                 KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.mvc.cryptovault_android.common.Constant;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
@@ -62,7 +63,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showToast(int resId) {
-        Toast.makeText(context, getResources().getString(resId), Toast.LENGTH_SHORT).show();
+        ToastUtils.showLong(resId);
     }
 
     @Override

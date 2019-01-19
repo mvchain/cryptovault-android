@@ -7,12 +7,12 @@ import com.mvc.cryptovault_android.bean.HttpTokenBean
 import io.reactivex.Observable
 
 interface VerificationInfoContract {
-    abstract class VerificationInfoPresenter : BasePresenter<ResetModel, VerificationInfoView>() {
+    abstract class VerificationInfoPresenter : BasePresenter<VerificationInfoModel, VerificationInfoView>() {
         abstract fun verification(email: String, type:Int, value:String)
 
     }
 
-    interface ResetModel : IBaseModel {
+    interface VerificationInfoModel : IBaseModel {
         fun verification(email: String, type:Int, value:String) : Observable<HttpTokenBean>
     }
 

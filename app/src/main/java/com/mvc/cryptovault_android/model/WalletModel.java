@@ -63,7 +63,6 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
                         String newSymbol = symbol.substring(0, 1);
                         SPUtils.getInstance().put(DEFAULE_SYMBOL, newSymbol + " ");
                     }
-                    LogUtils.e("WalletModel", JsonHelper.jsonToString(exchangeRateBean));
                     SPUtils.getInstance().put(RATE_LIST, JsonHelper.jsonToString(exchangeRateBean));
                     return RetrofitUtils.client(ApiStore.class).getCurrencyAll(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper());
                 })

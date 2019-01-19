@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.api;
 
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.FinancialBean;
+import com.mvc.cryptovault_android.bean.FinancialDetailBean;
 import com.mvc.cryptovault_android.bean.FinancialListBean;
 import com.mvc.cryptovault_android.bean.InvatationBean;
 import com.mvc.cryptovault_android.bean.MnemonicsBean;
@@ -296,5 +297,9 @@ public interface ApiStore {
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.FINANCIAL_BALANCE)
     Observable<FinancialBean> getFinancialBalance(@Header("Authorization") String token);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.FINANCIAL + "/{id}")
+    Observable<FinancialDetailBean> getFinancialDetail(@Header("Authorization") String token, @Path("id") int id);
 
 }

@@ -12,14 +12,10 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
-import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.MyApplication
@@ -37,7 +33,24 @@ import com.per.rslibrary.RsPermission
 import kotlinx.android.synthetic.main.activity_invatition.*
 import java.util.ArrayList
 
-class InvatitionActivity : BaseActivity() {
+class InvatitionActivity : BaseActivity(), View.OnTouchListener {
+    private var y = 0f
+
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        when(event?.action){
+            MotionEvent.ACTION_DOWN->{
+                y = event.y
+            }
+            MotionEvent.ACTION_UP->{
+                if(event.y > y){
+                    var height = info_layout.height
+                    infoLayoutStartAnimation(-height + 0f, 0f)
+                }
+            }
+        }
+        return true
+    }
+
     private var dialogHelper: DialogHelper? = null
     private lateinit var invaList: ArrayList<InvatationBean.DataBean>
     private lateinit var invaAdapter: InvatitionAdapter
@@ -73,11 +86,11 @@ class InvatitionActivity : BaseActivity() {
                     if (invation.code === 200) {
                         invaList.addAll(invation.data)
                         invaAdapter.notifyDataSetChanged()
-                        mPopLayout.findViewById<TextView>(R.id.invatition_null).visibility = View.GONE
+                        mPopLayout.findViewById<TextView>(R.id.invatation_null).visibility = View.GONE
                         mPopLayout.findViewById<RecyclerView>(R.id.invatition_list).visibility = View.VISIBLE
                     }
                 }, {
-                    mPopLayout.findViewById<TextView>(R.id.invatition_null).visibility = View.VISIBLE
+                    mPopLayout.findViewById<TextView>(R.id.invatation_null).visibility = View.VISIBLE
                     mPopLayout.findViewById<RecyclerView>(R.id.invatition_list).visibility = View.GONE
                 })
     }
@@ -165,6 +178,8 @@ class InvatitionActivity : BaseActivity() {
         var mInvatationRecyclerVie = mPopLayout.findViewById<RecyclerView>(R.id.invatition_list)
         var rule = RuleRecyclerLines(this, RuleRecyclerLines.HORIZONTAL_LIST, 1)
         rule.setColor(R.color.white)
+        var invatationNull = mPopLayout.findViewById<TextView>(R.id.invatation_null)
+        invatationNull.setOnTouchListener(this)
         mInvatationRecyclerVie.addItemDecoration(rule)
         mInvatationRecyclerVie.adapter = invaAdapter
         mInvatationRecyclerVie.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -175,7 +190,7 @@ class InvatitionActivity : BaseActivity() {
                     var fristVisibleItemPosition = layoutManager?.findFirstCompletelyVisibleItemPosition()
                     if (lastVisibleItemPosition + 1 == invaAdapter.itemCount && invaAdapter.itemCount >= 20) {
                         loadInvatationList(invaList[invaList.size - 1].userId)
-                    }else if(fristVisibleItemPosition == 0 ){
+                    } else if (fristVisibleItemPosition == 0) {
                         mPop.dismiss()
                         var height = info_layout.height
                         infoLayoutStartAnimation(-height + 0f, 0f)

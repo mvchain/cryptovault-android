@@ -163,6 +163,9 @@
         <activity
             android:name=".activity.InvatitionActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FinancialDetailActivity"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".receiver.PushReceiver"

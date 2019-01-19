@@ -11,7 +11,7 @@ import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.json.JSONObject
 
-class VerificationInfoModel : BaseModel(), VerificationInfoContract.ResetModel {
+class VerificationInfoModel : BaseModel(), VerificationInfoContract.VerificationInfoModel {
     override fun verification(email: String, type: Int, value: String): Observable<HttpTokenBean> {
         var json = JSONObject()
         json.put("email", email)

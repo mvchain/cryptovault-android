@@ -24,7 +24,7 @@ class VerificationInfoPresenter : VerificationInfoContract.VerificationInfoPrese
         }
     }
 
-    override fun getModel(): VerificationInfoContract.ResetModel {
+    override fun getModel(): VerificationInfoContract.VerificationInfoModel {
         return VerificationInfoModel.instance
     }
 

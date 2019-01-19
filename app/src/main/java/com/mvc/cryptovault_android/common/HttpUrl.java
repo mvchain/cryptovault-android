@@ -170,7 +170,7 @@ public class HttpUrl {
     public static final String FINANCIAL_BALANCE = "/financial/balance";
 
     /**
-     * 获取理财列表
+     * 获取理财列表/详情
      */
     public static final String FINANCIAL = "/financial";
 

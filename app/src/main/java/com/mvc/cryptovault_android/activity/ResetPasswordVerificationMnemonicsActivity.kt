@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.activity
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.View
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
@@ -13,6 +14,7 @@ import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.bean.VerificationMnemonicBean
 import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
+import com.mvc.cryptovault_android.event.PayPwdRefreshEvent
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.view.DialogHelper
@@ -21,6 +23,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_verification_mnomonic.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.json.JSONObject
 import java.util.*
 
@@ -32,7 +36,15 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
     private lateinit var list: ArrayList<String>
     private var dialogHelper: DialogHelper? = null
     private lateinit var email: String
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
 
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
     override fun getLayoutId(): Int {
         return R.layout.activity_reset_verification_mnomonic
     }
@@ -134,5 +146,9 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
         checkAdapter.onItemChildClickListener = this
         mnemonics_sort_list.adapter = sortAdapter
         mnemonics_check_list.adapter = checkAdapter
+    }
+    @Subscribe
+    public fun updatePaySuccess(pay : PayPwdRefreshEvent){
+        finish()
     }
 }

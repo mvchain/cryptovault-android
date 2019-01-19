@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_grey"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@id/status_bar"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/financial_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="产品名称 存入"
+            android:textColor="@color/login_content"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:onClick="onClick"
+            android:scaleType="center"
+            android:src="@drawable/back_icon_black" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/deposit_limit"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="16dp"
+        android:text="产品限额：0/1000"
+        android:textColor="@color/login_content"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingTop="12dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="9dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="存入数量"
+            android:textColor="@color/login_content"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/deposit_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:inputType="number"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+            android:theme="@style/Edit_Style" />
+
+        <TextView
+            android:id="@+id/available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="可用VPC：2000"
+            android:textColor="@color/login_content"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginRight="116dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/bg_login_submit"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="确定存入"
+        android:textColor="@color/select_button_tv_color"
+        android:textSize="15sp" />
+</LinearLayout>

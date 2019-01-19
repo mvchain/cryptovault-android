@@ -166,6 +166,9 @@
         <activity
             android:name=".activity.FinancialDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FinancialDepositActivity"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".receiver.PushReceiver"

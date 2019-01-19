@@ -136,7 +136,6 @@ public class PswText extends AppCompatEditText {
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-
         return super.onKeyUp(keyCode, event);
     }
 

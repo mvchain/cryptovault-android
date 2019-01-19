@@ -118,4 +118,5 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LanguageUtils.Companion.wrapLocale(newBase, new Locale(LanguageUtils.Companion.getUserSetLocal())));
     }
+
 }

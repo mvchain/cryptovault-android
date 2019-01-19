@@ -1,13 +1,17 @@
 package com.mvc.cryptovault_android.activity
 
+import android.content.Intent
+import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
+import com.blankj.utilcode.util.LogUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.contract.VerificationInfoContract
+import com.mvc.cryptovault_android.event.PayPwdRefreshEvent
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack
 import com.mvc.cryptovault_android.presenter.VerificationInfoPresenter
 import com.mvc.cryptovault_android.utils.RetrofitUtils
@@ -17,6 +21,8 @@ import com.mvc.cryptovault_android.view.DialogHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_verification_password.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
 /**
@@ -34,6 +40,15 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
     private lateinit var hintMsg: String
     private lateinit var list: ArrayList<String>
     private var dialogHelper: DialogHelper? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
 
     override fun initPresenter(): BasePresenter<*, *> {
         return VerificationInfoPresenter.newIntance()
@@ -61,6 +76,11 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
         var tokenIntent = intent
         tokenIntent.putExtra("token", token)
         startActivity(ResetPasswordActivity::class.java, tokenIntent)
+    }
+
+    @Subscribe
+    public fun updatePaySuccess(pay: PayPwdRefreshEvent) {
+        finish()
     }
 
     override fun onClick(v: View?) {
@@ -138,14 +158,14 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
             override fun updata(time: Int) {
                 send_code.isEnabled = false
                 send_code.setBackgroundResource(R.drawable.shape_load_sendcode_bg)
-                send_code.setTextColor(ContextCompat.getColor(baseContext,R.color.edit_bg))
+                send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.edit_bg))
                 send_code.text = "${time}s"
             }
 
             override fun exit() {
                 send_code.isEnabled = true
                 send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
-                send_code.setTextColor(ContextCompat.getColor(baseContext,R.color.login_content))
+                send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.login_content))
                 send_code.text = "重新发送"
             }
         }).updataTime()

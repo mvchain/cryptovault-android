@@ -302,4 +302,7 @@ public interface ApiStore {
     @GET(HttpUrl.FINANCIAL + "/{id}")
     Observable<FinancialDetailBean> getFinancialDetail(@Header("Authorization") String token, @Path("id") int id);
 
+    @Headers("Accept-Language: zh-cn")
+    @POST(HttpUrl.FINANCIAL + "/{id}")
+    Observable<UpdateBean> depositFinancial(@Header("Authorization") String token, @Body RequestBody body,@Path("id") int id);
 }

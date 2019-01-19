@@ -7,6 +7,7 @@ import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.common.Constant
+import com.mvc.cryptovault_android.event.PayPwdRefreshEvent
 
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
@@ -14,6 +15,7 @@ import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_reset_password.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 
 class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
@@ -35,9 +37,12 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
         when(passwordType){
             TYPE_LOGIN_PASSWORD->{
                 account_hint.hint = "登录密码"
+                reset_title.text = "设置登录密码"
+
             }
             TYPE_PAY_PASSWORD->{
-
+                account_hint.hint = "支付密码"
+                reset_title.text = "设置支付密码"
             }
         }
     }
@@ -71,9 +76,14 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ updateBean ->
                             if (updateBean.code === 200) {
-                                dialogHelper?.resetDialogResource(this, R.drawable.pending_icon_1, "密码修改成功")
+                                dialogHelper?.resetDialogResource(this, R.drawable.success_icon, "密码修改成功")
                                 dialogHelper?.dismissDelayed {
-                                    startTaskActivity(this)
+                                    if(passwordType == TYPE_LOGIN_PASSWORD){
+                                        startTaskActivity(this)
+                                    }else{
+                                        EventBus.getDefault().post(PayPwdRefreshEvent())
+                                        finish()
+                                    }
                                 }
                             } else {
                                 dialogHelper?.resetDialogResource(this, R.drawable.pending_icon_1, updateBean.message)

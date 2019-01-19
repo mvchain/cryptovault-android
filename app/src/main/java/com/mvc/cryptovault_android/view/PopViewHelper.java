@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.RateAdapter;
 import com.mvc.cryptovault_android.listener.IPayWindowListener;
@@ -65,6 +67,33 @@ public class PopViewHelper {
     }
 
     @SuppressLint("WrongConstant")
+    public PopupWindow create(Context context, int layoutId, String count, IPayWindowListener iPayWindowListener, PswMaxListener maxListener) {
+        LinearLayout linear = (LinearLayout) LayoutInflater.from(context.getApplicationContext()).inflate(layoutId, null);
+        linear.findViewById(R.id.pay_address_layout).setVisibility(View.GONE);
+        linear.findViewById(R.id.pay_fee_layout).setVisibility(View.GONE);
+        linear.findViewById(R.id.pay_close).setOnClickListener(v -> iPayWindowListener.onclick(v));
+        PswText pswText = linear.findViewById(R.id.pay_text);
+        pswText.setOnClickListener(v -> iPayWindowListener.onclick(v));
+        pswText.setMaxListener(maxListener);
+        linear.findViewById(R.id.pay_forget).setOnClickListener(v -> iPayWindowListener.onclick(v));
+        ((TextView) linear.findViewById(R.id.pay_title)).setText("确认存入");
+        ((TextView) linear.findViewById(R.id.pay_child_title)).setText("总共需支付");
+        ((TextView) linear.findViewById(R.id.pay_price)).setText(count);
+        mPopView = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopView.setOnDismissListener(() -> {
+            if (iPayWindowListener != null) {
+                iPayWindowListener.dismiss();
+            }
+        });
+        mPopView.setContentView(linear);
+        mPopView.setFocusable(true);
+        mPopView.setBackgroundDrawable(new BitmapDrawable());
+        mPopView.setOutsideTouchable(false);
+        mPopView.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        return mPopView;
+    }
+
+    @SuppressLint("WrongConstant")
     public PopupWindow create(Context context, int layoutId, String title, String childTitle, String price, String address, String money, boolean isOut, IPayWindowListener iPayWindowListener, PswMaxListener maxListener) {
         LinearLayout linear = (LinearLayout) LayoutInflater.from(context.getApplicationContext()).inflate(layoutId, null);
         linear.findViewById(R.id.line).setVisibility(isOut ? View.VISIBLE : View.GONE);
@@ -103,6 +132,7 @@ public class PopViewHelper {
         mPopView.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return mPopView;
     }
+
     @SuppressLint("WrongConstant")
     public PopupWindow create(Context context, int layoutId, String title, String childTitle, String price, String money, IPayWindowListener iPayWindowListener, PswMaxListener maxListener) {
         LinearLayout linear = (LinearLayout) LayoutInflater.from(context.getApplicationContext()).inflate(layoutId, null);
@@ -122,7 +152,7 @@ public class PopViewHelper {
         TextView mFeePay = linear.findViewById(R.id.pay_fee);
         mFeePay.setText(money);
         LinearLayout mFeeLayoutPay = linear.findViewById(R.id.pay_fee_layout);
-        ((TextView)mFeeLayoutPay.findViewById(R.id.price)).setText("预约数量");
+        ((TextView) mFeeLayoutPay.findViewById(R.id.price)).setText("预约数量");
         mFeeLayoutPay.setVisibility(View.VISIBLE);
         PswText mTextPay = linear.findViewById(R.id.pay_text);
         mTextPay.setOnClickListener(v -> iPayWindowListener.onclick(v));

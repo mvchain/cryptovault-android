@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.content.Intent
 import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
@@ -12,8 +13,10 @@ import kotlinx.android.synthetic.main.activity_financial_detail.*
 
 class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.FinancialDetailPresenter>(), FinancialDetailContract.FinancialDetailfoView {
     private var detailId = -1
-
+    private lateinit var baseName: String
+    //    private var detailId = -1
     override fun startActivity() {
+
     }
 
     override fun showError(error: String) {
@@ -27,6 +30,8 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
         starting.text = "${bean.minValue} ${bean.baseTokenName}"
         content.text = bean.content
         rule.text = bean.rule
+        detailId = bean.id
+        baseName = bean.baseTokenName
     }
 
     private var id = 0
@@ -48,7 +53,6 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
     override fun initMVPView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         id = intent.getIntExtra("id", 0)
-
     }
 
     override fun initData() {
@@ -60,10 +64,14 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
                 finish()
             }
             R.id.deposit -> {
-                if (detailId===-1) {
+                if (detailId === -1) {
                     return
-                }else{
-
+                } else {
+                    var idIntent = Intent(this, FinancialDepositActivity::class.java)
+                    idIntent.putExtra("id", detailId)
+                    idIntent.putExtra("baseName", baseName)
+//                    idIntent.putExtra("id", detailId)
+                    startActivity(idIntent)
                 }
             }
         }

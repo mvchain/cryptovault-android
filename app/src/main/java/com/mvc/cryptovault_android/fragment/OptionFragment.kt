@@ -1,19 +1,24 @@
 package com.mvc.cryptovault_android.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.mvc.cryptovault_android.R
+import com.mvc.cryptovault_android.activity.OptionDetailActivity
 import com.mvc.cryptovault_android.adapter.rvAdapter.OptionAdapter
 import com.mvc.cryptovault_android.base.BaseMVPFragment
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.OptionBean
 import com.mvc.cryptovault_android.contract.OptionContract
+import com.mvc.cryptovault_android.event.OptionEvent
 import com.mvc.cryptovault_android.presenter.OptionPresenter
 import kotlinx.android.synthetic.main.fragment_option.*
 import kotlinx.android.synthetic.main.fragment_option.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
 class OptionFragment : BaseMVPFragment<OptionContract.OptionPresenter>(), OptionContract.OptionView {
@@ -21,6 +26,20 @@ class OptionFragment : BaseMVPFragment<OptionContract.OptionPresenter>(), Option
     private lateinit var optionAdapter: OptionAdapter
     private var financialType = 0
     private var isRefresh = false
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe
+    fun eventRefresh(optionEvent: OptionEvent) {
+        refresh()
+    }
 
     override fun showSuccess(bean: List<OptionBean.DataBean>) {
         rootView.option_swipe.post { rootView.option_swipe.isRefreshing = false }
@@ -30,10 +49,10 @@ class OptionFragment : BaseMVPFragment<OptionContract.OptionPresenter>(), Option
         }
         optionList.addAll(bean)
         optionAdapter.notifyDataSetChanged()
-        if(optionList.size==0){
+        if (optionList.size == 0) {
             option_rv.visibility = View.GONE
             data_null.visibility = View.VISIBLE
-        }else{
+        } else {
             option_rv.visibility = View.VISIBLE
             data_null.visibility = View.GONE
         }
@@ -77,6 +96,16 @@ class OptionFragment : BaseMVPFragment<OptionContract.OptionPresenter>(), Option
 
             }
         })
+        optionAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when (view.id) {
+                R.id.item_layout -> {
+                    var detailIntent = Intent(activity, OptionDetailActivity::class.java)
+                    detailIntent.putExtra("id", optionList[position].id)
+                    detailIntent.putExtra("financialType", financialType)
+                    startActivity(detailIntent)
+                }
+            }
+        }
     }
 
     fun refresh() {

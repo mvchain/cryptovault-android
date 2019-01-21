@@ -44,11 +44,11 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
         vrtBundle.putInt("pairType", 1);
         vrtFragment.setArguments(vrtBundle);
         mFragments.add(vrtFragment);
-        TrandChildFragment banFragment = new TrandChildFragment();
-        Bundle banBundle = new Bundle();
-        banBundle.putInt("pairType", 2);
-        banFragment.setArguments(banBundle);
-        mFragments.add(banFragment);
+//        TrandChildFragment banFragment = new TrandChildFragment();
+//        Bundle banBundle = new Bundle();
+//        banBundle.putInt("pairType", 2);
+//        banFragment.setArguments(banBundle);
+//        mFragments.add(banFragment);
         trandPagerAdapter = new TrandPagerAdapter(getChildFragmentManager(), mFragments);
         mVpTrand.setAdapter(trandPagerAdapter);
         mTableTrand.setupWithViewPager(mVpTrand);

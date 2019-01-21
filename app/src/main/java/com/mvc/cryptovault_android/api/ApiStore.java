@@ -6,6 +6,7 @@ import com.mvc.cryptovault_android.bean.FinancialDetailBean;
 import com.mvc.cryptovault_android.bean.FinancialListBean;
 import com.mvc.cryptovault_android.bean.InvatationBean;
 import com.mvc.cryptovault_android.bean.MnemonicsBean;
+import com.mvc.cryptovault_android.bean.OptionBean;
 import com.mvc.cryptovault_android.bean.TagBean;
 import com.mvc.cryptovault_android.bean.UpsetMnemonicsBean;
 import com.mvc.cryptovault_android.bean.VPBalanceBean;
@@ -304,5 +305,9 @@ public interface ApiStore {
 
     @Headers("Accept-Language: zh-cn")
     @POST(HttpUrl.FINANCIAL + "/{id}")
-    Observable<UpdateBean> depositFinancial(@Header("Authorization") String token, @Body RequestBody body,@Path("id") int id);
+    Observable<UpdateBean> depositFinancial(@Header("Authorization") String token, @Body RequestBody body, @Path("id") int id);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.FINANCIAL_PARTAKE)
+    Observable<OptionBean> getFinancialPartake(@Header("Authorization") String token, @Query("financialType") int financialType, @Query("id") int id, @Query("pageSize") int pageSize);
 }

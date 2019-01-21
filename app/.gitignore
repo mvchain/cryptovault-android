@@ -1,1 +1,6 @@
 /build
+/gradle
+/.gradle
+/vpay.jks
+/.idea
+/test

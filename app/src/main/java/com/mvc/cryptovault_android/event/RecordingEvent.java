@@ -1,4 +1,4 @@
-package com.mvc.cryptovault_android.bean;
+package com.mvc.cryptovault_android.event;
 
 public class RecordingEvent {
     private boolean isRefresh;

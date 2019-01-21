@@ -174,4 +174,10 @@ public class HttpUrl {
      */
     public static final String FINANCIAL = "/financial";
 
+    /**
+     * 获取持仓列表
+     */
+    public static final String FINANCIAL_PARTAKE = "/financial/partake";
+
+
 }

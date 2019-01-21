@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -29,7 +26,7 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.bean.RecorBean;
-import com.mvc.cryptovault_android.bean.RecordingEvent;
+import com.mvc.cryptovault_android.event.RecordingEvent;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.bean.TrandPurhBean;
 import com.mvc.cryptovault_android.listener.EditTextChange;
@@ -50,7 +47,6 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
-import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_UNIT;
 
 public class TrandPurhAndSellItemActivity extends BaseActivity implements View.OnClickListener {
 

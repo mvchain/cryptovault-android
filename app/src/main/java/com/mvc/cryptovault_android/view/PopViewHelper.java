@@ -72,6 +72,7 @@ public class PopViewHelper {
         linear.findViewById(R.id.pay_address_layout).setVisibility(View.GONE);
         linear.findViewById(R.id.pay_fee_layout).setVisibility(View.GONE);
         linear.findViewById(R.id.pay_close).setOnClickListener(v -> iPayWindowListener.onclick(v));
+        linear.findViewById(R.id.line).setVisibility(View.GONE);
         PswText pswText = linear.findViewById(R.id.pay_text);
         pswText.setOnClickListener(v -> iPayWindowListener.onclick(v));
         pswText.setMaxListener(maxListener);

@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.activity.FinancialDetailActivity
+import com.mvc.cryptovault_android.activity.MyOptionActivity
 import com.mvc.cryptovault_android.adapter.rvAdapter.FinanciaAdapter
 import com.mvc.cryptovault_android.base.BaseMVPFragment
 import com.mvc.cryptovault_android.base.BasePresenter
@@ -41,6 +43,9 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
                 .setFontSize(10, true).create()
         rootView.yesterday_earnings.text = "${TextUtils.rateToPrice(financialBean.lastIncome.toDouble())} $defaultRate"
         rootView.all_earnings.text = "${TextUtils.rateToPrice(financialBean.income.toDouble())} $defaultRate"
+        rootView.my_option.setOnClickListener {
+            startActivity(Intent(activity, MyOptionActivity::class.java))
+        }
     }
 
     override fun showFinanciaListSuccess(financialListBean: List<FinancialListBean.DataBean>) {
@@ -113,6 +118,5 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
 
     override fun showServerError() {
         rootView.refresh.post { rootView.refresh.isRefreshing = false }
-
     }
 }

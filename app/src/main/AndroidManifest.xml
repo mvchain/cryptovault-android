@@ -169,7 +169,9 @@
         <activity
             android:name=".activity.FinancialDepositActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".activity.MyOptionActivity"
+            android:screenOrientation="portrait" />
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"

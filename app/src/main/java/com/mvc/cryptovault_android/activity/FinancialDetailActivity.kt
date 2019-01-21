@@ -12,7 +12,7 @@ import com.mvc.cryptovault_android.presenter.FinancialDetailPresenter
 import kotlinx.android.synthetic.main.activity_financial_detail.*
 
 class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.FinancialDetailPresenter>(), FinancialDetailContract.FinancialDetailfoView {
-    private var detailId = -1
+    private lateinit var detail: FinancialDetailBean.DataBean
     private lateinit var baseName: String
     //    private var detailId = -1
     override fun startActivity() {
@@ -30,8 +30,7 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
         starting.text = "${bean.minValue} ${bean.baseTokenName}"
         content.text = bean.content
         rule.text = bean.rule
-        detailId = bean.id
-        baseName = bean.baseTokenName
+        detail = bean
     }
 
     private var id = 0
@@ -64,13 +63,11 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
                 finish()
             }
             R.id.deposit -> {
-                if (detailId === -1) {
+                if (detail == null) {
                     return
                 } else {
                     var idIntent = Intent(this, FinancialDepositActivity::class.java)
-                    idIntent.putExtra("id", detailId)
-                    idIntent.putExtra("baseName", baseName)
-//                    idIntent.putExtra("id", detailId)
+                    idIntent.putExtra("detail", detail)
                     startActivity(idIntent)
                 }
             }

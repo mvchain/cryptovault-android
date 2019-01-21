@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/assets_title"
+            android:id="@+id/financial_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -22,7 +22,7 @@
             android:textSize="17sp" />
 
         <TextView
-            android:id="@+id/assets_add"
+            android:id="@+id/my_option"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

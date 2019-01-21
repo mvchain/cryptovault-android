@@ -79,27 +79,32 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
     @Override
     protected void initMVPData() {
-        HistroyChildFragment allFragment = new HistroyChildFragment();
-        Bundle allBundle = new Bundle();
-        allBundle.putInt("tokenId", tokenId);
-        allBundle.putInt("action", 0);
-        allFragment.setArguments(allBundle);
-        fragments.add(allFragment);
-        HistroyChildFragment outFragment = new HistroyChildFragment();
-        Bundle outBundle = new Bundle();
-        outBundle.putInt("tokenId", tokenId);
-        outBundle.putInt("action", 2);
-        outFragment.setArguments(outBundle);
-        fragments.add(outFragment);
-        HistroyChildFragment inFragment = new HistroyChildFragment();
-        Bundle inBundle = new Bundle();
-        inBundle.putInt("tokenId", tokenId);
-        inBundle.putInt("action", 1);
-        inFragment.setArguments(inBundle);
-        fragments.add(inFragment);
+        HistroyChildFragment transferFragment = new HistroyChildFragment();
+        Bundle transferBundle = new Bundle();
+        transferBundle.putInt("tokenId", tokenId);
+        transferBundle.putInt("action", 0);
+        transferFragment.setArguments(transferBundle);
+        fragments.add(transferFragment);
+        HistroyChildFragment financesFragment = new HistroyChildFragment();
+        Bundle financesBundle = new Bundle();
+        financesBundle.putInt("tokenId", tokenId);
+        financesBundle.putInt("action", 4);
+        financesFragment.setArguments(financesBundle);
+        fragments.add(financesFragment);
+        HistroyChildFragment transactionFragment = new HistroyChildFragment();
+        Bundle transactionBundle = new Bundle();
+        transactionBundle.putInt("tokenId", tokenId);
+        transactionBundle.putInt("action", 1);
+        transactionFragment.setArguments(transactionBundle);
+        fragments.add(transactionFragment);
+        HistroyChildFragment crowdfundingFragment = new HistroyChildFragment();
+        Bundle crowdfundingBundle = new Bundle();
+        crowdfundingBundle.putInt("tokenId", tokenId);
+        crowdfundingBundle.putInt("action", 2);
+        crowdfundingFragment.setArguments(crowdfundingBundle);
+        fragments.add(crowdfundingFragment);
         mVpHis.setAdapter(histroyPagerAdapter);
         mTabHis.setupWithViewPager(mVpHis);
-        TabLayoutUtils.setIndicator(mTabHis, 40, 40);
     }
 
     @Override

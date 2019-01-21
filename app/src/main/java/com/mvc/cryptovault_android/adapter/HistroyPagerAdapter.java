@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class HistroyPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments;
     private FragmentManager fm;
-    private String[] titles = {"全部", "支出","收入"};
+    private String[] titles = {"转账", "理财", "交易", "众筹"};
 
     public HistroyPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);

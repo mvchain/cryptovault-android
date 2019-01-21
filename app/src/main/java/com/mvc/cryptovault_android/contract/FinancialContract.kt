@@ -11,11 +11,11 @@ import java.lang.Error
 interface FinancialContract {
     abstract class FinancialPresenter : BasePresenter<FinancialModel, FinancialView>() {
         abstract fun getFinancialBalance()
-        abstract fun getFinancialList()
+        abstract fun getFinancialList(id:Int,pageSize:Int)
     }
 
     interface FinancialModel : IBaseModel {
-        fun getFinancialList(): Observable<FinancialListBean>
+        fun getFinancialList(id:Int,pageSize:Int): Observable<FinancialListBean>
         fun getFinancialBalance(): Observable<FinancialBean>
 
     }

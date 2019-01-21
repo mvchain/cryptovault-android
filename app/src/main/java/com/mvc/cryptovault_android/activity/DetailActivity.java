@@ -255,6 +255,13 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
+        } else if (classify == 4) {
+            mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.financial_selected_bold));
+            mTitleDetail.setText("理财" + (data.getTransactionType() == 1 ? "收入" : "支出"));
+//            mTvTitle.setText(data.getOrderRemark() + " " + (data.getStatus() == 9 ? "支出" : "收入"));
+            mFeesLayoutDetail.setVisibility(View.GONE);
+            mHashLayoutDetail.setVisibility(View.GONE);
+            mCollLayoutDetail.setVisibility(View.GONE);
         }
         mPriceContentDetail.setText((transactionType == 1 ? "+" : "-") + TextUtils.doubleToFour(data.getValue()) + " " + data.getTokenName());
         mTimeDetail.setText(TimeUtils.millis2String(data.getCreatedAt()));

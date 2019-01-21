@@ -24,7 +24,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingTop="8dp"
-            android:text="购买 USDT/VRT"
             android:textColor="@color/login_content"
             android:textStyle="bold" />
 

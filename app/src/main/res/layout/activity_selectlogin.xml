@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/status_blue"
+    android:background="#2C998C"
     android:orientation="vertical">
 
     <View
@@ -12,11 +12,11 @@
         android:background="@color/white" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:src="@color/status_view" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="150dp"
+        android:src="@mipmap/vp_logo" />
 
     <TextView
         android:id="@+id/login"

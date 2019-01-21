@@ -109,7 +109,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                         mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
                         mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
                         mHintPrice.setText("可用" + TrandPurhAndSellActivity.this.data.getTokenName());
-                        mPriceCurrent.setText("当前价格" + TextUtils.doubleToFour(data.getPrice()) + "VRT");
+                        mPriceCurrent.setText("当前价格" + TextUtils.doubleToFour(data.getPrice()) + unitPrice);
                         this.tokenBalance = data.getTokenBalance();
                         this.balance = data.getBalance();
                         this.currentPricePurh = data.getPrice();
@@ -125,14 +125,14 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                             mSeekPurh.setProgress(mSeekPurh.getMax() / 2);
                         }
                         mAllPricePurh.setText("0.0000 " + allPriceUnit);
-                        mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " VRT");
+                        mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " "+unitPrice);
                         mSeekNumPurh.setText((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100)) + "%");
                         mSeekPurh.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                             @Override
                             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                                 double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(progress / 100));
                                 mSeekNumPurh.setText(currentPro + "%");
-                                mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * currentPro / 100) + " VRT");
+                                mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * currentPro / 100) + " "+unitPrice);
                                 currentPricePurh = data.getPrice() * currentPro / 100;
                                 if (!mEditPurh.getText().toString().equals("")) {
                                     double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());

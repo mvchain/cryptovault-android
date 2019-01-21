@@ -18,22 +18,15 @@ public class HistroyChildModel extends BaseModel implements HistroyChildContract
 
 
     @Override
-    public Observable<HistroyBean> getAll(int id, int pageSize, int tokenId, int transactionType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getHistroyRecording(MyApplication.getTOKEN(), id, pageSize, tokenId, transactionType, type)
-                .compose(RxHelper.rxSchedulerHelper())
-                .map(histroyBean -> histroyBean);
-    }
-
-    @Override
-    public Observable<HistroyBean> getOut(int id, int pageSize, int tokenId, int transactionType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getHistroyRecording(MyApplication.getTOKEN(), id, pageSize, tokenId, transactionType, type)
-                .compose(RxHelper.rxSchedulerHelper())
-                .map(histroyBean -> histroyBean);
-    }
-
-    @Override
-    public Observable<HistroyBean> getIn(int id, int pageSize, int tokenId, int transactionType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getHistroyRecording(MyApplication.getTOKEN(), id, pageSize, tokenId, transactionType, type)
+    public Observable<HistroyBean> getAll(int classify,int id,  int pageSize, int tokenId, int transactionType, int type) {
+        return RetrofitUtils.client(ApiStore.class)
+                .getHistroyRecording(MyApplication.getTOKEN()
+                        , classify
+                        , id
+                        , pageSize
+                        , tokenId
+                        , transactionType
+                        , type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(histroyBean -> histroyBean);
     }

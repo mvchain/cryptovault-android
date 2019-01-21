@@ -8,11 +8,13 @@ import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.common.Constant
 import com.mvc.cryptovault_android.event.PayPwdRefreshEvent
+import com.mvc.cryptovault_android.listener.EditTextChange
 
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_reset_password.*
+import kotlinx.android.synthetic.main.activity_set_password.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
@@ -52,6 +54,13 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
+        //设置眼睛可见
+        login_pwd.addTextChangedListener(object : EditTextChange() {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val length = s.length
+                account_hint.isPasswordVisibilityToggleEnabled = length > 0
+            }
+        })
     }
 
     override fun onClick(v: View?) {

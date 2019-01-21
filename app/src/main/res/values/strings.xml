@@ -34,8 +34,9 @@
     <!--content-->
     <string name="sing_out">退出登录</string>
     <string name="toge_get_on">预约中</string>
-    <string name="toge_comming_soon">即将预约</string>
+    <string name="toge_comming_soon">预约中</string>
     <string name="toge_over">已结束</string>
+    <string name="toge_involved">我参与的</string>
     <string name="toge_recording">众筹记录</string>
     <string name="update_email">修改邮箱</string>
     <string name="update_password">修改登录密码</string>

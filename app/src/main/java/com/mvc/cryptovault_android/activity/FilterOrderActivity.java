@@ -54,7 +54,6 @@ public class FilterOrderActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void initData() {
         List<TrandChildBean.DataBean> vrtBean = ((TrandChildBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(TRAND_VRT_LIST), TrandChildBean.class)).getData();
-        List<TrandChildBean.DataBean> balanceBean = ((TrandChildBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(TRAND_BALANCE_LIST), TrandChildBean.class)).getData();
         for (int i = 0; i < types.length; i++) {
             FilterBean allfilterBean = new FilterBean();
             allfilterBean.setTitle(types[i]);
@@ -69,20 +68,12 @@ public class FilterOrderActivity extends BaseActivity implements View.OnClickLis
             filterBean.setTitle(dataBean.getPair());
             mTypeVrt.add(filterBean);
         }
-        for (int i = 0; i < balanceBean.size(); i++) {
-            TrandChildBean.DataBean dataBean = balanceBean.get(i);
-            FilterBean filterBean = new FilterBean();
-            filterBean.setCheck(false);
-            filterBean.setPariId(dataBean.getPairId());
-            filterBean.setTitle(dataBean.getPair());
-            mTypeBalance.add(filterBean);
-        }
         allFilterAdapter = new FilterAdapter(R.layout.item_filter_rv, mType);
         vrtFilterAdapter = new FilterAdapter(R.layout.item_filter_rv, mTypeVrt);
         balanceFilterAdapter = new FilterAdapter(R.layout.item_filter_rv, mTypeBalance);
         mTypeFilter.setAdapter(allFilterAdapter);
         mTypeVrtFilter.setAdapter(vrtFilterAdapter);
-        mTypeBalanceFilter.setAdapter(balanceFilterAdapter);
+//        mTypeBalanceFilter.setAdapter(balanceFilterAdapter);
         initAdapterClick();
     }
 

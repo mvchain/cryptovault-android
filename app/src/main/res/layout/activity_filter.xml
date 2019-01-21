@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp"
-            android:text="VRT类型"
+            android:text="BZT类型"
             android:textColor="@color/login_content"
             android:textSize="13sp" />
 
@@ -79,17 +79,18 @@
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
             app:spanCount="4" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="16dp"
-            android:text="余额交易"
-            android:textColor="@color/login_content"
-            android:textSize="13sp" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:text="余额交易"-->
+            <!--android:textColor="@color/login_content"-->
+            <!--android:textSize="13sp" />-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/filter_type_balance"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"

@@ -88,7 +88,7 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="10dp"
                         app:sDividerLineHeight="1dp"
-                        app:sLeftIconRes="@drawable/language_icon"
+                        app:sLeftIconRes="@drawable/mine_icon_safe"
                         app:sLeftTextString="@string/account_security"
                         app:sRightIconRes="@drawable/next_icon_black"
                         app:sUseRipple="false" />
@@ -101,7 +101,7 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="10dp"
                         app:sDividerLineHeight="1dp"
-                        app:sLeftIconRes="@drawable/language_icon"
+                        app:sLeftIconRes="@drawable/mine_icon_invite"
                         app:sLeftTextString="@string/invitation_registration"
                         app:sRightIconRes="@drawable/next_icon_black"
                         app:sUseRipple="false" />

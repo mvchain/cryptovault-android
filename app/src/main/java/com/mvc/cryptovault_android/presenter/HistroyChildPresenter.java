@@ -23,56 +23,20 @@ public class HistroyChildPresenter extends HistroyChildContract.HistroyChildPrec
     }
 
     @Override
-    public void getAll( int id, int pageSize, int tokenId, int transactionType, int type) {
-        rxUtils.register(mIModel.getAll( id, pageSize, tokenId, transactionType, type).subscribe(histroyBean -> {
-            if (histroyBean.getCode() == 200) {
-                if (histroyBean.getData().size() > 0) {
-                    mIView.showSuccess(histroyBean.getData());
-                }else{
-                    mIView.showNull();
-                }
-            }else{
-                mIView.showNull();
-            }
-        }, throwable -> {
-            mIView.showNull();
-        }));
-    }
-
-    @Override
-    public void getOut( int id, int pageSize, int tokenId, int transactionType, int type) {
-        rxUtils.register(mIModel.getOut( id, pageSize, tokenId, transactionType, type).subscribe(histroyBean -> {
-            if (histroyBean.getCode() == 200) {
-                if (histroyBean.getData().size() > 0) {
-                    mIView.showSuccess(histroyBean.getData());
-                }else{
-                    mIView.showNull();
-                }
-            }else{
-                mIView.showNull();
-            }
-        }, throwable -> {
-            mIView.showNull();
-        }));
-    }
-
-    @Override
-    public void getIn(int id, int pageSize, int tokenId, int transactionType, int type) {
-        rxUtils.register(mIModel.getIn( id, pageSize, tokenId, transactionType, type).subscribe(new Consumer<HistroyBean>() {
-            @Override
-            public void accept(HistroyBean histroyBean) throws Exception {
-                if (histroyBean.getCode() == 200) {
-                    if (histroyBean.getData().size() > 0) {
-                        mIView.showSuccess(histroyBean.getData());
-                    }else{
+    public void getAll(int classify, int id, int pageSize, int tokenId, int transactionType, int type) {
+        rxUtils.register(mIModel.getAll(classify, id, pageSize, tokenId, transactionType, type)
+                .subscribe(histroyBean -> {
+                    if (histroyBean.getCode() == 200) {
+                        if (histroyBean.getData().size() > 0) {
+                            mIView.showSuccess(histroyBean.getData());
+                        } else {
+                            mIView.showNull();
+                        }
+                    } else {
                         mIView.showNull();
                     }
-                }else{
+                }, throwable -> {
                     mIView.showNull();
-                }
-            }
-        }, throwable -> {
-            mIView.showNull();
-        }));
+                }));
     }
 }

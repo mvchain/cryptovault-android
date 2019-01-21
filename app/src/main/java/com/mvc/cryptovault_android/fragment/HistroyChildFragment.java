@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.DetailActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.HistroyChildAdapter;
@@ -33,7 +35,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     private List<HistroyBean.DataBean> mHisData;
     private int tokenId;
     private int action;
-    private SwipeRefreshLayout mItemSwipHis;
+    private SwipeRefreshLayout mItemSwipeHis;
     private boolean isRefresh = false;
 
     @Override
@@ -53,7 +55,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mHisData = new ArrayList<>();
         mRvChild = rootView.findViewById(R.id.child_rv);
         mDataNull = rootView.findViewById(R.id.data_null);
-        mItemSwipHis = rootView.findViewById(R.id.his_item_swip);
+        mItemSwipeHis = rootView.findViewById(R.id.his_item_swip);
         mRvChild.setLayoutManager(new LinearLayoutManager(activity));
         mRvChild.addItemDecoration(new RuleRecyclerLines(activity, RuleRecyclerLines.HORIZONTAL_LIST, 1));
         histroyChildAdapter = new HistroyChildAdapter(R.layout.item_histroy_child_list, mHisData);
@@ -67,8 +69,8 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
             }
         });
         mRvChild.setAdapter(histroyChildAdapter);
-        mItemSwipHis.setRefreshing(true);
-        mItemSwipHis.setOnRefreshListener(this::refresh);
+        mItemSwipeHis.setRefreshing(true);
+        mItemSwipeHis.setOnRefreshListener(this::refresh);
         getArgument();
         initRecyclerLoadmore();
     }
@@ -82,17 +84,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                     if (lastVisibleItemPosition + 1 == histroyChildAdapter.getItemCount() && histroyChildAdapter.getItemCount() >= 10 && !isRefresh) {
-                        switch (action) {
-                            case 0:
-                                mPresenter.getAll(mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
-                                break;
-                            case 1:
-                                mPresenter.getOut( mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
-                                break;
-                            case 2:
-                                mPresenter.getIn(mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, action, 1);
-                                break;
-                        }
+                        mPresenter.getAll(action, mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, 0, 1);
                     }
                 }
             }
@@ -108,6 +100,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         Bundle arguments = getArguments();
         tokenId = arguments.getInt("tokenId");
         action = arguments.getInt("action", 0);
+        LogUtils.e("HistroyChildFragment", "action:" + action);
     }
 
     @Override
@@ -124,17 +117,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     protected void initData() {
         super.initData();
         isRefresh = true;
-        switch (action) {
-            case 0:
-                mPresenter.getAll(0, 10, tokenId, action, 0);
-                break;
-            case 1:
-                mPresenter.getOut(0, 10, tokenId, action, 0);
-                break;
-            case 2:
-                mPresenter.getIn(0, 10, tokenId, action, 0);
-                break;
-        }
+        mPresenter.getAll(action, 0, 10, tokenId, 0, 0);
     }
 
     @Override
@@ -151,14 +134,14 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mHisData.addAll(msgs);
         mDataNull.setVisibility(View.GONE);
         mRvChild.setVisibility(View.VISIBLE);
-        mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
+        mItemSwipeHis.post(() -> mItemSwipeHis.setRefreshing(false));
         histroyChildAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showNull() {
         isRefresh = false;
-        mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
+        mItemSwipeHis.post(() -> mItemSwipeHis.setRefreshing(false));
         if (mHisData.size() > 0 && isRefresh) {
 //            Toast.makeText(context, "没有新的交易信息", Toast.LENGTH_SHORT).show();
         } else if (mHisData.size() > 0 && !isRefresh) {
@@ -171,32 +154,12 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
 
     public void refresh() {
         isRefresh = true;
-        switch (action) {
-            case 0:
-                mPresenter.getAll(0, 10, tokenId, action, 0);
-                break;
-            case 1:
-                mPresenter.getOut( 0, 10, tokenId, action, 0);
-                break;
-            case 2:
-                mPresenter.getIn(0, 10, tokenId, action, 0);
-                break;
-        }
+        mPresenter.getAll(action, 0, 10, tokenId, 0, 0);
     }
 
     @Subscribe
     public void eventRefresh(HistroyFragmentEvent event) {
         isRefresh = true;
-        switch (action) {
-            case 0:
-                mPresenter.getAll(0, 10, tokenId, action, 0);
-                break;
-            case 1:
-                mPresenter.getOut(0, 10, tokenId, action, 0);
-                break;
-            case 2:
-                mPresenter.getIn(0, 10, tokenId, action, 0);
-                break;
-        }
+        mPresenter.getAll(action, 0, 10, tokenId, 0, 0);
     }
 }

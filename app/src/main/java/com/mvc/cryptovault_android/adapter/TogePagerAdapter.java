@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class TogePagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments;
     private FragmentManager fm;
-    private int[] titles = {R.string.toge_get_on,R.string.toge_comming_soon,R.string.toge_over};
+    private int[] titles = {R.string.toge_comming_soon, R.string.toge_get_on, R.string.toge_over, R.string.toge_involved};
     private Context context;
 
     public TogePagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments, Context context) {

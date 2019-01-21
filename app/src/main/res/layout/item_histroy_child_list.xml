@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:background="@color/white"
     android:id="@+id/his_layout"
-    android:layout_height="64dp">
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/his_child_icon"
@@ -60,6 +60,7 @@
             android:layout_marginTop="6dp"
             android:text="转账成功"
             android:textColor="@color/toge_gray"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
     </LinearLayout>
 </RelativeLayout>

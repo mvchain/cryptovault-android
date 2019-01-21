@@ -106,7 +106,6 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="4dp"
                 android:layout_toRightOf="@id/icon_layout"
-                android:text="兑换比例 1 PTO=500 VRT"
                 android:textColor="@color/login_edit_bg"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -185,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="VRT "
+                android:text="BZT "
                 android:textColor="@color/login_content"
                 android:textSize="17sp"
                 android:textStyle="bold" />

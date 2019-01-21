@@ -18,8 +18,8 @@ class FinancialPresenter : FinancialContract.FinancialPresenter() {
                 }))
     }
 
-    override fun getFinancialList() {
-        rxUtils.register(mIModel.getFinancialList()
+    override fun getFinancialList(id:Int,pageSize:Int) {
+        rxUtils.register(mIModel.getFinancialList(id, pageSize)
                 .subscribe({ finaBean ->
                     if (finaBean.code === 200) {
                         mIView.showFinanciaListSuccess(finaBean.data)

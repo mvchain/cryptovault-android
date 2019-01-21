@@ -11,8 +11,10 @@ import com.mvc.cryptovault_android.utils.RxHelper
 import io.reactivex.Observable
 
 class FinancialModel : BaseModel(), FinancialContract.FinancialModel {
-    override fun getFinancialList(): Observable<FinancialListBean> {
-        return RetrofitUtils.client(ApiStore::class.java).getFinancialList(MyApplication.getTOKEN())
+    override fun getFinancialList(id: Int, pageSize: Int): Observable<FinancialListBean> {
+        return RetrofitUtils.client(ApiStore::class.java)
+                .getFinancialList(MyApplication.getTOKEN()
+                        , id, pageSize)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { financial -> financial }
     }

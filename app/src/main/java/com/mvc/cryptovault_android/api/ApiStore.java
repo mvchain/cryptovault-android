@@ -96,6 +96,7 @@ public interface ApiStore {
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.GET_TRANSACTIONS)
     Observable<HistroyBean> getHistroyRecording(@Header("Authorization") String token,
+                                                @Query("classify") int classify,
                                                 @Query("id") int id,
                                                 @Query("pageSize") int pageSize,
                                                 @Query("tokenId") int tokenId,
@@ -295,7 +296,7 @@ public interface ApiStore {
 
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.FINANCIAL)
-    Observable<FinancialListBean> getFinancialList(@Header("Authorization") String token);
+    Observable<FinancialListBean> getFinancialList(@Header("Authorization") String token, @Query("id") int id, @Query("pageSize") int pageSize);
 
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.FINANCIAL_BALANCE)

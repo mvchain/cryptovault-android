@@ -3,6 +3,8 @@ package com.mvc.cryptovault_android.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.blankj.utilcode.util.SPUtils
@@ -76,6 +78,21 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
                 }
             }
         }
+        rootView.financial_recyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val layoutManager = recyclerView!!.layoutManager as LinearLayoutManager
+                    val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                    if (lastVisibleItemPosition + 1 == mFinaAdapter.itemCount && mFinaAdapter.itemCount >= 10 && !isRefresh) {
+                        mPresenter.getFinancialList(mFinaList[mFinaList.size - 1].id, 10)
+                    }
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,14 +102,15 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
 
     override fun initData() {
         super.initData()
+        isRefresh = true
         mPresenter.getFinancialBalance()
-        mPresenter.getFinancialList()
+        mPresenter.getFinancialList(0, 10)
     }
 
     fun refresh() {
         isRefresh = true
         mPresenter.getFinancialBalance()
-        mPresenter.getFinancialList()
+        mPresenter.getFinancialList(0, 10)
     }
 
     override fun getLayoutId(): Int {

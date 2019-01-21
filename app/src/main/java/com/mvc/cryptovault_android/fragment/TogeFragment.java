@@ -28,24 +28,25 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initData() {
-        TogeChildFragment receiceFragment = new TogeChildFragment();
-        Bundle receiceBundle = new Bundle();
-        receiceBundle.putInt("projectType", 1);
-        receiceFragment.setArguments(receiceBundle);
-        mFragment.add(receiceFragment);
         TogeChildFragment soonFragment = new TogeChildFragment();
         Bundle soonBundle = new Bundle();
         soonBundle.putInt("projectType", 0);
         soonFragment.setArguments(soonBundle);
         mFragment.add(soonFragment);
+        TogeChildFragment receiceFragment = new TogeChildFragment();
+        Bundle receiceBundle = new Bundle();
+        receiceBundle.putInt("projectType", 1);
+        receiceFragment.setArguments(receiceBundle);
+        mFragment.add(receiceFragment);
         TogeChildFragment overFragment = new TogeChildFragment();
         Bundle overBundle = new Bundle();
         overBundle.putInt("projectType", 2);
         overFragment.setArguments(overBundle);
         mFragment.add(overFragment);
-        togePagerAdapter = new TogePagerAdapter(getChildFragmentManager(), mFragment,activity);
+        togePagerAdapter = new TogePagerAdapter(getChildFragmentManager(), mFragment, activity);
         mVpToge.setAdapter(togePagerAdapter);
         mTableToge.setupWithViewPager(mVpToge);
+        mVpToge.setCurrentItem(1);
 //        TabLayoutUtils.setIndicator(mTableToge, 30, 30);
     }
 

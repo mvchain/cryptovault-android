@@ -40,7 +40,7 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
     }
 
     override fun showExtractError(error:String) {
-        dialogHelper.resetDialogResource(this, R.drawable.success_icon, "取出成功")
+        dialogHelper.resetDialogResource(this, R.drawable.miss_icon, error)
         dialogHelper.dismissDelayed {
             null
         }

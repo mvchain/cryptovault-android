@@ -44,6 +44,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.SocketTimeoutException;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
@@ -365,7 +367,11 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 });
             }
         }, throwable -> {
-            dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, throwable.getMessage());
+            if (throwable instanceof SocketTimeoutException) {
+                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "连接超时");
+            }else{
+                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, throwable.getMessage());
+            }
             dialogHelper.dismissDelayed(() -> {
                 KeyboardUtils.hideSoftInput(this);
             });
@@ -399,7 +405,11 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 });
             }
         }, throwable -> {
-            dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, throwable.getMessage());
+            if (throwable instanceof SocketTimeoutException) {
+                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "连接超时");
+            }else{
+                dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, throwable.getMessage());
+            }
             dialogHelper.dismissDelayed(() -> {
                 KeyboardUtils.hideSoftInput(this);
             });

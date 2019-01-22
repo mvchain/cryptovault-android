@@ -21,7 +21,7 @@ import java.util.List;
 public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, BaseViewHolder> {
     private String[] status = {"转帐中", "转帐中", "转账成功", "转账失败"};
     private int[] status_color = {R.color.login_edit_bg, R.color.login_edit_bg, R.color.login_edit_bg, R.color.error};
-    private int[] status_icon = {R.drawable.sent_icon, R.drawable.receive_icon, R.drawable.zc_icon, R.drawable.jy_icon,R.drawable.financial_selected_bold};
+    private int[] status_icon = {R.drawable.sent_icon, R.drawable.receive_icon, R.drawable.zc_icon, R.drawable.jy_icon, R.drawable.financial_selected_bold};
 
     public HistroyChildAdapter(int layoutResId, @Nullable List<HistroyBean.DataBean> data) {
         super(layoutResId, data);
@@ -73,8 +73,21 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
                     break;
             }
             helper.setText(R.id.his_child_title, item.getOrderRemark() + " 众筹" + buffer.toString());
-        } else if(item.getClassify() == 4){
+        } else if (item.getClassify() == 4) {
             iconType = 4;
+            StringBuffer buffer = new StringBuffer();
+            switch (item.getStatus()) {
+                case 9:
+                    buffer.append("收益");
+                    break;
+                case 2:
+                    buffer.append("支出");
+                    break;
+                case 0:
+                    buffer.append("提成");
+                    break;
+            }
+            helper.setText(R.id.his_child_title, item.getOrderRemark() + buffer.toString());
         }
         Glide.with(mContext).load(status_icon[iconType]).into(icon);
         helper.addOnClickListener(R.id.his_layout);

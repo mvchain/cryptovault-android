@@ -13,6 +13,7 @@ import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.bean.FinancialDetailBean
 import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
+import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.listener.IPayWindowListener
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
@@ -23,7 +24,9 @@ import com.mvc.cryptovault_android.view.PswText
 import kotlinx.android.synthetic.main.activity_deposit.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
+import java.net.SocketTimeoutException
 
 class FinancialDepositActivity : BaseActivity() {
     private lateinit var detail: FinancialDetailBean.DataBean
@@ -90,12 +93,20 @@ class FinancialDepositActivity : BaseActivity() {
                                 if (date.code === 200) {
                                     dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.success_icon, "存入成功")
                                     KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
+                                    dialogHelper.dismissDelayed {
+                                        EventBus.getDefault().post(FinancialDetailEvent())
+                                        finish()
+                                    }
                                 } else {
                                     dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, date.message)
+                                    dialogHelper.dismissDelayed { null }
                                 }
-                                dialogHelper.dismissDelayed { null }
                             }, {
-                                dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, it.message)
+                                if (it is SocketTimeoutException) {
+                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.pending_icon_1, "连接超时")
+                                }else{
+                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.pending_icon_1, it.message)
+                                }
                                 dialogHelper.dismissDelayed { null }
                             })
                 }

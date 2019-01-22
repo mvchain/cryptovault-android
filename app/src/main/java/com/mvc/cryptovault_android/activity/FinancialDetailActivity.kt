@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.activity
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
@@ -8,8 +9,11 @@ import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.FinancialDetailBean
 import com.mvc.cryptovault_android.contract.FinancialDetailContract
+import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.presenter.FinancialDetailPresenter
 import kotlinx.android.synthetic.main.activity_financial_detail.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.FinancialDetailPresenter>(), FinancialDetailContract.FinancialDetailfoView {
     private lateinit var detail: FinancialDetailBean.DataBean
@@ -31,6 +35,8 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
         content.text = bean.content
         rule.text = bean.rule
         detail = bean
+        deposit.isEnabled = true
+        deposit.setBackgroundResource(R.drawable.bg_login_submit)
     }
 
     private var id = 0
@@ -72,5 +78,20 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
                 }
             }
         }
+    }
+
+    @Subscribe
+    fun refresh(detailEvent: FinancialDetailEvent) {
+        mPresenter.getFinancialDetail(id)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 }

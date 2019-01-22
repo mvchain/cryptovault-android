@@ -26,6 +26,7 @@ import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.json.JSONObject
+import java.net.SocketTimeoutException
 import java.util.*
 
 class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdapter.OnItemChildClickListener {
@@ -80,7 +81,11 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
                                 dialogHelper!!.dismissDelayed { null }
                             }
                         }, { error ->
-                            dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message)
+                            if (error is SocketTimeoutException) {
+                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
+                            }else{
+                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message)
+                            }
                             dialogHelper!!.dismissDelayed { null }
                         })
             }

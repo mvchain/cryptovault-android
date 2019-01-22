@@ -1,8 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
+import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.contract.OptionDetailContract
 import com.mvc.cryptovault_android.model.OptionDetailModel
+import java.net.SocketTimeoutException
 
 class OptionDetailPresenter : OptionDetailContract.OptionDetailPresenter() {
 
@@ -44,11 +46,15 @@ class OptionDetailPresenter : OptionDetailContract.OptionDetailPresenter() {
                 .subscribe({ updataBean ->
                     if (updataBean.code === 200) {
                         mIView.showExtractSuccess()
-                    }else{
+                    } else {
                         mIView.showExtractError(updataBean.message)
                     }
                 }, {
-                    mIView.showExtractError(it.message!!)
+                    if (it is SocketTimeoutException) {
+                        mIView.showExtractError("连接超时")
+                    } else {
+                        mIView.showExtractError(it.message!!)
+                    }
                 }))
     }
 

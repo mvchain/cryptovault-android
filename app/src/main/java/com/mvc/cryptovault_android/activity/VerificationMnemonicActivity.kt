@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_verification_mnomonic.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.json.JSONObject
+import java.net.SocketTimeoutException
 import java.util.*
 
 class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChildClickListener {
@@ -129,7 +130,11 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                             dialogHelper!!.dismissDelayed { null }
                         }
                     }, { error ->
-                        dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, error.message)
+                        if (error is SocketTimeoutException) {
+                            dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
+                        }else{
+                            dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message)
+                        }
                         dialogHelper!!.dismissDelayed { null }
                     })
         }

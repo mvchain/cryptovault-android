@@ -61,7 +61,7 @@ public class WalletPresenter extends WallteContract.WalletPresenter {
                 }
                 ,
                 throwable -> {
-                    mIView.signRequest(true);
+                    mIView.signRequest(false);
                 }
         ));
     }

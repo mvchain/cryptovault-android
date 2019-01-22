@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_set_email.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.json.JSONObject
+import java.net.SocketTimeoutException
 
 class SetEmailActivity : BaseActivity() {
     private var dialogHelper: DialogHelper? = null
@@ -50,7 +51,11 @@ class SetEmailActivity : BaseActivity() {
                                 }
                                 dialogHelper?.dismissDelayed { null }
                             }, { throwable ->
-                                dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, throwable.message)
+                                if (throwable is SocketTimeoutException) {
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
+                                }else{
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, throwable.message)
+                                }
                                 dialogHelper?.dismissDelayed { null }
                             })
                 }
@@ -78,7 +83,11 @@ class SetEmailActivity : BaseActivity() {
                                     dialogHelper?.dismissDelayed { null }
                                 }
                             }, {
-                                dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message)
+                                if (it is SocketTimeoutException) {
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
+                                }else{
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, it.message)
+                                }
                                 dialogHelper?.dismissDelayed { null }
                             })
                 }

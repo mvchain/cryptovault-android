@@ -22,7 +22,6 @@ public class MineReceiptPresenter extends ReceiptQRContract.ReceiptQRPresenter {
                 }
             }
         },throwable -> {
-            LogUtils.e("MineReceiptPresenter", throwable.getMessage());
             mIView.showError();
         }));
     }

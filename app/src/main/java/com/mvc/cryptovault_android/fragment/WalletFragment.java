@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.HistroyActivity;
 import com.mvc.cryptovault_android.activity.IncreaseCurrencyActivity;
@@ -297,6 +298,8 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
             });
             xAnimation.setDuration(200);
             xAnimation.start();
+        } else {
+            ToastUtils.showLong("签到失败");
         }
     }
 

@@ -119,7 +119,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|right"
-            android:text="123456789"
             android:textColor="@color/login_content" />
     </LinearLayout>
 
@@ -146,7 +145,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|right"
-            android:text="123456789"
             android:textColor="@color/login_content" />
     </LinearLayout>
 
@@ -173,7 +171,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center|right"
-            android:text="123456789"
             android:textColor="@color/login_content" />
     </LinearLayout>
 

@@ -9,8 +9,7 @@
         android:id="@+id/his_child_icon"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_centerVertical="true"
-        android:src="@color/red" />
+        android:layout_centerVertical="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -24,7 +23,6 @@
             android:id="@+id/his_child_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="项目名称众筹"
             android:textColor="@color/login_content"
             android:textSize="15sp" />
 
@@ -33,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="2018-10-21 10:24:45"
             android:textColor="@color/msg_time_gray"
             android:textSize="12sp" />
     </LinearLayout>
@@ -49,7 +46,6 @@
             android:id="@+id/his_child_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+123456.12"
             android:textColor="@color/login_content"
             android:textSize="15sp" />
 

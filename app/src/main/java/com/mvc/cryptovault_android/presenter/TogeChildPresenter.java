@@ -22,40 +22,8 @@ public class TogeChildPresenter extends TogeChildContract.TogeChildPresenter {
 
 
     @Override
-    public void getComingSoon(int pageSize, int projectId, int projectType, int type) {
-        rxUtils.register(mIModel.getComingSoon(pageSize, projectId, projectType, type)
-                .subscribe(togeBean ->
-                        {
-                            if (togeBean.getData().size()>0) {
-                                mIView.showSuccess(togeBean.getData());
-                            }else{
-                                mIView.showNull();
-                            }
-                        }
-                        , throwable -> {
-                            mIView.showNull();
-                        }));
-    }
-
-    @Override
-    public void getProcess(int pageSize, int projectId, int projectType, int type) {
-        rxUtils.register(mIModel.getProcess(pageSize, projectId, projectType, type)
-                .subscribe(togeBean ->
-                        {
-                            if (togeBean.getData().size()>0) {
-                                mIView.showSuccess(togeBean.getData());
-                            }else{
-                                mIView.showNull();
-                            }
-                        }
-                        , throwable -> {
-                            mIView.showNull();
-                        }));
-    }
-
-    @Override
-    public void getToEnd(int pageSize, int projectId, int projectType, int type) {
-        rxUtils.register(mIModel.getToEnd(pageSize, projectId, projectType, type)
+    public void getComingList(int pageSize, int projectId, int projectType, int type) {
+        rxUtils.register(mIModel.getComingList(pageSize, projectId, projectType, type)
                 .subscribe(togeBean ->
                         {
                             if (togeBean.getData().size()>0) {

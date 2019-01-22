@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:id="@+id/item_layout"
     android:layout_marginBottom="12dp"
     android:background="@drawable/shape_round_white_5dp"
     android:orientation="vertical"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="昨日收益"
+            android:text="今日收益"
             android:textColor="@color/toge_gray"
             android:textSize="12sp" />
 
@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="30"
+            android:text="-"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="2000 VPC"
+            android:text="-"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="2000 VPC"
+            android:text="-"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
     </LinearLayout>

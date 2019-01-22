@@ -17,17 +17,7 @@ public class TogeChildModel extends BaseModel implements TogeChildContract.IToge
     }
 
     @Override
-    public Observable<TogeBean> getComingSoon(int pageSize, int projectId, int projectType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getCrowdfunding(MyApplication.getTOKEN(), pageSize, projectId, projectType, type).compose(RxHelper.rxSchedulerHelper()).map(togeBean -> togeBean);
-    }
-
-    @Override
-    public Observable<TogeBean> getProcess(int pageSize, int projectId, int projectType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getCrowdfunding(MyApplication.getTOKEN(), pageSize, projectId, projectType, type).compose(RxHelper.rxSchedulerHelper()).map(togeBean -> togeBean);
-    }
-
-    @Override
-    public Observable<TogeBean> getToEnd(int pageSize, int projectId, int projectType, int type) {
+    public Observable<TogeBean> getComingList(int pageSize, int projectId, int projectType, int type) {
         return RetrofitUtils.client(ApiStore.class).getCrowdfunding(MyApplication.getTOKEN(), pageSize, projectId, projectType, type).compose(RxHelper.rxSchedulerHelper()).map(togeBean -> togeBean);
     }
 }

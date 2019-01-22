@@ -43,6 +43,11 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
         overBundle.putInt("projectType", 2);
         overFragment.setArguments(overBundle);
         mFragment.add(overFragment);
+        TogeChildFragment meFragment = new TogeChildFragment();
+        Bundle meBundle = new Bundle();
+        meBundle.putInt("projectType", 3);
+        meFragment.setArguments(meBundle);
+        mFragment.add(meFragment);
         togePagerAdapter = new TogePagerAdapter(getChildFragmentManager(), mFragment, activity);
         mVpToge.setAdapter(togePagerAdapter);
         mTableToge.setupWithViewPager(mVpToge);

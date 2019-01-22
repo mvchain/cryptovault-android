@@ -21,8 +21,8 @@
             android:id="@+id/income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="-"
             android:layout_marginTop="10dp"
-            android:text="12-24%"
             android:textColor="@color/aoi_bg_orangey"
             android:textSize="29sp" />
 
@@ -50,11 +50,11 @@
 
         <TextView
             android:id="@+id/name"
+            android:text="-"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:layout_marginBottom="10dp"
-            android:text="产品名称"
             android:textColor="@color/login_content"
             android:textSize="17sp"
             android:textStyle="bold" />
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_item_financia_gray_stroke_5dp"
                 android:padding="3dp"
-                android:text="签到60天"
+                android:text="签到-天"
                 android:textColor="@color/trand_gray"
                 android:textSize="12sp" />
 
@@ -83,7 +83,7 @@
                 android:layout_marginLeft="8dp"
                 android:background="@drawable/shape_item_financia_gray_stroke_5dp"
                 android:padding="3dp"
-                android:text="800 CPV 起投"
+                android:text="- 起投"
                 android:textColor="@color/trand_gray"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="下线时间：2019.01.23"
+            android:text="下线时间：-"
             android:textColor="@color/edit_bg"
             android:textSize="12sp" />
     </LinearLayout>

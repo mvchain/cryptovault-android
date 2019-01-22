@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_vertical|left"
-        android:text="张三"
         android:textColor="@color/trand_gray"
         android:textSize="17sp" />
 
@@ -23,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_vertical|right"
-        android:text="2019-01-21"
         android:textColor="@color/trand_gray"
         android:textSize="17sp" />
 </LinearLayout>

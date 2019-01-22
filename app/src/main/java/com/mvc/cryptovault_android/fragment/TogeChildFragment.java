@@ -71,35 +71,25 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
         });
         initRecyclerLoadmore();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
     }
+
     @Override
     protected void initData() {
         super.initData();
         isRefresh = true;
-        if (projectType == 0) {
-            mPresenter.getComingSoon(10, 0, projectType, 0);
-        } else if (projectType == 1) {
-            mPresenter.getProcess(10, 0, projectType, 0);
-        } else if (projectType == 2) {
-            mPresenter.getToEnd(10, 0, projectType, 0);
-        }
+        mPresenter.getComingList(10, 0, projectType, 0);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventRefresh(TogeFragmentEvent fragmentEvent) {
         mData.clear();
         isRefresh = true;
-        if (projectType == 0) {
-            mPresenter.getComingSoon(10, 0, projectType, 0);
-        } else if (projectType == 1) {
-            mPresenter.getProcess(10, 0, projectType, 0);
-        } else if (projectType == 2) {
-            mPresenter.getToEnd(10, 0, projectType, 0);
-        }
+        mPresenter.getComingList(10, 0, projectType, 0);
     }
 
     @Override
@@ -115,13 +105,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     public void refresh() {
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(true));
         isRefresh = true;
-        if (projectType == 0) {
-            mPresenter.getComingSoon(10, 0, projectType, 0);
-        } else if (projectType == 1) {
-            mPresenter.getProcess(10, 0, projectType, 0);
-        } else if (projectType == 2) {
-            mPresenter.getToEnd(10, 0, projectType, 0);
-        }
+        mPresenter.getComingList(10, 0, projectType, 0);
     }
 
     @Override
@@ -166,17 +150,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
                     int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                     if (lastVisibleItemPosition + 1 == togeChildAdapter.getItemCount() && togeChildAdapter.getItemCount() >= 10 && !isRefresh) {
                         int projectId = mData.get(mData.size() - 1).getProjectId();
-                        switch (projectType) {
-                            case 0:
-                                mPresenter.getComingSoon(10, projectId, projectType, 1);
-                                break;
-                            case 1:
-                                mPresenter.getProcess(10, projectId, projectType, 1);
-                                break;
-                            case 2:
-                                mPresenter.getToEnd(10, projectId, projectType, 1);
-                                break;
-                        }
+                        mPresenter.getComingList(10, projectId, projectType, 1);
                     }
                 }
             }

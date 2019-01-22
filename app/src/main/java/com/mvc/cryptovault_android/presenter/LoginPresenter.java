@@ -4,9 +4,13 @@ package com.mvc.cryptovault_android.presenter;
 import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.TrandPurhAndSellActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.contract.LoginContract;
 import com.mvc.cryptovault_android.model.LoginModel;
+
+import java.net.SocketTimeoutException;
 
 public class LoginPresenter extends LoginContract.LoginPresenter {
 
@@ -44,7 +48,11 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                         mIView.showLoginStauts(false, loginBean.getMessage());
                     }
                 }, throwable -> {
-                    mIView.showLoginStauts(false, throwable.getMessage());
+                    if (throwable instanceof SocketTimeoutException) {
+                        mIView.showLoginStauts(false, "连接超时");
+                    }else{
+                        mIView.showLoginStauts(false, "连接超时");
+                    }
                      LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));
     }
@@ -63,7 +71,11 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                         mIView.showSendCode(false, bean.getMessage());
                     }
                 }, throwable -> {
-                    mIView.showSendCode(false, throwable.getMessage());
+                    if (throwable instanceof SocketTimeoutException) {
+                        mIView.showSendCode(false, "连接超时");
+                    }else{
+                        mIView.showSendCode(false, throwable.getMessage());
+                    }
                     LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));
     }

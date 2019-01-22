@@ -149,7 +149,6 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                     }
                     JPushInterface.setAlias(getApplicationContext(), loginBean.getData().getUserId(), String.valueOf(loginBean.getData().getUserId()));
                 }, throwable -> {
-                    LogUtils.e("ParameterInterceptor", throwable.getMessage());
                 });
     }
 

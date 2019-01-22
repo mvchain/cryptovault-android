@@ -16,7 +16,6 @@
         android:ellipsize="end"
         android:gravity="center"
         android:orientation="vertical"
-        android:text="ssss"
         android:textColor="@color/login_content"
         android:textSize="14sp" />
 </LinearLayout>

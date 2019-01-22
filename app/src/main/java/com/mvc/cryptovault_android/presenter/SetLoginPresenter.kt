@@ -1,8 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
+import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.contract.SetPasswordContract
 import com.mvc.cryptovault_android.model.SetLoginModel
+import java.net.SocketTimeoutException
 
 class SetLoginPresenter : SetPasswordContract.SetPasswordPresenter() {
 
@@ -21,7 +23,11 @@ class SetLoginPresenter : SetPasswordContract.SetPasswordPresenter() {
                         mIView.showError(it.message)
                     }
                 }, {
-                    mIView.showError(it.message!!)
+                    if (it is SocketTimeoutException) {
+                        mIView.showError("连接超时")
+                    } else {
+                        mIView.showError(it.message!!)
+                    }
                 }))
     }
 
@@ -34,7 +40,11 @@ class SetLoginPresenter : SetPasswordContract.SetPasswordPresenter() {
                         mIView.showError(it.message)
                     }
                 }, {
-                    mIView.showError(it.message!!)
+                    if (it is SocketTimeoutException) {
+                        mIView.showError("连接超时")
+                    } else {
+                        mIView.showError(it.message!!)
+                    }
                 }))
     }
 

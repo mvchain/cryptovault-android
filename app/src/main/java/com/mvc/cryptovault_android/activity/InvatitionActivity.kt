@@ -8,6 +8,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
 import android.support.v7.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.blankj.utilcode.util.ToastUtils
+import com.bumptech.glide.Glide
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
@@ -30,6 +32,7 @@ import com.mvc.cryptovault_android.view.DialogHelper
 import com.mvc.cryptovault_android.view.RuleRecyclerLines
 import com.per.rslibrary.IPermissionRequest
 import com.per.rslibrary.RsPermission
+import com.uuzuche.lib_zxing.activity.CodeUtils
 import kotlinx.android.synthetic.main.activity_invatition.*
 import java.util.ArrayList
 
@@ -114,7 +117,11 @@ class InvatitionActivity : BaseActivity(), View.OnTouchListener {
 
                     override fun success(i: Int) {
                         info_layout.isDrawingCacheEnabled = true
+                        copy_me_invatition.visibility = View.GONE
+                        copy_download_url.visibility = View.GONE
                         val drawingCache = Bitmap.createBitmap(info_layout.drawingCache)
+                        copy_me_invatition.visibility = View.VISIBLE
+                        copy_download_url.visibility = View.VISIBLE
                         val parintent = Intent()
                         val parseUri = Uri.parse(MediaStore.Images.Media.insertImage(contentResolver, drawingCache, null, null))
                         parintent.action = Intent.ACTION_SEND//设置分享行为
@@ -169,6 +176,8 @@ class InvatitionActivity : BaseActivity(), View.OnTouchListener {
         invaList = ArrayList()
         invaAdapter = InvatitionAdapter(R.layout.item_invatation, invaList)
         mPop = createPopWindow()
+        val mBitmap = CodeUtils.createImage(download_url.text.toString(), 400, 400, BitmapFactory.decodeResource(resources, R.mipmap.vp_logo))
+        Glide.with(this).load(mBitmap).into(qcode)
     }
 
     private fun createPopWindow(): PopupWindow {

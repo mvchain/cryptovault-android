@@ -1,8 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
+import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.contract.RegisterInvitationConstrat
 import com.mvc.cryptovault_android.model.RegisterInvitationModel
+import java.net.SocketTimeoutException
 
 class RegisterInvitationPresenter : RegisterInvitationConstrat.RegisterInvitationPresenter() {
 
@@ -24,7 +26,11 @@ class RegisterInvitationPresenter : RegisterInvitationConstrat.RegisterInvitatio
                 mIView.showError(httpBean.message)
             }
         }, {
-            mIView.showError("服务器繁忙，请重试")
+            if (it is SocketTimeoutException) {
+                mIView.showError("连接超时")
+            } else {
+                mIView.showError(it.message!!)
+            }
         }))
     }
 
@@ -37,7 +43,11 @@ class RegisterInvitationPresenter : RegisterInvitationConstrat.RegisterInvitatio
                 mIView.showError(httpBean.message)
             }
         }, {
-            mIView.showError("服务器繁忙，请重试")
+            if (it is SocketTimeoutException) {
+                mIView.showError("连接超时")
+            } else {
+                mIView.showError(it.message!!)
+            }
         }))
 
     }

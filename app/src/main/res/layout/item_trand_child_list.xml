@@ -16,8 +16,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_weight="3"
-            android:src="@color/red" />
+            android:layout_weight="3"/>
 
         <TextView
             android:id="@+id/trand_child_title"
@@ -28,7 +27,6 @@
             android:layout_toRightOf="@id/trand_child_icon"
             android:layout_weight="3"
             android:gravity="center_vertical"
-            android:text="BTC"
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -45,7 +43,6 @@
             android:id="@+id/trand_child_ratio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1234567.1234 VRT"
             android:textColor="@color/login_content"
             android:textSize="14sp" />
 
@@ -54,7 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="￥123.4567"
             android:textColor="@color/trand_gray"
             android:textSize="12sp" />
     </LinearLayout>
@@ -72,7 +68,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/shape_aoi_ching_5dp"
             android:gravity="center"
-            android:text="-100.51%"
             android:textColor="@color/white"
             android:textSize="12sp" />
     </LinearLayout>

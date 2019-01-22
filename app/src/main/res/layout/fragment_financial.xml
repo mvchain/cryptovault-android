@@ -48,14 +48,14 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/shape_round_ching_15dp"
+                android:background="@drawable/nextpage_bg"
                 android:orientation="vertical"
-                android:paddingLeft="16dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="17dp">
 
                 <TextView
                     android:layout_width="wrap_content"
+                    android:paddingLeft="16dp"
                     android:layout_height="wrap_content"
                     android:text="理财资产"
                     android:textColor="@color/white"
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="11dp"
-                    android:text="1234567.12 CNY"
+                    android:text="-"
                     android:textColor="@color/white"
                     android:textSize="35sp" />
 
@@ -95,7 +95,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="0.08 CNY"
+                            android:text="-"
                             android:textColor="@color/white"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -125,7 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="0.08 CNY"
+                            android:text="-"
                             android:textColor="@color/white"
                             android:textSize="15sp" />
                     </LinearLayout>

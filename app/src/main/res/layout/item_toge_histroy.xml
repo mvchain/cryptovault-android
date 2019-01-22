@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/toge_histroy_icon"
-            android:text="VRT"
             android:textColor="@color/login_content"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -42,7 +41,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
             android:layout_toRightOf="@id/toge_histroy_icon"
-            android:text="2018"
             android:textColor="@color/trand_gray"
             android:textSize="13sp" />
 

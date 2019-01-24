@@ -99,7 +99,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        TimeVerification.getInstence().onExit();
         KeyboardUtils.hideSoftInput(this);
         super.onDestroy();
     }

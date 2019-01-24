@@ -84,9 +84,9 @@ class SetEmailActivity : BaseActivity() {
                                 }
                             }, {
                                 if (it is SocketTimeoutException) {
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, "连接超时")
                                 }else{
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, it.message)
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message)
                                 }
                                 dialogHelper?.dismissDelayed { null }
                             })

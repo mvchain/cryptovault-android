@@ -33,8 +33,8 @@
     <string name="about_title">关于</string>
     <!--content-->
     <string name="sing_out">退出登录</string>
-    <string name="toge_get_on">预热中</string>
-    <string name="toge_comming_soon">预约中</string>
+    <string name="toge_comming_soon">预热中</string>
+    <string name="toge_get_on">预约中</string>
     <string name="toge_over">已结束</string>
     <string name="toge_involved">我参与的</string>
     <string name="toge_recording">众筹记录</string>

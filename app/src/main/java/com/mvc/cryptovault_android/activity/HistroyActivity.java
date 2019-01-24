@@ -267,7 +267,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                     if (!qode) {
                         DialogHelper dialogHelper = DialogHelper.getInstance();
                         dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
-                        dialogHelper.dismissDelayed(null, 1000);
+                        dialogHelper.dismissDelayed(null, 2000);
                         return;
                     }
                     String stringExtra = data.getStringExtra(CodeUtils.RESULT_STRING);

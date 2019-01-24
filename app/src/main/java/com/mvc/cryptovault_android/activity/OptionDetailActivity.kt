@@ -54,7 +54,7 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
         remaining_days.text = "${detail.times}天"
         detail_title.text = "${detail.financialName}持仓详情"
         detail_content.text = detail.financialName
-        interest_rate.text = "年化收益率：${detail.incomeMin}-${detail.incomeMax} %"
+        interest_rate.text = "年化收益率：${TextUtils.doubleToDouble(detail.incomeMin)}-${TextUtils.doubleToDouble(detail.incomeMax)} %"
     }
 
     override fun showDailyIncome(incom: ArrayList<OptionDailyIncomeBean.DataBean>) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/financial_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/financial_layout"
     android:layout_marginBottom="12dp"
     android:background="@drawable/shape_round_white_5dp"
     android:gravity="center_vertical"
@@ -21,10 +21,10 @@
             android:id="@+id/income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
             android:layout_marginTop="10dp"
+            android:text="-"
             android:textColor="@color/aoi_bg_orangey"
-            android:textSize="29sp" />
+            android:textSize="23sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,49 +50,42 @@
 
         <TextView
             android:id="@+id/name"
-            android:text="-"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
-            android:layout_marginBottom="10dp"
+            android:text="-"
             android:textColor="@color/login_content"
             android:textSize="17sp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/tag_time"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_item_financia_gray_stroke_5dp"
+            android:padding="3dp"
+            android:text="签到-天"
+            android:textColor="@color/trand_gray"
+            android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/tag_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_item_financia_gray_stroke_5dp"
-                android:padding="3dp"
-                android:text="签到-天"
-                android:textColor="@color/trand_gray"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tag_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/shape_item_financia_gray_stroke_5dp"
-                android:padding="3dp"
-                android:text="- 起投"
-                android:textColor="@color/trand_gray"
-                android:textSize="12sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tag_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_item_financia_gray_stroke_5dp"
+            android:padding="3dp"
+            android:text="- 起投"
+            android:textColor="@color/trand_gray"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/stop_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:text="下线时间：-"
             android:textColor="@color/edit_bg"

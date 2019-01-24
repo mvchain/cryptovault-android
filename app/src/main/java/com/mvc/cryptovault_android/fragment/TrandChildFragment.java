@@ -100,6 +100,7 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
         pairType = arguments.getInt("pairType");
         mSwipeTc.setOnRefreshListener(this::refresh);
         mSwipeTc.post(() -> mSwipeTc.setRefreshing(true));
+        mSwipeTc.setRefreshing(true);
     }
 
     @Subscribe()

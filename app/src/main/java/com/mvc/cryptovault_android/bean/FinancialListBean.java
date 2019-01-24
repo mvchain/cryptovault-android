@@ -52,8 +52,8 @@ public class FinancialListBean {
 
         private String baseTokenName;
         private int id;
-        private int incomeMax;
-        private int incomeMin;
+        private double incomeMax;
+        private double incomeMin;
         private int minValue;
         private String name;
         private long stopAt;
@@ -75,19 +75,19 @@ public class FinancialListBean {
             this.id = id;
         }
 
-        public int getIncomeMax() {
+        public double getIncomeMax() {
             return incomeMax;
         }
 
-        public void setIncomeMax(int incomeMax) {
+        public void setIncomeMax(double incomeMax) {
             this.incomeMax = incomeMax;
         }
 
-        public int getIncomeMin() {
+        public double getIncomeMin() {
             return incomeMin;
         }
 
-        public void setIncomeMin(int incomeMin) {
+        public void setIncomeMin(double incomeMin) {
             this.incomeMin = incomeMin;
         }
 

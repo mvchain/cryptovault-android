@@ -11,6 +11,7 @@ import com.mvc.cryptovault_android.bean.FinancialDetailBean
 import com.mvc.cryptovault_android.contract.FinancialDetailContract
 import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.presenter.FinancialDetailPresenter
+import com.mvc.cryptovault_android.utils.TextUtils
 import kotlinx.android.synthetic.main.activity_financial_detail.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -29,7 +30,7 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
 
     override fun showSuccess(bean: FinancialDetailBean.DataBean) {
         financial_title.text = bean.name
-        financia_income.text = "${bean.incomeMin}-${bean.incomeMax} %"
+        financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
         time_cycle.text = "需累计签到${bean.times}天"
         starting.text = "${bean.minValue} ${bean.baseTokenName}"
         content.text = bean.content
@@ -61,6 +62,7 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
     }
 
     override fun initData() {
+
     }
 
     fun onClick(v: View) {

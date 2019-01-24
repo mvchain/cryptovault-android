@@ -41,7 +41,7 @@ public class Constant {
         public static final String ENGLISH = "en";
         //设置接口国际化
         public static final String DEFAULT_ACCEPT_LANGUAGE = "default_accept_language";
-        public static final String ACCEPT_CHINESE = "zh_CN";
+        public static final String ACCEPT_CHINESE = "zh-cn";
         public static final String ACCEPT_ENGLISH = "en-US";
     }
 }

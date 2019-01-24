@@ -119,10 +119,10 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             dialogHelper.dismissDelayed(() -> {
                 startActvity(MainActivity.class);
                 finish();
-            }, 1000);
+            }, 2000);
         } else {
             dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg);
-            dialogHelper.dismissDelayed(null, 1500);
+            dialogHelper.dismissDelayed(null, 2000);
         }
     }
 
@@ -185,7 +185,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         } else {
             dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg);
         }
-        dialogHelper.dismissDelayed(null, 1500);
+        dialogHelper.dismissDelayed(null, 2000);
     }
 
     @Override

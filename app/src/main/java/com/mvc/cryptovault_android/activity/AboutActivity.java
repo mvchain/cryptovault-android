@@ -31,6 +31,7 @@ public class AboutActivity extends BaseActivity{
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         mVersionAbout = findViewById(R.id.about_version);
         mBackAbout = findViewById(R.id.about_back);
+        mBackAbout.setOnClickListener(v -> finish());
     }
 
     /**

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -36,6 +37,8 @@ import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.PopViewHelper;
 
 import org.greenrobot.eventbus.EventBus;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 
 /**
  * 余额提取
@@ -173,8 +176,9 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
                                                 setAlpha(0.5f);
                                                 break;
                                             case R.id.pay_forget:
-                                                dialogHelper.create(VPBalanceWithdrawalActivity.this, R.layout.layout_forgetpwd_dialog).show();
-                                                dialogHelper.dismissDelayed(null, 2000);
+                                                SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "2");
+                                                startActivity(ForgetPasswordActivity.class);
+                                                KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                                 break;
                                         }
                                     }

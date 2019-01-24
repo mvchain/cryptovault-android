@@ -113,7 +113,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
                     @Override
                     public void cancle(int i) {
                         dialogHelper.create(MineReceiptQRCodeActivity.this, R.drawable.miss_icon, "权限不足").show();
-                        dialogHelper.dismissDelayed(null, 1000);
+                        dialogHelper.dismissDelayed(null, 2000);
                     }
 
                     @Override

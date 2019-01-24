@@ -1,9 +1,9 @@
 package com.mvc.cryptovault_android.common;
 
 public class HttpUrl {
-    public static final String BASE_URL = "http://192.168.15.31:10086/";
-//    public static final String BASE_URL = "http://192.168.15.21:10086/";
-//    public static final String BASE_URL = "http://47.110.234.233:10086/";
+//    public static final String BASE_URL = "http://192.168.15.31:10086/";
+    public static final String BASE_URL = "http://47.110.234.233:10086/";
+//        public static final String BASE_URL = "http://192.168.15.21:10086/";
 
     /**
      * user login
@@ -101,6 +101,13 @@ public class HttpUrl {
      * 获取7日K线图
      */
     public static final String GET_KLINE = "/transaction/pair/kline";
+
+
+    /**
+     * 获取24小时最新，最高，最低价格, 每10秒钟更新
+     */
+    public static final String GET_PAIR_TICKERS = "/transaction/pair/tickers";
+
     /**
      * 获取验证码
      */

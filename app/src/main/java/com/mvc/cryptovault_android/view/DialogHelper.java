@@ -77,7 +77,7 @@ public class DialogHelper {
             if (dialogDialog != null) {
                 dialogDialog.callback();
             }
-        }, 1000);
+        }, 2000);
     }
 
     public void dismissDelayed(IDialogDialog dialogDialog, long delayMillis) {

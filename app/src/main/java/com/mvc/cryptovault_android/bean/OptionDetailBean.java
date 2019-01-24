@@ -51,8 +51,8 @@ public class OptionDetailBean {
         private String baseTokenName;
         private String financialName;
         private double income;
-        private int incomeMax;
-        private int incomeMin;
+        private double incomeMax;
+        private double incomeMin;
         private int times;
         private String tokenName;
         private double value;
@@ -81,19 +81,19 @@ public class OptionDetailBean {
             this.income = income;
         }
 
-        public int getIncomeMax() {
+        public double getIncomeMax() {
             return incomeMax;
         }
 
-        public void setIncomeMax(int incomeMax) {
+        public void setIncomeMax(double incomeMax) {
             this.incomeMax = incomeMax;
         }
 
-        public int getIncomeMin() {
+        public double getIncomeMin() {
             return incomeMin;
         }
 
-        public void setIncomeMin(int incomeMin) {
+        public void setIncomeMin(double incomeMin) {
             this.incomeMin = incomeMin;
         }
 

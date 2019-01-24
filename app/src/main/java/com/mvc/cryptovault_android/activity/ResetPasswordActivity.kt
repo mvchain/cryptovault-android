@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.text.InputType
 import android.view.View
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
@@ -14,7 +15,6 @@ import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_reset_password.*
-import kotlinx.android.synthetic.main.activity_set_password.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
@@ -46,6 +46,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
             TYPE_PAY_PASSWORD->{
                 account_hint.hint = "支付密码"
                 reset_title.text = "设置支付密码"
+                login_pwd.inputType =InputType.TYPE_NUMBER_VARIATION_PASSWORD
             }
         }
     }

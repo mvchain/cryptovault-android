@@ -51,7 +51,7 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
                             continue;
                         }
                         IncreaseBean increaseBean = new IncreaseBean();
-                        increaseBean.setVisi(i >= 2);
+                        increaseBean.setVisi(i >= 1);
                         increaseBean.setResId(currdata.get(i).getTokenImage());
                         increaseBean.setCurrencyId(currdata.get(i).getTokenId());
                         increaseBean.setTitle(currdata.get(i).getTokenName());

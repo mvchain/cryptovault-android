@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
 import android.widget.PopupWindow
@@ -14,6 +15,7 @@ import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.bean.FinancialDetailBean
 import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
 import com.mvc.cryptovault_android.event.FinancialDetailEvent
+import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.listener.IPayWindowListener
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
@@ -47,6 +49,24 @@ class FinancialDepositActivity : BaseActivity() {
         dialogHelper = DialogHelper.getInstance()
         deposit_limit.text = "产品限额：${detail.purchased}/${detail.userLimit}"
         available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
+        deposit_count.addTextChangedListener(object : EditTextChange(){
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var length = s!!.length
+                if(length>0){
+                    var price = java.lang.Double.parseDouble(s.toString())
+                    if(price>detail.balance){
+                        available.text = "可用${detail.baseTokenName}：不足"
+                        available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity,R.color.red))
+                    }else{
+                        available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
+                        available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity,R.color.login_content))
+                    }
+                }else{
+                    available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
+                    available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity,R.color.login_content))
+                }
+            }
+        })
     }
 
     private fun initPopHelper() {
@@ -103,9 +123,9 @@ class FinancialDepositActivity : BaseActivity() {
                                 }
                             }, {
                                 if (it is SocketTimeoutException) {
-                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.pending_icon_1, "连接超时")
+                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, "连接超时")
                                 }else{
-                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.pending_icon_1, it.message)
+                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, it.message)
                                 }
                                 dialogHelper.dismissDelayed { null }
                             })

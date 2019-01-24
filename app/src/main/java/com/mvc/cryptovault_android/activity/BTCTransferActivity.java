@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -47,6 +48,8 @@ import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.greenrobot.eventbus.EventBus;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 
 public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTCTransferPresenter> implements BTCTransferContract.BTCTransferView, View.OnClickListener {
     private ImageView mBackM;
@@ -122,11 +125,11 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                 if (!chagePrice.equals("") && mTransBean != null) {
                     if (TextUtils.stringToDouble(chagePrice) > mTransBean.getBalance()) {
                         mPriceBtc.setText("余额不足");
-                        mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.red));
+                        mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
                         mSubmitBtc.setEnabled(false);
                     } else {
                         mPriceBtc.setText(String.format("可用%s：" + TextUtils.doubleToFour(mTransBean.getBalance()), tokenName));
-                        mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.login_edit_bg));
+                        mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.login_edit_bg));
                         mSubmitBtc.setEnabled(true);
                     }
                 }
@@ -139,7 +142,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String updateTv = s.toString();
                 if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(),R.drawable.clean_icon_edit), mTransAddressBtc);
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(), R.drawable.clean_icon_edit), mTransAddressBtc);
                 } else {
                     ViewDrawUtils.clearDraw(mTransAddressBtc);
                 }
@@ -159,7 +162,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                 break;
             case R.id.m_qcode:
                 // TODO 18/12/07
-                if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     RsPermission.getInstance().setRequestCode(200).setiPermissionRequest(new IPermissionRequest() {
                         @Override
                         public void toSetting() {
@@ -178,7 +181,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                             startActivityForResult(intent, 200);
                         }
                     }).requestPermission(this, Manifest.permission.CAMERA);
-                }else{
+                } else {
                     Intent intent = new Intent(BTCTransferActivity.this, QCodeActivity.class);
                     intent.putExtra("tokenId", tokenId);
                     startActivityForResult(intent, 200);
@@ -190,24 +193,24 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                 String priceBtc = mTransPriceBtc.getText().toString();
                 if (transAddress.equals("")) {
                     dialogHelper.create(this, R.drawable.miss_icon, "收款地址不能为空").show();
-                    dialogHelper.dismissDelayed(null, 1000);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (priceBtc.equals("")) {
                     dialogHelper.create(this, R.drawable.miss_icon, "转账金额不能为空").show();
-                    dialogHelper.dismissDelayed(null, 1000);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
-                if (tokenId == 4) {
+                if (tokenId == 4 || tokenId == 2) {
                     if (!RxgularUtils.isBTC(transAddress.trim())) {
                         dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
-                        dialogHelper.dismissDelayed(null, 1000);
+                        dialogHelper.dismissDelayed(null, 2000);
                         return;
                     }
                 } else {
                     if (!RxgularUtils.isETH(transAddress.trim())) {
                         dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
-                        dialogHelper.dismissDelayed(null, 1000);
+                        dialogHelper.dismissDelayed(null, 2000);
                         return;
                     }
                 }
@@ -235,8 +238,9 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                                 setAlpha(0.5f);
                                                 break;
                                             case R.id.pay_forget:
-                                                dialogHelper.create(BTCTransferActivity.this, R.layout.layout_forgetpwd_dialog).show();
-                                                dialogHelper.dismissDelayed(null, 2000);
+                                                SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "2");
+                                                startActivity(ForgetPasswordActivity.class);
+                                                KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                                 break;
                                         }
                                     }
@@ -269,7 +273,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                     boolean qode = data.getBooleanExtra("QODE", false);
                     if (!qode) {
                         dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
-                        dialogHelper.dismissDelayed(null, 1000);
+                        dialogHelper.dismissDelayed(null, 2000);
                         return;
                     }
                     String hash = data.getStringExtra(CodeUtils.RESULT_STRING);
@@ -300,10 +304,10 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                 EventBus.getDefault().post(new HistroyFragmentEvent());
                 EventBus.getDefault().post(new WalletMsgEvent());
                 finish();
-            }, 1500);
+            }, 3000);
         } else {
             dialogHelper.resetDialogResource(this, R.drawable.miss_icon, bean.getMessage());
-            dialogHelper.dismissDelayed(null, 1500);
+            dialogHelper.dismissDelayed(null, 2000);
         }
     }
 }

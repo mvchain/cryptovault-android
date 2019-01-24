@@ -40,13 +40,13 @@ data class FinancialDetailBean(
             var baseTokenName: String,
             var content: String,
             var id: Int,
-            var incomeMax: Int,
-            var incomeMin: Int,
+            var incomeMax: Double,
+            var incomeMin: Double,
             var limitValue: Int,
             var minValue: Int,
             var name: String,
             var purchased: Int,
-            var ratio: Int,
+            var ratio: Double,
             var rule: String,
             var startAt: Long,
             var stopAt: Long,
@@ -61,13 +61,13 @@ data class FinancialDetailBean(
                 parcel.readString(),
                 parcel.readString(),
                 parcel.readInt(),
-                parcel.readInt(),
-                parcel.readInt(),
+                parcel.readDouble(),
+                parcel.readDouble(),
                 parcel.readInt(),
                 parcel.readInt(),
                 parcel.readString(),
                 parcel.readInt(),
-                parcel.readInt(),
+                parcel.readDouble(),
                 parcel.readString(),
                 parcel.readLong(),
                 parcel.readLong(),
@@ -82,13 +82,13 @@ data class FinancialDetailBean(
             parcel.writeString(baseTokenName)
             parcel.writeString(content)
             parcel.writeInt(id)
-            parcel.writeInt(incomeMax)
-            parcel.writeInt(incomeMin)
+            parcel.writeDouble(incomeMax)
+            parcel.writeDouble(incomeMin)
             parcel.writeInt(limitValue)
             parcel.writeInt(minValue)
             parcel.writeString(name)
             parcel.writeInt(purchased)
-            parcel.writeInt(ratio)
+            parcel.writeDouble(ratio)
             parcel.writeString(rule)
             parcel.writeLong(startAt)
             parcel.writeLong(stopAt)

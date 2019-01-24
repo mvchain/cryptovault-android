@@ -17,6 +17,7 @@ import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.gyf.barlibrary.ImmersionBar
@@ -36,23 +37,8 @@ import com.uuzuche.lib_zxing.activity.CodeUtils
 import kotlinx.android.synthetic.main.activity_invatition.*
 import java.util.ArrayList
 
-class InvatitionActivity : BaseActivity(), View.OnTouchListener {
+class InvatitionActivity : BaseActivity() {
     private var y = 0f
-
-    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        when(event?.action){
-            MotionEvent.ACTION_DOWN->{
-                y = event.y
-            }
-            MotionEvent.ACTION_UP->{
-                if(event.y > y){
-                    var height = info_layout.height
-                    infoLayoutStartAnimation(-height + 0f, 0f)
-                }
-            }
-        }
-        return true
-    }
 
     private var dialogHelper: DialogHelper? = null
     private lateinit var invaList: ArrayList<InvatationBean.DataBean>
@@ -112,14 +98,14 @@ class InvatitionActivity : BaseActivity(), View.OnTouchListener {
 
                     override fun cancle(i: Int) {
                         dialogHelper!!.create(this@InvatitionActivity, R.drawable.miss_icon, "权限不足").show()
-                        dialogHelper!!.dismissDelayed(null, 1000)
+                        dialogHelper!!.dismissDelayed(null, 2000)
                     }
 
                     override fun success(i: Int) {
-                        info_layout.isDrawingCacheEnabled = true
+                        qcode_layout.isDrawingCacheEnabled = true
                         copy_me_invatition.visibility = View.GONE
                         copy_download_url.visibility = View.GONE
-                        val drawingCache = Bitmap.createBitmap(info_layout.drawingCache)
+                        val drawingCache = Bitmap.createBitmap(qcode_layout.drawingCache)
                         copy_me_invatition.visibility = View.VISIBLE
                         copy_download_url.visibility = View.VISIBLE
                         val parintent = Intent()
@@ -131,7 +117,7 @@ class InvatitionActivity : BaseActivity(), View.OnTouchListener {
                         val share_intent = Intent.createChooser(parintent, "分享到:")
                         startActivity(share_intent)
                         drawingCache.recycle()
-                        info_layout.isDrawingCacheEnabled = false
+                        qcode_layout.isDrawingCacheEnabled = false
                     }
                 }).requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
@@ -149,6 +135,7 @@ class InvatitionActivity : BaseActivity(), View.OnTouchListener {
             }
             R.id.me_invation_list -> {
                 var height = info_layout.height
+                share.visibility = View.INVISIBLE
                 infoLayoutStartAnimation(0f, -height + 0f)
                 if (mPop != null && !mPop.isShowing) {
                     mPop.showAsDropDown(info_layout, 0, 0, Gravity.BOTTOM)
@@ -176,10 +163,14 @@ class InvatitionActivity : BaseActivity(), View.OnTouchListener {
         invaList = ArrayList()
         invaAdapter = InvatitionAdapter(R.layout.item_invatation, invaList)
         mPop = createPopWindow()
+        mPop.setOnDismissListener {
+            share.visibility = View.VISIBLE
+        }
         val mBitmap = CodeUtils.createImage(download_url.text.toString(), 400, 400, BitmapFactory.decodeResource(resources, R.mipmap.vp_logo))
         Glide.with(this).load(mBitmap).into(qcode)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun createPopWindow(): PopupWindow {
         var mPop = PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         mPopLayout = LayoutInflater.from(this).inflate(R.layout.layout_invatition_pop, null) as LinearLayout
@@ -188,7 +179,21 @@ class InvatitionActivity : BaseActivity(), View.OnTouchListener {
         var rule = RuleRecyclerLines(this, RuleRecyclerLines.HORIZONTAL_LIST, 1)
         rule.setColor(R.color.white)
         var invatationNull = mPopLayout.findViewById<TextView>(R.id.invatation_null)
-        invatationNull.setOnTouchListener(this)
+        invatationNull.setOnTouchListener { v, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    y = event.y
+                }
+                MotionEvent.ACTION_UP -> {
+                    if (event.y > y) {
+                        mPop.dismiss()
+                        var height = info_layout.height
+                        infoLayoutStartAnimation(-height + 0f, 0f)
+                    }
+                }
+            }
+            true
+        }
         mInvatationRecyclerVie.addItemDecoration(rule)
         mInvatationRecyclerVie.adapter = invaAdapter
         mInvatationRecyclerVie.addOnScrollListener(object : RecyclerView.OnScrollListener() {

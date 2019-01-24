@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.text.InputType
 import android.view.View
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
@@ -11,6 +12,7 @@ import com.mvc.cryptovault_android.contract.SetPasswordContract
 import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.presenter.SetLoginPresenter
 import com.mvc.cryptovault_android.view.DialogHelper
+import kotlinx.android.synthetic.main.activity_reset_password.*
 import kotlinx.android.synthetic.main.activity_set_password.*
 
 class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPasswordPresenter>(), SetPasswordContract.SetPasswordView {
@@ -52,6 +54,9 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
                 old_layout.hint = "输入当前支付密码"
                 new_layout.hint = "输入新支付密码"
                 forget_pwd.text = "忘记支付密码？"
+                old_pwd.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                new_pwd.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD
+
             }
         }
         //设置眼睛可见

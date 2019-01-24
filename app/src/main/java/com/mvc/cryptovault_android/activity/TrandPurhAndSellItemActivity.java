@@ -47,6 +47,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
+import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 
 public class TrandPurhAndSellItemActivity extends BaseActivity implements View.OnClickListener {
 
@@ -221,17 +222,17 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 String currentAllPrice = mAllPricePurh.getText().toString();
                 if (currentNum.equals("") || Double.valueOf(currentNum) <= 0) {
                     dialogHelper.create(this, R.drawable.miss_icon, type == 1 ? "购买数量不正确" : "出售数量不正确").show();
-                    dialogHelper.dismissDelayed(null, 1000);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (type == 1 && Double.valueOf(currentNum) > balance) {
                     dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToFour(balance)).show();
-                    dialogHelper.dismissDelayed(null, 1000);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (type == 2 && Double.valueOf(currentNum) > tokenBalance) {
                     dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToFour(tokenBalance)).show();
-                    dialogHelper.dismissDelayed(null, 1000);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 String type = (this.type == 1 ? data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()) : unitPrice);
@@ -259,8 +260,9 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                         setAlpha(0.5f);
                                         break;
                                     case R.id.pay_forget:
-                                        dialogHelper.create(TrandPurhAndSellItemActivity.this, R.layout.layout_forgetpwd_dialog).show();
-                                        dialogHelper.dismissDelayed(null, 2000);
+                                        SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "2");
+                                        startActivity(ForgetPasswordActivity.class);
+                                        KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                         break;
                                 }
                             }
@@ -312,7 +314,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
                 EventBus.getDefault().post(new RecordingEvent());
-                dialogHelper.dismissDelayed(() -> finish(), 1000);
+                dialogHelper.dismissDelayed(() -> finish(), 2000);
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 dialogHelper.dismissDelayed(null, 2000);
@@ -338,7 +340,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
                 EventBus.getDefault().post(new RecordingEvent());
-                dialogHelper.dismissDelayed(() -> finish(), 1000);
+                dialogHelper.dismissDelayed(() -> finish(), 2000);
             } else if (updateBean.getCode() == 400) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.miss_icon, updateBean.getMessage());
                 dialogHelper.dismissDelayed(null, 2000);

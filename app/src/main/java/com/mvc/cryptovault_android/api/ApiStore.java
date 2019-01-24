@@ -9,6 +9,7 @@ import com.mvc.cryptovault_android.bean.MnemonicsBean;
 import com.mvc.cryptovault_android.bean.OptionBean;
 import com.mvc.cryptovault_android.bean.OptionDailyIncomeBean;
 import com.mvc.cryptovault_android.bean.OptionDetailBean;
+import com.mvc.cryptovault_android.bean.PairTickersBean;
 import com.mvc.cryptovault_android.bean.TagBean;
 import com.mvc.cryptovault_android.bean.UpsetMnemonicsBean;
 import com.mvc.cryptovault_android.bean.VPBalanceBean;
@@ -203,6 +204,10 @@ public interface ApiStore {
     Observable<KLineBean> getKLine(@Header("Authorization") String token,
                                    @Query("pairId") int pairId);
 
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.GET_PAIR_TICKERS)
+    Observable<PairTickersBean> getPairTickers(@Header("Authorization") String token,
+                                               @Query("pairId") int pairId);
     /**
      * 获取验证码
      *

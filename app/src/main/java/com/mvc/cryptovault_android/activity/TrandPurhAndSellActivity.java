@@ -50,6 +50,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
+import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 
 public class TrandPurhAndSellActivity extends BaseActivity implements View.OnClickListener {
 
@@ -127,14 +128,14 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                             mSeekPurh.setProgress(mSeekPurh.getMax() / 2);
                         }
                         mAllPricePurh.setText("0.0000 " + allPriceUnit);
-                        mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " "+unitPrice);
+                        mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " " + unitPrice);
                         mSeekNumPurh.setText((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100)) + "%");
                         mSeekPurh.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                             @Override
                             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                                 double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(progress / 100));
                                 mSeekNumPurh.setText(currentPro + "%");
-                                mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * currentPro / 100) + " "+unitPrice);
+                                mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * currentPro / 100) + " " + unitPrice);
                                 currentPricePurh = data.getPrice() * currentPro / 100;
                                 if (!mEditPurh.getText().toString().equals("")) {
                                     double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
@@ -262,17 +263,17 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 String currentAllPrice = mAllPricePurh.getText().toString();
                 if (currentNum.equals("") || Double.valueOf(currentNum) <= 0) {
                     dialogHelper.create(this, R.drawable.miss_icon, type == 1 ? "购买数量不正确" : "出售数量不正确").show();
-                    dialogHelper.dismissDelayed(null, 1000);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (type == 1 && Double.parseDouble(currentNum) > balance) {
                     dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToFour(balance)).show();
-                    dialogHelper.dismissDelayed(null, 1000);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (type == 2 && Double.parseDouble(currentNum) > tokenBalance) {
                     dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToFour(tokenBalance)).show();
-                    dialogHelper.dismissDelayed(null, 1000);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 String type = (this.type == 1 ? data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()) : unitPrice);
@@ -301,6 +302,9 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                         setAlpha(0.5f);
                                         break;
                                     case R.id.pay_forget:
+                                        SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "2");
+                                        startActivity(ForgetPasswordActivity.class);
+                                        KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                         break;
                                 }
                             }
@@ -369,7 +373,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         }, throwable -> {
             if (throwable instanceof SocketTimeoutException) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "连接超时");
-            }else{
+            } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, throwable.getMessage());
             }
             dialogHelper.dismissDelayed(() -> {
@@ -407,7 +411,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         }, throwable -> {
             if (throwable instanceof SocketTimeoutException) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, "连接超时");
-            }else{
+            } else {
                 dialogHelper.resetDialogResource(TrandPurhAndSellActivity.this, R.drawable.miss_icon, throwable.getMessage());
             }
             dialogHelper.dismissDelayed(() -> {

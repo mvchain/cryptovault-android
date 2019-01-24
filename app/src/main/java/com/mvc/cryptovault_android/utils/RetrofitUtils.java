@@ -63,7 +63,6 @@ public class RetrofitUtils {
                 .authenticator((route, response) -> {
                     HttpTokenBean body = RetrofitUtils.client(ApiStore.class).refreshToken(SPUtils.getInstance().getString(REFRESH_TOKEN)).execute().body();
                     if (body.getCode() == 200) {
-                        LogUtils.e("RetrofitUtils#Token:"+body.getData());
                         SPUtils.getInstance().put("token", body.getData());
                         MyApplication.setTOKEN(body.getData());
                         RetrofitUtils.client(ApiStore.class).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())

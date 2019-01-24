@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -49,6 +50,8 @@ import org.json.JSONObject;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+
+import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 
 public class CrowdfundingAppointmentActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mBackM;
@@ -216,8 +219,9 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                                                 setAlpha(0.5f);
                                                 break;
                                             case R.id.pay_forget:
-                                                dialogHelper.create(CrowdfundingAppointmentActivity.this, R.layout.layout_forgetpwd_dialog).show();
-                                                dialogHelper.dismissDelayed(null, 2000);
+                                                SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "2");
+                                                startActivity(ForgetPasswordActivity.class);
+                                                KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                                 break;
                                         }
                                     }

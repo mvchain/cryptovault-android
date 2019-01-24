@@ -34,11 +34,13 @@ import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.TrandRecorAdapter;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.bean.KLineBean;
+import com.mvc.cryptovault_android.bean.PairTickersBean;
 import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.fragment.RecordingFragment;
@@ -142,9 +144,22 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("CheckResult")
     private void initLineChartData() {
-        RetrofitUtils.client(ApiStore.class).getKLine(getToken(), data.getPairId())
+        RetrofitUtils.client(ApiStore.class).getKLine(MyApplication.getTOKEN(), data.getPairId())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(updateBean -> initLineChart(updateBean), throwable -> {
+                    LogUtils.e("TrandRecordingActivity", throwable.getMessage());
+                });
+        RetrofitUtils.client(ApiStore.class).getPairTickers(MyApplication.getTOKEN(), data.getPairId())
+                .compose(RxHelper.rxSchedulerHelper())
+                .subscribe(pickBean ->
+                {
+                    if (pickBean.getCode() == 200) {
+                        PairTickersBean.DataBean data = pickBean.getData();
+                        mCurrentTvRecording.setText(TextUtils.doubleToFour(data.getPrice()) + " " + recordingType);
+                        mDayMaxTvRecording.setText(TextUtils.doubleToFour(data.getHigh()) + " " + recordingType);
+                        mDayMinTvRecording.setText(TextUtils.doubleToFour(data.getLow()) + " " + recordingType);
+                    }
+                }, throwable -> {
                     LogUtils.e("TrandRecordingActivity", throwable.getMessage());
                 });
 
@@ -156,34 +171,24 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         int currentSize = updateBean.getData().getValueY().size();
         long currentTime = updateBean.getData().getTimeX().get(currentSize - 1);
         long dayTime = currentTime - (24 * 60 * 60 * 1000);
-        Float lastPrice = updateBean.getData().getValueY().get(currentSize - 1);
-        float max = 0;
-        float min = lastPrice;
         for (int i = 0; i < 7; i++) {
             TextView timeView = getTimeView(currentTime);
             currentTime -= (24 * 60 * 60 * 1000);
             mTimeGroup.addView(timeView, 0);
         }
-        mCurrentTvRecording.setText(TextUtils.doubleToFour(lastPrice) + " " + recordingType);
         LineDataSet dataSetByIndex;
         ArrayList<Entry> values = new ArrayList<>();
         List<Long> timeX = updateBean.getData().getTimeX();
         List<Float> valueY = updateBean.getData().getValueY();
         for (int i = 0; i < timeX.size(); i++) {
             values.add(new Entry(timeX.get(i), valueY.get(i)));
-            if (timeX.get(i) >= dayTime) {
-                max = Math.max(max, valueY.get(i));
-                min = Math.min(min, valueY.get(i));
-            }
         }
-        mDayMaxTvRecording.setText(TextUtils.doubleToFour(max) + " " + recordingType);
-        mDayMinTvRecording.setText(TextUtils.doubleToFour(min) + " " + recordingType);
         dataSetByIndex = new LineDataSet(values, "kline");
         dataSetByIndex.setValues(values);
         dataSetByIndex.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         dataSetByIndex.setCubicIntensity(0.2f);
         dataSetByIndex.setDrawFilled(true);
-        dataSetByIndex.setFillDrawable(ContextCompat.getDrawable(TrandRecordingActivity.this,R.drawable.shape_linechart_fill));
+        dataSetByIndex.setFillDrawable(ContextCompat.getDrawable(TrandRecordingActivity.this, R.drawable.shape_linechart_fill));
         dataSetByIndex.setDrawCircles(false);
         dataSetByIndex.setLineWidth(0.5f);
         dataSetByIndex.setCircleRadius(1f);

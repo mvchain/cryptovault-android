@@ -1,5 +1,7 @@
 package com.mvc.cryptovault_android.activity
 
+import android.graphics.Color
+import android.os.Build
 import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
@@ -15,7 +17,14 @@ class SelectLoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initView() {
-        ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
+        if (Build.VERSION.SDK_INT >= 21) {
+            var decorView = window.decorView
+            var option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            decorView.systemUiVisibility = option
+            window.statusBarColor = Color.TRANSPARENT
+        } else {
+            ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
+        }
     }
 
     override fun onClick(v: View?) {

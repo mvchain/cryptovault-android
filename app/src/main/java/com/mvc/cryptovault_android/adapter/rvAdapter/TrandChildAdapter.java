@@ -47,6 +47,7 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
             increase.setTextColor(ContextCompat.getColor(mContext,R.color.trand_gray));
         } else {
             increase.setText(TextUtils.doubleToDouble(incre) + "%");
+            increase.setTextColor(ContextCompat.getColor(mContext,R.color.white));
         }
         helper.setText(R.id.trand_child_ratio, TextUtils.doubleToFour(item.getRatio()) + " " + item.getPair().substring(item.getPair().indexOf("/") + 1, item.getPair().length()));
         helper.setText(R.id.trand_child_title, item.getTokenName());

@@ -103,7 +103,6 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     }
 
     public void refresh() {
-        mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(true));
         isRefresh = true;
         mPresenter.getComingList(10, 0, projectType, 0);
     }

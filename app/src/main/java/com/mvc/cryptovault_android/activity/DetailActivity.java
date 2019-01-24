@@ -132,7 +132,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                     @Override
                     public void cancle(int i) {
                         dialogHelper.create(DetailActivity.this, R.drawable.miss_icon, "权限不足").show();
-                        dialogHelper.dismissDelayed(null, 1000);
+                        dialogHelper.dismissDelayed(null, 2000);
                     }
 
                     @Override
@@ -195,7 +195,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                     // 将ClipData内容放到系统剪贴板里。
                     cm.setPrimaryClip(mClipData);
                     dialogHelper.create(this, R.drawable.success_icon, "内容已复制至剪贴板");
-                    dialogHelper.dismissDelayed(null, 1500);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return true;
                 });
             } else {
@@ -216,7 +216,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                     // 将ClipData内容放到系统剪贴板里。
                     cm.setPrimaryClip(mClipData);
                     dialogHelper.create(this, R.drawable.success_icon, "内容已复制至剪贴板");
-                    dialogHelper.dismissDelayed(null, 1500);
+                    dialogHelper.dismissDelayed(null, 2000);
                     return true;
                 });
             } else {

@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/current_hint"
             android:layout_marginTop="5dp"
-            android:text="1234568.2154 VRT"
+            android:text="-"
             android:textColor="@color/login_content"
             android:textSize="12sp" />
 
@@ -98,7 +98,7 @@
             android:layout_below="@id/current_hint"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:text="1234568.2154 VRT"
+            android:text="-"
             android:textColor="@color/login_content"
             android:textSize="12sp" />
 
@@ -109,7 +109,7 @@
             android:layout_below="@id/current_hint"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
-            android:text="1234568.2154 VRT"
+            android:text="-"
             android:textColor="@color/login_content"
             android:textSize="12sp" />
     </RelativeLayout>

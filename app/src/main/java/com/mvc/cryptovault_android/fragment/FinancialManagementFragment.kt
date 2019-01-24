@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -32,6 +33,7 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
     private lateinit var mFinaList: ArrayList<FinancialListBean.DataBean>
     private lateinit var mFinaAdapter: FinanciaAdapter
     private var isRefresh = false
+    private var createCarryOut = false
     @SuppressLint("SetTextI18n")
     override fun showMeFinanciaSuccess(financialBean: FinancialBean.DataBean) {
         var set_rate = SPUtils.getInstance().getString(SET_RATE)
@@ -52,6 +54,7 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
 
     override fun showFinanciaListSuccess(financialListBean: List<FinancialListBean.DataBean>) {
         rootView.refresh.post { rootView.refresh.isRefreshing = false }
+        LogUtils.e("financialFragment${financialListBean.size}")
         if (financialListBean.isNotEmpty()) {
             if (isRefresh) {
                 isRefresh = false
@@ -63,6 +66,7 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
     }
 
     override fun initView() {
+        createCarryOut = true
         mFinaList = ArrayList()
         mFinaAdapter = FinanciaAdapter(R.layout.item_financia, mFinaList)
         rootView.financial_recyclerview.adapter = mFinaAdapter
@@ -117,6 +121,13 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
         return R.layout.fragment_financial
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && createCarryOut) {
+            refresh()
+        }
+    }
+
     override fun initPresenter(): BasePresenter<*, *> {
         return FinancialPresenter.newIntance()
     }
@@ -131,7 +142,6 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
 
     override fun showFinanciaListError() {
         rootView.refresh.post { rootView.refresh.isRefreshing = false }
-
     }
 
     override fun showServerError() {

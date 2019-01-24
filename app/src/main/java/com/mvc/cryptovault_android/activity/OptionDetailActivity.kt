@@ -39,7 +39,7 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
         submit.isEnabled = false
     }
 
-    override fun showExtractError(error:String) {
+    override fun showExtractError(error: String) {
         dialogHelper.resetDialogResource(this, R.drawable.miss_icon, error)
         dialogHelper.dismissDelayed {
             null
@@ -49,9 +49,9 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
     @SuppressLint("SetTextI18n")
     override fun showDetailSuccess(detail: OptionDetailBean.DataBean) {
         daily_swipe.post { daily_swipe.isRefreshing = false }
-        investment_amount.text = TextUtils.doubleToDouble(detail.value) + detail.baseTokenName
-        cumulative_income.text = TextUtils.doubleToDouble(detail.income) + detail.baseTokenName
-        remaining_days.text = "${detail.times}天"
+        investment_amount.text = TextUtils.doubleToFour(detail.value) + detail.baseTokenName
+        cumulative_income.text = TextUtils.doubleToFour(detail.income) + detail.tokenName
+        remaining_days.text = "剩余签到天数${detail.times}天"
         detail_title.text = "${detail.financialName}持仓详情"
         detail_content.text = detail.financialName
         interest_rate.text = "年化收益率：${TextUtils.doubleToDouble(detail.incomeMin)}-${TextUtils.doubleToDouble(detail.incomeMax)} %"
@@ -76,9 +76,9 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
 
     override fun showDetailError() {
         daily_swipe.post { daily_swipe.isRefreshing = false }
-        investment_amount.text = "0"
-        cumulative_income.text = "0"
-        remaining_days.text = "0"
+        investment_amount.text = "-"
+        cumulative_income.text = "-"
+        remaining_days.text = "-"
 
     }
 
@@ -113,6 +113,7 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
                     }
                 }
             }
+
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {}
         })
     }

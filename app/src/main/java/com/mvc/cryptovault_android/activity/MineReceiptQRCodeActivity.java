@@ -149,7 +149,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
     public void showSuccess(ReceiptBean receiptBean) {
         String hash = receiptBean.getData();
         mHashM.setText(hash);
-        Bitmap mBitmap = CodeUtils.createImage(hash, 400, 400, BitmapFactory.decodeResource(getResources(), R.mipmap.vp_logo));
+        Bitmap mBitmap = CodeUtils.createImage(hash, 400, 400, null);
         Glide.with(this).load(mBitmap).into(mQcImgM);
     }
 

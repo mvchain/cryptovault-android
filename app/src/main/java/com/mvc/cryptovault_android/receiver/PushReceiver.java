@@ -1,12 +1,13 @@
 package com.mvc.cryptovault_android.receiver;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -46,9 +47,9 @@ public class PushReceiver extends BroadcastReceiver {
             LogUtils.e(TAG, "用户点击打开了通知");
             //      openNotification(context,bundle);
 //            openLaikan(context);
-        }else if(JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
+        } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
             boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-            Log.e(TAG, "[MyReceiver]" + intent.getAction() +" connected:"+connected);
+            Log.e(TAG, "[MyReceiver]" + intent.getAction() + " connected:" + connected);
         } else {
             LogUtils.e(TAG, "Unhandled intent - " + intent.getAction());
         }
@@ -60,9 +61,15 @@ public class PushReceiver extends BroadcastReceiver {
         String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
         String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
         JSONObject extraJson = new JSONObject(extra);
-        LogUtils.e(TAG, extraJson.toString()+"========"+message);
+        LogUtils.e(TAG, extraJson.toString() + "========" + message);
         int orderId = extraJson.getInt("orderId");
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, String.valueOf(orderId));
+        NotificationCompat.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder = new NotificationCompat.Builder(context, "price_update");
+            nm.createNotificationChannel(new NotificationChannel("price_update", "新消息通知", NotificationManager.IMPORTANCE_HIGH));
+        } else {
+            builder = new NotificationCompat.Builder(context);
+        }
         Intent msgIntent = new Intent(context, MsgActivity.class);
         PendingIntent mPendingIntent = PendingIntent.getActivity(context, 1, msgIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         //设置通知栏标题

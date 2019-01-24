@@ -78,10 +78,10 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
             StringBuffer buffer = new StringBuffer();
             switch (item.getStatus()) {
                 case 9:
-                    buffer.append("收益");
+                    buffer.append("支出");
                     break;
                 case 2:
-                    buffer.append("支出");
+                    buffer.append("收益");
                     break;
                 case 0:
                     buffer.append("提成");

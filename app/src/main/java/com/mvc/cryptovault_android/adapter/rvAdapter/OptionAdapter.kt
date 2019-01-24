@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.adapter.rvAdapter
 
+import com.allen.library.SuperTextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.mvc.cryptovault_android.R
@@ -10,10 +11,11 @@ import java.util.ArrayList
 class OptionAdapter(layoutResId: Int, data: ArrayList<OptionBean.DataBean>?) : BaseQuickAdapter<OptionBean.DataBean, BaseViewHolder>(layoutResId, data) {
 
     override fun convert(helper: BaseViewHolder?, item: OptionBean.DataBean?) {
-        helper?.setText(R.id.option_title, item?.name)
-        helper?.setText(R.id.time, "${item?.times}")
-        helper?.setText(R.id.yesterday_earnings, TextUtils.doubleToFour(item!!.value))
-        helper?.setText(R.id.option_price, TextUtils.doubleToFour(item!!.partake))
+        var superText = helper?.getView<SuperTextView>(R.id.option_title)
+        superText!!.setLeftTopString(item?.name)
+        superText!!.setLeftBottomString("剩余签到${item?.times}天")
+        helper?.setText(R.id.yesterday_earnings, TextUtils.doubleToFour(item!!.value) + item.tokenName)
+        helper?.setText(R.id.option_price, TextUtils.doubleToFour(item!!.partake) + item.baseTokenName)
         helper?.addOnClickListener(R.id.item_layout)
     }
 }

@@ -6,89 +6,100 @@
     android:layout_marginBottom="12dp"
     android:background="@drawable/shape_round_white_5dp"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingLeft="12dp"
     android:paddingTop="12dp"
-    android:paddingBottom="12dp">
+    android:paddingBottom="7dp">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="21dp"
-        android:orientation="vertical">
+        android:layout_marginTop="10dp"
+        android:text="-"
+        android:textColor="@color/login_content"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/income"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="-"
-            android:textColor="@color/aoi_bg_orangey"
-            android:textSize="23sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:layout_marginBottom="10dp"
-            android:text="预期年化收益率"
-            android:textColor="@color/trand_gray"
-            android:textSize="12sp" />
+            android:layout_marginRight="21dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="-"
+                android:textColor="@color/aoi_bg_orangey"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="10dp"
+                android:text="预期年化收益率"
+                android:textColor="@color/trand_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="27dp"
+            android:background="#CCCCCC" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="21dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tag_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_item_financia_gray_stroke_5dp"
+                android:padding="3dp"
+                android:text="签到-天"
+                android:textColor="@color/trand_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tag_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_item_financia_gray_stroke_5dp"
+                android:padding="3dp"
+                android:text="- 起投"
+                android:textColor="@color/trand_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <View
-        android:layout_width="1dp"
-        android:layout_height="27dp"
-        android:background="#CCCCCC" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_gray" />
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/stop_time"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="21dp"
-        android:layout_weight="3"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:text="-"
-            android:textColor="@color/login_content"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-
-        <TextView
-            android:id="@+id/tag_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/shape_item_financia_gray_stroke_5dp"
-            android:padding="3dp"
-            android:text="签到-天"
-            android:textColor="@color/trand_gray"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tag_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/shape_item_financia_gray_stroke_5dp"
-            android:padding="3dp"
-            android:text="- 起投"
-            android:textColor="@color/trand_gray"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/stop_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:text="下线时间：-"
-            android:textColor="@color/edit_bg"
-            android:textSize="12sp" />
-    </LinearLayout>
+        android:layout_marginTop="7dp"
+        android:text="下线时间：-"
+        android:textColor="@color/edit_bg"
+        android:textSize="12sp" />
 </LinearLayout>

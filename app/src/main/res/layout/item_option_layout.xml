@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,14 +11,21 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
+    <com.allen.library.SuperTextView
         android:id="@+id/option_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
-        android:drawableRight="@drawable/next_icon_black"
         android:gravity="center_vertical"
-        android:text="产品名称" />
+        app:sDividerLineHeight="0dp"
+        app:sLeftBottomTextColor="@color/toge_gray"
+        app:sLeftBottomTextString="剩余签到"
+        app:sLeftTextGravity="left"
+        app:sLeftTopTextColor="@color/login_content"
+        app:sLeftTopTextString="产品名称"
+        app:sLeftViewGravity="left_center"
+        app:sRightIconRes="@drawable/next_icon_black"
+        app:sUseRipple="false" />
 
     <View
         android:layout_width="match_parent"
@@ -34,14 +42,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="剩余签到天数"
-            android:textColor="@color/toge_gray"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
             android:text="今日收益"
             android:textColor="@color/toge_gray"
@@ -51,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="center"
             android:text="持仓金额"
             android:textColor="@color/toge_gray"
             android:textSize="12sp" />
@@ -64,15 +64,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="-"
-            android:textColor="@color/login_content"
-            android:textSize="17sp" />
-
-        <TextView
             android:id="@+id/yesterday_earnings"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -80,16 +71,16 @@
             android:gravity="center"
             android:text="-"
             android:textColor="@color/login_content"
-            android:textSize="17sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/option_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="right"
+            android:gravity="center"
             android:text="-"
             android:textColor="@color/login_content"
-            android:textSize="17sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

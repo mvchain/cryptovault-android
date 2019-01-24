@@ -77,17 +77,17 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
             iconType = 4;
             StringBuffer buffer = new StringBuffer();
             switch (item.getStatus()) {
-                case 9:
-                    buffer.append("支出");
+                case 4:
+                    buffer.append("取出");
                     break;
-                case 2:
+                case 5:
+                    buffer.append("奖励");
+                    break;
+                case 6:
                     buffer.append("收益");
                     break;
-                case 0:
-                    buffer.append("提成");
-                    break;
             }
-            helper.setText(R.id.his_child_title, item.getOrderRemark() + buffer.toString());
+            helper.setText(R.id.his_child_title, item.getOrderRemark() + " " + buffer.toString());
         }
         Glide.with(mContext).load(status_icon[iconType]).into(icon);
         helper.addOnClickListener(R.id.his_layout);

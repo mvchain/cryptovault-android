@@ -49,6 +49,7 @@ class FinancialDepositActivity : BaseActivity() {
         dialogHelper = DialogHelper.getInstance()
         deposit_limit.text = "产品限额：${detail.purchased}/${detail.userLimit}"
         available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
+        financial_title.text = "${detail.name}存入"
         deposit_count.addTextChangedListener(object : EditTextChange(){
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var length = s!!.length
@@ -100,6 +101,7 @@ class FinancialDepositActivity : BaseActivity() {
                     }
                 }
                 ) { num ->
+                    KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
                     mPopView.dismiss()
                     dialogHelper?.create(this@FinancialDepositActivity, R.drawable.pending_icon_1, "存入中").show()
                     var json = JSONObject()
@@ -112,7 +114,6 @@ class FinancialDepositActivity : BaseActivity() {
                             .subscribe({ date ->
                                 if (date.code === 200) {
                                     dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.success_icon, "存入成功")
-                                    KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
                                     dialogHelper.dismissDelayed {
                                         EventBus.getDefault().post(FinancialDetailEvent())
                                         finish()
@@ -130,7 +131,7 @@ class FinancialDepositActivity : BaseActivity() {
                                 dialogHelper.dismissDelayed { null }
                             })
                 }
-        mPopView.contentView.post { KeyboardUtils.showSoftInput(mPopView.contentView.findViewById<View>(R.id.pay_text)) }
+        mPopView.contentView.post { mPopView.contentView.findViewById<PswText>(R.id.pay_text).performClick() }
         mPopView.showAtLocation(deposit_count, Gravity.BOTTOM, 0, 0)
         setAlpha(0.5f)
     }

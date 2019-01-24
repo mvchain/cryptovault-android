@@ -18,6 +18,8 @@
         android:layout_marginBottom="14dp"
         android:gravity="center_vertical"
         app:sDividerLineHeight="0dp"
+        app:sLeftBottomTextSize="12sp"
+        app:sLeftTopTextSize="16sp"
         app:sLeftBottomTextColor="@color/toge_gray"
         app:sLeftBottomTextString="剩余签到"
         app:sLeftTextGravity="left"

@@ -272,6 +272,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                 setAlpha(1f);
                             }
                         }, num -> {
+                            KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                             mPurhDialog = dialogHelper.create(TrandPurhAndSellItemActivity.this, R.drawable.pending_icon, "正在发布");
                             mPurhDialog.show();
                             mPopView.dismiss();
@@ -287,7 +288,6 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                 e.printStackTrace();
                             }
                             RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
-                            KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                             if (this.type == 1) {
                                 releasePurh(body);
                             } else {

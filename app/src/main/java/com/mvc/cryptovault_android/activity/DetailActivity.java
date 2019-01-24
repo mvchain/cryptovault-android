@@ -224,7 +224,6 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
                 mHashContentDetail.setText("无");
             }
         } else if (classify == 1) { //订单交易
-
             mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.jy_icon));
             mTitleDetail.setText(data.getOrderRemark() + " 交易");
             mFeesLayoutDetail.setVisibility(View.GONE);
@@ -257,7 +256,19 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
             mCollLayoutDetail.setVisibility(View.GONE);
         } else if (classify == 4) {
             mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.financial_selected_bold));
-            mTitleDetail.setText("理财" + (data.getTransactionType() == 1 ? "收入" : "支出"));
+            StringBuffer buffer = new StringBuffer();
+            switch (data.getStatus()) {
+                case 4:
+                    buffer.append("取出");
+                    break;
+                case 5:
+                    buffer.append("奖励");
+                    break;
+                case 6:
+                    buffer.append("收益");
+                    break;
+            }
+            mTitleDetail.setText(data.getOrderRemark() + " " + buffer);
 //            mTvTitle.setText(data.getOrderRemark() + " " + (data.getStatus() == 9 ? "支出" : "收入"));
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);

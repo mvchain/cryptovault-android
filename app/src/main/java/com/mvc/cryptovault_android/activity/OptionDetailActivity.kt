@@ -108,7 +108,7 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val layoutManager = recyclerView!!.layoutManager as LinearLayoutManager
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                    if (lastVisibleItemPosition + 1 == dailyAdapter.getItemCount() && dailyAdapter.getItemCount() >= 10 && !isRefresh) {
+                    if (lastVisibleItemPosition + 1 == dailyAdapter.itemCount && dailyAdapter.itemCount >= 10 && !isRefresh) {
                         mPresenter.getDailyIncome(id, dailyList[dailyList.size - 1].id, 15)
                     }
                 }
@@ -150,19 +150,17 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
             }
         }
         submit.setOnClickListener {
-            dialogHelper.create(this, "确定取出？", object : IDialogViewClickListener {
-                override fun click(viewId: Int) {
-                    when (viewId) {
-                        R.id.hint_cancle -> {
-                            dialogHelper.dismiss()
-                        }
-                        R.id.hint_enter -> {
-                            dialogHelper.dismiss()
-                            extractOptionDetail()
-                        }
+            dialogHelper.create(this, "确定取出？") { viewId ->
+                when (viewId) {
+                    R.id.hint_cancle -> {
+                        dialogHelper.dismiss()
+                    }
+                    R.id.hint_enter -> {
+                        dialogHelper.dismiss()
+                        extractOptionDetail()
                     }
                 }
-            }).show()
+            }.show()
         }
     }
 

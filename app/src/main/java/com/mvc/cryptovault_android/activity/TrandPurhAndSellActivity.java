@@ -314,6 +314,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                                 setAlpha(1f);
                             }
                         }, num -> {
+                            KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                             mPurhDialog = dialogHelper.create(TrandPurhAndSellActivity.this, R.drawable.pending_icon, "正在发布");
                             mPurhDialog.show();
                             mPopView.dismiss();

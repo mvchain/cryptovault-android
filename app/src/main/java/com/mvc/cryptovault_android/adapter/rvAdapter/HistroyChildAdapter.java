@@ -81,7 +81,7 @@ public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
                     buffer.append("取出");
                     break;
                 case 5:
-                    buffer.append("奖励");
+                    buffer.append("提成");
                     break;
                 case 6:
                     buffer.append("收益");

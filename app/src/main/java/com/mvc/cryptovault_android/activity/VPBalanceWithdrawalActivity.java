@@ -15,6 +15,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -39,6 +40,7 @@ import com.mvc.cryptovault_android.view.PopViewHelper;
 import org.greenrobot.eventbus.EventBus;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
 
 /**
  * 余额提取
@@ -188,8 +190,9 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
                                         setAlpha(1f);
                                     }
                                 }, num -> {
+                                    String email = SPUtils.getInstance().getString(USER_EMAIL);
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
-                                    mPresenter.sendDebitMsg(num, vpEditPrice);
+                                    mPresenter.sendDebitMsg(EncryptUtils.encryptMD5ToString(email +  EncryptUtils.encryptMD5ToString(num)), vpEditPrice);
                                     mPopView.dismiss();
                                 });
                 mPopView.showAtLocation(mSubmitVp, Gravity.BOTTOM, 0, 0);

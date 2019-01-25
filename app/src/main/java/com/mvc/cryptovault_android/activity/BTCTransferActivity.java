@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -50,6 +51,7 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
 
 public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTCTransferPresenter> implements BTCTransferContract.BTCTransferView, View.OnClickListener {
     private ImageView mBackM;
@@ -251,8 +253,9 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                     }
                                 }, num -> {
                                     dialogHelper.create(this, R.drawable.pending_icon, "转账中").show();
+                                    String email = SPUtils.getInstance().getString(USER_EMAIL);
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
-                                    mPresenter.sendTransferMsg(transAddress.trim(), num, tokenId, priceBtc);
+                                    mPresenter.sendTransferMsg(transAddress.trim(), EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(num)), tokenId, priceBtc);
                                     mPopView.dismiss();
                                 });
                 mPopView.showAtLocation(mSubmitBtc, Gravity.BOTTOM, 0, 0);

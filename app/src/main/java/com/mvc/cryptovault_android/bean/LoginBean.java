@@ -43,9 +43,18 @@ public class LoginBean {
          * userId : 1
          */
 
+        private String email;
         private String refreshToken;
         private String token;
         private int userId;
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
 
         public String getRefreshToken() {
             return refreshToken;

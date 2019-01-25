@@ -2,12 +2,14 @@ package com.mvc.cryptovault_android.activity
 
 import android.text.InputType
 import android.view.View
+import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
+import com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL
 import com.mvc.cryptovault_android.contract.SetPasswordContract
 import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.presenter.SetLoginPresenter
@@ -95,11 +97,12 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
             }
             R.id.submit -> {
                 if (checkNotNullValue()) {
+                    val email = SPUtils.getInstance().getString(USER_EMAIL)
                     dialogHelper!!.create(this, R.drawable.pending_icon_1, "修改中").show()
                     if (type == 0) {
-                        mPresenter.setLoginPassword(old_pwd.text.toString(), new_pwd.text.toString())
+                        mPresenter.setLoginPassword(EncryptUtils.encryptMD5ToString(email + old_pwd.text.toString()), EncryptUtils.encryptMD5ToString(email + new_pwd.text.toString()))
                     } else if (type == 1) {
-                        mPresenter.setPayPassword(old_pwd.text.toString(), new_pwd.text.toString())
+                        mPresenter.setPayPassword(EncryptUtils.encryptMD5ToString(email + old_pwd.text.toString()), EncryptUtils.encryptMD5ToString(email + new_pwd.text.toString()))
                     }
                 }
             }

@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.activity
 
 import android.text.InputType
 import android.view.View
+import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
@@ -31,22 +32,21 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
     private val TYPE_PAY_PASSWORD = "2"
 
 
-
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         dialogHelper = DialogHelper.getInstance()
         account = intent.getStringExtra("token")
         type = intent.getIntExtra("type", -1)
-        when(passwordType){
-            TYPE_LOGIN_PASSWORD->{
+        when (passwordType) {
+            TYPE_LOGIN_PASSWORD -> {
                 account_hint.hint = "登录密码"
                 reset_title.text = "设置登录密码"
 
             }
-            TYPE_PAY_PASSWORD->{
+            TYPE_PAY_PASSWORD -> {
                 account_hint.hint = "支付密码"
                 reset_title.text = "设置支付密码"
-                login_pwd.inputType =InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                login_pwd.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD
             }
         }
     }
@@ -80,7 +80,8 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 dialogHelper?.create(this, R.drawable.pending_icon_1, "重置中")?.show()
                 var json = JSONObject()
                 json.put("token", account)
-                json.put("password", value)
+                val email = SPUtils.getInstance().getString(Constant.SP.USER_EMAIL)
+                json.put("password", EncryptUtils.encryptMD5ToString(email +  EncryptUtils.encryptMD5ToString(value)))
                 json.put("type", passwordType)
                 var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
                 RetrofitUtils.client(ApiStore::class.java).userForget(body)
@@ -89,9 +90,9 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                             if (updateBean.code === 200) {
                                 dialogHelper?.resetDialogResource(this, R.drawable.success_icon, "密码修改成功")
                                 dialogHelper?.dismissDelayed {
-                                    if(passwordType == TYPE_LOGIN_PASSWORD){
+                                    if (passwordType == TYPE_LOGIN_PASSWORD) {
                                         startTaskActivity(this)
-                                    }else{
+                                    } else {
                                         EventBus.getDefault().post(PayPwdRefreshEvent())
                                         finish()
                                     }
@@ -103,7 +104,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                         }, { error ->
                             if (error is SocketTimeoutException) {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
-                            }else{
+                            } else {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message)
                             }
                             dialogHelper?.dismissDelayed { null }

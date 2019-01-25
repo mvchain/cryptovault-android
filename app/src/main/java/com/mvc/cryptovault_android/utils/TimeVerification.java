@@ -92,6 +92,7 @@ public class TimeVerification {
      * 第一次更新时间
      */
     public void updataTime() {
+        resome();
         mRunnable = () -> {
             timeTemp -= mDiminished;
             mHandler.sendEmptyMessageAtTime(timeTemp, 1000);

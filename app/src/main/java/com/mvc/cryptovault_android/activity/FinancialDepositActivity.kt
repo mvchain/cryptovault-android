@@ -4,9 +4,7 @@ import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
 import android.widget.PopupWindow
-import com.blankj.utilcode.util.KeyboardUtils
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
@@ -14,6 +12,7 @@ import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.bean.FinancialDetailBean
 import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
+import com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL
 import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.listener.IPayWindowListener
@@ -50,21 +49,21 @@ class FinancialDepositActivity : BaseActivity() {
         deposit_limit.text = "产品限额：${detail.purchased}/${detail.userLimit}"
         available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
         financial_title.text = "${detail.name}存入"
-        deposit_count.addTextChangedListener(object : EditTextChange(){
+        deposit_count.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var length = s!!.length
-                if(length>0){
+                if (length > 0) {
                     var price = java.lang.Double.parseDouble(s.toString())
-                    if(price>detail.balance){
+                    if (price > detail.balance) {
                         available.text = "可用${detail.baseTokenName}：不足"
-                        available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity,R.color.red))
-                    }else{
+                        available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.red))
+                    } else {
                         available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
-                        available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity,R.color.login_content))
+                        available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.login_content))
                     }
-                }else{
+                } else {
                     available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
-                    available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity,R.color.login_content))
+                    available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.login_content))
                 }
             }
         })
@@ -101,11 +100,14 @@ class FinancialDepositActivity : BaseActivity() {
                     }
                 }
                 ) { num ->
+                    val email = SPUtils.getInstance().getString(USER_EMAIL)
                     KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
                     mPopView.dismiss()
                     dialogHelper?.create(this@FinancialDepositActivity, R.drawable.pending_icon_1, "存入中").show()
                     var json = JSONObject()
-                    json.put("transactionPassword", num)
+                    LogUtils.e(num)
+                    LogUtils.e(email)
+                    json.put("transactionPassword", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(num)))
                     json.put("value", deposit_count.text.toString())
                     var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
                     RetrofitUtils.client(ApiStore::class.java)
@@ -125,7 +127,7 @@ class FinancialDepositActivity : BaseActivity() {
                             }, {
                                 if (it is SocketTimeoutException) {
                                     dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, "连接超时")
-                                }else{
+                                } else {
                                     dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, it.message)
                                 }
                                 dialogHelper.dismissDelayed { null }

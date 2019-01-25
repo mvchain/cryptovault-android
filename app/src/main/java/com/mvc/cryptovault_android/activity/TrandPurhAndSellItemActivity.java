@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -48,6 +49,7 @@ import okhttp3.RequestBody;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
 
 public class TrandPurhAndSellItemActivity extends BaseActivity implements View.OnClickListener {
 
@@ -272,6 +274,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                 setAlpha(1f);
                             }
                         }, num -> {
+                            String email = SPUtils.getInstance().getString(USER_EMAIL);
                             KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                             mPurhDialog = dialogHelper.create(TrandPurhAndSellItemActivity.this, R.drawable.pending_icon, "正在发布");
                             mPurhDialog.show();
@@ -280,7 +283,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                             try {
                                 object.put("id", pairId);
                                 object.put("pairId", data.getPairId());
-                                object.put("password", num);
+                                object.put("password", EncryptUtils.encryptMD5ToString(email +  EncryptUtils.encryptMD5ToString(num)));
                                 object.put("price", price);
                                 object.put("transactionType", this.type);
                                 object.put("value", currentNum);

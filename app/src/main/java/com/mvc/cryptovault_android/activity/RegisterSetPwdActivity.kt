@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.activity
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
@@ -15,6 +16,7 @@ import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_reg_setpassword.*
+import kotlinx.android.synthetic.main.activity_register.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.json.JSONObject
@@ -32,8 +34,11 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
             R.id.reg_submit -> {
                 if (checkNotNullValue()) {
                     var userJson = JSONObject(userInfo)
-                    userJson.put("password", reg_login_pwd.text.toString())
-                    userJson.put("transactionPassword", reg_pay_pwd.text.toString())
+                    var email = SPUtils.getInstance().getString(REG_EMAIL)
+                    LogUtils.e(reg_login_pwd.text.toString())
+                    LogUtils.e(email)
+                    userJson.put("password", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(reg_login_pwd.text.toString())))
+                    userJson.put("transactionPassword", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(reg_pay_pwd.text.toString())))
                     dialogHelper?.create(this, R.drawable.pending_icon_1, "请稍后")?.show()
                     val body = RequestBody.create(MediaType.parse("text/html"), userJson.toString())
                     RetrofitUtils.client(ApiStore::class.java).userRegister(body).compose(RxHelper.rxSchedulerHelper())
@@ -42,7 +47,6 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                                     dialogHelper?.dismissDelayed(null, 0)
                                     var sb = StringBuffer()
                                     var datas = mnemon.data.mnemonics
-
                                     for (data in datas) {
                                         sb.append("$data,")
                                     }

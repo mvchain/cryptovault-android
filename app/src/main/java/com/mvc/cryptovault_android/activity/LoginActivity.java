@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
@@ -54,6 +55,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.REG_EMAIL;
 import static com.mvc.cryptovault_android.common.Constant.SP.TAG_NAME;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 
@@ -90,7 +92,11 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                 String pwd = mLoginPwd.getText().toString().trim();
                 String code = mCodeLogin.getText().toString().trim();
                 SPUtils.getInstance().put(REG_EMAIL, email);
-                mPresenter.login(email, pwd, code);
+                String newsPwd = EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(pwd));
+                LogUtils.e("LoginActivity", email);
+                LogUtils.e("LoginActivity", pwd);
+                LogUtils.e("LoginActivity", newsPwd);
+                mPresenter.login(email, newsPwd, code);
                 break;
             case R.id.login_forget_pwd:
                 SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "1");
@@ -133,6 +139,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         SPUtils.getInstance().put(REFRESH_TOKEN, data.getRefreshToken());
         SPUtils.getInstance().put(TOKEN, data.getToken());
         SPUtils.getInstance().put(USER_ID, data.getUserId());
+        SPUtils.getInstance().put(USER_EMAIL, data.getEmail());
         MyApplication.setTOKEN(data.getToken());
         RetrofitUtils.client(ApiStore.class).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())
                 .subscribe(tagBean -> {

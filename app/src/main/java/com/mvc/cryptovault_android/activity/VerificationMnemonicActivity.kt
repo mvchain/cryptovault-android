@@ -98,6 +98,7 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                             SPUtils.getInstance().put(REFRESH_TOKEN, data.refreshToken)
                             SPUtils.getInstance().put(TOKEN, data.token)
                             SPUtils.getInstance().put(USER_ID, data.userId)
+                            SPUtils.getInstance().put(USER_EMAIL, data.email)
                             MyApplication.setTOKEN(data.token)
                             RetrofitUtils.client(ApiStore::class.java).getPushTag(MyApplication.getTOKEN()).compose<TagBean>(RxHelper.rxSchedulerHelper<TagBean>())
                                     .subscribe({ tagBean ->
@@ -132,7 +133,7 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                     }, { error ->
                         if (error is SocketTimeoutException) {
                             dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
-                        }else{
+                        } else {
                             dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message)
                         }
                         dialogHelper!!.dismissDelayed { null }

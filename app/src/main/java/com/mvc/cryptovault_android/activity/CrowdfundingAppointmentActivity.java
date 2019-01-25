@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
@@ -52,6 +53,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
 
 public class CrowdfundingAppointmentActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mBackM;
@@ -232,11 +234,12 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                                     }
                                 }, num -> {
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
+                                    String email = SPUtils.getInstance().getString(USER_EMAIL);
                                     mPopView.dismiss();
                                     mReservationDialog = dialogHelper.create(CrowdfundingAppointmentActivity.this, R.drawable.pending_icon, "正在预约");
                                     mReservationDialog.show();
                                     try {
-                                        sendReservationRequest(currentNum, num);
+                                        sendReservationRequest(currentNum, EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(num)));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

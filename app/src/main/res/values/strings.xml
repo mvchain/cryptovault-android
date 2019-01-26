@@ -41,4 +41,11 @@
     <string name="update_email">修改邮箱</string>
     <string name="update_password">修改登录密码</string>
     <string name="update_pay_password">修改支付密码</string>
+
+
+
+
+    <!---->
+    <string name="download_url">http://ttbtc.cc/cv/test/download/</string>
+    <string name="base_url">http://47.110.234.233:10086/</string>
 </resources>

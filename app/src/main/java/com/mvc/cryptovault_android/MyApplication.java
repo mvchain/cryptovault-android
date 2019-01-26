@@ -25,6 +25,10 @@ public class MyApplication extends Application {
         MyApplication.TOKEN = TOKEN;
     }
 
+    public static String getBaseUrl() {
+        return getAppContext().getString(R.string.base_url);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

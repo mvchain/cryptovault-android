@@ -43,7 +43,7 @@ public class RetrofitUtils {
                     mRetrofit = new Retrofit.Builder()
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
-                            .baseUrl(HttpUrl.BASE_URL)
+                            .baseUrl(MyApplication.getBaseUrl())
                             .client(getOkhttpUtils()).build();
                 }
             }

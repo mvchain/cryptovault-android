@@ -44,7 +44,7 @@ class SetEmailActivity : BaseActivity() {
                             .subscribe({ bean ->
                                 if (bean.code === 200) {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "验证码发送成功")
-                                    TimeVerification.getInstence().resome()
+                                    TimeVerification.getInstence().resume()
                                     setViewStatus()
                                 } else {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, bean.message)

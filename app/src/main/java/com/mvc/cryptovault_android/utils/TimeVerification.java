@@ -40,7 +40,7 @@ public class TimeVerification {
     /**
      * 重置计时器
      */
-    public void resome() {
+    public void resume() {
         if (mOnTimeEndCallBack != null) {
             mOnTimeEndCallBack.exit();
             timeTemp = 60;
@@ -92,7 +92,7 @@ public class TimeVerification {
      * 第一次更新时间
      */
     public void updataTime() {
-        resome();
+        resume();
         mRunnable = () -> {
             timeTemp -= mDiminished;
             mHandler.sendEmptyMessageAtTime(timeTemp, 1000);

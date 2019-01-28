@@ -93,9 +93,6 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                 String code = mCodeLogin.getText().toString().trim();
                 SPUtils.getInstance().put(REG_EMAIL, email);
                 String newsPwd = EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(pwd));
-                LogUtils.e("LoginActivity", email);
-                LogUtils.e("LoginActivity", pwd);
-                LogUtils.e("LoginActivity", newsPwd);
                 mPresenter.login(email, newsPwd, code);
                 break;
             case R.id.login_forget_pwd:

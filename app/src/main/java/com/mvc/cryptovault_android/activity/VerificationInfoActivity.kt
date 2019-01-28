@@ -1,15 +1,15 @@
 package com.mvc.cryptovault_android.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
-import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
+import com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL
 import com.mvc.cryptovault_android.contract.VerificationInfoContract
 import com.mvc.cryptovault_android.event.PayPwdRefreshEvent
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack
@@ -129,6 +129,7 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
                                             list.addAll(upset.data)
                                             dialogHelper?.dismissDelayed({ null }, 0)
                                             var tokenIntent = intent
+                                            SPUtils.getInstance().put(USER_EMAIL, account.text.toString())
                                             tokenIntent.putExtra("email", account.text.toString())
                                             tokenIntent.putStringArrayListExtra("menmonicss", list)
                                             startActivity(ResetPasswordVerificationMnemonicsActivity::class.java, tokenIntent)
@@ -142,9 +143,12 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
                                     })
                         }
                         TYPE_PRIVATEKEY -> {
-                            mPresenter.verification("", TYPE_PRIVATEKEY, account.text.toString())
+                            dialogHelper?.dismiss()
+                            SPUtils.getInstance().put(USER_EMAIL, account.text.toString())
+                            startActivity(PrivateKeyVerificationActivity::class.java)
                         }
                         else -> {
+                            SPUtils.getInstance().put(USER_EMAIL, account.text.toString())
                             mPresenter.verification(account.text.toString(), TYPE_EMAIL, code.text.toString())
                         }
                     }
@@ -205,13 +209,7 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
                 hintMsg = "邮箱"
                 email_layout.visibility = View.VISIBLE
             }
-            TYPE_PRIVATEKEY -> {
-                verification_title.text = "私钥验证"
-                account_hint.hint = "输入私钥"
-                hintMsg = "私钥"
-                email_layout.visibility = View.GONE
-            }
-            TYPE_MNEMONICS -> {
+            TYPE_PRIVATEKEY, TYPE_MNEMONICS -> {
                 verification_title.text = "输入邮箱账户"
                 account_hint.hint = "邮箱"
                 hintMsg = "邮箱账户"

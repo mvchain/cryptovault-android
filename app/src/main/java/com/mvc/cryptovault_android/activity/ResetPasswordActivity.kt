@@ -3,12 +3,14 @@ package com.mvc.cryptovault_android.activity
 import android.text.InputType
 import android.view.View
 import com.blankj.utilcode.util.EncryptUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.common.Constant
+import com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL
 import com.mvc.cryptovault_android.event.PayPwdRefreshEvent
 import com.mvc.cryptovault_android.listener.EditTextChange
 
@@ -80,7 +82,8 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 dialogHelper?.create(this, R.drawable.pending_icon_1, "重置中")?.show()
                 var json = JSONObject()
                 json.put("token", account)
-                val email = SPUtils.getInstance().getString(Constant.SP.USER_EMAIL)
+                val email = SPUtils.getInstance().getString(USER_EMAIL)
+                LogUtils.e("$email email")
                 json.put("password", EncryptUtils.encryptMD5ToString(email +  EncryptUtils.encryptMD5ToString(value)))
                 json.put("type", passwordType)
                 var body = RequestBody.create(MediaType.parse("text/html"), json.toString())

@@ -7,7 +7,7 @@ android {
         config {
             keyAlias 'vpay'
             keyPassword 'vpay_android'
-            storeFile file('D:/Project/cryptovault-android/vpay.jks')
+            storeFile file('E:/App/cryptovault-android_new/cryptovault-android/vpay.jks')
             storePassword 'vpay_android'
         }
     }

@@ -12,10 +12,10 @@
     <!--极光必备权限-->
     <!-- Required -->
     <permission
-        android:name="com.mvc.cryptovault_android.permission.JPUSH_MESSAGE"
+        android:name="${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
+    <uses-permission android:name="${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE" />
     <!-- Required -->
-    <uses-permission android:name="com.mvc.cryptovault_android.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -178,7 +178,6 @@
         <activity
             android:name=".activity.PrivateKeyVerificationActivity"
             android:screenOrientation="portrait" />
-
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"
@@ -194,13 +193,13 @@
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
-                <category android:name="com.mvc.cryptovault_android" />
+                <category android:name="${JPUSH_PKGNAME}" />
             </intent-filter>
         </receiver>
         <receiver android:name=".receiver.MyJPushMessageReceiver">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
-                <category android:name="com.mvc.cryptovault_android" />
+                <category android:name="${JPUSH_PKGNAME}" />
             </intent-filter>
         </receiver>
         <!--适配华为（hw）刘海屏-->

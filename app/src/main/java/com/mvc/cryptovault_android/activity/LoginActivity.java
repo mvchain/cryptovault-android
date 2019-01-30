@@ -151,8 +151,10 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                             }
                         }
                     }
+                    LogUtils.e("MyJPushMessageReceiver","注册");
                     JPushInterface.setAlias(getApplicationContext(), loginBean.getData().getUserId(), String.valueOf(loginBean.getData().getUserId()));
                 }, throwable -> {
+                    LogUtils.e("MyJPushMessageReceiver", throwable.getMessage());
                 });
     }
 

@@ -3,188 +3,189 @@ package com.mvc.cryptovault_android.common;
 public class HttpUrl {
 //    public static final String BASE_URL = "http://192.168.15.31:10086/";
     public static final String BASE_URL = "http://47.110.234.233:10086/";
+    public static final String URL_PATH = "api/app/";
 //        public static final String BASE_URL = "http://192.168.15.21:10086/";
 
     /**
      * user login
      */
-    public static final String LOGIN = "user/login";
+    public static final String LOGIN = URL_PATH + "user/login";
 
     /**
      * refresh token
      */
-    public static final String TOKEN_REFRESH = "user/refresh";
+    public static final String TOKEN_REFRESH = URL_PATH + "user/refresh";
 
 
     /**
      * remove userinfo
      */
-    public static final String GET_USER_INFO = "/user/info";
+    public static final String GET_USER_INFO = URL_PATH + "user/info";
 
 
     /**
      * remove asset list
      */
-    public static final String GET_ASSET_LIST = "/asset";
+    public static final String GET_ASSET_LIST = URL_PATH + "asset";
 
     /**
      * remove all asset
      */
-    public static final String GET_ASSET_ALL = "/asset/balance";
+    public static final String GET_ASSET_ALL = URL_PATH + "asset/balance";
 
     /**
      * Get currency list
      */
-    public static final String GET_CURRENCY_ALL = "/token";
+    public static final String GET_CURRENCY_ALL = URL_PATH + "token";
     /**
      * Get message
      */
-    public static final String GET_MESSAGE = "/message";
+    public static final String GET_MESSAGE = URL_PATH + "message";
 
 
     /**
      * remove pair
      */
-    public static final String GET_PAIR = "/transaction/pair";
+    public static final String GET_PAIR = URL_PATH + "transaction/pair";
 
     /**
      * remove exchange rate
      */
-    public static final String GET_RATE = "/token/exchange/rate";
+    public static final String GET_RATE = URL_PATH + "token/exchange/rate";
 
 
     /**
      * remove exchange rate
      */
-    public static final String GET_TRANSACTIONS = "/asset/transactions";
+    public static final String GET_TRANSACTIONS = URL_PATH + "asset/transactions";
 
     /**
      * get project
      */
-    public static final String GET_CROWDFUNDING = "/project";
+    public static final String GET_CROWDFUNDING = URL_PATH + "project";
 
     /**
      * get recript qcode
      */
-    public static final String GET_QCODE = "/asset/address";
+    public static final String GET_QCODE = URL_PATH + "asset/address";
 
     /**
      * Get transfer information based on id
      */
-    public static final String GET_TRANASTION = "/asset/transaction";
+    public static final String GET_TRANASTION = URL_PATH + "asset/transaction";
 
     /**
      * 划账余额获取 / 划账
      */
-    public static final String GET_DEBIT = "/asset/debit";
+    public static final String GET_DEBIT = URL_PATH + "asset/debit";
 
 
     /**
      * 获取参与的众筹项目列表
      */
-    public static final String GET_RESERVATION = "/project/reservation";
+    public static final String GET_RESERVATION = URL_PATH + "project/reservation";
 
     /**
      * 获取交易购买/出售列表
      */
-    public static final String GET_RECORDING = "/transaction";
+    public static final String GET_RECORDING = URL_PATH + "transaction";
 
     /**
      * 挂单信息获取transactionType:1购买 2出售
      */
-    public static final String GET_TRANSACTIONINFO = "/transaction/info";
+    public static final String GET_TRANSACTIONINFO = URL_PATH + "transaction/info";
     /**
      * 筛选已参与订单
      */
-    public static final String GET_TPARTAKE = "/transaction/partake";
+    public static final String GET_TPARTAKE = URL_PATH + "transaction/partake";
     /**
      * 获取7日K线图
      */
-    public static final String GET_KLINE = "/transaction/pair/kline";
+    public static final String GET_KLINE = URL_PATH + "transaction/pair/kline";
 
 
     /**
      * 获取24小时最新，最高，最低价格, 每10秒钟更新
      */
-    public static final String GET_PAIR_TICKERS = "/transaction/pair/tickers";
+    public static final String GET_PAIR_TICKERS = URL_PATH + "transaction/pair/tickers";
 
     /**
      * 获取验证码
      */
-    public static final String SEND_CODE = "/user/sms";
+    public static final String SEND_CODE = URL_PATH + "user/sms";
     /**
      * 获取推送tag
      */
-    public static final String GET_PUSH_TAG = "/user/tag";
+    public static final String GET_PUSH_TAG = URL_PATH + "user/tag";
     /**
      * 注册用户信息
      */
-    public static final String REGSITER_EMAIL = "/user";
+    public static final String REGSITER_EMAIL = URL_PATH + "user";
 
     /**
      * 发送邮箱验证码
      */
-    public static final String SEND_EMAIL_CODE = "/user/email/logout";
+    public static final String SEND_EMAIL_CODE = URL_PATH + "user/email/logout";
     /**
      * 用户注册
      */
-    public static final String USER_REGISTER = "/user/register";
+    public static final String USER_REGISTER = URL_PATH + "user/register";
     /**
      * 校验/获取助记词
      */
-    public static final String USER_MNEMONICS = "/user/mnemonics";
+    public static final String USER_MNEMONICS = URL_PATH + "user/mnemonics";
 
 
     /**
      * 重置密码验证信息的步骤，成功后返回一次性token，供修改密码使用
      */
-    public static final String USER_RESET_VERRFICATION = "/user/reset";
+    public static final String USER_RESET_VERRFICATION = URL_PATH + "user/reset";
 
     /**
      * 忘记密码_修改
      */
-    public static final String USER_FORGET = "/user/forget";
+    public static final String USER_FORGET = URL_PATH + "user/forget";
     /**
      * 修改登录密码
      */
-    public static final String USER_PASSWORD = "/user/password";
+    public static final String USER_PASSWORD = URL_PATH + "user/password";
     /**
      * 修改支付密码
      */
-    public static final String USER_TRANSACTIONPASSWORD = "/user/transactionPassword";
+    public static final String USER_TRANSACTIONPASSWORD = URL_PATH + "user/transactionPassword";
 
     /**
      * 直接发送验证码
      */
-    public static final String USER_EMAIL = "/user/email";
+    public static final String USER_EMAIL = URL_PATH + "user/email";
     /**
      * 获取邀请码
      */
-    public static final String USER_INVITATION = "/user/invitation";
+    public static final String USER_INVITATION = URL_PATH + "user/invitation";
     /**
      * 获取推荐人列表
      */
-    public static final String USER_RECOMMEND = "/user/recommend";
+    public static final String USER_RECOMMEND = URL_PATH + "user/recommend";
 
     /**
      * 用户是否签到/签到
      */
-    public static final String USER_SIGN = "/user/sign";
+    public static final String USER_SIGN = URL_PATH + "user/sign";
 
     /**
      * 获取我的理财资产
      */
-    public static final String FINANCIAL_BALANCE = "/financial/balance";
+    public static final String FINANCIAL_BALANCE = URL_PATH + "financial/balance";
 
     /**
      * 获取理财列表/详情
      */
-    public static final String FINANCIAL = "/financial";
+    public static final String FINANCIAL = URL_PATH + "financial";
 
     /**
      * 获取持仓列表
      */
-    public static final String FINANCIAL_PARTAKE = "/financial/partake";
+    public static final String FINANCIAL_PARTAKE = URL_PATH + "financial/partake";
 
 
 }

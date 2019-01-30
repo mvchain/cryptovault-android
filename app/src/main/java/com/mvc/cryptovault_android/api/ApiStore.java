@@ -145,11 +145,11 @@ public interface ApiStore {
                                            @Query("type") int type);
 
     @Headers("Accept-Language: zh-cn")
-    @GET("/project/{id}/purchase")
+    @GET(HttpUrl.URL_PATH + "/project/{id}/purchase")
     Observable<PurchaseBean> getPurchaseOnID(@Header("Authorization") String token, @Path("id") int id);
 
     @Headers("Accept-Language: zh-cn")
-    @POST("/project/{id}/purchase")
+    @POST(HttpUrl.URL_PATH + "/project/{id}/purchase")
     Observable<UpdateBean> sendReservationRequest(@Header("Authorization") String token, @Body RequestBody body, @Path("id") int id);
 
     @Headers("Accept-Language: zh-cn")
@@ -208,6 +208,7 @@ public interface ApiStore {
     @GET(HttpUrl.GET_PAIR_TICKERS)
     Observable<PairTickersBean> getPairTickers(@Header("Authorization") String token,
                                                @Query("pairId") int pairId);
+
     /**
      * 获取验证码
      *

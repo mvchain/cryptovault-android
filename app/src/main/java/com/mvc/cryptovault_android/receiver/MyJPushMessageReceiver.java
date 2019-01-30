@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.receiver;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 
@@ -23,6 +24,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
     @Override
     public void onAliasOperatorResult(Context context, JPushMessage jPushMessage) {
         //alias相关的操作会在此方法中回调结果。
+        LogUtils.e("MyJPushMessageReceiver", "jPushMessage.getErrorCode():" + jPushMessage.getErrorCode());
         LogUtils.e("MyJPushMessageReceiver", jPushMessage.getAlias());
         super.onAliasOperatorResult(context, jPushMessage);
     }

@@ -150,6 +150,8 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                     }
                 } else {
                     ViewDrawUtils.clearDraw(mBwPriceM);
+                    mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
+                    mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.trand_gray));
                     mNumHint.setVisibility(View.INVISIBLE);
                     mPriceM.setText("0.0000");
                     mSubmitM.setEnabled(false);

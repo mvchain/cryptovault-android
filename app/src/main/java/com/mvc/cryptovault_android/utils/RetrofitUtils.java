@@ -13,9 +13,19 @@ import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.common.HttpUrl;
 
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import cn.jpush.android.api.JPushInterface;
 import okhttp3.Authenticator;
@@ -40,6 +50,7 @@ public class RetrofitUtils {
         if (mRetrofit == null) {
             synchronized (Retrofit.class) {
                 if (mRetrofit == null) {
+                    LogUtils.e(MyApplication.getBaseUrl());
                     mRetrofit = new Retrofit.Builder()
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
@@ -94,11 +105,49 @@ public class RetrofitUtils {
                 })
                 .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
                         .setLevel(HttpLoggingInterceptor.Level.BODY))
+                .sslSocketFactory(createSSLSocketFactory())
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .build();
         return client;
+    }
+    private static SSLSocketFactory createSSLSocketFactory() {
+        SSLSocketFactory ssfFactory = null;
+
+        try {
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
+
+            ssfFactory = sc.getSocketFactory();
+        } catch (Exception e) {
+        }
+
+        return ssfFactory;
+    }
+
+    private static class TrustAllCerts implements X509TrustManager {
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        }
+
+        @Override
+        public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+
+        }
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+    }
+
+    //信任所有的服务器,返回true
+    private static class TrustAllHostnameVerifier implements HostnameVerifier {
+        @Override
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
     }
 
     public static <T> T client(Class<T> clazz) {

@@ -56,9 +56,6 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
                 old_layout.hint = "输入当前支付密码"
                 new_layout.hint = "输入新支付密码"
                 forget_pwd.text = "忘记支付密码？"
-                old_pwd.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD
-                new_pwd.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD
-
             }
         }
         //设置眼睛可见
@@ -100,9 +97,9 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
                     val email = SPUtils.getInstance().getString(USER_EMAIL)
                     dialogHelper!!.create(this, R.drawable.pending_icon_1, "修改中").show()
                     if (type == 0) {
-                        mPresenter.setLoginPassword(EncryptUtils.encryptMD5ToString(email + old_pwd.text.toString()), EncryptUtils.encryptMD5ToString(email + new_pwd.text.toString()))
+                        mPresenter.setLoginPassword(EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(old_pwd.text.toString())), EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(new_pwd.text.toString())))
                     } else if (type == 1) {
-                        mPresenter.setPayPassword(EncryptUtils.encryptMD5ToString(email + old_pwd.text.toString()), EncryptUtils.encryptMD5ToString(email + new_pwd.text.toString()))
+                        mPresenter.setPayPassword(EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(old_pwd.text.toString())), EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(new_pwd.text.toString())))
                     }
                 }
             }

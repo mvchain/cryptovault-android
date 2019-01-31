@@ -55,14 +55,12 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
     override fun showFinanciaListSuccess(financialListBean: List<FinancialListBean.DataBean>) {
         rootView.refresh.post { rootView.refresh.isRefreshing = false }
         LogUtils.e("financialFragment${financialListBean.size}")
-        if (financialListBean.isNotEmpty()) {
-            if (isRefresh) {
-                isRefresh = false
-                mFinaList.clear()
-            }
-            mFinaList.addAll(financialListBean)
-            mFinaAdapter.notifyDataSetChanged()
+        if (isRefresh) {
+            isRefresh = false
+            mFinaList.clear()
         }
+        mFinaList.addAll(financialListBean)
+        mFinaAdapter.notifyDataSetChanged()
     }
 
     override fun initView() {

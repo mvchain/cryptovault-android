@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VPAY</string>
+    <string name="app_name">BZT</string>
     <!--APP登陆成功-->
     <string name="login_success">登录成功</string>
     <string name="login_faild">登录失败</string>
@@ -46,7 +46,7 @@
 
 
     <!---->
-    <string name="download_url">http://ttbtc.cc/cv/test/download/</string>
+    <string name="download_url">https://www.bzvp.net/</string>
     <!--<string name="base_url">http://47.110.234.233:10086/</string>-->
     <string name="base_url">https://www.bzvp.net/</string>
 

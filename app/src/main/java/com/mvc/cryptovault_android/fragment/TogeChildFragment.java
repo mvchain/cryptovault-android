@@ -87,7 +87,6 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventRefresh(TogeFragmentEvent fragmentEvent) {
-        mData.clear();
         isRefresh = true;
         mPresenter.getComingList(10, 0, projectType, 0);
     }
@@ -117,8 +116,10 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     @Override
     public void showSuccess(List<TogeBean.DataBean> msgs) {
-        isRefresh = false;
-        mData.clear();
+        if (isRefresh == true) {
+            isRefresh = false;
+            mData.clear();
+        }
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mChildRvToge.setVisibility(View.VISIBLE);
         mNullData.setVisibility(View.GONE);

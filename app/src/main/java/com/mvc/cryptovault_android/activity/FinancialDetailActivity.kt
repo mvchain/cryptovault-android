@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.blankj.utilcode.util.LogUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseMVPActivity
@@ -25,14 +26,14 @@ class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.Financia
     }
 
     override fun showError(error: String) {
-
+        LogUtils.e(error)
     }
 
     override fun showSuccess(bean: FinancialDetailBean.DataBean) {
         financial_title.text = bean.name
         financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
         time_cycle.text = "需累计签到${bean.times}天"
-        starting.text = "${bean.minValue} ${bean.baseTokenName}"
+        starting.text = "${TextUtils.doubleToFour(bean.minValue)} ${bean.baseTokenName}"
         content.text = bean.content
         rule.text = bean.rule
         detail = bean

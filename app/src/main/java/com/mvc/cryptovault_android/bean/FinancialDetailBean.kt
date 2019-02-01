@@ -42,10 +42,10 @@ data class FinancialDetailBean(
             var id: Int,
             var incomeMax: Double,
             var incomeMin: Double,
-            var limitValue: Int,
-            var minValue: Int,
+            var limitValue: Double,
+            var minValue: Double,
             var name: String,
-            var purchased: Int,
+            var purchased: Double,
             var ratio: Double,
             var rule: String,
             var startAt: Long,
@@ -53,7 +53,7 @@ data class FinancialDetailBean(
             var times: Int,
             var tokenId: Int,
             var tokenName: String,
-            var userLimit: Int
+            var userLimit: Double
     ) : Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readDouble(),
@@ -63,10 +63,10 @@ data class FinancialDetailBean(
                 parcel.readInt(),
                 parcel.readDouble(),
                 parcel.readDouble(),
-                parcel.readInt(),
-                parcel.readInt(),
+                parcel.readDouble(),
+                parcel.readDouble(),
                 parcel.readString(),
-                parcel.readInt(),
+                parcel.readDouble(),
                 parcel.readDouble(),
                 parcel.readString(),
                 parcel.readLong(),
@@ -74,7 +74,7 @@ data class FinancialDetailBean(
                 parcel.readInt(),
                 parcel.readInt(),
                 parcel.readString(),
-                parcel.readInt())
+                parcel.readDouble())
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
             parcel.writeDouble(balance)
@@ -84,10 +84,10 @@ data class FinancialDetailBean(
             parcel.writeInt(id)
             parcel.writeDouble(incomeMax)
             parcel.writeDouble(incomeMin)
-            parcel.writeInt(limitValue)
-            parcel.writeInt(minValue)
+            parcel.writeDouble(limitValue)
+            parcel.writeDouble(minValue)
             parcel.writeString(name)
-            parcel.writeInt(purchased)
+            parcel.writeDouble(purchased)
             parcel.writeDouble(ratio)
             parcel.writeString(rule)
             parcel.writeLong(startAt)
@@ -95,7 +95,7 @@ data class FinancialDetailBean(
             parcel.writeInt(times)
             parcel.writeInt(tokenId)
             parcel.writeString(tokenName)
-            parcel.writeInt(userLimit)
+            parcel.writeDouble(userLimit)
         }
 
         override fun describeContents(): Int {

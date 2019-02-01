@@ -53,6 +53,7 @@ import org.greenrobot.eventbus.EventBus;
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
 
+
 public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTCTransferPresenter> implements BTCTransferContract.BTCTransferView, View.OnClickListener {
     private ImageView mBackM;
     private TextView mTitleM;

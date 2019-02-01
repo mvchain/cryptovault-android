@@ -1,6 +1,7 @@
 package com.mvc.cryptovault_android.activity
 
 import android.support.v4.content.ContextCompat
+import android.text.InputFilter
 import android.view.Gravity
 import android.view.View
 import android.widget.PopupWindow
@@ -16,6 +17,7 @@ import com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL
 import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.listener.IPayWindowListener
+import com.mvc.cryptovault_android.utils.PointLengthFilter
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.utils.TextUtils
@@ -46,9 +48,10 @@ class FinancialDepositActivity : BaseActivity() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         detail = intent.getParcelableExtra("detail")
         dialogHelper = DialogHelper.getInstance()
-        deposit_limit.text = "产品限额：${detail.purchased}/${detail.userLimit}"
+        deposit_limit.text = "产品限额：${TextUtils.doubleToFour(detail.purchased)}/${TextUtils.doubleToFour(detail.userLimit)}"
         available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
         financial_title.text = "${detail.name}存入"
+        deposit_count.filters = arrayOf<InputFilter>(PointLengthFilter())
         deposit_count.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var length = s!!.length

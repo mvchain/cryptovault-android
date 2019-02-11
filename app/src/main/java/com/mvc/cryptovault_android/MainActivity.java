@@ -127,7 +127,6 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         ImmersionBar.with(this).destroy();
         EventBus.getDefault().unregister(this);
     }
-
     @Subscribe
     public void changeLanguage(LanguageEvent languageEvent) {
         recreate();

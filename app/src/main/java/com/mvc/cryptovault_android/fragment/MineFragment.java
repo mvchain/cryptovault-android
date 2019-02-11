@@ -150,7 +150,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
                 startActivity(new Intent(activity, AboutActivity.class));
                 break;
             case R.id.singout:
-                dialogHelper.create(activity, "确定要登出VPay?", viewId -> {
+                dialogHelper.create(activity, "确定要登出BZT?", viewId -> {
                     switch (viewId) {
                         case R.id.hint_enter:
                             dialogHelper.dismiss();

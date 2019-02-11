@@ -88,7 +88,7 @@
                             android:id="@+id/price_hint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="USDT余额"
+                            android:text="- 余额"
                             android:textColor="@color/btc_gray"
                             android:textSize="12sp" />
 
@@ -118,7 +118,7 @@
                             android:id="@+id/vrt_hint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="可用VRT"
+                            android:text="可用 -"
                             android:textColor="@color/btc_gray"
                             android:textSize="12sp" />
 
@@ -168,7 +168,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_weight="1"
                             android:gravity="right|center_vertical"
-                            android:text="LLLCF"
+                            android:text="-"
                             android:textColor="@color/trand_gray"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -194,7 +194,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_weight="1"
                             android:gravity="right|center_vertical"
-                            android:text="1000 USDT"
+                            android:text="-"
                             android:textColor="@color/trand_gray"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -220,7 +220,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_weight="1"
                             android:gravity="right|center_vertical"
-                            android:text="1234567.1234 VRT"
+                            android:text="-"
                             android:textColor="@color/trand_gray"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -278,7 +278,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/all_price_hint"
                         android:layout_marginTop="8dp"
-                        android:text="0.0000 VRT"
+                        android:text="-"
                         android:textColor="@color/login_content"
                         android:textSize="21dp" />
                 </LinearLayout>

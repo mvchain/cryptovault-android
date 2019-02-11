@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.utils;
 import android.content.Intent;
 import android.util.Log;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
@@ -42,6 +43,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.TAG_NAME;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
+import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 public class RetrofitUtils {
     private static Retrofit mRetrofit;
@@ -71,10 +74,14 @@ public class RetrofitUtils {
                     Response response = chain.proceed(request);
                     return response;
                 })
+                .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
+                        .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .authenticator((route, response) -> {
+                    LogUtils.e("RetrofitUtils", "response.body()" + response.body().string());
+                    LogUtils.e("RetrofitUtils", "response.url()" + response.request().url());
                     HttpTokenBean body = RetrofitUtils.client(ApiStore.class).refreshToken(SPUtils.getInstance().getString(REFRESH_TOKEN)).execute().body();
                     if (body.getCode() == 200) {
-                        SPUtils.getInstance().put("token", body.getData());
+                        SPUtils.getInstance().put(TOKEN, body.getData());
                         MyApplication.setTOKEN(body.getData());
                         RetrofitUtils.client(ApiStore.class).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())
                                 .subscribe(tagBean -> {
@@ -93,6 +100,12 @@ public class RetrofitUtils {
                                     LogUtils.e("ParameterInterceptor", throwable.getMessage());
                                 });
                     } else {
+                        ActivityUtils.getTopActivity().finish();
+                        SPUtils.getInstance().remove(REFRESH_TOKEN);
+                        SPUtils.getInstance().remove(UPDATE_PASSWORD_TYPE);
+                        SPUtils.getInstance().remove(TOKEN);
+                        JPushInterface.deleteAlias(MyApplication.getAppContext().getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
+                        SPUtils.getInstance().remove(USER_ID);
                         Intent intent = new Intent();
                         intent.setAction("android.login");
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -103,8 +116,6 @@ public class RetrofitUtils {
                     builder.header("Accept-Language", SPUtils.getInstance().getString(Constant.LANGUAGE.DEFAULT_ACCEPT_LANGUAGE));
                     return builder.build();
                 })
-                .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
-                        .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .sslSocketFactory(createSSLSocketFactory())
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
@@ -112,13 +123,12 @@ public class RetrofitUtils {
                 .build();
         return client;
     }
+
     private static SSLSocketFactory createSSLSocketFactory() {
         SSLSocketFactory ssfFactory = null;
-
         try {
             SSLContext sc = SSLContext.getInstance("TLS");
             sc.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
-
             ssfFactory = sc.getSocketFactory();
         } catch (Exception e) {
         }

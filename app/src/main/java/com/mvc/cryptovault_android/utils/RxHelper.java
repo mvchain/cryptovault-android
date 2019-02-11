@@ -37,5 +37,24 @@ public class RxHelper {
     public static <T> ObservableTransformer<T, T> rxSchedulerHelper() {//compose处理线程 并且处理token过期问题
         return upstream -> upstream.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+//                .retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
+//                    @Override
+//                    public ObservableSource<?> apply(Observable<Throwable> throwableObservable) throws Exception {
+//                        return throwableObservable.flatMap(new Function<Throwable, ObservableSource<?>>() {
+//                            @Override
+//                            public ObservableSource<?> apply(Throwable throwable) throws Exception {
+//                                if (throwable instanceof HttpException) {
+//                                    if (((HttpException) throwable).code() == 403) {
+//                                        Intent intent = new Intent();
+//                                        intent.setAction("android.login");
+//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                        Utils.getApp().startActivity(intent);
+//                                    }
+//                                }
+//                                return Observable.error(throwable);
+//                            }
+//                        });
+//                    }
+//                });
     }
 }

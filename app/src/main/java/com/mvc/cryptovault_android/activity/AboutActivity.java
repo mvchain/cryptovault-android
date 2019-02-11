@@ -14,10 +14,8 @@ import com.mvc.cryptovault_android.view.DialogHelper;
 
 
 public class AboutActivity extends BaseActivity{
-
     private TextView mVersionAbout;
     private ImageView mBackAbout;
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_about;

@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="请前往VP应用内修改账号密码"
+            android:text="请前往BZT应用内修改账号密码"
             android:textColor="@color/login_content"
             android:textSize="15sp"
             android:textStyle="bold" />

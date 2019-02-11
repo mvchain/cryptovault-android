@@ -166,7 +166,7 @@ class InvatitionActivity : BaseActivity() {
         mPop.setOnDismissListener {
             share.visibility = View.VISIBLE
         }
-        val mBitmap = CodeUtils.createImage(download_url.text.toString(), 400, 400, BitmapFactory.decodeResource(resources, R.mipmap.vp_logo))
+        val mBitmap = CodeUtils.createImage(download_url.text.toString(), 400, 400, null)
         Glide.with(this).load(mBitmap).into(qcode)
     }
 

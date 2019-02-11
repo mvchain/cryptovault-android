@@ -7,7 +7,7 @@ android {
         config {
             keyAlias 'vpay'
             keyPassword 'vpay_android'
-            storeFile file('E:/App/cryptovault-android_new/cryptovault-android/vpay.jks')
+            storeFile file('D:/Project/cryptovault-android/vpay.jks')
             storePassword 'vpay_android'
         }
     }
@@ -37,7 +37,7 @@ android {
             signingConfig signingConfigs.config
             applicationIdSuffix = ".debug"
             manifestPlaceholders = [
-                    JPUSH_PKGNAME: "com.mvc.cryptovault_android",
+                    JPUSH_PKGNAME: "com.mvc.cryptovault_android.debug",
                     JPUSH_APPKEY : "ead10cb72ec212eba6433c7c",
                     JPUSH_CHANNEL: "developer-default",
             ]

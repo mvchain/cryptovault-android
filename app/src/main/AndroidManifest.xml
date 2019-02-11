@@ -178,6 +178,7 @@
         <activity
             android:name=".activity.PrivateKeyVerificationActivity"
             android:screenOrientation="portrait" />
+
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"
@@ -210,6 +211,7 @@
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
+        <!-- Required. AppKey copied from Portal -->
     </application>
 
 </manifest>

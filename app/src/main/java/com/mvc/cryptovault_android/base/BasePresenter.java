@@ -27,6 +27,8 @@ public abstract class BasePresenter<M,V> {
         this.mIView = null;
     }
 
+
+
     /**
      * 返回presenter想持有的Model引用
      *

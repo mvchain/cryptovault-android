@@ -94,7 +94,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="28dp"
-                android:text="0.0000 VRT"
+                android:text="-"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>

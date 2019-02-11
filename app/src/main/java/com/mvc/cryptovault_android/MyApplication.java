@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -35,7 +36,10 @@ public class MyApplication extends Application {
         super.onCreate();
         application = this;
         Utils.init(this);
+        JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         LogUtils.e("MyApplication", JPushInterface.getRegistrationID(this));
+        LogUtils.e("MyApplication", Utils.getApp().getPackageName());
+
     }
 }

@@ -2,6 +2,8 @@ package com.mvc.cryptovault_android;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -38,8 +40,5 @@ public class MyApplication extends Application {
         Utils.init(this);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-        LogUtils.e("MyApplication", JPushInterface.getRegistrationID(this));
-        LogUtils.e("MyApplication", Utils.getApp().getPackageName());
-
     }
 }

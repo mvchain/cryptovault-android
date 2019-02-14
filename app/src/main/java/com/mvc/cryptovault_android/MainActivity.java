@@ -1,5 +1,10 @@
 package com.mvc.cryptovault_android;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.pm.PackageInfo;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -9,6 +14,7 @@ import android.widget.RadioGroup;
 import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.adapter.HomePagerAdapter;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.LanguageEvent;
@@ -17,7 +23,13 @@ import com.mvc.cryptovault_android.fragment.MineFragment;
 import com.mvc.cryptovault_android.fragment.TogeFragment;
 import com.mvc.cryptovault_android.fragment.TrandFragment;
 import com.mvc.cryptovault_android.fragment.WalletFragment;
+import com.mvc.cryptovault_android.utils.AppInnerDownLoder;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
+import com.mvc.cryptovault_android.utils.RxHelper;
+import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
+import com.per.rslibrary.IPermissionRequest;
+import com.per.rslibrary.RsPermission;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,7 +38,6 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.jpush.android.api.JPushInterface;
 
 public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageChangeListener {
     private boolean isBack = false;
@@ -35,8 +46,9 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;
-    private int[] colors = {R.color.status_blue, R.color.white,R.color.white, R.color.white,/* R.color.status_gray*/R.color.status_blue};
+    private int[] colors = {R.color.status_blue, R.color.white, R.color.white, R.color.white,/* R.color.status_gray*/R.color.status_blue};
     private ImmersionBar with;
+    private DialogHelper dialogHelper;
 
     @Override
     protected int getLayoutId() {
@@ -89,6 +101,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
 
     }
 
+    @SuppressLint("CheckResult")
     @Override
     protected void initMVPData() {
         WalletFragment walletFragment = new WalletFragment();
@@ -111,6 +124,44 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mMainVpHome.addOnPageChangeListener(this);
         with = ImmersionBar.with(this);
         with.statusBarDarkFont(true).statusBarColor(colors[0]).fitsSystemWindows(true).init();
+        RetrofitUtils.client(ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
+                .compose(RxHelper.rxSchedulerHelper())
+                .subscribe(installApkBean -> {
+                    if (installApkBean.getCode() == 200) {
+                        PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                        int versionCode = packageInfo.versionCode;
+                        if (installApkBean.getData().getAppVersionCode() > versionCode) {
+                            dialogHelper.create(MainActivity.this, "检查到新版本，是否更新？", viewId -> {
+                                switch (viewId) {
+                                    case R.id.hint_enter:
+                                        dialogHelper.dismiss();
+                                        RsPermission.getInstance().setiPermissionRequest(new IPermissionRequest() {
+                                            @Override
+                                            public void toSetting() {
+
+                                            }
+
+                                            @Override
+                                            public void cancle(int i) {
+
+                                            }
+
+                                            @Override
+                                            public void success(int i) {
+                                                AppInnerDownLoder.downLoadApk(MainActivity.this, installApkBean.getData().getHttpUrl(), "BZT");
+                                            }
+                                        }).requestPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                                        break;
+                                    case R.id.hint_cancle:
+                                        dialogHelper.dismiss();
+                                        break;
+                                }
+                            }).show();
+                        }
+                    } else {
+                        LogUtils.e(installApkBean.getMessage());
+                    }
+                }, throwable -> LogUtils.e(throwable.getMessage()));
     }
 
     @Override
@@ -118,6 +169,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mMainVpHome = findViewById(R.id.home_main_vp);
         mButtonGroupHome = findViewById(R.id.home_button_group);
         mFragment = new ArrayList<>();
+        dialogHelper = DialogHelper.getInstance();
     }
 
     @Override
@@ -127,6 +179,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         ImmersionBar.with(this).destroy();
         EventBus.getDefault().unregister(this);
     }
+
     @Subscribe
     public void changeLanguage(LanguageEvent languageEvent) {
         recreate();

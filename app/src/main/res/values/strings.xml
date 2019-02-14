@@ -47,8 +47,8 @@
 
     <!---->
     <string name="download_url">https://www.bzvp.net/</string>
-    <!--<string name="base_url">http://47.110.234.233:10086/</string>-->
-    <string name="base_url">https://www.bzvp.net/</string>
+    <string name="base_url">http://47.110.234.233:10086/</string>
+    <!--<string name="base_url">https://www.bzvp.net/</string>-->
 
 
 

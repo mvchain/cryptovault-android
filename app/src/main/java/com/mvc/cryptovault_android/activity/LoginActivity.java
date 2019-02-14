@@ -120,8 +120,9 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         if (isSuccess) {
             dialogHelper.resetDialogResource(this, R.drawable.success_icon, msg);
             dialogHelper.dismissDelayed(() -> {
-                startActvity(MainActivity.class);
-                finish();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }, 2000);
         } else {
             dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg);
@@ -151,7 +152,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
                             }
                         }
                     }
-                    LogUtils.e("MyJPushMessageReceiver","注册");
+                    LogUtils.e("MyJPushMessageReceiver", "注册");
                     JPushInterface.setAlias(getApplicationContext(), loginBean.getData().getUserId(), String.valueOf(loginBean.getData().getUserId()));
                 }, throwable -> {
                     LogUtils.e("MyJPushMessageReceiver", throwable.getMessage());

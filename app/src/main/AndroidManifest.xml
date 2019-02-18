@@ -178,7 +178,13 @@
         <activity
             android:name=".activity.PrivateKeyVerificationActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PublishListActivity"
+            android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.PublishDetailActivity"
+            android:screenOrientation="portrait" />
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"

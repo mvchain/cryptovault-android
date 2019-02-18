@@ -82,6 +82,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
     protected void initData() {
         super.initData();
         isRefresh = true;
+        mData.clear();
         mPresenter.getComingList(10, 0, projectType, 0);
     }
 
@@ -103,6 +104,7 @@ public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChi
 
     public void refresh() {
         isRefresh = true;
+        mData.clear();
         mPresenter.getComingList(10, 0, projectType, 0);
     }
 

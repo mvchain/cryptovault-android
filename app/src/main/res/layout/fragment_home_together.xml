@@ -19,15 +19,28 @@
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/toge_publish"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:drawableTop="@drawable/facoin"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/toge_left_title"
+            android:textSize="10sp" />
+
+        <TextView
             android:id="@+id/toge_histroy"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
-
             android:layout_alignParentRight="true"
             android:padding="10dp"
-            android:scaleType="center"
-            android:src="@drawable/list_icon_black" />
+            android:drawableTop="@drawable/order"
+            android:text="@string/toge_right_title"
+            android:textSize="10sp"
+            android:drawablePadding="3dp"
+            android:gravity="center" />
     </RelativeLayout>
 
     <android.support.design.widget.TabLayout

@@ -28,4 +28,6 @@
     <string name="toge_recording">Crowdfunding record</string>
     <string name="increase_add">Adding</string>
     <string name="increase_remove">Remove</string>
+    <string name="toge_left_title">Currency</string>
+    <string name="toge_right_title">Order</string>
 </resources>

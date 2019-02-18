@@ -5,10 +5,10 @@ apply plugin: 'kotlin-android-extensions'//启用扩展支持直接使用ID
 android {
     signingConfigs {
         config {
-            keyAlias 'vpay'
-            keyPassword 'vpay_android'
-            storeFile file('D:/Project/cryptovault-android/vpay.jks')
-            storePassword 'vpay_android'
+            keyAlias 'bzt'
+            keyPassword 'bzt_android'
+            storeFile file('E:/AppProject/cryptovault-android/bzt.jks')
+            storePassword 'bzt_android'
         }
     }
     compileSdkVersion 27

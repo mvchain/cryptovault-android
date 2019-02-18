@@ -31,6 +31,7 @@
     <string name="detail_title">详情</string>
     <string name="invitation_title">邀请注册</string>
     <string name="about_title">关于</string>
+    <string name="publish_list_title">发币项目</string>
     <!--content-->
     <string name="sing_out">退出登录</string>
     <string name="toge_comming_soon">预热中</string>
@@ -41,15 +42,12 @@
     <string name="update_email">修改邮箱</string>
     <string name="update_password">修改登录密码</string>
     <string name="update_pay_password">修改支付密码</string>
-
-
-
-
+    <string name="toge_left_title">发币</string>
+    <string name="toge_right_title">订单</string>
     <!---->
     <string name="download_url">https://www.bzvp.net/</string>
-    <!--<string name="base_url">http://47.110.234.233:10086/</string>-->
-    <string name="base_url">https://www.bzvp.net/</string>
-
+    <string name="base_url">http://47.110.234.233:10086/</string>
+    <!--<string name="base_url">https://www.bzvp.net/</string>-->
 
 
 </resources>

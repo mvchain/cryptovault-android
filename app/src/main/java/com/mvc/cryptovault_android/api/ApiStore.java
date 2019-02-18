@@ -11,6 +11,9 @@ import com.mvc.cryptovault_android.bean.OptionBean;
 import com.mvc.cryptovault_android.bean.OptionDailyIncomeBean;
 import com.mvc.cryptovault_android.bean.OptionDetailBean;
 import com.mvc.cryptovault_android.bean.PairTickersBean;
+import com.mvc.cryptovault_android.bean.PublishBean;
+import com.mvc.cryptovault_android.bean.PublishDetailBean;
+import com.mvc.cryptovault_android.bean.PublishDetailListBean;
 import com.mvc.cryptovault_android.bean.TagBean;
 import com.mvc.cryptovault_android.bean.UpsetMnemonicsBean;
 import com.mvc.cryptovault_android.bean.VPBalanceBean;
@@ -337,4 +340,15 @@ public interface ApiStore {
     @GET(HttpUrl.UPDATE_APP)
     Observable<InstallApkBean> updateApk(@Header("Authorization") String token, @Query("appType") String appType);
 
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.PUBLISH)
+    Observable<PublishBean> getPublishAll(@Header("Authorization") String token, @Query("pageSize") int pageSize, @Query("projectId") int projectId);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.PUBLISH_LIST + "{projectId}/publish/list")
+    Observable<PublishDetailListBean> getPublishList(@Header("Authorization") String token, @Path("projectId") int projectId, @Query("id") int id, @Query("pageSize") int pageSize);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.PUBLISH_DETAIL + "{projectId}/publish")
+    Observable<PublishDetailBean> getPublishDetail(@Header("Authorization") String token, @Path("projectId") int projectId);
 }

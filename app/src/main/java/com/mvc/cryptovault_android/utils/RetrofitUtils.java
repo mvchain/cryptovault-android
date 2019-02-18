@@ -77,8 +77,6 @@ public class RetrofitUtils {
                 .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
                         .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .authenticator((route, response) -> {
-                    LogUtils.e("RetrofitUtils", "response.body()" + response.body().string());
-                    LogUtils.e("RetrofitUtils", "response.url()" + response.request().url());
                     HttpTokenBean body = RetrofitUtils.client(ApiStore.class).refreshToken(SPUtils.getInstance().getString(REFRESH_TOKEN)).execute().body();
                     if (body.getCode() == 200) {
                         SPUtils.getInstance().put(TOKEN, body.getData());

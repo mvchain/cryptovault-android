@@ -1,10 +1,10 @@
 package com.mvc.cryptovault_android.common;
 
 public class HttpUrl {
-//    public static final String BASE_URL = "http://192.168.15.31:10086/";
+    //    public static final String BASE_URL = "http://192.168.15.31:10086/";
     public static final String BASE_URL = "http://47.110.234.233:10086/";
-    public static final String URL_PATH = "api/app/";
-//    public static final String URL_PATH = "";
+    //    public static final String URL_PATH = "api/app/";
+    public static final String URL_PATH = "";
 //        public static final String BASE_URL = "http://192.168.15.21:10086/";
 
     /**
@@ -195,4 +195,17 @@ public class HttpUrl {
     public static final String UPDATE_APP = URL_PATH + "app";
 
 
+    /**
+     * 已发币项目列表
+     */
+    public static final String PUBLISH = URL_PATH + "project/publish";
+    /**
+     * 发币记录列表
+     */
+    public static final String PUBLISH_LIST = URL_PATH + "project/";
+
+    /**
+     * 发币记录列表
+     */
+    public static final String PUBLISH_DETAIL = URL_PATH + "project/";
 }

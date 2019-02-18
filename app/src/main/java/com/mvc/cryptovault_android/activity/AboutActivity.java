@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MainActivity;
 import com.mvc.cryptovault_android.MyApplication;
@@ -104,6 +105,8 @@ public class AboutActivity extends BaseActivity {
                                         break;
                                 }
                             }).show();
+                        } else {
+                            ToastUtils.showShort("当前版本已是最新");
                         }
                     } else {
                         LogUtils.e(installApkBean.getMessage());

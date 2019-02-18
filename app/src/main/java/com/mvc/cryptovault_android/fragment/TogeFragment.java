@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.PublishListActivity;
 import com.mvc.cryptovault_android.activity.TogeHistroyActivity;
 import com.mvc.cryptovault_android.adapter.TogePagerAdapter;
 import com.mvc.cryptovault_android.base.BaseFragment;
@@ -19,8 +20,8 @@ import com.mvc.cryptovault_android.base.BaseFragment;
 import java.util.ArrayList;
 
 public class TogeFragment extends BaseFragment implements View.OnClickListener {
-    private TextView mTitleToge;
     private ImageView mHistroyToge;
+    private ImageView mPublishToge;
     private TabLayout mTableToge;
     private ViewPager mVpToge;
     private ArrayList<Fragment> mFragment;
@@ -58,9 +59,10 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView() {
         mFragment = new ArrayList<>();
-        mTitleToge = rootView.findViewById(R.id.toge_title);
         mHistroyToge = rootView.findViewById(R.id.toge_histroy);
+        mPublishToge = rootView.findViewById(R.id.toge_publish);
         mHistroyToge.setOnClickListener(this);
+        mPublishToge.setOnClickListener(this);
         mTableToge = rootView.findViewById(R.id.toge_table);
         mVpToge = rootView.findViewById(R.id.toge_vp);
     }
@@ -72,10 +74,17 @@ public class TogeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.toge_histroy:
                 // TODO 18/11/29
-                Intent intent = new Intent(activity, TogeHistroyActivity.class);
+                intent.setClass(activity, TogeHistroyActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.toge_publish:
+                // TODO 18/11/29
+                intent.setClass(activity, PublishListActivity.class);
                 startActivity(intent);
                 break;
         }

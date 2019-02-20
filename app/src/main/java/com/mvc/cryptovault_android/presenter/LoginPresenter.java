@@ -7,10 +7,16 @@ import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.TrandPurhAndSellActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.bean.LoginValidBean;
+import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.LoginContract;
 import com.mvc.cryptovault_android.model.LoginModel;
 
+import org.json.JSONObject;
+
 import java.net.SocketTimeoutException;
+
+import io.reactivex.functions.Consumer;
 
 public class LoginPresenter extends LoginContract.LoginPresenter {
 
@@ -42,18 +48,20 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                     if (loginBean.getCode() == 200) {
                         mIView.showLoginStauts(true, "登录成功");
                         mIView.saveUserInfo(loginBean);
-                    } else if(loginBean.getCode() == 406){
+                    } else if (loginBean.getCode() == 406) {
                         mIView.userNotRegister(loginBean.getMessage());
-                    }else{
+                    } else if (loginBean.getCode() == 402) {
+                        mIView.showVerfication();
+                    } else {
                         mIView.showLoginStauts(false, loginBean.getMessage());
                     }
                 }, throwable -> {
                     if (throwable instanceof SocketTimeoutException) {
                         mIView.showLoginStauts(false, "连接超时");
-                    }else{
+                    } else {
                         mIView.showLoginStauts(false, "连接超时");
                     }
-                     LogUtils.e("LoginPresenter", throwable.getMessage());
+                    LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));
     }
 
@@ -73,10 +81,37 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                 }, throwable -> {
                     if (throwable instanceof SocketTimeoutException) {
                         mIView.showSendCode(false, "连接超时");
-                    }else{
+                    } else {
                         mIView.showSendCode(false, throwable.getMessage());
                     }
                     LogUtils.e("LoginPresenter", throwable.getMessage());
+                }));
+    }
+
+    @Override
+    public void getValid() {
+        rxUtils.register(mIModel.getValid()
+                .subscribe(loginValidBean -> {
+                    if (loginValidBean.getCode() == 200) {
+                        mIView.showValid(loginValidBean.getData());
+                    } else {
+                        mIView.showValid(null);
+                    }
+                }, throwable -> mIView.showValid(null)));
+    }
+
+    @Override
+    public void postValid(String geetest_challenge, String geetest_seccode, String geetest_validate, int status, String uid) {
+        rxUtils.register(mIModel.postValid(geetest_challenge, geetest_seccode, geetest_validate, status, uid)
+                .subscribe(updateBean -> {
+                    if (updateBean.getCode() == 200) {
+                        mIView.showSecondaryVerification(true);
+                    } else {
+                        mIView.showSecondaryVerification(false);
+                    }
+                }, throwable -> {
+                    mIView.showSecondaryVerification(false);
+                    LogUtils.e(throwable.getMessage());
                 }));
     }
 

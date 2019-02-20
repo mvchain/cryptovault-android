@@ -5,7 +5,10 @@ import com.mvc.cryptovault_android.base.IBaseActivity;
 import com.mvc.cryptovault_android.base.IBaseModel;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
+import com.mvc.cryptovault_android.bean.LoginValidBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
+
+import org.json.JSONException;
 
 import io.reactivex.Observable;
 
@@ -14,6 +17,10 @@ public interface LoginContract {
         public abstract void login(String phone, String pwd, String code);
 
         public abstract void sendCode(String cellphone);
+
+
+        public abstract void getValid();
+        public abstract void postValid(String geetest_challenge,String geetest_seccode,String geetest_validate,int status,String uid);
     }
 
     interface ILoginModel extends IBaseModel {
@@ -27,6 +34,10 @@ public interface LoginContract {
         Observable<LoginBean> getLoginStatus(String phone, String pwd, String code);
 
         Observable<HttpTokenBean> sendCode(String cellphone);
+
+        Observable<LoginValidBean> getValid();
+
+        Observable<UpdateBean> postValid(String geetest_challenge,String geetest_seccode,String geetest_validate,int status,String uid);
 
     }
 
@@ -58,6 +69,10 @@ public interface LoginContract {
          */
         void showSendCode(boolean isSuccess,String msg);
 
+        void showValid(LoginValidBean.DataBean result) throws JSONException;
+
+        void showVerfication() throws JSONException;
+        void showSecondaryVerification(boolean isSuccess);
         /**
          * 显示dialog
          */

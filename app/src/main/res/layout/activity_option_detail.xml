@@ -112,19 +112,18 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="投资金额"
+                            android:text="累计收益"
                             android:textColor="@color/option_traslations"
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/investment_amount"
+                            android:id="@+id/cumulative_income"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"
                             android:textColor="@color/white"
                             android:textSize="15sp" />
                     </LinearLayout>
-
                     <View
                         android:layout_width="1dp"
                         android:layout_height="30dp"
@@ -141,12 +140,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="累计收益"
+                            android:text="投资金额"
                             android:textColor="@color/option_traslations"
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/cumulative_income"
+                            android:id="@+id/investment_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="14dp"

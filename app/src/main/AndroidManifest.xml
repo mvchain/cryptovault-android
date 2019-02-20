@@ -124,6 +124,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SelectLoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.login" />

@@ -6,6 +6,7 @@ import com.mvc.cryptovault_android.bean.FinancialDetailBean;
 import com.mvc.cryptovault_android.bean.FinancialListBean;
 import com.mvc.cryptovault_android.bean.InstallApkBean;
 import com.mvc.cryptovault_android.bean.InvatationBean;
+import com.mvc.cryptovault_android.bean.LoginValidBean;
 import com.mvc.cryptovault_android.bean.MnemonicsBean;
 import com.mvc.cryptovault_android.bean.OptionBean;
 import com.mvc.cryptovault_android.bean.OptionDailyIncomeBean;
@@ -351,4 +352,12 @@ public interface ApiStore {
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.PUBLISH_DETAIL + "{projectId}/publish")
     Observable<PublishDetailBean> getPublishDetail(@Header("Authorization") String token, @Path("projectId") int projectId);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.VALID)
+    Observable<LoginValidBean> getValid();
+
+    @Headers("Accept-Language: zh-cn")
+    @POST(HttpUrl.VALID)
+    Observable<UpdateBean> postValid(@Body RequestBody body);
 }

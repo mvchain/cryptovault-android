@@ -22,7 +22,6 @@ class LanguageUtils {
 
         fun wrapConfiguration(context: Context, config: Configuration): Context {
             return context.createConfigurationContext(config)
-
         }
 
         fun wrapLocale(context: Context, locale: Locale): Context {

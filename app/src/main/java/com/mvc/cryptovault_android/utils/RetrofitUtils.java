@@ -53,7 +53,6 @@ public class RetrofitUtils {
         if (mRetrofit == null) {
             synchronized (Retrofit.class) {
                 if (mRetrofit == null) {
-                    LogUtils.e(MyApplication.getBaseUrl());
                     mRetrofit = new Retrofit.Builder()
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())

@@ -22,6 +22,10 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.geetest.sdk.GT3ConfigBean;
+import com.geetest.sdk.GT3ErrorBean;
+import com.geetest.sdk.GT3GeetestUtils;
+import com.geetest.sdk.GT3Listener;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MainActivity;
 import com.mvc.cryptovault_android.MyApplication;
@@ -30,17 +34,24 @@ import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.LoginBean;
+import com.mvc.cryptovault_android.bean.LoginValidBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
+import com.mvc.cryptovault_android.bean.ValidResultBean;
+import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.contract.LoginContract;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack;
 import com.mvc.cryptovault_android.presenter.LoginPresenter;
+import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.utils.TimeVerification;
 import com.mvc.cryptovault_android.utils.ViewDrawUtils;
 import com.mvc.cryptovault_android.view.ClearEditText;
 import com.mvc.cryptovault_android.view.DialogHelper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -49,6 +60,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
+import io.reactivex.functions.Consumer;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.REG_EMAIL;
@@ -69,6 +81,10 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     private EditText mCodeLogin;
     private TextView mCodeSend;
     private TextInputLayout mPasswordLayout;
+    private GT3GeetestUtils gt3GeetestUtils;
+    private GT3ConfigBean gt3ConfigBean;
+    private int status;
+    private String uid;
 
     @Override
     protected int getLayoutId() {
@@ -77,10 +93,63 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     protected void initData() {
+
     }
 
     @Override
     protected void initView() {
+        // 务必在oncreate方法里处理
+        gt3GeetestUtils = new GT3GeetestUtils(this);
+        // 配置bean文件，也可在oncreate初始化
+        gt3ConfigBean = new GT3ConfigBean();
+        // 设置验证模式，1：bind，2：unbind
+        gt3ConfigBean.setPattern(1);
+        // 设置点击灰色区域是否消失，默认不消息
+        gt3ConfigBean.setCanceledOnTouchOutside(false);
+        // 设置debug模式，开代理可调试
+        gt3ConfigBean.setDebug(false);
+        // 设置语言，如果为null则使用系统默认语言
+        gt3ConfigBean.setLang(SPUtils.getInstance().getString(Constant.LANGUAGE.DEFAULT_LANGUAGE));
+        // 设置加载webview超时时间，单位毫秒，默认10000，仅且webview加载静态文件超时，不包括之前的http请求
+        gt3ConfigBean.setTimeout(10000);
+        // 设置webview请求超时(用户点选或滑动完成，前端请求后端接口)，单位毫秒，默认10000
+        gt3ConfigBean.setWebviewTimeout(10000);
+        // 设置回调监听
+        gt3ConfigBean.setListener(new GT3Listener() {
+            @Override
+            public void onDialogResult(String s) {
+                dialogHelper.dismiss();
+                ValidResultBean validBean = (ValidResultBean) JsonHelper.stringToJson(s, ValidResultBean.class);
+                mPresenter.postValid(validBean.getGeetest_challenge(), validBean.getGeetest_seccode(), validBean.getGeetest_validate(), status, uid);
+            }
+
+            @Override
+            public void onStatistics(String s) {
+
+            }
+
+            @Override
+            public void onClosed(int i) {
+                dialogHelper.dismiss();
+            }
+
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFailed(GT3ErrorBean gt3ErrorBean) {
+
+            }
+
+            @SuppressLint("CheckResult")
+            @Override
+            public void onButtonClick() {
+                mPresenter.getValid();
+            }
+        });
+        gt3GeetestUtils.init(gt3ConfigBean);
     }
 
 
@@ -91,6 +160,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             case R.id.login_submit:
                 String pwd = mLoginPwd.getText().toString().trim();
                 String code = mCodeLogin.getText().toString().trim();
+                LogUtils.e(pwd);
                 SPUtils.getInstance().put(REG_EMAIL, email);
                 String newsPwd = EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(pwd));
                 mPresenter.login(email, newsPwd, code);
@@ -114,6 +184,11 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         return LoginPresenter.newIntance();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gt3GeetestUtils.destory();
+    }
 
     @Override
     public void showLoginStauts(boolean isSuccess, String msg) {
@@ -193,6 +268,32 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg);
         }
         dialogHelper.dismissDelayed(null, 2000);
+    }
+
+    @Override
+    public void showValid(LoginValidBean.DataBean result) throws JSONException {
+        if (result != null) {
+            status = result.getStatus();
+            uid = result.getUid();
+            gt3ConfigBean.setApi1Json(new JSONObject(result.getResult()));
+            gt3GeetestUtils.getGeetest();
+        }
+    }
+
+    @Override
+    public void showVerfication() throws JSONException {
+        //                 开启验证
+        gt3GeetestUtils.startCustomFlow();
+    }
+
+    @Override
+    public void showSecondaryVerification(boolean isSuccess) {
+        if (isSuccess) {
+            gt3GeetestUtils.showSuccessDialog();
+            mLoginSubmit.performClick();
+        } else {
+            gt3GeetestUtils.showFailedDialog();
+        }
     }
 
     @Override

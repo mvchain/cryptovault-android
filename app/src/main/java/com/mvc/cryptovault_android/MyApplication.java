@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -40,5 +41,6 @@ public class MyApplication extends Application {
         Utils.init(this);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        MultiDex.install(this);
     }
 }

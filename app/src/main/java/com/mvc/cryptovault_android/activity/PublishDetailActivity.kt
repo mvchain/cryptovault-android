@@ -7,11 +7,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.blankj.utilcode.util.LogUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.adapter.rvAdapter.PublishDetailAdapter
 import com.mvc.cryptovault_android.api.ApiStore
+import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.bean.PublishDetailListBean
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
@@ -21,17 +24,18 @@ import kotlinx.android.synthetic.main.activity_publish_detail.*
 import java.text.SimpleDateFormat
 import java.util.ArrayList
 
-class PublishDetailActivity : AppCompatActivity() {
+class PublishDetailActivity : BaseActivity() {
+    override fun getLayoutId(): Int {
+        return R.layout.activity_publish_detail
+    }
+
+    override fun initData() {
+    }
+
     private lateinit var detailList: ArrayList<PublishDetailListBean.DataBean>
     private lateinit var publishDetailAdapter: PublishDetailAdapter
     private var projectId = 0
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_publish_detail)
-        initView()
-    }
-
-    private fun initView() {
+    override fun initView() {
         projectId = intent.getIntExtra("projectId", 0)
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init()
         detailList = ArrayList()
@@ -98,6 +102,8 @@ class PublishDetailActivity : AppCompatActivity() {
                         publish_detail_success.text = "${TextUtils.doubleToDouble(bean.successValue)}/${TextUtils.doubleToDouble(bean.value)} ${bean.baseTokenName}"
                         publish_detail_jg.text = "1 ${bean.tokenName} = ${bean.ratio} ${bean.baseTokenName}"
                         publish_detail_time.text = "${SimpleDateFormat("yyyy-MM-dd HH : mm").format(bean.startedAt)}"
+                        val options = RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project)
+                        Glide.with(this@PublishDetailActivity).load(bean.projectImage).apply(options).into(publish_detail_icon)
                     }
                 }, { throwable ->
                     publish_detail_rv.visibility = View.INVISIBLE

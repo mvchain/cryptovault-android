@@ -37,7 +37,7 @@ public class Constant {
 
     public static class LANGUAGE {
         //APP语言
-        public static final String DEFAULT_LANGUAGE = "default_language";
+        public static final String DEFAULT_LANGUAGE = "zh_CN";
         public static final String CHINESE = "zh_CN";
         public static final String ENGLISH = "en";
         //设置接口国际化

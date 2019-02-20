@@ -16,9 +16,10 @@ android {
         applicationId "com.mvc.cryptovault_android"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.01"
+        versionCode 3
+        versionName "1.02"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -91,6 +92,7 @@ dependencies {
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
     implementation 'com.lzy.widget:imagepicker:0.6.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+    compile(name: 'geetest_sensebot_android_v4.0.5_20190122', ext: 'aar')
 //    极光推送
     compile 'cn.jiguang.sdk:jpush:3.1.6'  // 此处以JPush 3.1.6 版本为例。
     compile 'cn.jiguang.sdk:jcore:1.2.5'

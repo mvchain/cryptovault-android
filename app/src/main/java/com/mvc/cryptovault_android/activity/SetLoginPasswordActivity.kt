@@ -16,6 +16,7 @@ import com.mvc.cryptovault_android.presenter.SetLoginPresenter
 import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_reset_password.*
 import kotlinx.android.synthetic.main.activity_set_password.*
+import kotlinx.android.synthetic.main.activity_set_password.view.*
 
 class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPasswordPresenter>(), SetPasswordContract.SetPasswordView {
     private var dialogHelper: DialogHelper? = null
@@ -47,14 +48,14 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
         when (type) {
             LOGIN_PASSWORD -> {
                 toolbar_title.text = "修改登录密码"
-                old_layout.hint = "输入当前登录密码"
-                new_layout.hint = "输入新登录密码"
+                old_pay_layout.visibility = View.GONE
+                new_pay_layout.visibility = View.GONE
                 forget_pwd.text = "忘记登录密码？"
             }
             PAY_PASSWORD -> {
                 toolbar_title.text = "修改支付密码"
-                old_layout.hint = "输入当前支付密码"
-                new_layout.hint = "输入新支付密码"
+                old_layout.visibility = View.GONE
+                new_layout.visibility = View.GONE
                 forget_pwd.text = "忘记支付密码？"
             }
         }
@@ -69,6 +70,19 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val length = s.length
                 new_layout.isPasswordVisibilityToggleEnabled = length > 0
+            }
+        })
+        //设置眼睛可见
+        old_pay_pwd.addTextChangedListener(object : EditTextChange() {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val length = s.length
+                old_pay_layout.isPasswordVisibilityToggleEnabled = length > 0
+            }
+        })
+        new_pay_pwd.addTextChangedListener(object : EditTextChange() {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val length = s.length
+                new_pay_layout.isPasswordVisibilityToggleEnabled = length > 0
             }
         })
     }
@@ -99,7 +113,7 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
                     if (type == 0) {
                         mPresenter.setLoginPassword(EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(old_pwd.text.toString())), EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(new_pwd.text.toString())))
                     } else if (type == 1) {
-                        mPresenter.setPayPassword(EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(old_pwd.text.toString())), EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(new_pwd.text.toString())))
+                        mPresenter.setPayPassword(EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(old_pay_pwd.text.toString())), EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(new_pay_pwd.text.toString())))
                     }
                 }
             }

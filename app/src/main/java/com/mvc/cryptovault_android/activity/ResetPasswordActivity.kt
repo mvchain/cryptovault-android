@@ -41,14 +41,13 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
         type = intent.getIntExtra("type", -1)
         when (passwordType) {
             TYPE_LOGIN_PASSWORD -> {
-                account_hint.hint = "登录密码"
+                account_pay_hint.visibility = View.GONE
                 reset_title.text = "设置登录密码"
 
             }
             TYPE_PAY_PASSWORD -> {
-                account_hint.hint = "支付密码"
+                account_hint.visibility = View.GONE
                 reset_title.text = "设置支付密码"
-                login_pwd.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD
             }
         }
     }
@@ -65,6 +64,13 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 account_hint.isPasswordVisibilityToggleEnabled = length > 0
             }
         })
+        //设置眼睛可见
+        pay_pwd.addTextChangedListener(object : EditTextChange() {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val length = s.length
+                account_pay_hint.isPasswordVisibilityToggleEnabled = length > 0
+            }
+        })
     }
 
     override fun onClick(v: View?) {
@@ -73,18 +79,30 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 finish()
             }
             R.id.submit -> {
-                value = login_pwd.text.toString()
-                if (value == "") {
-                    dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为空")?.show()
-                    dialogHelper?.dismissDelayed(null)
-                    return
+                when (passwordType) {
+                    TYPE_LOGIN_PASSWORD -> {
+                        value = login_pwd.text.toString()
+                        if (value == "") {
+                            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为空")?.show()
+                            dialogHelper?.dismissDelayed(null)
+                            return
+                        }
+                    }
+                    TYPE_PAY_PASSWORD -> {
+                        value = pay_pwd.text.toString()
+                        if (value == "") {
+                            dialogHelper?.create(this, R.drawable.miss_icon, "支付密码不可为空")?.show()
+                            dialogHelper?.dismissDelayed(null)
+                            return
+                        }
+                    }
                 }
                 dialogHelper?.create(this, R.drawable.pending_icon_1, "重置中")?.show()
                 var json = JSONObject()
                 json.put("token", account)
                 val email = SPUtils.getInstance().getString(USER_EMAIL)
                 LogUtils.e("$email email")
-                json.put("password", EncryptUtils.encryptMD5ToString(email +  EncryptUtils.encryptMD5ToString(value)))
+                json.put("password", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(value)))
                 json.put("type", passwordType)
                 var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
                 RetrofitUtils.client(ApiStore::class.java).userForget(body)

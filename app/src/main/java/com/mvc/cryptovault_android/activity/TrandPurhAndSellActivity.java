@@ -325,7 +325,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                             try {
                                 object.put("id", 0);
                                 object.put("pairId", data.getPairId());
-                                object.put("password", EncryptUtils.encryptMD5ToString(email +  EncryptUtils.encryptMD5ToString(num)));
+                                object.put("password", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(num)));
                                 object.put("price", currentPricePurh);
                                 object.put("transactionType", this.type);
                                 object.put("value", currentNum);

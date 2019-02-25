@@ -32,6 +32,7 @@ import okhttp3.RequestBody
 import org.json.JSONObject
 import java.net.SocketTimeoutException
 import java.util.*
+import kotlin.collections.HashSet
 
 class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChildClickListener {
     private lateinit var checkMnomonic: ArrayList<VerificationMnemonicBean>

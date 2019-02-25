@@ -9,38 +9,33 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SpanUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.HistroyPagerAdapter;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.bean.AssetsBean;
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
-import com.mvc.cryptovault_android.bean.AllAssetBean;
 import com.mvc.cryptovault_android.bean.AssetListBean;
+import com.mvc.cryptovault_android.bean.HistoryBeanEvent;
 import com.mvc.cryptovault_android.contract.HistroyContract;
 import com.mvc.cryptovault_android.event.HistroyEvent;
-import com.mvc.cryptovault_android.event.HistroyFragmentEvent;
-import com.mvc.cryptovault_android.event.WalletFragmentEvent;
 import com.mvc.cryptovault_android.fragment.HistroyChildFragment;
-import com.mvc.cryptovault_android.listener.IPopViewListener;
 import com.mvc.cryptovault_android.presenter.HistroyPresenter;
-import com.mvc.cryptovault_android.utils.JsonHelper;
-import com.mvc.cryptovault_android.utils.TabLayoutUtils;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
+import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.utils.TextUtils;
-import com.mvc.cryptovault_android.utils.ViewDrawUtils;
 import com.mvc.cryptovault_android.view.DialogHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
@@ -52,8 +47,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mvc.cryptovault_android.common.Constant.SP.ALLASSETS;
-import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
+import io.reactivex.functions.Consumer;
+
 
 public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener {
     private ImageView mBackHis;
@@ -159,8 +154,8 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                 mQcodeHis.setVisibility(View.VISIBLE);
                 break;
         }
-        mPriceHis.setText(new SpanUtils().append(TextUtils.rateToPrice(dataBean.getRatio() * dataBean.getValue()) + " ").setFontSize(36,true)
-                .append(rateType).setFontSize(10,true).create());
+        mPriceHis.setText(new SpanUtils().append(TextUtils.rateToPrice(dataBean.getRatio() * dataBean.getValue()) + " ").setFontSize(36, true)
+                .append(rateType).setFontSize(10, true).create());
         mActualHis.setText(TextUtils.doubleToFour(dataBean.getValue()) + " " + dataBean.getTokenName());
     }
 
@@ -287,5 +282,18 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         mActualHis.setText(TextUtils.doubleToFour(Double.parseDouble(mActualHis.getText().toString().split(" ")[0]) - Double.parseDouble(price)));
         String newsPrice = mActualHis.getText().toString().split(" ")[0];
         mPriceHis.setText(TextUtils.rateToPrice(Double.parseDouble(newsPrice) * dataBean.getRatio()));
+    }
+
+    @SuppressLint({"CheckResult", "SetTextI18n"})
+    @Subscribe
+    public void refreshPrice(HistoryBeanEvent event) {
+        RetrofitUtils.client(ApiStore.class).getAssets(MyApplication.getTOKEN(), tokenId)
+                .compose(RxHelper.rxSchedulerHelper())
+                .subscribe(assetsBean -> {
+                    AssetsBean.DataBean dataBean = assetsBean.getData();
+                    mPriceHis.setText(new SpanUtils().append(TextUtils.rateToPrice(dataBean.getRatio() * dataBean.getValue()) + " ").setFontSize(36, true)
+                            .append(rateType).setFontSize(10, true).create());
+                    mActualHis.setText(TextUtils.doubleToFour(dataBean.getValue()) + " " + dataBean.getTokenName());
+                }, throwable -> LogUtils.e(throwable.getMessage()));
     }
 }

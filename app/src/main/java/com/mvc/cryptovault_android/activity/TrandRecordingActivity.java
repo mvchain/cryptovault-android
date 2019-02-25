@@ -181,6 +181,7 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
         List<Long> timeX = updateBean.getData().getTimeX();
         List<Float> valueY = updateBean.getData().getValueY();
         for (int i = 0; i < timeX.size(); i++) {
+            LogUtils.e(timeX.get(i));
             values.add(new Entry(timeX.get(i), valueY.get(i)));
         }
         dataSetByIndex = new LineDataSet(values, "kline");

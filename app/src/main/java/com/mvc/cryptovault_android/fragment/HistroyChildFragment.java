@@ -16,6 +16,7 @@ import com.mvc.cryptovault_android.activity.DetailActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.HistroyChildAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
+import com.mvc.cryptovault_android.bean.HistoryBeanEvent;
 import com.mvc.cryptovault_android.bean.HistroyBean;
 import com.mvc.cryptovault_android.contract.HistroyChildContract;
 import com.mvc.cryptovault_android.event.HistroyFragmentEvent;
@@ -155,6 +156,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
     public void refresh() {
         isRefresh = true;
         mPresenter.getAll(action, 0, 10, tokenId, 0, 0);
+        EventBus.getDefault().post(new HistoryBeanEvent());
     }
 
     @Subscribe

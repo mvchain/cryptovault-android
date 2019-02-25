@@ -25,14 +25,11 @@ public class MinePresenter extends MineContract.MinePresenter {
 
     @Override
     public void getUserInfo() {
-        rxUtils.register(mIModel.getUserInfo().subscribe(new Consumer<UserInfoBean>() {
-            @Override
-            public void accept(UserInfoBean user) throws Exception {
-                if(user.getCode() == 200) {
-                    mIView.setUser(user);
-                }else{
-                    mIView.serverError();
-                }
+        rxUtils.register(mIModel.getUserInfo().subscribe(user -> {
+            if(user.getCode() == 200) {
+                mIView.setUser(user);
+            }else{
+                mIView.serverError();
             }
         }, throwable -> {
             mIView.serverError();

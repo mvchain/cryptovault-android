@@ -124,44 +124,44 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mMainVpHome.addOnPageChangeListener(this);
         with = ImmersionBar.with(this);
         with.statusBarDarkFont(true).statusBarColor(colors[0]).fitsSystemWindows(true).init();
-//        RetrofitUtils.client(ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
-//                .compose(RxHelper.rxSchedulerHelper())
-//                .subscribe(installApkBean -> {
-//                    if (installApkBean.getCode() == 200) {
-//                        PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-//                        int versionCode = packageInfo.versionCode;
-//                        if (installApkBean.getData().getAppVersionCode() > versionCode) {
-//                            dialogHelper.create(MainActivity.this, "检查到新版本，是否更新？", viewId -> {
-//                                switch (viewId) {
-//                                    case R.id.hint_enter:
-//                                        dialogHelper.dismiss();
-//                                        RsPermission.getInstance().setiPermissionRequest(new IPermissionRequest() {
-//                                            @Override
-//                                            public void toSetting() {
-//
-//                                            }
-//
-//                                            @Override
-//                                            public void cancle(int i) {
-//
-//                                            }
-//
-//                                            @Override
-//                                            public void success(int i) {
-//                                                AppInnerDownLoder.downLoadApk(MainActivity.this, installApkBean.getData().getHttpUrl(), "BZT");
-//                                            }
-//                                        }).requestPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//                                        break;
-//                                    case R.id.hint_cancle:
-//                                        dialogHelper.dismiss();
-//                                        break;
-//                                }
-//                            }).show();
-//                        }
-//                    } else {
-//                        LogUtils.e(installApkBean.getMessage());
-//                    }
-//                }, throwable -> LogUtils.e(throwable.getMessage()));
+        RetrofitUtils.client(ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
+                .compose(RxHelper.rxSchedulerHelper())
+                .subscribe(installApkBean -> {
+                    if (installApkBean.getCode() == 200) {
+                        PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                        int versionCode = packageInfo.versionCode;
+                        if (installApkBean.getData().getAppVersionCode() > versionCode) {
+                            dialogHelper.create(MainActivity.this, "检查到新版本，是否更新？", viewId -> {
+                                switch (viewId) {
+                                    case R.id.hint_enter:
+                                        dialogHelper.dismiss();
+                                        RsPermission.getInstance().setiPermissionRequest(new IPermissionRequest() {
+                                            @Override
+                                            public void toSetting() {
+
+                                            }
+
+                                            @Override
+                                            public void cancle(int i) {
+
+                                            }
+
+                                            @Override
+                                            public void success(int i) {
+                                                AppInnerDownLoder.downLoadApk(MainActivity.this, installApkBean.getData().getHttpUrl(), "BZT");
+                                            }
+                                        }).requestPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                                        break;
+                                    case R.id.hint_cancle:
+                                        dialogHelper.dismiss();
+                                        break;
+                                }
+                            }).show();
+                        }
+                    } else {
+                        LogUtils.e(installApkBean.getMessage());
+                    }
+                }, throwable -> LogUtils.e(throwable.getMessage()));
     }
 
     @Override
@@ -178,6 +178,14 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mMainVpHome.removeOnPageChangeListener(this);
         ImmersionBar.with(this).destroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(mFragment != null && mFragment.get(0) instanceof WalletFragment){
+            ((WalletFragment)mFragment.get(0)).onRefresh();
+        }
     }
 
     @Subscribe

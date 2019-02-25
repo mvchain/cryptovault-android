@@ -3,8 +3,8 @@ package com.mvc.cryptovault_android.common;
 public class HttpUrl {
     //    public static final String BASE_URL = "http://192.168.15.31:10086/";
 //    public static final String BASE_URL = "http://47.110.234.233:10086/";
-    public static final String URL_PATH = "api/app/";
-//    public static final String URL_PATH = "";
+//    public static final String URL_PATH = "api/app/";
+    public static final String URL_PATH = "";
 //        public static final String BASE_URL = "http://192.168.15.21:10086/";
 
     /**
@@ -213,4 +213,9 @@ public class HttpUrl {
      * 发币记录列表
      */
     public static final String VALID = URL_PATH + "user/valid";
+    /**
+     *
+     * 获取某个币种余额,
+     */
+    public static final String ASSET = URL_PATH + "asset/";
 }

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">BZT</string>
     <!--APP登陆成功-->
+    <!---->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
     <string name="login_success">登录成功</string>
     <string name="login_faild">登录失败</string>
     <string name="login_load">正在登录</string>
@@ -18,7 +21,6 @@
     <string name="navi_assets">资产</string>
     <string name="navi_trand">交易</string>
     <string name="navi_financial">理财</string>
-
     <string name="navi_toge">众筹</string>
     <string name="navi_mine">我的</string>
     <!--title-->
@@ -46,9 +48,9 @@
     <string name="toge_right_title">订单</string>
     <!---->
     <string name="download_url">https://www.bzvp.net/</string>
-    <!--<string name="base_url">http://47.110.234.233:10086/</string>-->
+    <string name="base_url">http://47.110.234.233:10086/</string>
     <!--<string name="base_url">http://192.168.15.21:10086/</string>-->
-    <string name="base_url">https://www.bzvp.net/</string>
+    <!--<string name="base_url">https://www.bzvp.net/</string>-->
 
 
 </resources>

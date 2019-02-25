@@ -82,7 +82,8 @@
                     android:drawableRight="@drawable/copy_icon"
                     android:ellipsize="middle"
                     android:singleLine="true"
-                    android:text="0x2051dd2b51dd2b51dd2b51dd2b51dd2b51dd2ba196ccc2448"
+                    android:text="..."
+                    android:gravity="right"
                     android:textColor="@color/login_content"
                     android:textSize="14sp" />
 

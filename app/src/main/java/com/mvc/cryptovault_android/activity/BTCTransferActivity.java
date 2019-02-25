@@ -224,7 +224,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
                                 , R.layout.layout_paycode
                                 , "确认转账"
                                 , "转账金额"
-                                , priceBtc + mTransBean.getFeeTokenName()
+                                , priceBtc + tokenName
                                 , transAddress
                                 , TextUtils.doubleToSix(mTransBean.getFee()) + mTransBean.getFeeTokenName()
                                 , true

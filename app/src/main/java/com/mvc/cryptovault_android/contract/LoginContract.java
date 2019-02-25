@@ -6,7 +6,6 @@ import com.mvc.cryptovault_android.base.IBaseModel;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.LoginValidBean;
-import com.mvc.cryptovault_android.bean.UpdateBean;
 
 import org.json.JSONException;
 
@@ -14,12 +13,12 @@ import io.reactivex.Observable;
 
 public interface LoginContract {
     abstract class LoginPresenter extends BasePresenter<ILoginModel, ILoginView> {
-        public abstract void login(String phone, String pwd, String code);
+        public abstract void login(String imageToken,String email, String pwd, String code);
 
         public abstract void sendCode(String cellphone);
 
 
-        public abstract void getValid();
+        public abstract void getValid(String email);
         public abstract void postValid(String geetest_challenge,String geetest_seccode,String geetest_validate,int status,String uid);
     }
 
@@ -27,17 +26,17 @@ public interface LoginContract {
         /**
          * 请求登录
          *
-         * @param phone
+         * @param email
          * @param pwd
          * @return
          */
-        Observable<LoginBean> getLoginStatus(String phone, String pwd, String code);
+        Observable<LoginBean> getLoginStatus(String imageToken,String email, String pwd, String code);
 
         Observable<HttpTokenBean> sendCode(String cellphone);
 
-        Observable<LoginValidBean> getValid();
+        Observable<LoginValidBean> getValid(String email);
 
-        Observable<UpdateBean> postValid(String geetest_challenge,String geetest_seccode,String geetest_validate,int status,String uid);
+        Observable<HttpTokenBean> postValid(String geetest_challenge,String geetest_seccode,String geetest_validate,int status,String uid);
 
     }
 
@@ -71,8 +70,8 @@ public interface LoginContract {
 
         void showValid(LoginValidBean.DataBean result) throws JSONException;
 
-        void showVerfication() throws JSONException;
-        void showSecondaryVerification(boolean isSuccess);
+        void showVerification(String message) throws JSONException;
+        void showSecondaryVerification(String token);
         /**
          * 显示dialog
          */

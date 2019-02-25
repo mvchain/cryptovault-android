@@ -8,8 +8,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.mvc.cryptovault_android.bean.LanguageEvent
 import com.mvc.cryptovault_android.common.Constant
-import com.mvc.cryptovault_android.common.Constant.LANGUAGE.DEFAULT_ACCEPT_LANGUAGE
-import com.mvc.cryptovault_android.common.Constant.LANGUAGE.DEFAULT_LANGUAGE
+import com.mvc.cryptovault_android.common.Constant.LANGUAGE.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
@@ -37,6 +36,7 @@ class LanguageUtils {
             baseContext.createConfigurationContext(configuration)
             SPUtils.getInstance().put(DEFAULT_LANGUAGE, language)
             SPUtils.getInstance().put(DEFAULT_ACCEPT_LANGUAGE, accept_language)
+            SPUtils.getInstance().put(DEFAULT_ENGLUSH, "custom")
             EventBus.getDefault().post(LanguageEvent())
         }
     }

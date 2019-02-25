@@ -4,15 +4,27 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.mvc.cryptovault_android.common.Constant;
+import com.mvc.cryptovault_android.utils.LanguageUtils;
+
+import java.util.Locale;
 
 import cn.jpush.android.api.JPushInterface;
+
+import static com.mvc.cryptovault_android.common.Constant.LANGUAGE.ACCEPT_ENGLISH;
+import static com.mvc.cryptovault_android.common.Constant.LANGUAGE.CHINESE;
+import static com.mvc.cryptovault_android.common.Constant.LANGUAGE.DEFAULT_ACCEPT_LANGUAGE;
+import static com.mvc.cryptovault_android.common.Constant.LANGUAGE.DEFAULT_ENGLUSH;
+import static com.mvc.cryptovault_android.common.Constant.LANGUAGE.DEFAULT_LANGUAGE;
+import static com.mvc.cryptovault_android.common.Constant.LANGUAGE.ENGLISH;
 
 public class MyApplication extends Application {
     private static Context application;
@@ -42,5 +54,15 @@ public class MyApplication extends Application {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         MultiDex.install(this);
+        if (SPUtils.getInstance().getString(DEFAULT_ENGLUSH).equals("")) {
+            Locale locale = new Locale(ENGLISH);
+            Locale.setDefault(locale);
+            Configuration config = getResources().getConfiguration();
+            DisplayMetrics metrics = getResources().getDisplayMetrics();
+            config.locale = Locale.SIMPLIFIED_CHINESE;
+            getResources().updateConfiguration(config, metrics);
+            SPUtils.getInstance().put(DEFAULT_LANGUAGE, ENGLISH);
+            SPUtils.getInstance().put(DEFAULT_ACCEPT_LANGUAGE, ACCEPT_ENGLISH);
+        }
     }
 }

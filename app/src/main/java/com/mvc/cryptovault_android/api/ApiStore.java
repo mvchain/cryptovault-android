@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.api;
 
+import com.mvc.cryptovault_android.bean.AssetsBean;
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.FinancialBean;
 import com.mvc.cryptovault_android.bean.FinancialDetailBean;
@@ -355,9 +356,14 @@ public interface ApiStore {
 
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.VALID)
-    Observable<LoginValidBean> getValid();
+    Observable<LoginValidBean> getValid(@Query("email") String email);
+
 
     @Headers("Accept-Language: zh-cn")
     @POST(HttpUrl.VALID)
-    Observable<UpdateBean> postValid(@Body RequestBody body);
+    Observable<HttpTokenBean> postValid(@Body RequestBody body);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.ASSET+"{tokenId}")
+    Observable<AssetsBean> getAssets(@Header("Authorization") String token, @Path("tokenId") int tokenId);
 }

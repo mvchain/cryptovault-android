@@ -47,7 +47,7 @@ public abstract class BaseFragment extends Fragment {
         JPushInterface.deleteAlias(activity.getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
         SPUtils.getInstance().remove(USER_ID);
         Intent intent = new Intent(activity, SelectLoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
     @Override

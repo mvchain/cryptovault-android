@@ -4,19 +4,11 @@ package com.mvc.cryptovault_android.presenter;
 import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.activity.TrandPurhAndSellActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.bean.LoginValidBean;
-import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.contract.LoginContract;
 import com.mvc.cryptovault_android.model.LoginModel;
 
-import org.json.JSONObject;
-
 import java.net.SocketTimeoutException;
-
-import io.reactivex.functions.Consumer;
 
 public class LoginPresenter extends LoginContract.LoginPresenter {
 
@@ -26,7 +18,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
 
     @SuppressLint("CheckResult")
     @Override
-    public void login(String phone, String pwd, String code) {
+    public void login(String token,String phone, String pwd, String code) {
         mIView.show();
         if (mIModel == null || mIView == null) {
             return;
@@ -43,7 +35,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
             mIView.showLoginStauts(false, "验证码不可为空");
             return;
         }
-        rxUtils.register(mIModel.getLoginStatus(phone, pwd, code)
+        rxUtils.register(mIModel.getLoginStatus(token,phone, pwd, code)
                 .subscribe(loginBean -> {
                     if (loginBean.getCode() == 200) {
                         mIView.showLoginStauts(true, "登录成功");
@@ -51,7 +43,7 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
                     } else if (loginBean.getCode() == 406) {
                         mIView.userNotRegister(loginBean.getMessage());
                     } else if (loginBean.getCode() == 402) {
-                        mIView.showVerfication();
+                        mIView.showVerification(loginBean.getMessage());
                     } else {
                         mIView.showLoginStauts(false, loginBean.getMessage());
                     }
@@ -89,8 +81,8 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
     }
 
     @Override
-    public void getValid() {
-        rxUtils.register(mIModel.getValid()
+    public void getValid(String email) {
+        rxUtils.register(mIModel.getValid(email)
                 .subscribe(loginValidBean -> {
                     if (loginValidBean.getCode() == 200) {
                         mIView.showValid(loginValidBean.getData());
@@ -105,12 +97,10 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
         rxUtils.register(mIModel.postValid(geetest_challenge, geetest_seccode, geetest_validate, status, uid)
                 .subscribe(updateBean -> {
                     if (updateBean.getCode() == 200) {
-                        mIView.showSecondaryVerification(true);
-                    } else {
-                        mIView.showSecondaryVerification(false);
+                        mIView.showSecondaryVerification(updateBean.getData());
                     }
                 }, throwable -> {
-                    mIView.showSecondaryVerification(false);
+                    mIView.showSecondaryVerification("");
                     LogUtils.e(throwable.getMessage());
                 }));
     }

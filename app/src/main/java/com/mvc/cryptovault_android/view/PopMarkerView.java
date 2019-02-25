@@ -1,11 +1,10 @@
 package com.mvc.cryptovault_android.view;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
@@ -13,6 +12,10 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.utils.TextUtils;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
 
@@ -36,7 +39,7 @@ public class PopMarkerView extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        mTimeMarker.setText(TimeUtils.millis2String((long) e.getX()));
+        mTimeMarker.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(Long.valueOf(new BigDecimal(e.getX()).toString()))));
         mValueMarker.setText(TextUtils.doubleToFour(e.getY()) + " " + recordingType);
     }
 

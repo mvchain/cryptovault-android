@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.mvc.cryptovault_android.R;
@@ -47,7 +48,6 @@ import com.mvc.cryptovault_android.presenter.WalletPresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.utils.ViewDrawUtils;
-import com.mvc.cryptovault_android.view.DialogHelper;
 import com.mvc.cryptovault_android.view.PopViewHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -83,6 +83,8 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
     private SwipeRefreshLayout mSwipAsstes;
     private PopupWindow mPopView;
     private boolean createCarryOut;
+    private int position;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

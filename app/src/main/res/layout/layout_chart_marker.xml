@@ -10,17 +10,17 @@
     <TextView
         android:id="@+id/marker_time"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
-        android:text="2018.12.24"
+        android:gravity="center"
+        android:text="2018-12-24 12:12"
         android:textColor="@color/white"
         android:textSize="10dp" />
 
     <TextView
         android:id="@+id/marker_value"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="7.115896584"
         android:textColor="@color/white"
         android:textSize="10dp" />

@@ -29,10 +29,11 @@ public class LoginModel extends BaseModel implements LoginContract.ILoginModel {
     }
 
     @Override
-    public Observable<LoginBean> getLoginStatus(String phone, String pwd, String code) {
+    public Observable<LoginBean> getLoginStatus(String token,String email, String pwd, String code) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("username", phone);
+            jsonObject.put("imageToken", token);
+            jsonObject.put("username", email);
             jsonObject.put("password", pwd);
             jsonObject.put("validCode", code);
         } catch (JSONException e) {
@@ -53,13 +54,13 @@ public class LoginModel extends BaseModel implements LoginContract.ILoginModel {
     }
 
     @Override
-    public Observable<LoginValidBean> getValid() {
-        return RetrofitUtils.client(ApiStore.class).getValid().compose(RxHelper.rxSchedulerHelper())
+    public Observable<LoginValidBean> getValid(String email) {
+        return RetrofitUtils.client(ApiStore.class).getValid(email).compose(RxHelper.rxSchedulerHelper())
                 .map(loginValidBean -> loginValidBean);
     }
 
     @Override
-    public Observable<UpdateBean> postValid(String geetest_challenge, String geetest_seccode, String geetest_validate, int status, String uid) {
+    public Observable<HttpTokenBean> postValid(String geetest_challenge, String geetest_seccode, String geetest_validate, int status, String uid) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("geetest_challenge", geetest_challenge);

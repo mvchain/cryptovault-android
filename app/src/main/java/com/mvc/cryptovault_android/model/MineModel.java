@@ -20,11 +20,6 @@ public class MineModel extends BaseModel implements MineContract.IMineModel {
     public Observable<UserInfoBean> getUserInfo() {
         return RetrofitUtils.client(ApiStore.class).getUserInfo(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
-                .map(new Function<UserInfoBean, UserInfoBean>() {
-            @Override
-            public UserInfoBean apply(UserInfoBean responseBody) throws Exception {
-                return responseBody;
-            }
-        });
+                .map(responseBody -> responseBody);
     }
 }

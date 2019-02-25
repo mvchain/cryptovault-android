@@ -1,23 +1,13 @@
 package com.mvc.cryptovault_android.activity;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
-import android.util.ArraySet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -35,7 +25,6 @@ import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.LoginValidBean;
-import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.bean.ValidResultBean;
 import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.contract.LoginContract;
@@ -46,21 +35,17 @@ import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.utils.TimeVerification;
-import com.mvc.cryptovault_android.utils.ViewDrawUtils;
-import com.mvc.cryptovault_android.view.ClearEditText;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
-import io.reactivex.functions.Consumer;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.REG_EMAIL;
@@ -73,7 +58,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 
 public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener, LoginContract.ILoginView {
 
-    private EditText mLoginPhone;
+    private EditText mLoginEmail;
     private EditText mLoginPwd;
     private TextView mLoginForgetPwd;
     private Button mLoginSubmit;
@@ -85,6 +70,8 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     private GT3ConfigBean gt3ConfigBean;
     private int status;
     private String uid;
+    private String token = "";
+    private boolean isValid = false;
 
     @Override
     protected int getLayoutId() {
@@ -118,7 +105,6 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         gt3ConfigBean.setListener(new GT3Listener() {
             @Override
             public void onDialogResult(String s) {
-                dialogHelper.dismiss();
                 ValidResultBean validBean = (ValidResultBean) JsonHelper.stringToJson(s, ValidResultBean.class);
                 mPresenter.postValid(validBean.getGeetest_challenge(), validBean.getGeetest_seccode(), validBean.getGeetest_validate(), status, uid);
             }
@@ -146,7 +132,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
             @SuppressLint("CheckResult")
             @Override
             public void onButtonClick() {
-                mPresenter.getValid();
+                mPresenter.getValid(mLoginEmail.getText().toString().trim());
             }
         });
         gt3GeetestUtils.init(gt3ConfigBean);
@@ -155,15 +141,15 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     public void onClick(View v) {
-        String email = mLoginPhone.getText().toString().trim();
+        String email = mLoginEmail.getText().toString().trim();
         switch (v.getId()) {
             case R.id.login_submit:
+                isValid = true;
                 String pwd = mLoginPwd.getText().toString().trim();
                 String code = mCodeLogin.getText().toString().trim();
-                LogUtils.e(pwd);
                 SPUtils.getInstance().put(REG_EMAIL, email);
                 String newsPwd = EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(pwd));
-                mPresenter.login(email, newsPwd, code);
+                mPresenter.login(token, email, newsPwd, code);
                 break;
             case R.id.login_forget_pwd:
                 SPUtils.getInstance().put(UPDATE_PASSWORD_TYPE, "1");
@@ -281,16 +267,30 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     }
 
     @Override
-    public void showVerfication() throws JSONException {
+    public void showVerification(String message) {
         //                 开启验证
-        gt3GeetestUtils.startCustomFlow();
+        dialogHelper.resetDialogResource(this, R.drawable.miss_icon, message);
+        dialogHelper.dismissDelayed(() -> {
+            if (isValid) {
+                gt3GeetestUtils.startCustomFlow();
+                isValid = false;
+            }
+        }, 2000);
+
     }
 
     @Override
-    public void showSecondaryVerification(boolean isSuccess) {
-        if (isSuccess) {
+    public void showSecondaryVerification(String token) {
+        if (!token.equals("")) {
+            this.token = token;
             gt3GeetestUtils.showSuccessDialog();
-            mLoginSubmit.performClick();
+            String email = mLoginEmail.getText().toString().trim();
+            String pwd = mLoginPwd.getText().toString().trim();
+            String code = mCodeLogin.getText().toString().trim();
+            LogUtils.e(pwd);
+            SPUtils.getInstance().put(REG_EMAIL, email);
+            String newsPwd = EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(pwd));
+            mPresenter.login(token, email, newsPwd, code);
         } else {
             gt3GeetestUtils.showFailedDialog();
         }
@@ -309,7 +309,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
     @Override
     protected void initMVPView() {
         dialogHelper = DialogHelper.getInstance();
-        mLoginPhone = findViewById(R.id.login_phone);
+        mLoginEmail = findViewById(R.id.login_phone);
         mLoginPwd = findViewById(R.id.login_pwd);
         mPasswordLayout = findViewById(R.id.password_layout);
         mLoginForgetPwd = findViewById(R.id.login_forget_pwd);

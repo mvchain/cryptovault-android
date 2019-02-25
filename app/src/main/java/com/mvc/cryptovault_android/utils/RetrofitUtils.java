@@ -105,7 +105,7 @@ public class RetrofitUtils {
                         SPUtils.getInstance().remove(USER_ID);
                         Intent intent = new Intent();
                         intent.setAction("android.login");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         Utils.getApp().startActivity(intent);
                     }
                     Request.Builder builder = response.request().newBuilder();

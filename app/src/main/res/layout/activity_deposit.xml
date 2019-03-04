@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="产品名称 存入"
+            android:text="- 存入"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 
@@ -45,7 +45,7 @@
         android:background="@color/white"
         android:gravity="center_vertical|left"
         android:paddingLeft="16dp"
-        android:text="产品限额：0/1000"
+        android:text="存入限额：0/1000"
         android:textColor="@color/login_content"
         android:textSize="15sp" />
 

@@ -23,11 +23,10 @@ import android.widget.TextView;
 
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader;
 import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.activity.HistroyActivity;
+import com.mvc.cryptovault_android.activity.HistoryActivity;
 import com.mvc.cryptovault_android.activity.IncreaseCurrencyActivity;
 import com.mvc.cryptovault_android.activity.MsgActivity;
 import com.mvc.cryptovault_android.adapter.rvAdapter.WalletAssetsAdapter;
@@ -61,7 +60,7 @@ import cn.jpush.android.api.JPushInterface;
 import static com.mvc.cryptovault_android.common.Constant.SP.ALLASSETS;
 import static com.mvc.cryptovault_android.common.Constant.SP.ASSETS_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.CURRENCY_LIST;
-import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_SYMBOL;
+import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_SYMBOL;
 import static com.mvc.cryptovault_android.common.Constant.SP.MSG_TIME;
 import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.READ_MSG;
@@ -190,7 +189,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         assetsAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.item_assets_layout:
-                    Intent intent = new Intent(activity, HistroyActivity.class);
+                    Intent intent = new Intent(activity, HistoryActivity.class);
                     int type = 0;
                     CurrencyBean currencyBean = (CurrencyBean) JsonHelper.stringToJson(SPUtils.getInstance().getString(CURRENCY_LIST), CurrencyBean.class);
                     for (int i = 0; i < currencyBean.getData().size(); i++) {
@@ -386,7 +385,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         SPUtils.getInstance().put(SET_RATE, JsonHelper.jsonToString(dataBean));
         String symbol = dataBean.getName();
         String newSymbol = symbol.substring(0, 1);
-        SPUtils.getInstance().put(DEFAULE_SYMBOL, newSymbol + " ");
+        SPUtils.getInstance().put(DEFAULT_SYMBOL, newSymbol + " ");
         String default_type = dataBean.getName();
         mTypeAssets.setText(default_type.substring(1, default_type.length()));
         changeAssets();

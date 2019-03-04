@@ -2,7 +2,6 @@ package com.mvc.cryptovault_android.adapter.rvAdapter;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.Nullable;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -18,7 +17,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_SYMBOL;
+import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_SYMBOL;
 
 public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean, BaseViewHolder> {
     //    btc home_icon_eos home_icon_etc home_icon_vrt home_icon_xrp
@@ -36,7 +35,7 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         TextView money = helper.getView(R.id.item_assets_money);
         helper.addOnClickListener(R.id.item_assets_layout); //add onclick to the layout to jump startActivity
         type.setText(item.getTokenName());
-        money.setText(SPUtils.getInstance().getString(DEFAULE_SYMBOL) + TextUtils.rateToPrice(item.getRatio() * item.getValue()));
+        money.setText(SPUtils.getInstance().getString(DEFAULT_SYMBOL) + TextUtils.rateToPrice(item.getRatio() * item.getValue()));
         actual.setText(TextUtils.doubleToFour(item.getValue()) + " " + tokenName);
         RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
         Glide.with(mContext).load(item.getTokenImage()).apply(options).into(icon);

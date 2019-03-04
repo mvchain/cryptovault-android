@@ -6,6 +6,4 @@ public interface IBaseView {
      * @return
      */
     BasePresenter initPresenter();
-
-
 }

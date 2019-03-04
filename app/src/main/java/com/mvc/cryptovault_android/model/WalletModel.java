@@ -1,9 +1,7 @@
 package com.mvc.cryptovault_android.model;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
@@ -24,8 +22,8 @@ import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.CURRENCY_LIST;
-import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_RATE;
-import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_SYMBOL;
+import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_RATE;
+import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_SYMBOL;
 import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
@@ -44,8 +42,8 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
                     //保存总汇率列表  用作POPWindow显示
                     ExchangeRateBean.DataBean dataBean = exchangeRateBean.getData().get(0);
                     String default_rate = SPUtils.getInstance().getString(SET_RATE); //获取默认汇率
-                    String defaule_symbol = SPUtils.getInstance().getString(DEFAULE_SYMBOL);
-                    SPUtils.getInstance().put(DEFAULE_RATE, JsonHelper.jsonToString(dataBean));
+                    String defaule_symbol = SPUtils.getInstance().getString(DEFAULT_SYMBOL);
+                    SPUtils.getInstance().put(DEFAULT_RATE, JsonHelper.jsonToString(dataBean));
                     if (default_rate.equals("")) {
                         SPUtils.getInstance().put(SET_RATE, JsonHelper.jsonToString(dataBean));
                     } else {
@@ -61,7 +59,7 @@ public class WalletModel extends BaseModel implements WallteContract.IWallteMode
                     if (defaule_symbol.equals("")) {
                         String symbol = dataBean.getName();
                         String newSymbol = symbol.substring(0, 1);
-                        SPUtils.getInstance().put(DEFAULE_SYMBOL, newSymbol + " ");
+                        SPUtils.getInstance().put(DEFAULT_SYMBOL, newSymbol + " ");
                     }
                     SPUtils.getInstance().put(RATE_LIST, JsonHelper.jsonToString(exchangeRateBean));
                     return RetrofitUtils.client(ApiStore.class).getCurrencyAll(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper());

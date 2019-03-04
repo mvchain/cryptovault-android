@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.DetailActivity;
-import com.mvc.cryptovault_android.adapter.rvAdapter.HistroyChildAdapter;
+import com.mvc.cryptovault_android.adapter.rvAdapter.HistoryChildAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.HistoryBeanEvent;
@@ -32,7 +31,7 @@ import java.util.List;
 public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.HistroyChildPrecenter> implements HistroyChildContract.IHistroyChildView {
     private RecyclerView mRvChild;
     private ImageView mDataNull;
-    private HistroyChildAdapter histroyChildAdapter;
+    private HistoryChildAdapter histroyChildAdapter;
     private List<HistroyBean.DataBean> mHisData;
     private int tokenId;
     private int action;
@@ -59,7 +58,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mItemSwipeHis = rootView.findViewById(R.id.his_item_swip);
         mRvChild.setLayoutManager(new LinearLayoutManager(activity));
         mRvChild.addItemDecoration(new RuleRecyclerLines(activity, RuleRecyclerLines.HORIZONTAL_LIST, 1));
-        histroyChildAdapter = new HistroyChildAdapter(R.layout.item_histroy_child_list, mHisData);
+        histroyChildAdapter = new HistoryChildAdapter(R.layout.item_histroy_child_list, mHisData);
         histroyChildAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.his_layout:

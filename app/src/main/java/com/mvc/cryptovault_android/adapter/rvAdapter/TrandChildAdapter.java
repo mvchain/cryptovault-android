@@ -14,13 +14,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.activity.LoginActivity;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.utils.TextUtils;
 
 import java.util.List;
 
-import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_SYMBOL;
+import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_SYMBOL;
 
 public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean, BaseViewHolder> {
 
@@ -51,7 +50,7 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
         }
         helper.setText(R.id.trand_child_ratio, TextUtils.doubleToFour(item.getRatio()) + " " + item.getPair().substring(item.getPair().indexOf("/") + 1, item.getPair().length()));
         helper.setText(R.id.trand_child_title, item.getTokenName());
-        helper.setText(R.id.trand_child_pair, SPUtils.getInstance().getString(DEFAULE_SYMBOL) + TextUtils.rateToPrice(item.getRatio()));
+        helper.setText(R.id.trand_child_pair, SPUtils.getInstance().getString(DEFAULT_SYMBOL) + TextUtils.rateToPrice(item.getRatio()));
         RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
         Glide.with(mContext).load(item.getTokenImage()).apply(options).into(icon);
         helper.addOnClickListener(R.id.trand_layout);

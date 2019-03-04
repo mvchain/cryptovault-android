@@ -4,8 +4,8 @@ public class Constant {
     public static final String[] WEAK_PASSWORD = {"","","","","","","","","",""};
 
     public static class SP {
-        public static final String DEFAULE_RATE = "default_rate";
-        public static final String DEFAULE_SYMBOL = "defaule_symbol";
+        public static final String DEFAULT_RATE = "default_rate";
+        public static final String DEFAULT_SYMBOL = "defaule_symbol";
         public static final String SET_RATE = "set_rate";
         public static final String ASSETS_LIST = "assets_list";
         public static final String ALLASSETS = "all_assets";

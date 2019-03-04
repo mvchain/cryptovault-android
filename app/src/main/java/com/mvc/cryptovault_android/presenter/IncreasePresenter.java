@@ -35,7 +35,7 @@ public class IncreasePresenter extends IncreaseContract.IncreasePresenter {
 
     @Override
     public void getCurrencySerach(String serach) {
-        rxUtils.register(mIModel.getCurrencySerachList(serach).subscribe(increaseBeans -> {
+        rxUtils.register(mIModel.getCurrencySearchList(serach).subscribe(increaseBeans -> {
             if (increaseBeans.size() > 0){
                 mIView.showSearchCurrency(increaseBeans);
             }else{

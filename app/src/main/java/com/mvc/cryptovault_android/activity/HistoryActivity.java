@@ -21,7 +21,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.adapter.HistroyPagerAdapter;
+import com.mvc.cryptovault_android.adapter.HistoryPagerAdapter;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
@@ -47,10 +47,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.functions.Consumer;
 
-
-public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener {
+public class HistoryActivity extends BaseMVPActivity<HistroyContract.HistroyPrecenter> implements HistroyContract.IHistroyView, View.OnClickListener {
     private ImageView mBackHis;
     private ImageView mQcodeHis;
     private TextView mPriceHis;
@@ -59,7 +57,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     private ViewPager mVpHis;
     private ArrayList<Fragment> fragments;
     private List<ExchangeRateBean.DataBean> mExchange;
-    private HistroyPagerAdapter histroyPagerAdapter;
+    private HistoryPagerAdapter histroyPagerAdapter;
     private TextView mTitleHis;
     private TextView mTyleAssets;
     private TextView mOutHis;
@@ -107,7 +105,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
         mExchange = new ArrayList<>();
         fragments = new ArrayList<>();
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
-        histroyPagerAdapter = new HistroyPagerAdapter(getSupportFragmentManager(), fragments);
+        histroyPagerAdapter = new HistoryPagerAdapter(getSupportFragmentManager(), fragments);
         mBackHis = findViewById(R.id.his_back);
         mTitleHis = findViewById(R.id.his_title);
         mTyleAssets = findViewById(R.id.type_assets);
@@ -161,7 +159,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_histroy;
+        return R.layout.activity_history;
     }
 
     @Override
@@ -216,13 +214,13 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
                         @Override
                         public void success(int i) {
-                            Intent intent = new Intent(HistroyActivity.this, QCodeActivity.class);
+                            Intent intent = new Intent(HistoryActivity.this, QCodeActivity.class);
                             intent.putExtra("tokenId", tokenId);
                             startActivityForResult(intent, 200);
                         }
                     }).requestPermission(this, Manifest.permission.CAMERA);
                 } else {
-                    intent.setClass(HistroyActivity.this, QCodeActivity.class);
+                    intent.setClass(HistoryActivity.this, QCodeActivity.class);
                     intent.putExtra("tokenId", tokenId);
                     startActivityForResult(intent, 200);
                 }
@@ -266,7 +264,7 @@ public class HistroyActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
                         return;
                     }
                     String stringExtra = data.getStringExtra(CodeUtils.RESULT_STRING);
-                    Intent intent = new Intent(HistroyActivity.this, BTCTransferActivity.class);
+                    Intent intent = new Intent(HistoryActivity.this, BTCTransferActivity.class);
                     intent.putExtra("hash", stringExtra);
                     intent.putExtra("tokenId", tokenId);
                     intent.putExtra("tokenName", tokenName);

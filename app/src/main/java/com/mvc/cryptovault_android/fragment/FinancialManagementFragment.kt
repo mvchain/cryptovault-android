@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SpanUtils
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.activity.FinancialDetailActivity
 import com.mvc.cryptovault_android.activity.MyOptionActivity
@@ -20,7 +18,7 @@ import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.ExchangeRateBean
 import com.mvc.cryptovault_android.bean.FinancialBean
 import com.mvc.cryptovault_android.bean.FinancialListBean
-import com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_RATE
+import com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_RATE
 import com.mvc.cryptovault_android.common.Constant.SP.SET_RATE
 import com.mvc.cryptovault_android.contract.FinancialContract
 import com.mvc.cryptovault_android.presenter.FinancialPresenter
@@ -40,7 +38,7 @@ class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialP
         val setBean = JsonHelper.stringToJson(set_rate, ExchangeRateBean.DataBean::class.java) as ExchangeRateBean.DataBean
         var defaultRate = setBean.name.split(" ")[1]
         rootView.refresh.post { rootView.refresh.isRefreshing = false }
-        SPUtils.getInstance().getString(DEFAULE_RATE)
+        SPUtils.getInstance().getString(DEFAULT_RATE)
         var incomeDouble = TextUtils.rateToPrice(financialBean.balance.toDouble())
         rootView.me_financia.text = SpanUtils().append("$incomeDouble ").setFontSize(34, true)
                 .append(defaultRate)

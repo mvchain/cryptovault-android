@@ -54,7 +54,7 @@ public class FinancialListBean {
         private int id;
         private double incomeMax;
         private double incomeMin;
-        private int minValue;
+        private double minValue;
         private String name;
         private long stopAt;
         private long times;
@@ -91,11 +91,11 @@ public class FinancialListBean {
             this.incomeMin = incomeMin;
         }
 
-        public int getMinValue() {
+        public double getMinValue() {
             return minValue;
         }
 
-        public void setMinValue(int minValue) {
+        public void setMinValue(double minValue) {
             this.minValue = minValue;
         }
 

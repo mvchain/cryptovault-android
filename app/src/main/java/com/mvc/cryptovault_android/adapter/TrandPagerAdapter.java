@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class TrandPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments;
     private FragmentManager fm;
-    private String[] titles = {"BZT交易", "余额交易"};
+    private String[] titles = {"BZTB交易", "余额交易"};
 
     public TrandPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);

@@ -22,8 +22,8 @@ class FinancialDetailModel : BaseModel(), FinancialDetailContract.FinancialDetai
     }
 
 
-    companion object {
-        val instance: FinancialDetailModel
-            get() = FinancialDetailModel()
-    }
+        companion object {
+            val instance: FinancialDetailModel
+                get() = FinancialDetailModel()
+        }
 }

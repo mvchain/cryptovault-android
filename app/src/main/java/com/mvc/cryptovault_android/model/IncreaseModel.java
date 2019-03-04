@@ -72,12 +72,12 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
     }
 
     @Override
-    public Observable<List<IncreaseBean>> getCurrencySerachList(String serach) {
+    public Observable<List<IncreaseBean>> getCurrencySearchList(String search) {
         mSearchList.clear();
-        if (!serach.equals("")) {
+        if (!search.equals("")) {
             for (int i = 0; i < mList.size(); i++) {
                 IncreaseBean increaseBean = mList.get(i);
-                if (increaseBean.getZhContent().toLowerCase().contains(serach.toLowerCase()) || increaseBean.getTitle().contains(serach) || increaseBean.getZhContent().toLowerCase().contains(serach.toLowerCase())) {
+                if (increaseBean.getZhContent().toLowerCase().contains(search.toLowerCase()) || increaseBean.getTitle().contains(search) || increaseBean.getZhContent().toLowerCase().contains(search.toLowerCase())) {
                     mSearchList.add(increaseBean);
                 }
             }

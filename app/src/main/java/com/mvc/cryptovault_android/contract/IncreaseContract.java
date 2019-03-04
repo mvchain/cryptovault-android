@@ -16,7 +16,7 @@ public interface IncreaseContract {
     }
     interface IIncreaseModel extends IBaseModel{
         Observable<List<IncreaseBean>> getCurrencyAll();
-        Observable<List<IncreaseBean>> getCurrencySerachList(String serach);
+        Observable<List<IncreaseBean>> getCurrencySearchList(String search);
     }
     interface IIncreaseView extends IBaseActivity{
         void showCurrency(List<IncreaseBean> beanList);

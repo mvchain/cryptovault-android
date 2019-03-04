@@ -35,7 +35,7 @@
             android:layout_marginRight="40dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="预约POT"
+            android:text="预约-"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
     </LinearLayout>
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_toRightOf="@id/icon_layout"
-                android:text="POT"
+                android:text="-"
                 android:textColor="@color/login_content"
                 android:textSize="17sp" />
 
@@ -94,7 +94,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="6dp"
                 android:layout_toRightOf="@id/icon_layout"
-                android:text="限购额：15000"
+                android:text="限购额：-"
                 android:textColor="@color/login_edit_bg"
                 android:textSize="11sp" />
 
@@ -184,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="BZT "
+                android:text="- "
                 android:textColor="@color/login_content"
                 android:textSize="17sp"
                 android:textStyle="bold" />
@@ -194,7 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="0.0000"
+                android:text="-"
                 android:textColor="@color/toge_gray"
                 android:textSize="21sp"
                 android:textStyle="bold" />

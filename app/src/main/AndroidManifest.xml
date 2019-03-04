@@ -75,7 +75,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.HistroyActivity"
+            android:name=".activity.HistoryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AboutActivity"

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULE_RATE;
+import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_RATE;
 import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
 public class TextUtils {
@@ -59,7 +59,7 @@ public class TextUtils {
     public static String rateToPrice(double price) {
         DecimalFormat format = new DecimalFormat("0.00");
         String set_rate = SPUtils.getInstance().getString(SET_RATE);
-        String default_rate = SPUtils.getInstance().getString(DEFAULE_RATE);
+        String default_rate = SPUtils.getInstance().getString(DEFAULT_RATE);
         ExchangeRateBean.DataBean setBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(set_rate, ExchangeRateBean.DataBean.class);
         ExchangeRateBean.DataBean defaultBean = (ExchangeRateBean.DataBean) JsonHelper.stringToJson(default_rate, ExchangeRateBean.DataBean.class);
         if (setBean.getName().equals("CNY")) {

@@ -18,12 +18,12 @@ import com.mvc.cryptovault_android.utils.TextUtils;
 
 import java.util.List;
 
-public class HistroyChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, BaseViewHolder> {
+public class HistoryChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, BaseViewHolder> {
     private String[] status = {"转帐中", "转帐中", "转账成功", "转账失败"};
     private int[] status_color = {R.color.login_edit_bg, R.color.login_edit_bg, R.color.login_edit_bg, R.color.error};
     private int[] status_icon = {R.drawable.sent_icon, R.drawable.receive_icon, R.drawable.zc_icon, R.drawable.jy_icon, R.drawable.financial_selected_bold};
 
-    public HistroyChildAdapter(int layoutResId, @Nullable List<HistroyBean.DataBean> data) {
+    public HistoryChildAdapter(int layoutResId, @Nullable List<HistroyBean.DataBean> data) {
         super(layoutResId, data);
     }
 

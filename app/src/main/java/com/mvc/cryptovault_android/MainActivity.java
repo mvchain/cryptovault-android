@@ -4,7 +4,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.pm.PackageInfo;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -119,7 +121,10 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         int childCount = mButtonGroupHome.getChildCount();
         for (int i = 0; i < childCount; i++) {
             int finalI = i;
-            mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
+            mButtonGroupHome.getChildAt(i).setOnClickListener(v ->
+            {
+                mMainVpHome.setCurrentItem(finalI);
+            });
         }
         mMainVpHome.addOnPageChangeListener(this);
         with = ImmersionBar.with(this);
@@ -171,7 +176,11 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mFragment = new ArrayList<>();
         dialogHelper = DialogHelper.getInstance();
     }
-
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -183,8 +192,8 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(mFragment != null && mFragment.get(0) instanceof WalletFragment){
-            ((WalletFragment)mFragment.get(0)).onRefresh();
+        if (mFragment != null && ((RadioButton)mButtonGroupHome.getChildAt(0)).isChecked() && mFragment.get(0) instanceof WalletFragment) {
+            ((WalletFragment) mFragment.get(0)).onRefresh();
         }
     }
 

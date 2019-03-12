@@ -16,16 +16,13 @@ import com.mvc.cryptovault_android.activity.TrandOrderActivity;
 import com.mvc.cryptovault_android.adapter.TrandPagerAdapter;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseFragment;
-import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
-import com.mvc.cryptovault_android.utils.TabLayoutUtils;
 import com.mvc.cryptovault_android.view.NoScrollViewPager;
 
 import java.util.ArrayList;
 
-import io.reactivex.functions.Consumer;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.TRAND_LIST;
 

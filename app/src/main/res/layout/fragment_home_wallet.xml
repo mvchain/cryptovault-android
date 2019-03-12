@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@drawable/home_page_top_title_bg"
@@ -35,21 +35,29 @@
 
                 <TextView
                     android:id="@+id/assets_title"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="BZT Wallet"
                     android:textColor="@color/white"
                     android:textSize="17sp" />
 
                 <ImageView
+                    android:id="@+id/assets_browser"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_toLeftOf="@id/assets_add"
+                    android:scaleType="center"
+                    android:src="@drawable/browser" />
+
+                <ImageView
                     android:id="@+id/assets_add"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
+                    android:layout_alignParentRight="true"
                     android:scaleType="center"
                     android:src="@drawable/add_icon_white" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/asstes_swip"
@@ -119,12 +127,12 @@
                             <ImageView
                                 android:id="@+id/assets_sign_in"
                                 android:layout_width="77dp"
-                                android:visibility="invisible"
                                 android:layout_height="36dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginTop="7dp"
                                 android:layout_marginRight="-80dp"
-                                android:src="@drawable/home_check_in_img" />
+                                android:src="@drawable/home_check_in_img"
+                                android:visibility="invisible" />
                         </RelativeLayout>
                     </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 

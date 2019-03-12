@@ -26,6 +26,7 @@ import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.BlockchainBrowserActivity;
 import com.mvc.cryptovault_android.activity.HistoryActivity;
 import com.mvc.cryptovault_android.activity.IncreaseCurrencyActivity;
 import com.mvc.cryptovault_android.activity.MsgActivity;
@@ -66,8 +67,9 @@ import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.READ_MSG;
 import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
-public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresenter> implements WallteContract.IWallteView, View.OnClickListener, IPopViewListener {
+public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresenter> implements WallteContract.IWalletView, View.OnClickListener, IPopViewListener {
     private ImageView mHintAssets;
+    private ImageView mBrowser;
     private ImageView mNullAssets;
     private ImageView mAddAssets;
     private ImageView mSignInView;
@@ -97,6 +99,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mExchange = new ArrayList<>();
         mMsgBean = new ArrayList<>();
         mHintAssets = rootView.findViewById(R.id.assets_hint);
+        mBrowser = rootView.findViewById(R.id.assets_browser);
         mNullAssets = rootView.findViewById(R.id.assets_null);
         mAddAssets = rootView.findViewById(R.id.assets_add);
         mTypeAssets = rootView.findViewById(R.id.assets_type);
@@ -112,6 +115,7 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
         mTypeAssets.setOnClickListener(this);
         mPriceAssets.setOnClickListener(this);
         mSignInView.setOnClickListener(this);
+        mBrowser.setOnClickListener(this);
         createCarryOut = true;
     }
 
@@ -153,6 +157,9 @@ public class WalletFragment extends BaseMVPFragment<WallteContract.WalletPresent
                 break;
             case R.id.assets_sign_in:
                 mPresenter.putSignIn();
+                break;
+            case R.id.assets_browser:
+                startActivity(new Intent(activity, BlockchainBrowserActivity.class));
                 break;
         }
     }

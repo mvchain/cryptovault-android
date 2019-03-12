@@ -102,7 +102,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
         mBackIncrease.setOnClickListener(this);
         mTitleIncrease = findViewById(R.id.increase_title);
         mEditIncrease = findViewById(R.id.increase_edit);
-        mSerachIncrease = findViewById(R.id.increase_serach);
+        mSerachIncrease = findViewById(R.id.increase_search);
         mSerachIncrease.setOnClickListener(this);
         mRvIncrease = findViewById(R.id.increase_rv);
         mSerachRvIncrease = findViewById(R.id.increase_serach_rv);
@@ -145,7 +145,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
             case R.id.increase_back:
                 finish();
                 break;
-            case R.id.increase_serach:
+            case R.id.increase_search:
                 // TODO 18/12/03
                 isSerach = !isSerach;
                 if (isSerach) {
@@ -156,7 +156,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
                     mEditIncrease.requestFocus();
                     KeyboardUtils.showSoftInput(this);
                 } else {
-                    mSerachIncrease.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.serch_icon_black));
+                    mSerachIncrease.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.search_icon_black));
                     mEditIncrease.setVisibility(View.GONE);
                     mTitleIncrease.setVisibility(View.VISIBLE);
 //                    在关闭搜索框的时候搜索内容也关闭掉

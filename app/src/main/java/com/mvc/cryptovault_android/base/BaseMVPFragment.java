@@ -7,7 +7,7 @@ public abstract class BaseMVPFragment<P extends BasePresenter> extends BaseFragm
     protected void initData() {
         mPresenter = (P) initPresenter();
         if (mPresenter != null) {
-            mPresenter.attchMVP(this);
+            mPresenter.attachMVP(this);
         }
     }
 

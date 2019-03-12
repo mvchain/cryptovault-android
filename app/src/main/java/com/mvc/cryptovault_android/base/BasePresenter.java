@@ -12,7 +12,7 @@ public abstract class BasePresenter<M,V> {
      * 绑定IModel和IView的引用
      * @param v
      */
-    public void attchMVP(@Nullable V v) {
+    public void attachMVP(@Nullable V v) {
         this.mIModel = getModel();
         this.mIView = v;
         this.onStart();

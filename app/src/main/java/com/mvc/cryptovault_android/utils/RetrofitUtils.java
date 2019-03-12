@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.mvc.cryptovault_android.MyApplication;
+import com.mvc.cryptovault_android.activity.SelectLoginActivity;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.common.Constant;
@@ -65,7 +67,7 @@ public class RetrofitUtils {
     }
 
     private static OkHttpClient getOkhttpUtils() {
-        OkHttpClient client = new OkHttpClient.Builder()
+        @SuppressLint("CheckResult") OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(chain -> {
                     Request.Builder builder = chain.request().newBuilder();
                     builder.header("Accept-Language", SPUtils.getInstance().getString(Constant.LANGUAGE.DEFAULT_ACCEPT_LANGUAGE));
@@ -96,22 +98,24 @@ public class RetrofitUtils {
                                 }, throwable -> {
                                     LogUtils.e("ParameterInterceptor", throwable.getMessage());
                                 });
+                        Request.Builder builder = response.request().newBuilder();
+                        builder.header("Authorization", SPUtils.getInstance().getString(TOKEN));
+                        builder.header("Accept-Language", SPUtils.getInstance().getString(Constant.LANGUAGE.DEFAULT_ACCEPT_LANGUAGE));
+                        return builder.build();
                     } else {
-                        ActivityUtils.getTopActivity().finish();
                         SPUtils.getInstance().remove(REFRESH_TOKEN);
                         SPUtils.getInstance().remove(UPDATE_PASSWORD_TYPE);
                         SPUtils.getInstance().remove(TOKEN);
                         JPushInterface.deleteAlias(MyApplication.getAppContext().getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
                         SPUtils.getInstance().remove(USER_ID);
-                        Intent intent = new Intent();
-                        intent.setAction("android.login");
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        Utils.getApp().startActivity(intent);
+                        if(!(ActivityUtils.getTopActivity() instanceof SelectLoginActivity)){
+                            Intent intent = new Intent();
+                            intent.setAction(MyApplication.getAppContext().getPackageName()+".android.login");
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            Utils.getApp().startActivity(intent);
+                        }
+                        return null;
                     }
-                    Request.Builder builder = response.request().newBuilder();
-                    builder.header("Authorization", SPUtils.getInstance().getString(TOKEN));
-                    builder.header("Accept-Language", SPUtils.getInstance().getString(Constant.LANGUAGE.DEFAULT_ACCEPT_LANGUAGE));
-                    return builder.build();
                 })
                 .sslSocketFactory(createSSLSocketFactory())
                 .writeTimeout(15, TimeUnit.SECONDS)

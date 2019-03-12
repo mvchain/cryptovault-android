@@ -27,7 +27,8 @@ import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_SYMBOL;
 import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
-public class WalletModel extends BaseModel implements WallteContract.IWallteModel {
+public class WalletModel extends BaseModel implements WallteContract.
+        IWalletModel {
     @Nullable
     public static WalletModel getInstance() {
         return new WalletModel();

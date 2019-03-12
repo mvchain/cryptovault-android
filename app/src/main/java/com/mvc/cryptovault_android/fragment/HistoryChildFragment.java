@@ -28,10 +28,10 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.HistroyChildPrecenter> implements HistroyChildContract.IHistroyChildView {
+public class HistoryChildFragment extends BaseMVPFragment<HistroyChildContract.HistroyChildPrecenter> implements HistroyChildContract.IHistroyChildView {
     private RecyclerView mRvChild;
     private ImageView mDataNull;
-    private HistoryChildAdapter histroyChildAdapter;
+    private HistoryChildAdapter historyChildAdapter;
     private List<HistroyBean.DataBean> mHisData;
     private int tokenId;
     private int action;
@@ -58,8 +58,8 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mItemSwipeHis = rootView.findViewById(R.id.his_item_swip);
         mRvChild.setLayoutManager(new LinearLayoutManager(activity));
         mRvChild.addItemDecoration(new RuleRecyclerLines(activity, RuleRecyclerLines.HORIZONTAL_LIST, 1));
-        histroyChildAdapter = new HistoryChildAdapter(R.layout.item_histroy_child_list, mHisData);
-        histroyChildAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+        historyChildAdapter = new HistoryChildAdapter(R.layout.item_histroy_child_list, mHisData);
+        historyChildAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.his_layout:
                     Intent intent = new Intent(activity, DetailActivity.class);
@@ -68,7 +68,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
                     break;
             }
         });
-        mRvChild.setAdapter(histroyChildAdapter);
+        mRvChild.setAdapter(historyChildAdapter);
         mItemSwipeHis.setRefreshing(true);
         mItemSwipeHis.setOnRefreshListener(this::refresh);
         getArgument();
@@ -83,7 +83,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-                    if (lastVisibleItemPosition + 1 == histroyChildAdapter.getItemCount() && histroyChildAdapter.getItemCount() >= 10 && !isRefresh) {
+                    if (lastVisibleItemPosition + 1 == historyChildAdapter.getItemCount() && historyChildAdapter.getItemCount() >= 10 && !isRefresh) {
                         mPresenter.getAll(action, mHisData.get(mHisData.size() - 1).getId(), 10, tokenId, 0, 1);
                     }
                 }
@@ -100,7 +100,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         Bundle arguments = getArguments();
         tokenId = arguments.getInt("tokenId");
         action = arguments.getInt("action", 0);
-        LogUtils.e("HistroyChildFragment", "action:" + action);
+        LogUtils.e("HistoryChildFragment", "action:" + action);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class HistroyChildFragment extends BaseMVPFragment<HistroyChildContract.H
         mDataNull.setVisibility(View.GONE);
         mRvChild.setVisibility(View.VISIBLE);
         mItemSwipeHis.post(() -> mItemSwipeHis.setRefreshing(false));
-        histroyChildAdapter.notifyDataSetChanged();
+        historyChildAdapter.notifyDataSetChanged();
     }
 
     @Override

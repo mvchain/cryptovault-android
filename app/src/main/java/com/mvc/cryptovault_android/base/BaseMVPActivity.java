@@ -12,7 +12,7 @@ public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActiv
         super.onCreate(savedInstanceState);
         mPresenter = (P) initPresenter();
         if (mPresenter != null) {
-            mPresenter.attchMVP(this);
+            mPresenter.attachMVP(this);
         }
         initMVPView();
         initMVPData();

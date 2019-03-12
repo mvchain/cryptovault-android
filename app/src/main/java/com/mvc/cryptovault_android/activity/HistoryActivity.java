@@ -31,8 +31,8 @@ import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.HistoryBeanEvent;
 import com.mvc.cryptovault_android.contract.HistroyContract;
 import com.mvc.cryptovault_android.event.HistroyEvent;
-import com.mvc.cryptovault_android.fragment.HistroyChildFragment;
-import com.mvc.cryptovault_android.presenter.HistroyPresenter;
+import com.mvc.cryptovault_android.fragment.HistoryChildFragment;
+import com.mvc.cryptovault_android.presenter.HistoryPresenter;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.utils.TextUtils;
@@ -72,25 +72,25 @@ public class HistoryActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
     @Override
     protected void initMVPData() {
-        HistroyChildFragment transferFragment = new HistroyChildFragment();
+        HistoryChildFragment transferFragment = new HistoryChildFragment();
         Bundle transferBundle = new Bundle();
         transferBundle.putInt("tokenId", tokenId);
         transferBundle.putInt("action", 0);
         transferFragment.setArguments(transferBundle);
         fragments.add(transferFragment);
-        HistroyChildFragment financesFragment = new HistroyChildFragment();
+        HistoryChildFragment financesFragment = new HistoryChildFragment();
         Bundle financesBundle = new Bundle();
         financesBundle.putInt("tokenId", tokenId);
         financesBundle.putInt("action", 4);
         financesFragment.setArguments(financesBundle);
         fragments.add(financesFragment);
-        HistroyChildFragment transactionFragment = new HistroyChildFragment();
+        HistoryChildFragment transactionFragment = new HistoryChildFragment();
         Bundle transactionBundle = new Bundle();
         transactionBundle.putInt("tokenId", tokenId);
         transactionBundle.putInt("action", 1);
         transactionFragment.setArguments(transactionBundle);
         fragments.add(transactionFragment);
-        HistroyChildFragment crowdfundingFragment = new HistroyChildFragment();
+        HistoryChildFragment crowdfundingFragment = new HistoryChildFragment();
         Bundle crowdfundingBundle = new Bundle();
         crowdfundingBundle.putInt("tokenId", tokenId);
         crowdfundingBundle.putInt("action", 2);
@@ -181,7 +181,7 @@ public class HistoryActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
 
     @Override
     public BasePresenter initPresenter() {
-        return HistroyPresenter.newIntance();
+        return HistoryPresenter.newIntance();
     }
 
     @Override

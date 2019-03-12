@@ -8,11 +8,11 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public class HistroyModel extends BaseModel implements HistroyContract.IHistroyModel {
+public class HistoryModel extends BaseModel implements HistroyContract.IHistroyModel {
     private List<String> strings = new ArrayList<>();
 
-    public static HistroyModel getInstance() {
-        return new HistroyModel();
+    public static HistoryModel getInstance() {
+        return new HistoryModel();
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.mvc.cryptovault_android.bean.UpdateBean;
 import io.reactivex.Observable;
 
 public interface WallteContract {
-    abstract class WalletPresenter extends BasePresenter<IWallteModel, IWallteView> {
+    abstract class WalletPresenter extends BasePresenter<IWalletModel, IWalletView> {
         public abstract void getAllAsset();
 
         public abstract void getAssetList();
@@ -23,7 +23,7 @@ public interface WallteContract {
         public abstract void getMsg(long timestamp, int type, int pagesize);
     }
 
-    interface IWallteModel extends IBaseModel {
+    interface IWalletModel extends IBaseModel {
         /**
          * remove All asset
          *
@@ -62,7 +62,7 @@ public interface WallteContract {
 
     }
 
-    interface IWallteView extends IBaseFragment {
+    interface IWalletView extends IBaseFragment {
         void refreshAssetList(AssetListBean asset);
 
         void refreshAllAsset(AllAssetBean allAssetBean);

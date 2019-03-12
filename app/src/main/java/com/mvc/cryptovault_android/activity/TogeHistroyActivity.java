@@ -7,14 +7,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.TogeHisAdapter;
@@ -163,7 +161,7 @@ public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.Tog
                     mEditTogehis.requestFocus();
                     KeyboardUtils.showSoftInput(this);
                 } else {
-                    mSerachTogehis.setImageDrawable(ContextCompat.getDrawable(TogeHistroyActivity.this,R.drawable.serch_icon_black));
+                    mSerachTogehis.setImageDrawable(ContextCompat.getDrawable(TogeHistroyActivity.this,R.drawable.search_icon_black));
                     mEditTogehis.setVisibility(View.GONE);
                     mTitleTogehis.setVisibility(View.VISIBLE);
 //                    在关闭搜索框的时候搜索内容也关闭掉

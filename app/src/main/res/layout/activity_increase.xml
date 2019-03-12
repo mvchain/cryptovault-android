@@ -52,12 +52,12 @@
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/increase_serach"
+            android:id="@+id/increase_search"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="5dp"
             android:scaleType="center"
-            android:src="@drawable/serch_icon_black" />
+            android:src="@drawable/search_icon_black" />
     </LinearLayout>
 
     <FrameLayout

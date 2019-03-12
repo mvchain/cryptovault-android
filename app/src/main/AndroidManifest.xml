@@ -129,7 +129,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.login" />
+                <action android:name="${JPUSH_PKGNAME}.android.login" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -188,6 +188,7 @@
         <activity
             android:name=".activity.PublishDetailActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.BlockchainBrowserActivity" />
 
         <receiver
             android:name=".receiver.PushReceiver"

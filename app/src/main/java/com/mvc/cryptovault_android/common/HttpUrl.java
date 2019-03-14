@@ -4,7 +4,7 @@ public class HttpUrl {
     //    public static final String BASE_URL = "http://192.168.15.31:10086/";
 //    public static final String BASE_URL = "http://47.110.234.233:10086/";
     public static final String URL_PATH = "api/app/";
-//    public static final String URL_PATH = "";
+    public static final String URL_BROWSER = "api/explorer/";
 //        public static final String BASE_URL = "http://192.168.15.21:10086/";
 
     /**
@@ -214,8 +214,35 @@ public class HttpUrl {
      */
     public static final String VALID = URL_PATH + "user/valid";
     /**
-     *
      * 获取某个币种余额,
      */
     public static final String ASSET = URL_PATH + "asset/";
+
+
+//    区块链浏览器
+
+    /**
+     * 获取最新的区块信息
+     */
+    public static final String BLOCK_LAST = URL_BROWSER + "block/last";
+
+    /**
+     * 获取区块列表
+     */
+    public static final String BLOCK_LIST = URL_BROWSER + "block";
+
+    /**
+     * 获取最新交易
+     */
+    public static final String BLOCK_TRANSACTION_LAST = URL_BROWSER + "block/transaction/last";
+
+    /**
+     * 查询公钥是否存在,存在则返回公钥,不存在返回空
+     */
+    public static final String BLOCK_ADDRESS_EXIST = URL_BROWSER + "block/address/exist";
+
+    /**
+     * 根据公钥查询资产
+     */
+    public static final String BLOCK_ADDRESS_BALANCE = URL_BROWSER + "block/address/balance";
 }

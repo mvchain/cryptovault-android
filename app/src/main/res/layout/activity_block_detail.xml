@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
@@ -20,45 +20,19 @@
             android:id="@+id/browser_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:scaleType="center"
             android:src="@drawable/back_icon_black" />
 
         <TextView
             android:id="@+id/browser_title"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="区块信息"
+            android:text="区块详情"
             android:textSize="17sp" />
-
-        <EditText
-            android:id="@+id/browser_edit"
-            android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_increase_edit"
-            android:drawableLeft="@drawable/serch_icon_drawable_edit"
-            android:hint="搜索币种"
-            android:maxLines="1"
-            android:paddingLeft="15dp"
-            android:textColorHint="@color/edit_tv"
-            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
-            android:textSize="15sp"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/browser_search"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:scaleType="center"
-            android:src="@drawable/search_icon_black" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"

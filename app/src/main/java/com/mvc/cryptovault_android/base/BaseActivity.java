@@ -86,7 +86,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     }
 
     protected void showToast(String toast) {
-        ToastUtils.showLong(toast);
+        ToastUtils.showShort(toast);
     }
 
     protected void showToast(int msgId) {

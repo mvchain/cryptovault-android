@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -21,6 +22,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="5dp"
+            android:onClick="onClick"
             android:scaleType="center"
             android:src="@drawable/back_icon_black" />
 
@@ -42,9 +44,12 @@
             android:layout_weight="1"
             android:background="@drawable/bg_increase_edit"
             android:drawableLeft="@drawable/serch_icon_drawable_edit"
-            android:hint="搜索币种"
+            android:hint="输入公钥/区块高度"
+            android:imeOptions="actionSearch"
             android:maxLines="1"
             android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:singleLine="true"
             android:textColorHint="@color/edit_tv"
             android:textCursorDrawable="@drawable/bg_edit_cursor_color"
             android:textSize="15sp"
@@ -54,6 +59,7 @@
             android:id="@+id/browser_search"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:onClick="onClick"
             android:padding="5dp"
             android:scaleType="center"
             android:src="@drawable/search_icon_black" />
@@ -63,7 +69,9 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/browser_swipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -98,7 +106,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="20dp"
-                                android:text="1751789"
+                                android:text="-"
                                 android:textColor="@color/white"
                                 android:textSize="21sp"
                                 android:textStyle="bold" />
@@ -125,7 +133,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="20dp"
-                                android:text="175178249"
+                                android:text="-"
                                 android:textColor="@color/white"
                                 android:textSize="21sp"
                                 android:textStyle="bold" />
@@ -158,7 +166,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="15dp"
-                                android:text="7 s"
+                                android:text="- s"
                                 android:textColor="@color/white"
                                 android:textSize="21sp"
                                 android:textStyle="bold" />
@@ -242,7 +250,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:gravity="right"
-                            android:text="V 1.2.0"
+                            android:text="-"
                             android:textColor="@color/trand_gray"
                             android:textSize="13sp" />
 
@@ -252,7 +260,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:gravity="right"
-                            android:text="10000000000"
+                            android:text="-"
                             android:textColor="@color/trand_gray"
                             android:textSize="13sp" />
 
@@ -262,7 +270,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:gravity="right"
-                            android:text="2019-03-19 11：23：32"
+                            android:text="-"
                             android:textColor="@color/trand_gray"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -296,6 +304,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="22dp"
+                        android:onClick="onClick"
                         android:text="更多   >"
                         android:textColor="@color/login_content"
                         android:textSize="13sp" />
@@ -347,10 +356,12 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/browser_block_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"
-                    android:layout_marginBottom="17dp" />
+                    android:layout_marginBottom="17dp"
+                    android:layout_weight="1"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
                 <View
                     android:layout_width="match_parent"
@@ -418,7 +429,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"
-                    android:layout_marginBottom="17dp" />
+                    android:layout_marginBottom="17dp"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
                 <View
                     android:layout_width="match_parent"
@@ -477,7 +489,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"
-                    android:layout_marginBottom="17dp" />
+                    android:layout_marginBottom="17dp"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
                 <View
                     android:layout_width="match_parent"

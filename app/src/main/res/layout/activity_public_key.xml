@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@id/status_bar"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/public_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="账户详情"
+            android:textColor="@color/login_content"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/public_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:onClick="onClick"
+            android:scaleType="center"
+            android:src="@drawable/back_icon_black" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账户公钥" />
+
+        <TextView
+            android:id="@+id/public_key"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="0x67d8f4fed2225f563da5f08b4a091ab4434cf7e7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="资产" />
+
+        <TextView
+            android:id="@+id/public_assets"
+            android:layout_width="45dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/shape_aoi_orangey_10dp"
+            android:gravity="center"
+            android:text="查看"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="交易记录" />
+
+        <TextView
+            android:id="@+id/public_transfer"
+            android:layout_width="45dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/shape_aoi_orangey_10dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:text="查看" />
+    </LinearLayout>
+</LinearLayout>

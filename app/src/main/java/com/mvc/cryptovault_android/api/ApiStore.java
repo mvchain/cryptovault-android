@@ -1,6 +1,10 @@
 package com.mvc.cryptovault_android.api;
 
 import com.mvc.cryptovault_android.bean.AssetsBean;
+import com.mvc.cryptovault_android.bean.BlockBalanceBean;
+import com.mvc.cryptovault_android.bean.BlockLastBean;
+import com.mvc.cryptovault_android.bean.BlockListBean;
+import com.mvc.cryptovault_android.bean.BlockTransactionBean;
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.FinancialBean;
 import com.mvc.cryptovault_android.bean.FinancialDetailBean;
@@ -364,6 +368,29 @@ public interface ApiStore {
     Observable<HttpTokenBean> postValid(@Body RequestBody body);
 
     @Headers("Accept-Language: zh-cn")
-    @GET(HttpUrl.ASSET+"{tokenId}")
+    @GET(HttpUrl.ASSET + "{tokenId}")
     Observable<AssetsBean> getAssets(@Header("Authorization") String token, @Path("tokenId") int tokenId);
+
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_LAST)
+    Observable<BlockLastBean> getBlockLast();
+
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_LIST)
+    Observable<BlockListBean> getBlockList(@Query("blockId") int blockId, @Query("pageSize") int pageSize);
+
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_TRANSACTION_LAST)
+    Observable<BlockTransactionBean> getBlockTransactionLast(@Query("pageSize") int pageSize);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_ADDRESS_EXIST)
+    Observable<HttpTokenBean> getBlockAddressExist(@Query("publicKey") String publicKey);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_ADDRESS_BALANCE)
+    Observable<BlockBalanceBean> getBlockBalance(@Query("publicKey") String publicKey );
 }

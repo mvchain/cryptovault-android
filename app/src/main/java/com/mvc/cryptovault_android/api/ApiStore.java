@@ -2,8 +2,11 @@ package com.mvc.cryptovault_android.api;
 
 import com.mvc.cryptovault_android.bean.AssetsBean;
 import com.mvc.cryptovault_android.bean.BlockBalanceBean;
+import com.mvc.cryptovault_android.bean.BlockDetailBean;
 import com.mvc.cryptovault_android.bean.BlockLastBean;
 import com.mvc.cryptovault_android.bean.BlockListBean;
+import com.mvc.cryptovault_android.bean.BlockOrderBean;
+import com.mvc.cryptovault_android.bean.BlockOrderOnIdBean;
 import com.mvc.cryptovault_android.bean.BlockTransactionBean;
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.FinancialBean;
@@ -381,6 +384,13 @@ public interface ApiStore {
     @GET(HttpUrl.BLOCK_LIST)
     Observable<BlockListBean> getBlockList(@Query("blockId") int blockId, @Query("pageSize") int pageSize);
 
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_LIST+"/{blockId}")
+    Observable<BlockDetailBean> getBlockDetail(@Path("blockId") String blockId);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_ID_TRANSACTIONS)
+    Observable<BlockTransactionBean> getBlockAllList(@Path("blockId") String blockId, @Query("pageSize") int pageSize, @Query("transactionId") int transactionId);
 
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.BLOCK_TRANSACTION_LAST)
@@ -392,5 +402,13 @@ public interface ApiStore {
 
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.BLOCK_ADDRESS_BALANCE)
-    Observable<BlockBalanceBean> getBlockBalance(@Query("publicKey") String publicKey );
+    Observable<BlockBalanceBean> getBlockBalance(@Query("publicKey") String publicKey);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_ADDRESS_ORDER)
+    Observable<BlockOrderBean> getBlockOrder(@Query("id") int id, @Query("pageSize") int pageSize, @Query("publicKey") String publicKey);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_ADDRESS_ORDER_ID + "{id}")
+    Observable<BlockOrderOnIdBean> getBlockDetailOnId(@Path("id") int id);
 }

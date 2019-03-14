@@ -1,6 +1,6 @@
 package com.mvc.cryptovault_android.bean
 
-data class BlockBalanceBean(
+data class BlockDetailBean(
         /**
          * code : 0
          * data : [{"blockId":0,"createdAt":0,"transactions":0}]
@@ -9,16 +9,16 @@ data class BlockBalanceBean(
 
         var code: Int,
         var message: String,
-        var data: ArrayList<DataBean>
+        var data: DataBean
 ) {
     data class DataBean(
             /**
-             * tokenId : 0
-             * tokenName : 0
-             * value : 0
+             * blockId : 0
+             * createdAt : 0
+             * transactions : 0
              */
-            var tokenId: Int,
-            var tokenName: String,
-            var value: Double
+            var blockId: Int,
+            var createdAt: Long,
+            var transactions: Int
     )
 }

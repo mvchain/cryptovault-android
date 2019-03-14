@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <View
@@ -15,6 +16,13 @@
         android:layout_height="?attr/actionBarSize"
         android:gravity="center_vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/assets_title"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="交易记录"
+            android:textSize="17sp" />
         <ImageView
             android:id="@+id/assets_back"
             android:layout_width="40dp"
@@ -23,14 +31,6 @@
             android:layout_marginLeft="5dp"
             android:scaleType="center"
             android:src="@drawable/back_icon_black" />
-
-        <TextView
-            android:id="@+id/assets_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="交易记录"
-            android:textSize="17sp" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -81,6 +81,7 @@
                 android:id="@+id/assets_rv"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp" />

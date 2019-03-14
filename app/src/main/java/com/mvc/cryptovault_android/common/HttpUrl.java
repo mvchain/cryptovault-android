@@ -245,4 +245,19 @@ public class HttpUrl {
      * 根据公钥查询资产
      */
     public static final String BLOCK_ADDRESS_BALANCE = URL_BROWSER + "block/address/balance";
+
+    /**
+     * 根据公钥查询订单列表
+     */
+    public static final String BLOCK_ADDRESS_ORDER = URL_BROWSER + "block/address/order";
+
+    /**
+     * 根据公钥查询订单详情
+     */
+    public static final String BLOCK_ADDRESS_ORDER_ID = URL_BROWSER + "block/address/order/";
+
+    /**
+     * 获取区块详情交易列表
+     */
+    public static final String BLOCK_ID_TRANSACTIONS = URL_BROWSER + "block/{blockId}/transactions";
 }

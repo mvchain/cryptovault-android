@@ -7,12 +7,26 @@ import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.adapter.rvAdapter.BlockListAdapter
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
+import com.mvc.cryptovault_android.bean.BlockDetailBean
 import com.mvc.cryptovault_android.bean.BlockListBean
+import com.mvc.cryptovault_android.bean.BlockTransactionBean
 import com.mvc.cryptovault_android.contract.IBlockDetailContract
 import com.mvc.cryptovault_android.presenter.BlockDetailPresenter
 import kotlinx.android.synthetic.main.activity_block_list.*
 
 class BlockchainListActivity : BaseMVPActivity<IBlockDetailContract.IBlockDetailPresenter>(), IBlockDetailContract.IBlockDetailView {
+    override fun blockDetailSuccess(blockListBean: BlockDetailBean.DataBean) {
+    }
+
+    override fun blockDetailFailed(msg: String) {
+    }
+
+    override fun blockAllListSuccess(blockListBean: List<BlockTransactionBean.DataBean>) {
+    }
+
+    override fun blockAllListFailed(msg: String) {
+    }
+
     private lateinit var listAdapter: BlockListAdapter
     private lateinit var listBean: ArrayList<BlockListBean.DataBean>
 

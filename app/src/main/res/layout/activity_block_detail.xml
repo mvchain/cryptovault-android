@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -16,14 +17,6 @@
         android:background="@color/white"
         android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/browser_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:scaleType="center"
-            android:src="@drawable/back_icon_black" />
 
         <TextView
             android:id="@+id/browser_title"
@@ -32,171 +25,197 @@
             android:gravity="center"
             android:text="区块详情"
             android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/browser_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:scaleType="center"
+            android:src="@drawable/back_icon_black" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:fillViewport="true"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
+                    android:id="@+id/browser_header"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="22dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp">
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="22dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:text="当前区块"
+                                    android:textColor="@color/login_content"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/current_block"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="right|center_vertical"
+                                    android:text="-"
+                                    android:textColor="@color/login_content"
+                                    android:textSize="17sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:text="交易数量"
+                                    android:textColor="@color/login_content"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/block_number"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="right|center_vertical"
+                                    android:text="-"
+                                    android:textColor="@color/login_content"
+                                    android:textSize="17sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center_vertical"
+                                    android:text="出块时间"
+                                    android:textColor="@color/login_content"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/block_time"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="right|center_vertical"
+                                    android:text="-"
+                                    android:textColor="@color/login_content"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="12dp"
+                            android:layout_marginTop="8dp"
+                            android:background="#FBFBFB" />
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:text="当前区块"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginRight="22dp"
+                            android:text="交易"
                             android:textColor="@color/login_content"
-                            android:textSize="13sp" />
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:textStyle="bold"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="right|center_vertical"
-                            android:text="1567894"
-                            android:textColor="@color/login_content"
-                            android:textSize="17sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginRight="22dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="交易 Hash"
+                                android:textColor="@color/trand_gray"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="确认数"
+                                android:textColor="@color/trand_gray"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="交易时间"
+                                android:textColor="@color/trand_gray"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="22dp"
+                            android:layout_marginBottom="15dp" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:text="交易数量"
-                            android:textColor="@color/login_content"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:textStyle="bold"
-                            android:layout_weight="1"
-                            android:gravity="right|center_vertical"
-                            android:text="36"
-                            android:textColor="@color/login_content"
-                            android:textSize="17sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:text="出块时间"
-                            android:textColor="@color/login_content"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="right|center_vertical"
-                            android:text="2019-03-19 11：23：32"
-                            android:textColor="@color/login_content"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp"
-                    android:layout_marginTop="8dp"
-                    android:background="#FBFBFB" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="22dp"
-                    android:text="交易"
-                    android:textColor="@color/login_content"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="22dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="交易 Hash"
-                        android:textColor="@color/trand_gray"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="确认数"
-                        android:textColor="@color/trand_gray"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="交易时间"
-                        android:textColor="@color/trand_gray"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="22dp"
-                    android:layout_marginBottom="15dp" />
+                </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/browser_transfer_rv"
@@ -204,8 +223,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"
-                    android:layout_marginBottom="17dp" />
-            </LinearLayout>
+                    android:layout_marginBottom="17dp"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            </RelativeLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

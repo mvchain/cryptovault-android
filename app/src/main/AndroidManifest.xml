@@ -116,7 +116,7 @@
         <activity android:name=".activity.BlockchainDetailActivity" />
         <activity android:name=".activity.BlockAssetsActivity" />
         <activity android:name=".activity.BlockAssetsDetailActivity" />
-
+        <activity android:name=".activity.BlockTransferDetailActivity" />
         <receiver
             android:name=".receiver.PushReceiver"
             android:enabled="true"

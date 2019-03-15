@@ -23,6 +23,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
@@ -113,7 +114,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         mPriceNumSale.setText(TextUtils.doubleToFour(recorBean.getPrice().doubleValue()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
         this.currentPrice = recorBean.getPrice().doubleValue();
         mNumPrice.setText((type == 1 ? "购买" : "出售") + "量");
-        RetrofitUtils.client(ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(trandPurhBean -> {
                     if (trandPurhBean.getCode() == 200) {
@@ -313,7 +314,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
      */
     @SuppressLint("CheckResult")
     private void releasePurh(RequestBody body) {
-        RetrofitUtils.client(ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
                 EventBus.getDefault().post(new RecordingEvent());
@@ -339,7 +340,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
      */
     @SuppressLint("CheckResult")
     private void releaseSell(RequestBody body) {
-        RetrofitUtils.client(ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
                 EventBus.getDefault().post(new RecordingEvent());

@@ -1,5 +1,8 @@
 package com.mvc.cryptovault_android.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import com.allen.library.SuperTextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mvc.cryptovault_android.R;
@@ -30,12 +34,14 @@ import com.mvc.cryptovault_android.view.DialogHelper;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_INFO;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
 
 public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> implements MineContract.IMineView, View.OnClickListener {
 
     private CircleImageView mImgUser;
     private TextView mNameUser;
     private TextView mPhoneUser;
+    private TextView mKeyUser;
     private SuperTextView mLanguageSys;
     private SuperTextView mAccountSecurity;
     private SuperTextView mInvitationRegistration;
@@ -62,6 +68,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         createCarryOut = true;
         mImgUser = rootView.findViewById(R.id.user_img);
         mNameUser = rootView.findViewById(R.id.user_name);
+        mKeyUser = rootView.findViewById(R.id.user_key);
         mPhoneUser = rootView.findViewById(R.id.user_phone);
         mLanguageSys = rootView.findViewById(R.id.sys_language);
         mSingOut = rootView.findViewById(R.id.singout);
@@ -76,7 +83,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         mLanguageSys.setOnClickListener(this);
         mAbout.setOnClickListener(this);
         mSingOut.setOnClickListener(this);
-
+        mKeyUser.setOnClickListener(this);
     }
 
     @Override
@@ -109,7 +116,8 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
         SPUtils.getInstance().put(USER_INFO, JsonHelper.jsonToString(user));
         UserInfoBean.DataBean data = user.getData();
         mNameUser.setText(data.getNickname());
-        mPhoneUser.setText(data.getUsername());
+        mPhoneUser.setText("邮箱  " + data.getUsername());
+        mKeyUser.setText("公钥  " + SPUtils.getInstance().getString(USER_PUBLIC_KEY));
         RequestOptions options = new RequestOptions().fallback(R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon);
         Glide.with(activity).load(data.getHeadImage()).apply(options).into(mImgUser);
     }
@@ -126,8 +134,9 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
             UserInfoBean infoBean = (UserInfoBean) JsonHelper.stringToJson(userJson, UserInfoBean.class);
             if (infoBean != null) {
                 UserInfoBean.DataBean data = infoBean.getData();
-                mNameUser.setText(data.getNickname());
-                mPhoneUser.setText(data.getUsername());
+                mNameUser.setText("-");
+                mPhoneUser.setText("-");
+                mKeyUser.setText(" ");
                 RequestOptions options = new RequestOptions().fallback(R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon);
                 Glide.with(activity).load(data.getHeadImage()).apply(options).into(mImgUser);
             }
@@ -161,6 +170,15 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
                             break;
                     }
                 }).show();
+                break;
+            case R.id.user_key:
+                // TODO 18/12/07
+                ClipboardManager cm = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData = ClipData.newPlainText("hash", mKeyUser.getText().toString().replace("公钥", ""));
+                // 将ClipData内容放到系统剪贴板里。
+                cm.setPrimaryClip(mClipData);
+                ToastUtils.showLong("公钥已复制至剪贴板");
                 break;
 
         }

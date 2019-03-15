@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gyf.barlibrary.ImmersionBar
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.adapter.rvAdapter.CheckMnemonicsAdapter
 import com.mvc.cryptovault_android.adapter.rvAdapter.SortMnemonicsAdapter
@@ -67,7 +68,7 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
                 json.put("resetType", 2)
                 json.put("value", mnemonics)
                 var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-                RetrofitUtils.client(ApiStore::class.java)
+                RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                         .updatePassword(body)
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ httpToken ->

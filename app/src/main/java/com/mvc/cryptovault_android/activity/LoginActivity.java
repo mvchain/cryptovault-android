@@ -54,6 +54,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
 
 
 public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener, LoginContract.ILoginView {
@@ -199,8 +200,9 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
         SPUtils.getInstance().put(TOKEN, data.getToken());
         SPUtils.getInstance().put(USER_ID, data.getUserId());
         SPUtils.getInstance().put(USER_EMAIL, data.getEmail());
+        SPUtils.getInstance().put(USER_PUBLIC_KEY, data.getPublicKey());
         MyApplication.setTOKEN(data.getToken());
-        RetrofitUtils.client(ApiStore.class).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())
                 .subscribe(tagBean -> {
                     if (tagBean.getCode() == 200 && tagBean.getData() != null) {
                         SPUtils.getInstance().put(TAG_NAME, tagBean.getData());

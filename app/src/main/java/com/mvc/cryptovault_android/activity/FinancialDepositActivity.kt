@@ -113,7 +113,7 @@ class FinancialDepositActivity : BaseActivity() {
                     json.put("transactionPassword", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(num)))
                     json.put("value", deposit_count.text.toString())
                     var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-                    RetrofitUtils.client(ApiStore::class.java)
+                    RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                             .depositFinancial(MyApplication.getTOKEN(), body, detail.id)
                             .compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ date ->

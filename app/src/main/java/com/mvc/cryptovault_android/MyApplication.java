@@ -45,6 +45,9 @@ public class MyApplication extends Application {
     public static String getBaseUrl() {
         return getAppContext().getString(R.string.base_url);
     }
+    public static String getBaseBrowserUrl() {
+        return getAppContext().getString(R.string.base_browser_url);
+    }
 
     @Override
     public void onCreate() {

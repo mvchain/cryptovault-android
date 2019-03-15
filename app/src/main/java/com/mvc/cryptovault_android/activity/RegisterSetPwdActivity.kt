@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
@@ -41,7 +42,7 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                     userJson.put("transactionPassword", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(reg_pay_pwd.text.toString())))
                     dialogHelper?.create(this, R.drawable.pending_icon_1, "请稍后")?.show()
                     val body = RequestBody.create(MediaType.parse("text/html"), userJson.toString())
-                    RetrofitUtils.client(ApiStore::class.java).userRegister(body).compose(RxHelper.rxSchedulerHelper())
+                    RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).userRegister(body).compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ mnemon ->
                                 if (mnemon.code == 200) {
                                     dialogHelper?.dismissDelayed(null, 0)

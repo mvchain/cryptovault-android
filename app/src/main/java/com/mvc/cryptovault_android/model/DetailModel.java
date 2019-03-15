@@ -17,7 +17,7 @@ public class DetailModel extends BaseModel implements DetailContract.IDetailMode
 
     @Override
     public Observable<DetailBean> getDetailOnID(int id) {
-        return RetrofitUtils.client(ApiStore.class)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class)
                 .getDetailOnID(MyApplication.getTOKEN(), id)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(detailBean -> detailBean);

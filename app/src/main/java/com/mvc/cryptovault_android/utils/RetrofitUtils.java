@@ -20,7 +20,9 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -47,23 +49,24 @@ import static com.mvc.cryptovault_android.common.Constant.SP.TAG_NAME;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
 
 public class RetrofitUtils {
     private static Retrofit mRetrofit;
+    private static Map<String, Retrofit> utilsMap = new HashMap<>();
 
-    private static Retrofit getInstance() {
-        if (mRetrofit == null) {
+    private static Retrofit getInstance(String httpUrl) {
+        if (utilsMap.get(httpUrl) == null) {
             synchronized (Retrofit.class) {
-                if (mRetrofit == null) {
-                    mRetrofit = new Retrofit.Builder()
-                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .baseUrl(MyApplication.getBaseUrl())
-                            .client(getOkhttpUtils()).build();
-                }
+                mRetrofit = new Retrofit.Builder()
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .baseUrl(httpUrl)
+                        .client(getOkhttpUtils()).build();
             }
+            utilsMap.put(httpUrl, mRetrofit);
         }
-        return mRetrofit;
+        return utilsMap.get(httpUrl);
     }
 
     private static OkHttpClient getOkhttpUtils() {
@@ -78,11 +81,11 @@ public class RetrofitUtils {
                 .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
                         .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .authenticator((route, response) -> {
-                    HttpTokenBean body = RetrofitUtils.client(ApiStore.class).refreshToken(SPUtils.getInstance().getString(REFRESH_TOKEN)).execute().body();
+                    HttpTokenBean body = RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).refreshToken(SPUtils.getInstance().getString(REFRESH_TOKEN)).execute().body();
                     if (body.getCode() == 200) {
                         SPUtils.getInstance().put(TOKEN, body.getData());
                         MyApplication.setTOKEN(body.getData());
-                        RetrofitUtils.client(ApiStore.class).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())
+                        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())
                                 .subscribe(tagBean -> {
                                     if (tagBean.getCode() == 200 && tagBean.getData() != null) {
                                         SPUtils.getInstance().put(TAG_NAME, tagBean.getData());
@@ -108,9 +111,10 @@ public class RetrofitUtils {
                         SPUtils.getInstance().remove(TOKEN);
                         JPushInterface.deleteAlias(MyApplication.getAppContext().getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
                         SPUtils.getInstance().remove(USER_ID);
-                        if(!(ActivityUtils.getTopActivity() instanceof SelectLoginActivity)){
+                        SPUtils.getInstance().remove(USER_PUBLIC_KEY);
+                        if (!(ActivityUtils.getTopActivity() instanceof SelectLoginActivity)) {
                             Intent intent = new Intent();
-                            intent.setAction(MyApplication.getAppContext().getPackageName()+".android.login");
+                            intent.setAction(MyApplication.getAppContext().getPackageName() + ".android.login");
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             Utils.getApp().startActivity(intent);
                         }
@@ -161,7 +165,7 @@ public class RetrofitUtils {
         }
     }
 
-    public static <T> T client(Class<T> clazz) {
-        return getInstance().create(clazz);
+    public static <T> T client(String httpUrl, Class<T> clazz) {
+        return getInstance(httpUrl).create(clazz);
     }
 }

@@ -67,7 +67,7 @@ class PublishDetailActivity : BaseActivity() {
 
     @SuppressLint("CheckResult")
     private fun loadPublishDetailList(projectId: Int, id: Int, pageSize: Int) {
-        RetrofitUtils.client(ApiStore::class.java).getPublishList(MyApplication.getTOKEN(), projectId, id, pageSize)
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getPublishList(MyApplication.getTOKEN(), projectId, id, pageSize)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ publishList ->
                     if (publishList.code === 200) {
@@ -90,7 +90,7 @@ class PublishDetailActivity : BaseActivity() {
 
     @SuppressLint("CheckResult")
     private fun loadPublishDetail() {
-        RetrofitUtils.client(ApiStore::class.java).getPublishDetail(MyApplication.getTOKEN(), projectId)
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getPublishDetail(MyApplication.getTOKEN(), projectId)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ publish ->
                     if (publish.code === 200) {

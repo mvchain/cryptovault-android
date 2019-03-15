@@ -28,6 +28,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
 
 public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
@@ -80,6 +81,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         SPUtils.getInstance().remove(TOKEN);
         JPushInterface.deleteAlias(getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
         SPUtils.getInstance().remove(USER_ID);
+        SPUtils.getInstance().remove(USER_PUBLIC_KEY);
         Intent intent = new Intent(activity, SelectLoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

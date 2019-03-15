@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
@@ -125,7 +126,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
                     case R.id.hint_enter:
                         mHintDialog.dismiss();
                         String token = SPUtils.getInstance().getString(TOKEN);
-                        RetrofitUtils.client(ApiStore.class).cancleOrder(token, item.getId())
+                        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).cancleOrder(token, item.getId())
                                 .compose(RxHelper.rxSchedulerHelper())
                                 .subscribe(updateBean -> {
                                     if (updateBean.getCode() == 200) {

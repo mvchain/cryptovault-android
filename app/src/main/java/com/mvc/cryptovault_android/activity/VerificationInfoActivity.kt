@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.view.View
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.R.id.*
 import com.mvc.cryptovault_android.api.ApiStore
@@ -96,7 +97,7 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
                     return
                 }
                 dialogHelper?.create(this, R.drawable.pending_icon_1, "发送验证码")?.show()
-                RetrofitUtils.client(ApiStore::class.java).sendValiCode(account.text.toString())
+                RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendValiCode(account.text.toString())
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ httpTokenBean ->
                             if (httpTokenBean.code === 200) {
@@ -120,7 +121,7 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
                         TYPE_MNEMONICS -> {
                             //获取助记词
                             list.clear()
-                            RetrofitUtils.client(ApiStore::class.java).getUserMnemonic(account.text.toString())
+                            RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getUserMnemonic(account.text.toString())
                                     .compose(RxHelper.rxSchedulerHelper())
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())

@@ -67,7 +67,7 @@ class PublishListActivity : BaseActivity() {
 
     @SuppressLint("CheckResult")
     private fun loadPublishList(pageSize: Int, projectId: Int) {
-        RetrofitUtils.client(ApiStore::class.java).getPublishAll(MyApplication.getTOKEN(), pageSize, projectId)
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getPublishAll(MyApplication.getTOKEN(), pageSize, projectId)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ publish ->
                     publish_swipe.isRefreshing = false

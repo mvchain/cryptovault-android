@@ -133,7 +133,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mMainVpHome.addOnPageChangeListener(this);
         with = ImmersionBar.with(this);
         with.statusBarDarkFont(true).statusBarColor(colors[0]).fitsSystemWindows(true).init();
-        RetrofitUtils.client(ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(installApkBean -> {
                     if (installApkBean.getCode() == 200) {

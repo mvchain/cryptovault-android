@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model
 
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.BlockOrderOnIdBean
@@ -15,7 +16,7 @@ class AssetsDetailModel:BaseModel(),AssetsDetailContract.AssetsDetailModel {
     }
 
     override fun getAssetsDetailToId(id: Int): Observable<BlockOrderOnIdBean> {
-        return RetrofitUtils.client(ApiStore::class.java).getBlockDetailOnId(id)
+        return RetrofitUtils.client(MyApplication.getBaseBrowserUrl(),ApiStore::class.java).getBlockDetailOnId(id)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { idBean->idBean }
     }

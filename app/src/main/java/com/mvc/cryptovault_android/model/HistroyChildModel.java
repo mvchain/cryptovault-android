@@ -19,7 +19,7 @@ public class HistroyChildModel extends BaseModel implements HistroyChildContract
 
     @Override
     public Observable<HistroyBean> getAll(int classify,int id,  int pageSize, int tokenId, int transactionType, int type) {
-        return RetrofitUtils.client(ApiStore.class)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class)
                 .getHistroyRecording(MyApplication.getTOKEN()
                         , classify
                         , id

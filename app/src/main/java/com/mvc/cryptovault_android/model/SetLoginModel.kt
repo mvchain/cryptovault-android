@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model
 
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R.id.code
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
@@ -19,7 +20,7 @@ class SetLoginModel : BaseModel(), SetPasswordContract.SetPasswordModel {
         json.put("newPassword", newPassword)
         json.put("password", password)
         var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-        return RetrofitUtils.client(ApiStore::class.java)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                 .setLoginPassword(body)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { bean -> bean }
@@ -30,7 +31,7 @@ class SetLoginModel : BaseModel(), SetPasswordContract.SetPasswordModel {
         json.put("newPassword", newPassword)
         json.put("password", password)
         var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-        return RetrofitUtils.client(ApiStore::class.java)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                 .setPayPassword(body)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { bean -> bean }

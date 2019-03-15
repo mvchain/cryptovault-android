@@ -15,6 +15,7 @@ public class Constant {
         public static final String TOKEN = "token";
         public static final String USER_ID = "user_id";
         public static final String USER_EMAIL = "user_email";
+        public static final String USER_PUBLIC_KEY = "user_public_key";
         public static final String RECORDING_UNIT = "recording_unit";
         public static final String TRAND_LIST = "trand_list";
         public static final String TRAND_VRT_LIST = "vrt_list";

@@ -8,6 +8,7 @@ import com.mvc.cryptovault_android.bean.BlockListBean;
 import com.mvc.cryptovault_android.bean.BlockOrderBean;
 import com.mvc.cryptovault_android.bean.BlockOrderOnIdBean;
 import com.mvc.cryptovault_android.bean.BlockTransactionBean;
+import com.mvc.cryptovault_android.bean.BlockTransferDetailBean;
 import com.mvc.cryptovault_android.bean.ExchangeRateBean;
 import com.mvc.cryptovault_android.bean.FinancialBean;
 import com.mvc.cryptovault_android.bean.FinancialDetailBean;
@@ -385,8 +386,12 @@ public interface ApiStore {
     Observable<BlockListBean> getBlockList(@Query("blockId") int blockId, @Query("pageSize") int pageSize);
 
     @Headers("Accept-Language: zh-cn")
-    @GET(HttpUrl.BLOCK_LIST+"/{blockId}")
+    @GET(HttpUrl.BLOCK_LIST + "/{blockId}")
     Observable<BlockDetailBean> getBlockDetail(@Path("blockId") String blockId);
+
+    @Headers("Accept-Language: zh-cn")
+    @GET(HttpUrl.BLOCK_TRANSACTION_TX + "/{hash}")
+    Observable<BlockTransferDetailBean> getTransferDetail(@Path("hash") String hash);
 
     @Headers("Accept-Language: zh-cn")
     @GET(HttpUrl.BLOCK_ID_TRANSACTIONS)

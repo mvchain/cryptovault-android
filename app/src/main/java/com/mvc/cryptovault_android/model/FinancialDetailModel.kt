@@ -15,7 +15,7 @@ import io.reactivex.Observable
 
 class FinancialDetailModel : BaseModel(), FinancialDetailContract.FinancialDetailModel {
     override fun getFinancialDetail(id: Int): Observable<FinancialDetailBean> {
-        return RetrofitUtils.client(ApiStore::class.java)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                 .getFinancialDetail(MyApplication.getTOKEN(), id)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { detail -> detail }

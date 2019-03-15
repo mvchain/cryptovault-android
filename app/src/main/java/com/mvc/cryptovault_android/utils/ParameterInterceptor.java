@@ -7,6 +7,7 @@ import android.util.Log;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.TagBean;
@@ -75,7 +76,7 @@ public class ParameterInterceptor implements Interceptor {
      */
     @SuppressLint("CheckResult")
     private void refreshPushTag(String token) {
-        RetrofitUtils.client(ApiStore.class).getPushTag(token).compose(RxHelper.rxSchedulerHelper())
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getPushTag(token).compose(RxHelper.rxSchedulerHelper())
                 .subscribe(tagBean -> {
                     if (tagBean.getCode() == 200) {
                         SPUtils.getInstance().put(TAG_NAME, tagBean.getData());

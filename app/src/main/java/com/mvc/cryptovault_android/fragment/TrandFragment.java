@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.activity.TrandOrderActivity;
 import com.mvc.cryptovault_android.adapter.TrandPagerAdapter;
@@ -50,7 +51,7 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
         mVpTrand.setAdapter(trandPagerAdapter);
         mTableTrand.setupWithViewPager(mVpTrand);
         //保存所有交易对
-        RetrofitUtils.client(ApiStore.class).getAllVrtAndBalance(getToken())
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getAllVrtAndBalance(getToken())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(trandChildBean ->
                                 SPUtils.getInstance().put(TRAND_LIST, JsonHelper.jsonToString(trandChildBean))

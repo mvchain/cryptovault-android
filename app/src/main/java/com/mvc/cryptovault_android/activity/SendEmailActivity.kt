@@ -39,7 +39,7 @@ class SendEmailActivity : BaseActivity() {
             }
             R.id.send_code -> {
                 dialogHelper!!.create(this, R.drawable.pending_icon_1, "发送验证码").show()
-                RetrofitUtils.client(ApiStore::class.java).sendEmail(MyApplication.getTOKEN())
+                RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendEmail(MyApplication.getTOKEN())
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ codeBean ->
                             if (codeBean.code === 200) {
@@ -61,7 +61,7 @@ class SendEmailActivity : BaseActivity() {
                     var json = JSONObject()
                     json.put("valiCode", code)
                     var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-                    RetrofitUtils.client(ApiStore::class.java).verificationCode(MyApplication.getTOKEN(), body)
+                    RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).verificationCode(MyApplication.getTOKEN(), body)
                             .compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ codeBean ->
                                 if (codeBean.code === 200) {

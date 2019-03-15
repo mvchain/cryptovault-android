@@ -39,7 +39,7 @@ class SetEmailActivity : BaseActivity() {
             R.id.send_code -> {
                 if (checkEmailNotNullValue()) {
                     dialogHelper!!.create(this, R.drawable.pending_icon_1, "发送验证码").show()
-                    RetrofitUtils.client(ApiStore::class.java).sendValiCode(email.text.toString())
+                    RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendValiCode(email.text.toString())
                             .compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ bean ->
                                 if (bean.code === 200) {
@@ -70,7 +70,7 @@ class SetEmailActivity : BaseActivity() {
                     json.put("token", tempToken)
                     json.put("valiCode", code)
                     var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-                    RetrofitUtils.client(ApiStore::class.java).bindNewsEmail(MyApplication.getTOKEN(), body)
+                    RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).bindNewsEmail(MyApplication.getTOKEN(), body)
                             .compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ codeBean ->
                                 if (codeBean.code === 200) {

@@ -36,7 +36,7 @@ public class WalletModel extends BaseModel implements WallteContract.
 
     @Override
     public Observable<AssetListBean> getAssetList() {
-        return RetrofitUtils.client(ApiStore.class).getExchangeRate(MyApplication.getTOKEN())
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getExchangeRate(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
                 .flatMap((Function<ExchangeRateBean, ObservableSource<CurrencyBean>>) exchangeRateBean -> {
                     //查看是否有默认汇率设置，没有的话保存一份  有的话忽略
@@ -63,35 +63,35 @@ public class WalletModel extends BaseModel implements WallteContract.
                         SPUtils.getInstance().put(DEFAULT_SYMBOL, newSymbol + " ");
                     }
                     SPUtils.getInstance().put(RATE_LIST, JsonHelper.jsonToString(exchangeRateBean));
-                    return RetrofitUtils.client(ApiStore.class).getCurrencyAll(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper());
+                    return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getCurrencyAll(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper());
                 })
                 .flatMap((Function<CurrencyBean, ObservableSource<AssetListBean>>) currencyBean -> {
                     //保存全部令牌
                     SPUtils.getInstance().put(CURRENCY_LIST, JsonHelper.jsonToString(currencyBean));
-                    return RetrofitUtils.client(ApiStore.class).getAssetList(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper());
+                    return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getAssetList(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper());
                 })
                 .map(assetListBean -> assetListBean);
     }
 
     @Override
     public Observable<UpdateBean> getWhetherToSignIn() {
-        return RetrofitUtils.client(ApiStore.class).getWhetherToSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getWhetherToSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
     }
 
     @Override
     public Observable<UpdateBean> putSignIn() {
-        return RetrofitUtils.client(ApiStore.class).putSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).putSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
     }
 
     @Override
     public Observable<MsgBean> getMsg(long timestamp, int type, int pagesize) {
-        return RetrofitUtils.client(ApiStore.class).getMsg(MyApplication.getTOKEN(), timestamp, type, pagesize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getMsg(MyApplication.getTOKEN(), timestamp, type, pagesize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
     }
 
 
     @Override
     public Observable<AllAssetBean> getAllAsset() {
-        return RetrofitUtils.client(ApiStore.class).getAssetAll(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(allAssetBean -> allAssetBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getAssetAll(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(allAssetBean -> allAssetBean);
     }
 
 }

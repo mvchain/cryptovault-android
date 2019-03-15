@@ -144,12 +144,12 @@ public class TrandRecordingActivity extends BaseActivity implements View.OnClick
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("CheckResult")
     private void initLineChartData() {
-        RetrofitUtils.client(ApiStore.class).getKLine(MyApplication.getTOKEN(), data.getPairId())
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getKLine(MyApplication.getTOKEN(), data.getPairId())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(updateBean -> initLineChart(updateBean), throwable -> {
                     LogUtils.e("TrandRecordingActivity", throwable.getMessage());
                 });
-        RetrofitUtils.client(ApiStore.class).getPairTickers(MyApplication.getTOKEN(), data.getPairId())
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getPairTickers(MyApplication.getTOKEN(), data.getPairId())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(pickBean ->
                 {

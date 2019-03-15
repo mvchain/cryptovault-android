@@ -2,6 +2,7 @@ package com.mvc.cryptovault_android.activity
 
 import android.content.Intent
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.blankj.utilcode.util.KeyboardUtils
@@ -44,6 +45,7 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
 
     override fun blockNodeSuccess(blockNodeBean: ArrayList<BlockNodeBean>) {
         browser_swipe.isRefreshing = false
+        nodeBean.clear()
         nodeBean.addAll(blockNodeBean)
         nodeAdapter.notifyDataSetChanged()
     }
@@ -110,8 +112,33 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
         browser_block_rv.adapter = listAdapter
         browser_transfer_rv.adapter = transactionAdapter
         browser_node_rv.adapter = nodeAdapter
+        browser_block_rv.layoutManager = object : LinearLayoutManager(this) {
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
+        browser_transfer_rv.layoutManager = object : LinearLayoutManager(this) {
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
+        browser_node_rv.layoutManager = object : LinearLayoutManager(this) {
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
         browser_swipe.setOnRefreshListener { onRefresh() }
         browser_swipe.isRefreshing = true
+        transactionAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when(view.id){
+                R.id.layout->{
+                    var hash  = transactionBean[position].hash
+                    var intent = Intent(this@BlockchainBrowserActivity,BlockTransferDetailActivity::class.java)
+                    intent.putExtra("hash",hash)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 
     private fun onRefresh() {

@@ -13,7 +13,7 @@ import io.reactivex.Observable
 class RecordingModel : BaseModel(), RecordingContract.IRecordingModel {
 
     override fun getRecorList(id: Int, pageSize: Int, pairId: Int, transactionType: Int, type: Int): Observable<RecorBean> {
-        return RetrofitUtils.client(ApiStore::class.java)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                 .getRecording(MyApplication.getTOKEN(), id, pageSize, pairId, transactionType, type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { recorBean -> recorBean }

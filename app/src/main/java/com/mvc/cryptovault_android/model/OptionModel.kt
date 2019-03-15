@@ -17,7 +17,7 @@ class OptionModel : BaseModel(), OptionContract.OptionModel {
     }
 
     override fun getOptionInfo(financialType: Int, id: Int, pageSize: Int): Observable<OptionBean> {
-        return RetrofitUtils.client(ApiStore::class.java).getFinancialPartake(MyApplication.getTOKEN(), financialType, id, pageSize)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getFinancialPartake(MyApplication.getTOKEN(), financialType, id, pageSize)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { option -> option }
     }

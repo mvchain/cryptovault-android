@@ -17,7 +17,7 @@ public class OrderModel extends BaseModel implements ITrandOrderContract.ITrandO
 
     @Override
     public Observable<TrandOrderBean> getTrandOrder(int id, int pageSize, String pairId, int status, String transactionType, int type) {
-        return RetrofitUtils.client(ApiStore.class).getTpartake(MyApplication.getTOKEN(), id, pageSize, pairId, status, transactionType, type)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getTpartake(MyApplication.getTOKEN(), id, pageSize, pairId, status, transactionType, type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(trandOrderBean -> trandOrderBean);
     }

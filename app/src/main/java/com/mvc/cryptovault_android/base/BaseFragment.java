@@ -23,6 +23,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
+import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -40,16 +41,19 @@ public abstract class BaseFragment extends Fragment {
         }
         return rootView;
     }
+
     protected void startTaskActivity(Activity activity) {
         SPUtils.getInstance().remove(REFRESH_TOKEN);
         SPUtils.getInstance().remove(UPDATE_PASSWORD_TYPE);
         SPUtils.getInstance().remove(TOKEN);
         JPushInterface.deleteAlias(activity.getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
         SPUtils.getInstance().remove(USER_ID);
+        SPUtils.getInstance().remove(USER_PUBLIC_KEY);
         Intent intent = new Intent(activity, SelectLoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -87,6 +91,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
     protected String getToken() {
         return SPUtils.getInstance().getString(TOKEN);
     }

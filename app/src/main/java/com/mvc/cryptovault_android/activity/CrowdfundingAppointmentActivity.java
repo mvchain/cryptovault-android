@@ -94,7 +94,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
         Glide.with(this).load(dataBean.getProjectImage()).apply(options).into(mInfoIconM);
         mInfoBlM.setText("兑换比例：1 " + dataBean.getTokenName() + " = " + dataBean.getRatio() + dataBean.getBaseTokenName());
         mPriceType.setText(dataBean.getBaseTokenName());
-        RetrofitUtils.client(ApiStore.class).getPurchaseOnID(MyApplication.getTOKEN(), dataBean.getProjectId())
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getPurchaseOnID(MyApplication.getTOKEN(), dataBean.getProjectId())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(purchaseBean -> {
                     if (purchaseBean.getCode() == 200) {
@@ -261,7 +261,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
         object.put("password", num);
         object.put("value", currentNum);
         RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
-        RetrofitUtils.client(ApiStore.class).sendReservationRequest(MyApplication.getTOKEN(), body, dataBean.getProjectId())
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).sendReservationRequest(MyApplication.getTOKEN(), body, dataBean.getProjectId())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(updateBean -> {
                     EventBus.getDefault().post(new TogeFragmentEvent());

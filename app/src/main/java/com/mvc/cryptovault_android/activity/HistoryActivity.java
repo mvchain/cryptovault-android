@@ -285,7 +285,7 @@ public class HistoryActivity extends BaseMVPActivity<HistroyContract.HistroyPrec
     @SuppressLint({"CheckResult", "SetTextI18n"})
     @Subscribe
     public void refreshPrice(HistoryBeanEvent event) {
-        RetrofitUtils.client(ApiStore.class).getAssets(MyApplication.getTOKEN(), tokenId)
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getAssets(MyApplication.getTOKEN(), tokenId)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(assetsBean -> {
                     AssetsBean.DataBean dataBean = assetsBean.getData();

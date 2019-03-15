@@ -15,13 +15,17 @@ import com.mvc.cryptovault_android.presenter.BlockDetailPresenter
 import kotlinx.android.synthetic.main.activity_block_list.*
 
 class BlockchainListActivity : BaseMVPActivity<IBlockDetailContract.IBlockDetailPresenter>(), IBlockDetailContract.IBlockDetailView {
+    private var isRefresh = false
+
     override fun blockDetailSuccess(blockListBean: BlockDetailBean.DataBean) {
+
     }
 
     override fun blockDetailFailed(msg: String) {
     }
 
     override fun blockAllListSuccess(blockListBean: List<BlockTransactionBean.DataBean>) {
+
     }
 
     override fun blockAllListFailed(msg: String) {
@@ -40,7 +44,6 @@ class BlockchainListActivity : BaseMVPActivity<IBlockDetailContract.IBlockDetail
 
     override fun getLayoutId(): Int {
         return R.layout.activity_block_list
-
     }
 
     override fun initData() {
@@ -57,12 +60,13 @@ class BlockchainListActivity : BaseMVPActivity<IBlockDetailContract.IBlockDetail
         listAdapter = BlockListAdapter(R.layout.item_block_list, listBean)
         block_rv.adapter = listAdapter
         swipe.setOnRefreshListener { onRefresh() }
+        swipe.isRefreshing = true
         block_rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     var layoutManager = recyclerView?.layoutManager as LinearLayoutManager
                     var lastVisibleItemPosition = layoutManager?.findLastVisibleItemPosition()
-                    if (lastVisibleItemPosition + 1 == listAdapter.itemCount && listAdapter.itemCount >= 20) {
+                    if (lastVisibleItemPosition + 1 == listAdapter.itemCount && listAdapter.itemCount >= 20 && !isRefresh) {
                         mPresenter.getBlockList(listBean[listBean.size - 1].blockId, 20)
                     }
                 }
@@ -72,7 +76,7 @@ class BlockchainListActivity : BaseMVPActivity<IBlockDetailContract.IBlockDetail
     }
 
     private fun onRefresh() {
-        listBean.clear()
+        isRefresh = true
         mPresenter.getBlockList(0, 20)
     }
 
@@ -81,10 +85,18 @@ class BlockchainListActivity : BaseMVPActivity<IBlockDetailContract.IBlockDetail
     }
 
     override fun blockListFailed(msg: String) {
-
+        if(isRefresh){
+            isRefresh = false
+        }
+        swipe.isRefreshing = false
     }
 
     override fun blockListSuccess(blockListBean: List<BlockListBean.DataBean>) {
+        if(isRefresh){
+            isRefresh = false
+            listBean.clear()
+        }
+        swipe.isRefreshing = false
         listBean.addAll(blockListBean)
         listAdapter.notifyDataSetChanged()
     }

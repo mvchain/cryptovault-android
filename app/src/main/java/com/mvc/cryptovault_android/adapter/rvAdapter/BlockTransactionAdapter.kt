@@ -13,5 +13,6 @@ class BlockTransactionAdapter(layoutResId: Int, data: List<BlockTransactionBean.
         helper.setText(R.id.item_number, "${item.confirm}个确认")
         helper.setText(R.id.item_time, "${SimpleDateFormat("yyyy-MM-dd").format(Date(item.createdAt))}" +
                  "\n${SimpleDateFormat("HH:mm:ss").format(Date(item.createdAt))}")
+        helper.addOnClickListener(R.id.layout)
     }
 }

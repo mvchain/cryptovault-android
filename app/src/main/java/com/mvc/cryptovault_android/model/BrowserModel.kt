@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model
 
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.*
@@ -10,7 +11,7 @@ import io.reactivex.Observable
 
 class BrowserModel : BaseModel(), IBrowserContract.IBrowserModel {
     override fun getBlockAddressExist(address: String): Observable<HttpTokenBean> {
-        return RetrofitUtils.client(ApiStore::class.java)
+        return RetrofitUtils.client(MyApplication.getBaseBrowserUrl(),ApiStore::class.java)
                 .getBlockAddressExist(address)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { keyBean -> keyBean }
@@ -29,15 +30,15 @@ class BrowserModel : BaseModel(), IBrowserContract.IBrowserModel {
     lateinit var blockLastBean: BlockLastBean
     lateinit var blockListBean: BlockListBean
     override fun getBlockBrowserData(): Observable<BlockBrowserDataBean> {
-        return RetrofitUtils.client(ApiStore::class.java)
+        return RetrofitUtils.client(MyApplication.getBaseBrowserUrl(),ApiStore::class.java)
                 .blockLast
                 .compose(RxHelper.rxSchedulerHelper())
                 .flatMap {
                     blockLastBean = it
-                    RetrofitUtils.client(ApiStore::class.java).getBlockList(0, 10).compose(RxHelper.rxSchedulerHelper())
+                    RetrofitUtils.client(MyApplication.getBaseBrowserUrl(),ApiStore::class.java).getBlockList(0, 10).compose(RxHelper.rxSchedulerHelper())
                 }.flatMap {
                     blockListBean = it
-                    RetrofitUtils.client(ApiStore::class.java).getBlockTransactionLast(10).compose(RxHelper.rxSchedulerHelper())
+                    RetrofitUtils.client(MyApplication.getBaseBrowserUrl(),ApiStore::class.java).getBlockTransactionLast(10).compose(RxHelper.rxSchedulerHelper())
                 }.flatMap {
                     Observable.just(BlockBrowserDataBean(blockLastBean, blockListBean, it))
                 }

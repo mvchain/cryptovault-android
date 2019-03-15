@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model
 
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.HttpTokenBean
@@ -19,7 +20,7 @@ class RegisterInvitationModel : BaseModel(), RegisterInvitationConstrat.Invitati
             get() = RegisterInvitationModel()
     }
     override fun sendValiCode(email: String): Observable<HttpTokenBean> {
-        return RetrofitUtils.client(ApiStore::class.java).sendValiCode(email)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendValiCode(email)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { httpTokenBean -> httpTokenBean }
     }
@@ -29,7 +30,7 @@ class RegisterInvitationModel : BaseModel(), RegisterInvitationConstrat.Invitati
         bodyJson.put("inviteCode", invitation)
         bodyJson.put("valiCode", code)
         var body = RequestBody.create(MediaType.parse("text/html"), bodyJson.toString())
-        return RetrofitUtils.client(ApiStore::class.java).sendInvitationRequest(body)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendInvitationRequest(body)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { httpTokenBean -> httpTokenBean }
     }

@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.model;
 import android.support.annotation.Nullable;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
@@ -41,21 +42,21 @@ public class LoginModel extends BaseModel implements LoginContract.ILoginModel {
         }
         String loginInfo = jsonObject.toString();
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/html"), loginInfo);
-        return RetrofitUtils.client(ApiStore.class).login(requestBody)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).login(requestBody)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(loginBean -> loginBean);
     }
 
     @Override
     public Observable<HttpTokenBean> sendCode(String cellphone) {
-        return RetrofitUtils.client(ApiStore.class).sendValiCode(cellphone)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).sendValiCode(cellphone)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(httpTokenBean -> httpTokenBean);
     }
 
     @Override
     public Observable<LoginValidBean> getValid(String email) {
-        return RetrofitUtils.client(ApiStore.class).getValid(email).compose(RxHelper.rxSchedulerHelper())
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getValid(email).compose(RxHelper.rxSchedulerHelper())
                 .map(loginValidBean -> loginValidBean);
     }
 
@@ -73,7 +74,7 @@ public class LoginModel extends BaseModel implements LoginContract.ILoginModel {
         }
         String loginInfo = jsonObject.toString();
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/html"), loginInfo);
-        return RetrofitUtils.client(ApiStore.class).postValid(requestBody)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).postValid(requestBody)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(pstValid -> pstValid);
     }

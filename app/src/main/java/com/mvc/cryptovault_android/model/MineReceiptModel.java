@@ -17,6 +17,6 @@ public class MineReceiptModel extends BaseModel implements ReceiptQRContract.IRe
 
     @Override
     public Observable<ReceiptBean> getMineQcode(int tokenId) {
-        return RetrofitUtils.client(ApiStore.class).getRecriptQCode(MyApplication.getTOKEN(), tokenId).compose(RxHelper.rxSchedulerHelper()).map(receiptBean -> receiptBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getRecriptQCode(MyApplication.getTOKEN(), tokenId).compose(RxHelper.rxSchedulerHelper()).map(receiptBean -> receiptBean);
     }
 }

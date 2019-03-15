@@ -17,7 +17,7 @@ public class TogHisModel extends BaseModel implements TogeHistroyContract.ITogeH
 
     @Override
     public Observable<TogeHisBean> getReservation(int id, int pageSize,String projectName, int type) {
-        return RetrofitUtils.client(ApiStore.class).getReservation(MyApplication.getTOKEN(), id, pageSize,projectName, type).compose(RxHelper.rxSchedulerHelper()).map(togeHisBean -> togeHisBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getReservation(MyApplication.getTOKEN(), id, pageSize,projectName, type).compose(RxHelper.rxSchedulerHelper()).map(togeHisBean -> togeHisBean);
     }
 
 }

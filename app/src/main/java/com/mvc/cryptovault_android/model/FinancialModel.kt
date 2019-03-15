@@ -12,7 +12,7 @@ import io.reactivex.Observable
 
 class FinancialModel : BaseModel(), FinancialContract.FinancialModel {
     override fun getFinancialList(id: Int, pageSize: Int): Observable<FinancialListBean> {
-        return RetrofitUtils.client(ApiStore::class.java)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                 .getFinancialList(MyApplication.getTOKEN()
                         , id, pageSize)
                 .compose(RxHelper.rxSchedulerHelper())
@@ -20,7 +20,7 @@ class FinancialModel : BaseModel(), FinancialContract.FinancialModel {
     }
 
     override fun getFinancialBalance(): Observable<FinancialBean> {
-        return RetrofitUtils.client(ApiStore::class.java).getFinancialBalance(MyApplication.getTOKEN())
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getFinancialBalance(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { financial -> financial }
     }

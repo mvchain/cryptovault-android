@@ -18,7 +18,7 @@ public class MineModel extends BaseModel implements MineContract.IMineModel {
 
     @Override
     public Observable<UserInfoBean> getUserInfo() {
-        return RetrofitUtils.client(ApiStore.class).getUserInfo(MyApplication.getTOKEN())
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getUserInfo(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(responseBody -> responseBody);
     }

@@ -6,6 +6,7 @@ import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
@@ -105,7 +106,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 json.put("password", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(value)))
                 json.put("type", passwordType)
                 var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-                RetrofitUtils.client(ApiStore::class.java).userForget(body)
+                RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).userForget(body)
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ updateBean ->
                             if (updateBean.code === 200) {

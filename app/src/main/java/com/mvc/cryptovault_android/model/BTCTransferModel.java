@@ -23,7 +23,7 @@ public class BTCTransferModel extends BaseModel implements BTCTransferContract.B
 
     @Override
     public Observable<IDToTransferBean> getDetail(int id) {
-        return RetrofitUtils.client(ApiStore.class).getTranstion(MyApplication.getTOKEN(), id).compose(RxHelper.rxSchedulerHelper()).map(idbean -> idbean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getTranstion(MyApplication.getTOKEN(), id).compose(RxHelper.rxSchedulerHelper()).map(idbean -> idbean);
     }
 
     @Override
@@ -39,6 +39,6 @@ public class BTCTransferModel extends BaseModel implements BTCTransferContract.B
             e.printStackTrace();
         }
         RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
-        return RetrofitUtils.client(ApiStore.class).sendTransferRequest(MyApplication.getTOKEN(), body).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).sendTransferRequest(MyApplication.getTOKEN(), body).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
     }
 }

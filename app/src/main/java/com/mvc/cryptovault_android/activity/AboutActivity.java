@@ -72,7 +72,7 @@ public class AboutActivity extends BaseActivity {
 
     @SuppressLint("CheckResult")
     public void onClick(View view) {
-        RetrofitUtils.client(ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(installApkBean -> {
                     if (installApkBean.getCode() == 200) {

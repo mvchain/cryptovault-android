@@ -52,7 +52,7 @@ class InvatitionActivity : BaseActivity() {
 
     @SuppressLint("CheckResult")
     override fun initData() {
-        RetrofitUtils.client(ApiStore::class.java).getInvitation(MyApplication.getTOKEN())
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getInvitation(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ http ->
                     if (http.code === 200) {
@@ -69,7 +69,7 @@ class InvatitionActivity : BaseActivity() {
 
     @SuppressLint("CheckResult")
     private fun loadInvatationList(userId: Int) {
-        RetrofitUtils.client(ApiStore::class.java).getRecommendInvatation(MyApplication.getTOKEN(), userId, 20)
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getRecommendInvatation(MyApplication.getTOKEN(), userId, 20)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ invation ->
                     if (invation.code === 200) {

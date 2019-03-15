@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.model
 
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.HttpTokenBean
@@ -18,7 +19,7 @@ class VerificationInfoModel : BaseModel(), VerificationInfoContract.Verification
         json.put("resetType", type)
         json.put("value", value)
         var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-        return RetrofitUtils.client(ApiStore::class.java)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                 .updatePassword(body)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { httpToken -> httpToken }

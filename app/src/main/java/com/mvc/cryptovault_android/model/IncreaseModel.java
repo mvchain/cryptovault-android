@@ -40,7 +40,7 @@ public class IncreaseModel extends BaseModel implements IncreaseContract.IIncrea
 
     @Override
     public Observable<List<IncreaseBean>> getCurrencyAll() {
-        return RetrofitUtils.client(ApiStore.class).getCurrencyAll(MyApplication.getTOKEN())
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getCurrencyAll(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
                 .flatMap((Function<CurrencyBean, ObservableSource<List<IncreaseBean>>>) currencyBean -> {
                     SPUtils.getInstance().put(CURRENCY_LIST, JsonHelper.jsonToString(currencyBean));

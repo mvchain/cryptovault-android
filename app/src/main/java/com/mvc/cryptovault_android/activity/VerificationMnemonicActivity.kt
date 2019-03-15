@@ -91,7 +91,7 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
             bodyJson.put("email", email)
             bodyJson.put("mnemonics", mnemonics)
             val body = RequestBody.create(MediaType.parse("text/html"), bodyJson.toString())
-            RetrofitUtils.client(ApiStore::class.java).postUserMnemonic(body)
+            RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).postUserMnemonic(body)
                     .compose(RxHelper.rxSchedulerHelper())
                     .subscribe({ loginBean ->
                         if (loginBean.code === 200) {
@@ -100,8 +100,9 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                             SPUtils.getInstance().put(TOKEN, data.token)
                             SPUtils.getInstance().put(USER_ID, data.userId)
                             SPUtils.getInstance().put(USER_EMAIL, data.email)
+                            SPUtils.getInstance().put(USER_PUBLIC_KEY, data.email)
                             MyApplication.setTOKEN(data.token)
-                            RetrofitUtils.client(ApiStore::class.java).getPushTag(MyApplication.getTOKEN()).compose<TagBean>(RxHelper.rxSchedulerHelper<TagBean>())
+                            RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getPushTag(MyApplication.getTOKEN()).compose<TagBean>(RxHelper.rxSchedulerHelper<TagBean>())
                                     .subscribe({ tagBean ->
                                         if (tagBean.getCode() == 200 && tagBean.getData() != null) {
                                             SPUtils.getInstance().put(TAG_NAME, tagBean.getData())

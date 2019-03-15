@@ -23,7 +23,7 @@ public class VPBalanceModel extends BaseModel implements BalanceContract.Balance
 
     @Override
     public Observable<VPBalanceBean> getBalance() {
-        return RetrofitUtils.client(ApiStore.class).getBalance(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(vpBalanceBean -> vpBalanceBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getBalance(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(vpBalanceBean -> vpBalanceBean);
     }
 
     @Override
@@ -36,6 +36,6 @@ public class VPBalanceModel extends BaseModel implements BalanceContract.Balance
             e.printStackTrace();
         }
         RequestBody body = RequestBody.create(MediaType.parse("text/html"), object.toString());
-        return RetrofitUtils.client(ApiStore.class).sendDebitMsg(MyApplication.getTOKEN(), body).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).sendDebitMsg(MyApplication.getTOKEN(), body).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
     }
 }

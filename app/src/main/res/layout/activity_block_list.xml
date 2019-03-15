@@ -59,7 +59,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="交易 Hash"
+                    android:text="区块高度"
                     android:textColor="@color/trand_gray"
                     android:textSize="13sp" />
 
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="确认数"
+                    android:text="交易数量"
                     android:textColor="@color/trand_gray"
                     android:textSize="13sp" />
 
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="交易时间"
+                    android:text="出块时间"
                     android:textColor="@color/trand_gray"
                     android:textSize="13sp" />
             </LinearLayout>

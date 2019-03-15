@@ -21,6 +21,6 @@ public class MsgModel extends BaseModel implements MsgContract.IMsgModel {
 
     @Override
     public Observable<MsgBean> getMsg(long timestamp, int type, int pageSize) {
-        return RetrofitUtils.client(ApiStore.class).getMsg(MyApplication.getTOKEN(), timestamp, type, pageSize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getMsg(MyApplication.getTOKEN(), timestamp, type, pageSize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
     }
 }

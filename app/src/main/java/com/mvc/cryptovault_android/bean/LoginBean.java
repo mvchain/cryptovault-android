@@ -39,6 +39,7 @@ public class LoginBean {
     public static class DataBean {
         /**
          * refreshToken : eyJhbGcidXNlcklkIjoxLCJzZXJ2aWNlIjoiYXBwIiwidHlwZSI6InJlZnJlc2giLCJleHAiOjE1NDM5MjE4Mzh9.48EXkjrQZFud2vVciTEBLM5xNzu4sRZaIxdehgnQeFA
+         * publicKey :
          * token : lcklkIjoxLCJzZXJ2aWNlIjoiYXBwIiwidHlwZSI6InRva2VuIiwiZXhwIjoxNTQzMzIzMDg2fQ.WIN2gtguw3NLm5LVCeJ3kAhIev4OHaYxkbHXEIjJmYs
          * userId : 1
          */
@@ -46,7 +47,16 @@ public class LoginBean {
         private String email;
         private String refreshToken;
         private String token;
+        private String publicKey;
         private int userId;
+
+        public String getPublicKey() {
+            return publicKey;
+        }
+
+        public void setPublicKey(String publicKey) {
+            this.publicKey = publicKey;
+        }
 
         public String getEmail() {
             return email;

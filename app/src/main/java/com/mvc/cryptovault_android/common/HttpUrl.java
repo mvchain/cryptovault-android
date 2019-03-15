@@ -3,7 +3,8 @@ package com.mvc.cryptovault_android.common;
 public class HttpUrl {
     //    public static final String BASE_URL = "http://192.168.15.31:10086/";
 //    public static final String BASE_URL = "http://47.110.234.233:10086/";
-    public static final String URL_PATH = "api/app/";
+//    public static final String URL_PATH = "api/app/";
+    public static final String URL_PATH = "";
     public static final String URL_BROWSER = "api/explorer/";
 //        public static final String BASE_URL = "http://192.168.15.21:10086/";
 
@@ -260,4 +261,9 @@ public class HttpUrl {
      * 获取区块详情交易列表
      */
     public static final String BLOCK_ID_TRANSACTIONS = URL_BROWSER + "block/{blockId}/transactions";
+
+    /**
+     * 根据hash查询交易详情
+     */
+    public static final String BLOCK_TRANSACTION_TX = URL_BROWSER + "block/transaction/tx";
 }

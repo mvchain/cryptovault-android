@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.View
 import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
+import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
@@ -63,7 +64,7 @@ class PrivateKeyVerificationActivity : BaseActivity() {
         json.put("resetType", type)
         json.put("value", value)
         var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-        RetrofitUtils.client(ApiStore::class.java)
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                 .updatePassword(body)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ httpData ->

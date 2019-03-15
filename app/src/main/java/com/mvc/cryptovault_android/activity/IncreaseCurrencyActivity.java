@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.IncreaseAdapter;
 import com.mvc.cryptovault_android.api.ApiStore;
@@ -262,7 +263,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
             e.printStackTrace();
         }
         RequestBody body = RequestBody.create(MediaType.parse("text/html"), json.toString());
-        RetrofitUtils.client(ApiStore.class).updateAssetList(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).updateAssetList(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200 && updateBean.isData()) {
                 EventBus.getDefault().post(new WalletAssetsListEvent());
             }
@@ -296,7 +297,7 @@ public class IncreaseCurrencyActivity extends BaseMVPActivity<IncreaseContract.I
             e.printStackTrace();
         }
         RequestBody body = RequestBody.create(MediaType.parse("text/html"), json.toString());
-        RetrofitUtils.client(ApiStore.class).updateAssetList(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
+        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).updateAssetList(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200 && updateBean.isData()) {
                 EventBus.getDefault().post(new WalletAssetsListEvent());
             }

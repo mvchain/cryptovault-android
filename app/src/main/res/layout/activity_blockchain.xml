@@ -391,6 +391,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="交易 Hash"
                         android:textColor="@color/trand_gray"
                         android:textSize="13sp" />
@@ -398,17 +399,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="center"
-                        android:text="确认数"
-                        android:textColor="@color/trand_gray"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="right"
                         android:text="交易时间"
                         android:textColor="@color/trand_gray"
                         android:textSize="13sp" />

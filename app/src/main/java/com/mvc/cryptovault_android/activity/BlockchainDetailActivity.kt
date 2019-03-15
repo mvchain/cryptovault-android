@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.blankj.utilcode.util.LogUtils
@@ -85,6 +86,16 @@ class BlockchainDetailActivity : BaseMVPActivity<IBlockDetailContract.IBlockDeta
                 }
             }
         })
+        transactionAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when (view.id) {
+                R.id.layout -> {
+                    var intent = Intent(this, PublicKeyActivity::class.java)
+                    intent.putExtra("publicKey", transactionBean[position].hash)
+                    startActivity(intent)
+                }
+            }
+        }
+
         browser_header.attachTo(browser_transfer_rv)
         blockId = intent.getStringExtra("blockId")
         browser_back.setOnClickListener { finish() }

@@ -9,10 +9,10 @@ class BrowserPresenter : IBrowserContract.IBrowserPresenter() {
     override fun getBlockAddressExist(address: String) {
         rxUtils.register(mIModel.getBlockAddressExist(address)
                 .subscribe { addressBean ->
-                    if (addressBean.code === 200) {
+                    if (addressBean.code == 200 && addressBean.data != "") {
                         mIView.addressSuccess(addressBean.data)
                     } else {
-                        mIView.addressSuccess(addressBean.message)
+                        mIView.addressFailed(addressBean.message)
                     }
                 })
     }

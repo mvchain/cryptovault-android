@@ -8,6 +8,7 @@ import android.view.inputmethod.EditorInfo
 import com.blankj.utilcode.util.KeyboardUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
+import com.mvc.cryptovault_android.adapter.rvAdapter.BlockBrowserListAdapter
 import com.mvc.cryptovault_android.adapter.rvAdapter.BlockListAdapter
 import com.mvc.cryptovault_android.adapter.rvAdapter.BlockNodeAdapter
 import com.mvc.cryptovault_android.adapter.rvAdapter.BlockTransactionAdapter
@@ -26,7 +27,7 @@ import kotlin.collections.ArrayList
 
 class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPresenter>(), IBrowserContract.IBrowserView {
     private lateinit var listAdapter: BlockListAdapter
-    private lateinit var transactionAdapter: BlockTransactionAdapter
+    private lateinit var transactionAdapter: BlockBrowserListAdapter
     private lateinit var nodeAdapter: BlockNodeAdapter
     private lateinit var listBean: ArrayList<BlockListBean.DataBean>
     private lateinit var nodeBean: ArrayList<BlockNodeBean>
@@ -107,7 +108,16 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
         nodeBean = ArrayList()
         transactionBean = ArrayList()
         listAdapter = BlockListAdapter(R.layout.item_block_list, listBean)
-        transactionAdapter = BlockTransactionAdapter(R.layout.item_block_list, transactionBean)
+        listAdapter.setOnItemClickListener { adapter, view, position ->
+            when(view.id){
+                R.id.layout->{
+                    var intent = Intent(this@BlockchainBrowserActivity, BlockchainDetailActivity::class.java)
+                    intent.putExtra("blockId", "${listBean[position].blockId}")
+                    startActivity(intent)
+                }
+            }
+        }
+        transactionAdapter = BlockBrowserListAdapter(R.layout.item_browser_block_list, transactionBean)
         nodeAdapter = BlockNodeAdapter(R.layout.item_block_node, nodeBean)
         browser_block_rv.adapter = listAdapter
         browser_transfer_rv.adapter = transactionAdapter

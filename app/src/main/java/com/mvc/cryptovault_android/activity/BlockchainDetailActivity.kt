@@ -27,9 +27,17 @@ class BlockchainDetailActivity : BaseMVPActivity<IBlockDetailContract.IBlockDeta
     }
 
     override fun blockDetailFailed(msg: String) {
+        if (isRefresh) {
+            isRefresh = false
+        }
+        swipe.isRefreshing = false
     }
 
     override fun blockAllListSuccess(blockListBean: List<BlockTransactionBean.DataBean>) {
+        if (isRefresh) {
+            isRefresh = false
+            transactionBean.clear()
+        }
         swipe.isRefreshing = false
         transactionBean.addAll(blockListBean)
         transactionAdapter.notifyDataSetChanged()
@@ -46,7 +54,7 @@ class BlockchainDetailActivity : BaseMVPActivity<IBlockDetailContract.IBlockDeta
     private lateinit var transactionAdapter: BlockTransactionAdapter
     private lateinit var transactionBean: ArrayList<BlockTransactionBean.DataBean>
     private lateinit var blockId: String
-
+    private var isRefresh = false
     override fun blockListFailed(msg: String) {
 //
     }
@@ -68,6 +76,7 @@ class BlockchainDetailActivity : BaseMVPActivity<IBlockDetailContract.IBlockDeta
     }
 
     override fun initView() {
+
     }
 
     override fun initMVPView() {
@@ -80,7 +89,7 @@ class BlockchainDetailActivity : BaseMVPActivity<IBlockDetailContract.IBlockDeta
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     var layoutManager = recyclerView?.layoutManager as LinearLayoutManager
                     var lastVisibleItemPosition = layoutManager?.findLastVisibleItemPosition()
-                    if (lastVisibleItemPosition + 1 == transactionAdapter.itemCount && transactionAdapter.itemCount >= 20) {
+                    if (lastVisibleItemPosition + 1 == transactionAdapter.itemCount && transactionAdapter.itemCount >= 20 && isRefresh) {
                         mPresenter.getBlockAllList(blockId, 20, transactionBean[transactionBean.size - 1].transactionId)
                     }
                 }
@@ -89,8 +98,8 @@ class BlockchainDetailActivity : BaseMVPActivity<IBlockDetailContract.IBlockDeta
         transactionAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.layout -> {
-                    var intent = Intent(this, PublicKeyActivity::class.java)
-                    intent.putExtra("publicKey", transactionBean[position].hash)
+                    var intent = Intent(this,BlockTransferDetailActivity::class.java)
+                    intent.putExtra("hash",transactionBean[position].hash)
                     startActivity(intent)
                 }
             }
@@ -104,7 +113,7 @@ class BlockchainDetailActivity : BaseMVPActivity<IBlockDetailContract.IBlockDeta
     }
 
     private fun onRefresh() {
-        transactionBean.clear()
+        isRefresh = true
         mPresenter.getBlockAllList(blockId, 20, 0)
         mPresenter.getBlockDetail(blockId)
     }

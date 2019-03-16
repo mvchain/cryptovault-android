@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.gyf.barlibrary.ImmersionBar
@@ -72,6 +73,15 @@ class BlockchainListActivity : BaseMVPActivity<IBlockDetailContract.IBlockDetail
                 }
             }
         })
+        listAdapter.setOnItemClickListener { adapter, view, position ->
+            when (view.id) {
+                R.id.layout -> {
+                    var intent = Intent(this, BlockchainDetailActivity::class.java)
+                    intent.putExtra("blockId", "${listBean[position].blockId}")
+                    startActivity(intent)
+                }
+            }
+        }
         block_back.setOnClickListener { finish() }
     }
 
@@ -85,14 +95,14 @@ class BlockchainListActivity : BaseMVPActivity<IBlockDetailContract.IBlockDetail
     }
 
     override fun blockListFailed(msg: String) {
-        if(isRefresh){
+        if (isRefresh) {
             isRefresh = false
         }
         swipe.isRefreshing = false
     }
 
     override fun blockListSuccess(blockListBean: List<BlockListBean.DataBean>) {
-        if(isRefresh){
+        if (isRefresh) {
             isRefresh = false
             listBean.clear()
         }

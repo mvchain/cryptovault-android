@@ -46,9 +46,6 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
 
     override fun blockNodeSuccess(blockNodeBean: ArrayList<BlockNodeBean>) {
         browser_swipe.isRefreshing = false
-        nodeBean.clear()
-        nodeBean.addAll(blockNodeBean)
-        nodeAdapter.notifyDataSetChanged()
     }
 
     override fun blockSuccess(blockBrowserDataBean: BlockBrowserDataBean) {
@@ -56,6 +53,7 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
         var nLastBean = blockBrowserDataBean.blockLastBean
         var nListBean = blockBrowserDataBean.blockListBean
         var nTransactionBean = blockBrowserDataBean.blockTransactionBean
+        var nNodeBean = blockBrowserDataBean.blockNodeBean
         if (nLastBean != null) {
             var lastData = nLastBean.data
             browser_height.text = "${lastData.blockId}"
@@ -75,6 +73,11 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
             transactionBean.addAll(nTransactionBean.data)
             transactionAdapter.notifyDataSetChanged()
         }
+        if(nNodeBean!=null){
+            nodeBean.clear()
+            nodeBean.addAll(nNodeBean)
+            nodeAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun blockFailed(msg: String) {
@@ -87,7 +90,7 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
 
     override fun initMVPData() {
         mPresenter.getBlockBrowserData()
-        mPresenter.getBlockNode()
+//        mPresenter.getBlockNode()
     }
 
     override fun getLayoutId(): Int {
@@ -109,8 +112,8 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
         transactionBean = ArrayList()
         listAdapter = BlockListAdapter(R.layout.item_block_list, listBean)
         listAdapter.setOnItemClickListener { adapter, view, position ->
-            when(view.id){
-                R.id.layout->{
+            when (view.id) {
+                R.id.layout -> {
                     var intent = Intent(this@BlockchainBrowserActivity, BlockchainDetailActivity::class.java)
                     intent.putExtra("blockId", "${listBean[position].blockId}")
                     startActivity(intent)
@@ -140,11 +143,11 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
         browser_swipe.setOnRefreshListener { onRefresh() }
         browser_swipe.isRefreshing = true
         transactionAdapter.setOnItemChildClickListener { adapter, view, position ->
-            when(view.id){
-                R.id.layout->{
-                    var hash  = transactionBean[position].hash
-                    var intent = Intent(this@BlockchainBrowserActivity,BlockTransferDetailActivity::class.java)
-                    intent.putExtra("hash",hash)
+            when (view.id) {
+                R.id.layout -> {
+                    var hash = transactionBean[position].hash
+                    var intent = Intent(this@BlockchainBrowserActivity, BlockTransferDetailActivity::class.java)
+                    intent.putExtra("hash", hash)
                     startActivity(intent)
                 }
             }
@@ -153,7 +156,7 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
 
     private fun onRefresh() {
         mPresenter.getBlockBrowserData()
-        mPresenter.getBlockNode()
+//        mPresenter.getBlockNode()
     }
 
     override fun startActivity() {

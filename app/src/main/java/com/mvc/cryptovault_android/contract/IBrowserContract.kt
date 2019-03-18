@@ -18,7 +18,7 @@ interface IBrowserContract {
     interface IBrowserModel : IBaseModel {
         fun getBlockBrowserData(): Observable<BlockBrowserDataBean>
         fun getBlockNode(): Observable<ArrayList<BlockNodeBean>>
-        fun getBlockAddressExist(address: String) :Observable<HttpTokenBean>
+        fun getBlockAddressExist(address: String): Observable<HttpTokenBean>
     }
 
     interface IBrowserView : IBaseActivity {

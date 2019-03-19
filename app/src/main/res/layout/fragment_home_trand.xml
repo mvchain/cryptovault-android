@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/trand_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@color/login_content"
+            app:tabSelectedTextColor="@color/login_content" />
+
+        <ImageView
+            android:id="@+id/trand_histroy"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:scaleType="center"
+            android:src="@drawable/list_icon_black" />
+    </RelativeLayout>
+
+    <com.mvc.cryptovault_android.view.NoScrollViewPager
+        android:id="@+id/trand_vp"
+        android:layout_width="match_parent"
+        android:background="@color/fragment_grey"
+        android:layout_height="match_parent" />
+</LinearLayout>

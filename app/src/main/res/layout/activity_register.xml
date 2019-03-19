@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reg_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white" />
+
+    <ImageView
+        android:id="@+id/reg_back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="10dp"
+        android:onClick="onClick"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back_icon_black" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="10dp"
+        android:text="注册"
+        android:textColor="@color/login_content"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="38dp"
+        android:hint="注册邀请码"
+        app:hintTextAppearance="@style/Text_TextInputLayout">
+
+        <EditText
+            android:id="@+id/reg_invitation"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/login_content"
+            android:textColorHint="@color/edit_bg"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+            android:textSize="15dp"
+            android:theme="@style/Edit_Style" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="38dp"
+        android:hint="设置昵称"
+        app:hintTextAppearance="@style/Text_TextInputLayout">
+
+        <EditText
+            android:id="@+id/reg_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/login_content"
+            android:textColorHint="@color/edit_bg"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+            android:textSize="15dp"
+            android:theme="@style/Edit_Style" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="38dp"
+        android:hint="请输入邮箱"
+        app:hintTextAppearance="@style/Text_TextInputLayout">
+
+        <EditText
+            android:id="@+id/reg_email"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center_vertical"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/login_content"
+            android:textColorHint="@color/edit_bg"
+            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+            android:textSize="15dp"
+            android:theme="@style/Edit_Style" />
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="请输入邮箱验证码"
+            app:hintTextAppearance="@style/Text_TextInputLayout">
+
+            <EditText
+                android:id="@+id/reg_code"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginRight="17dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="@color/login_content"
+                android:textColorHint="@color/edit_bg"
+                android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+                android:textSize="14dp"
+                android:theme="@style/Edit_Style" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/send_code"
+            android:layout_width="105dp"
+            android:layout_height="35dp"
+            android:background="@drawable/shape_sendcode_bg"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="发送验证码"
+            android:textColor="@color/login_content"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/reg_submit"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="116dp"
+        android:background="@drawable/bg_login_submit"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="下一步"
+        android:textColor="@color/white" />
+</LinearLayout>

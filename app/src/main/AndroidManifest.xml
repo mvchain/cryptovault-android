@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mvc.cryptovault_android">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--极光必备权限-->
+    <!-- Required -->
+    <permission
+        android:name="${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE" />
+    <!-- Required -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <application
+        android:name=".MyApplication"
+        android:configChanges="locale"
+        android:icon="@mipmap/vp_logo"
+        android:label="@string/app_name"
+        android:resizeableActivity="false"
+        android:roundIcon="@mipmap/vp_logo"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="n">
+        <activity android:name=".activity.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterInvitationActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".activity.DetailActivity" />
+        <activity
+            android:name=".activity.MsgActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.HistoryActivity" />
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.IncreaseCurrencyActivity" />
+        <activity android:name=".activity.QCodeActivity" />
+        <activity android:name=".activity.TogeHistroyActivity" />
+        <activity android:name=".activity.MineReceiptQRCodeActivity" />
+        <activity android:name=".activity.BTCTransferActivity" />
+        <activity android:name=".activity.MineMnemonicsActivity" />
+        <activity android:name=".activity.VPBalanceWithdrawalActivity" />
+        <activity android:name=".activity.CrowdfundingAppointmentActivity" />
+        <activity android:name=".activity.TrandRecordingActivity" />
+        <activity
+            android:name=".activity.TrandPurhAndSellActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.TrandPurhAndSellItemActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.TrandOrderActivity" />
+        <activity android:name=".activity.LanguageActivity" />
+        <activity android:name=".activity.FilterOrderActivity" />
+        <activity
+            android:name=".activity.SelectLoginActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="${JPUSH_PKGNAME}.android.login" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.RegisterSetPwdActivity" />
+        <activity android:name=".activity.VerificationMnemonicActivity" />
+        <activity android:name=".activity.ForgetPasswordActivity" />
+        <activity android:name=".activity.SetLoginPasswordActivity" />
+        <activity android:name=".activity.VerificationInfoActivity" />
+        <activity android:name=".activity.ResetPasswordActivity" />
+        <activity android:name=".activity.ResetPasswordVerificationMnemonicsActivity" />
+        <activity android:name=".activity.SelectResetPasswordActivity" />
+        <activity android:name=".activity.SendEmailActivity" />
+        <activity android:name=".activity.SetEmailActivity" />
+        <activity android:name=".activity.InvatitionActivity" />
+        <activity android:name=".activity.FinancialDetailActivity" />
+        <activity android:name=".activity.FinancialDepositActivity" />
+        <activity android:name=".activity.MyOptionActivity" />
+        <activity android:name=".activity.OptionDetailActivity" />
+        <activity android:name=".activity.PrivateKeyVerificationActivity" />
+        <activity android:name=".activity.PublishListActivity" />
+
+        <activity android:name=".activity.PublishDetailActivity" />
+        <activity android:name=".activity.BlockchainBrowserActivity" />
+        <activity android:name=".activity.BlockchainListActivity" />
+        <activity android:name=".activity.PublicKeyActivity" />
+        <activity android:name=".activity.BlockchainDetailActivity" />
+        <activity android:name=".activity.BlockAssetsActivity" />
+        <activity android:name=".activity.BlockAssetsDetailActivity" />
+        <activity android:name=".activity.BlockTransferDetailActivity" />
+        <receiver
+            android:name=".receiver.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <!-- Required 用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!-- Required 用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!-- Required 用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!-- Required 用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="${JPUSH_PKGNAME}" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.MyJPushMessageReceiver">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="${JPUSH_PKGNAME}" />
+            </intent-filter>
+        </receiver>
+        <!--适配华为（hw）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+        <!-- Required. AppKey copied from Portal -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${JPUSH_PKGNAME}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+            <!--<meta-data-->
+            <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+            <!--android:resource="@xml/file_paths_down" />-->
+        </provider>
+    </application>
+
+</manifest>

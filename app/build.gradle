@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'//启用扩展支持直接使用ID
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'bzt'
+            keyPassword 'bzt_android'
+            storeFile file('E:/AppProject/cryptovault-android/bzt.jks')
+            storePassword 'bzt_android'
+        }
+    }
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.mvc.cryptovault_android"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 3
+        versionName "1.02"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME: "com.mvc.cryptovault_android",
+                    JPUSH_APPKEY : "ffb83d2be1729d733dd03c34",
+                    JPUSH_CHANNEL: "developer-default",
+            ]
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            applicationIdSuffix = ".debug"
+            manifestPlaceholders = [
+                    JPUSH_PKGNAME: "com.mvc.cryptovault_android.debug",
+                    JPUSH_APPKEY : "ead10cb72ec212eba6433c7c",
+                    JPUSH_CHANNEL: "developer-default",
+            ]
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                //这里修改apk文件名
+                outputFileName = "${variant.name}-v${variant.versionName}.apk"
+            }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27+'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //Utils
+    implementation 'com.blankj:utilcode:1.22.0'
+    //沉浸式状态栏
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.3-beta04'
+    //网络框架
+    implementation 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    //rx
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
+    implementation 'com.android.support:design:27+'
+    implementation 'com.android.support:cardview-v7:27+'
+    //    Adapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation 'com.github.Huazhiling:CustomRecyclerView:1.1.14'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.github.lygttpod:SuperTextView:2.1.8'
+    implementation 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
+    //    glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.Huazhiling:RsPermission:v1.0.7'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
+    implementation 'com.lzy.widget:imagepicker:0.6.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+    compile(name: 'geetest_sensebot_android_v4.0.5_20190122', ext: 'aar')
+//    极光推送
+    compile 'cn.jiguang.sdk:jpush:3.1.6'  // 此处以JPush 3.1.6 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.2.5'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"  // 此处以JCore 1.2.5 版本为例。
+}
+repositories {
+    mavenCentral()
+}

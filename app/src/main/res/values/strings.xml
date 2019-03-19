@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">BZT</string>
+    <!--APP登陆成功-->
+    <!---->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_faild">登录失败</string>
+    <string name="login_load">正在登录</string>
+    <!--App 双击退出-->
+    <string name="app_exit">请再按一次退出App</string>
+    <!--应用内文字-->
+    <string name="increase_add">添加</string>
+    <string name="increase_remove">移除</string>
+    <string name="toge_com">立即预约</string>
+    <string name="toge_end">已结束</string>
+    <string name="trand_withdrawal">撤单</string>
+    <string name="trand_over">已成交</string>
+    <string name="select_photo">从相册选择</string>
+    <!--navigation-->
+    <string name="navi_assets">资产</string>
+    <string name="navi_trand">交易</string>
+    <string name="navi_financial">理财</string>
+    <string name="navi_toge">众筹</string>
+    <string name="navi_mine">我的</string>
+    <!--title-->
+    <string name="account_security">账户安全</string>
+    <string name="set_login_password">修改登录密码</string>
+    <string name="account_verification">账户安全验证</string>
+    <string name="bind_new_email">绑定新邮箱</string>
+    <string name="invitation_registration">邀请注册</string>
+    <string name="language_title">语言</string>
+    <string name="detail_title">详情</string>
+    <string name="invitation_title">邀请注册</string>
+    <string name="about_title">关于</string>
+    <string name="publish_list_title">发币项目</string>
+    <!--content-->
+    <string name="sing_out">退出登录</string>
+    <string name="toge_comming_soon">预热中</string>
+    <string name="toge_get_on">预约中</string>
+    <string name="toge_over">已结束</string>
+    <string name="toge_involved">我参与的</string>
+    <string name="toge_recording">众筹记录</string>
+    <string name="update_email">修改邮箱</string>
+    <string name="update_password">修改登录密码</string>
+    <string name="update_pay_password">修改支付密码</string>
+    <string name="toge_left_title">发币</string>
+    <string name="toge_right_title">订单</string>
+    <!---->
+    <string name="download_url">https://www.bzvp.net/</string>
+    <!--<string name="base_url">http://47.110.234.233:10086/</string>-->
+    <string name="base_url">https://www.bzvp.net/</string>
+    <!--<string name="base_url">http://192.168.15.21:10086/</string>-->
+    <string name="base_browser_url">https://www.bzvp.net/</string>
+    <!--<string name="base_browser_url">http://47.110.234.233/</string>-->
+
+</resources>

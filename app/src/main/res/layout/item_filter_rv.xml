@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/filter_item"
+    android:layout_width="80dp"
+    android:layout_height="30dp"
+    android:background="@drawable/shape_filter_light_blue_14dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:text="全部"
+    android:textColor="@color/trand_gray"
+    android:textSize="12sp">
+
+</TextView>

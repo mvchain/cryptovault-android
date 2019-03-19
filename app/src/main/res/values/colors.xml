@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="traslations">#00000000</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray_white">#D5D7E6</color>
+    <color name="white_tras">#F6F7FB</color>
+
+    <color name="black">#000000</color>
+    <color name="tran_black">#23FFFFFF</color>
+    <color name="option_traslations">#AAFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="status_blue">#0079fE</color>
+    <color name="select_blue">#007AFF</color>
+    <color name="login_blue">#FF007AFF</color>
+    <color name="status_gray">#76768a</color>
+    <color name="select_gray">#7A7A7C</color>
+    <color name="select_radio_gray">#EBF1FB</color>
+    <color name="trand_status_gray">#BDBDBF</color>
+    <!--字体颜色-->
+    <color name="login_content">#595971</color>
+    <color name="trand_gray">#8E8E9E</color>
+    <color name="black_gray">#ECEEF1</color>
+    <color name="msg_time_gray">#A7A9B8</color>
+    <color name="toge_gray">#C1C2CC</color>
+    <color name="btc_gray">#C1C1C1</color>
+    <color name="line_gray">#F2F2F2</color>
+    <color name="edit_tv">#D5D7E6</color>
+    <color name="error">#F33636</color>
+
+    <!--背景-->
+    <color name="login_edit_bg">#FF8E8E9E</color>
+    <color name="edit_bg">#C7C7D1</color>
+    <color name="aoi_bg_orangey">#E86636</color>
+    <color name="aoi_bg_ching">#0AA8A5</color>
+    <color name="lines_bg">#F6F7FB</color>
+    <color name="light_grey">#F6F7Fb</color>
+    <color name="fragment_grey">#F2F2F2</color>
+    <color name="verification_check">#8383AF</color>
+
+</resources>

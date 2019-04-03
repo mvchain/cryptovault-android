@@ -16,6 +16,7 @@ import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.common.HttpUrl;
 
 import java.io.IOException;
+import java.net.Authenticator;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -33,7 +34,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import cn.jpush.android.api.JPushInterface;
-import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

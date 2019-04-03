@@ -48,10 +48,10 @@
     <string name="toge_right_title">订单</string>
     <!---->
     <string name="download_url">https://www.bzvp.net/</string>
-    <!--<string name="base_url">http://47.110.234.233:10086/</string>-->
-    <string name="base_url">https://www.bzvp.net/</string>
+    <string name="base_url">http://47.110.234.233:10086/</string>
+    <!--<string name="base_url">https://www.bzvp.net/</string>-->
     <!--<string name="base_url">http://192.168.15.21:10086/</string>-->
-    <string name="base_browser_url">https://www.bzvp.net/</string>
-    <!--<string name="base_browser_url">http://47.110.234.233/</string>-->
+    <!--<string name="base_browser_url">https://www.bzvp.net/</string>-->
+    <string name="base_browser_url">http://47.110.234.233/</string>
 
 </resources>

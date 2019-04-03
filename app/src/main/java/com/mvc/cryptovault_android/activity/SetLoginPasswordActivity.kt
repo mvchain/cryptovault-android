@@ -24,14 +24,16 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
 
     override fun showError(error: String) {
         dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, error)
-        dialogHelper!!.dismissDelayed { null }
+        dialogHelper!!.dismissDelayed(null)
     }
 
     override fun showSuccess(msg: String) {
         dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, msg)
-        dialogHelper!!.dismissDelayed {
-            startTaskActivity(this)
-        }
+        dialogHelper!!.dismissDelayed  (object :DialogHelper.IDialogDialog{
+            override fun callback() {
+                startTaskActivity(this@SetLoginPasswordActivity)
+            }
+        })
     }
 
     override fun initPresenter(): BasePresenter<*, *> {
@@ -44,7 +46,7 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
     override fun initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init()
         type = intent.getIntExtra("type", 0)
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         when (type) {
             LOGIN_PASSWORD -> {
                 toolbar_title.text = "修改登录密码"
@@ -132,12 +134,12 @@ class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPassword
     private fun checkNotNullValue(): Boolean {
         if (old_pwd.text.toString() == "") {
             dialogHelper!!.create(this, R.drawable.miss_icon, "旧密码不可为空").show()
-            dialogHelper!!.dismissDelayed { null }
+            dialogHelper!!.dismissDelayed(null)
             return false
         }
         if (new_pwd.text.toString() == "") {
             dialogHelper!!.create(this, R.drawable.miss_icon, "新密码不可为空").show()
-            dialogHelper!!.dismissDelayed { null }
+            dialogHelper!!.dismissDelayed(null)
             return false
         }
         return true

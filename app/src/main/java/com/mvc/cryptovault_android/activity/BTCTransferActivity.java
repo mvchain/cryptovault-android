@@ -105,7 +105,7 @@ public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTC
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
         hash = getIntent().getStringExtra("hash");
         tokenName = getIntent().getStringExtra("tokenName");
         tokenId = getIntent().getIntExtra("tokenId", 0);

@@ -70,11 +70,11 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
 
     override fun showError(error: String) {
         dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, error)
-        dialogHelper?.dismissDelayed { null }
+        dialogHelper?.dismissDelayed(null)
     }
 
     override fun showSuccess(token: String) {
-        dialogHelper?.dismissDelayed({ null }, 0)
+        dialogHelper?.dismissDelayed(null, 0)
         var tokenIntent = intent
         tokenIntent.putExtra("token", token)
         startActivity(ResetPasswordActivity::class.java, tokenIntent)
@@ -102,15 +102,15 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
                         .subscribe({ httpTokenBean ->
                             if (httpTokenBean.code === 200) {
                                 dialogHelper?.resetDialogResource(this, R.drawable.success_icon, "验证码发送成功")
-                                dialogHelper?.dismissDelayed { null }
+                                dialogHelper?.dismissDelayed(null)
                                 startTimeCountdown()
                             } else {
                                 dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, httpTokenBean.message)
-                                dialogHelper?.dismissDelayed { null }
+                                dialogHelper?.dismissDelayed(null)
                             }
                         }, {
-                            dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, it.message)
-                            dialogHelper?.dismissDelayed { null }
+                            dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, it.message!!)
+                            dialogHelper?.dismissDelayed(null)
                         })
             }
             R.id.submit -> {
@@ -129,7 +129,7 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
                                         //传递邮箱过去 获取助记词
                                         if (upset.code === 200) {
                                             list.addAll(upset.data)
-                                            dialogHelper?.dismissDelayed({ null }, 0)
+                                            dialogHelper?.dismissDelayed(null, 0)
                                             var tokenIntent = intent
                                             SPUtils.getInstance().put(USER_EMAIL, account.text.toString())
                                             tokenIntent.putExtra("email", account.text.toString())
@@ -137,11 +137,11 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
                                             startActivity(ResetPasswordVerificationMnemonicsActivity::class.java, tokenIntent)
                                         } else {
                                             dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, upset.message)
-                                            dialogHelper?.dismissDelayed { null }
+                                            dialogHelper?.dismissDelayed(null)
                                         }
                                     }, { throwavle ->
-                                        dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, throwavle.message)
-                                        dialogHelper?.dismissDelayed { null }
+                                        dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, throwavle.message!!)
+                                        dialogHelper?.dismissDelayed(null)
                                     })
                         }
                         TYPE_PRIVATEKEY -> {
@@ -201,7 +201,7 @@ class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.Verifi
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         list = ArrayList()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         var getIntent = intent
         resetType = getIntent.getIntExtra("type", -1)
         when (resetType) {

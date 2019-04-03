@@ -231,7 +231,7 @@ class HistoryActivity : BaseMVPActivity<HistroyContract.HistroyPrecenter>(), His
                 200 -> {
                     val qode = data.getBooleanExtra("QODE", false)
                     if (!qode) {
-                        val dialogHelper = DialogHelper.getInstance()
+                        val dialogHelper = DialogHelper.instance
                         dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show()
                         dialogHelper.dismissDelayed(null, 2000)
                         return

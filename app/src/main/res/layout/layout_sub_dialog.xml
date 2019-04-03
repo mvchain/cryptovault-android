@@ -3,33 +3,24 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="270dp"
+        android:layout_width="wrap_content"
         android:background="@drawable/shape_round_white_12dp"
+        android:paddingLeft="26dp"
+        android:paddingRight="26dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:layout_height="170dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="温馨提示"
-            android:textSize="15sp"
-            android:textColor="@color/login_edit_bg"
-            android:layout_marginTop="12dp"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
-            android:background="@color/line_gray"
-            android:layout_height="1dp"/>
+        android:paddingTop="45dp"
+        android:paddingBottom="30dp"
+        android:layout_height="wrap_content">
         <TextView
             android:id="@+id/hint_title"
             android:textColor="@color/login_content"
             android:textSize="17sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="21dp" />
+            android:layout_height="wrap_content" />
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="33dp"
             android:orientation="horizontal"
             android:gravity="center_horizontal"
             android:layout_height="wrap_content">
@@ -40,17 +31,17 @@
                 android:background="@drawable/shape_hint_dialog_cancle"
                 android:textColor="@color/select_blue"
                 android:textSize="17sp"
-                android:layout_width="110dp"
+                android:layout_width="114dp"
                 android:layout_height="40dp" />
             <TextView
                 android:id="@+id/hint_enter"
-                android:background="@drawable/shape_hint_dialog_enter"
+                android:background="@drawable/bg_login_submit"
                 android:text="确定"
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 android:gravity="center"
                 android:layout_marginLeft="12dp"
-                android:layout_width="110dp"
+                android:layout_width="114dp"
                 android:layout_height="40dp" />
         </LinearLayout>
 

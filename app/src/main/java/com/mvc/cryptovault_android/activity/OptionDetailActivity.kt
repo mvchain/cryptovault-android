@@ -31,9 +31,11 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
 
     override fun showExtractSuccess() {
         dialogHelper.resetDialogResource(this, R.drawable.success_icon, "取出成功")
-        dialogHelper.dismissDelayed {
-            EventBus.getDefault().post(OptionEvent())
-        }
+        dialogHelper.dismissDelayed (object :DialogHelper.IDialogDialog{
+            override fun callback() {
+                EventBus.getDefault().post(OptionEvent())
+            }
+        })
         submit.text = "已取出"
         submit.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
         submit.isEnabled = false
@@ -41,9 +43,7 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
 
     override fun showExtractError(error: String) {
         dialogHelper.resetDialogResource(this, R.drawable.miss_icon, error)
-        dialogHelper.dismissDelayed {
-            null
-        }
+        dialogHelper.dismissDelayed(null)
     }
 
     @SuppressLint("SetTextI18n")
@@ -124,7 +124,7 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
 
     override fun initMVPView() {
         dailyList = ArrayList()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         dailyAdapter = DailyAdapter(R.layout.item_daily, dailyList)
         daily_rv.addItemDecoration(RuleRecyclerLines(this, RuleRecyclerLines.HORIZONTAL_LIST, 1))
         daily_rv.adapter = dailyAdapter
@@ -150,7 +150,7 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
             }
         }
         submit.setOnClickListener {
-            dialogHelper.create(this, "确定取出？") { viewId ->
+            dialogHelper.create(this, "确定取出？", IDialogViewClickListener { viewId ->
                 when (viewId) {
                     R.id.hint_cancle -> {
                         dialogHelper.dismiss()
@@ -160,7 +160,7 @@ class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPr
                         extractOptionDetail()
                     }
                 }
-            }.show()
+            }).show()
         }
     }
 

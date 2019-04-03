@@ -91,10 +91,10 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
             bodyJson.put("email", email)
             bodyJson.put("mnemonics", mnemonics)
             val body = RequestBody.create(MediaType.parse("text/html"), bodyJson.toString())
-            RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).postUserMnemonic(body)
+            RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).postUserMnemonic(body)
                     .compose(RxHelper.rxSchedulerHelper())
                     .subscribe({ loginBean ->
-                        if (loginBean.code === 200) {
+                        if (loginBean.code == 200) {
                             val data = loginBean.data
                             SPUtils.getInstance().put(REFRESH_TOKEN, data.refreshToken)
                             SPUtils.getInstance().put(TOKEN, data.token)
@@ -102,7 +102,7 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                             SPUtils.getInstance().put(USER_EMAIL, data.email)
                             SPUtils.getInstance().put(USER_PUBLIC_KEY, data.email)
                             MyApplication.setTOKEN(data.token)
-                            RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getPushTag(MyApplication.getTOKEN()).compose<TagBean>(RxHelper.rxSchedulerHelper<TagBean>())
+                            RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getPushTag(MyApplication.getTOKEN()).compose<TagBean>(RxHelper.rxSchedulerHelper<TagBean>())
                                     .subscribe({ tagBean ->
                                         if (tagBean.getCode() == 200 && tagBean.getData() != null) {
                                             SPUtils.getInstance().put(TAG_NAME, tagBean.getData())
@@ -118,32 +118,34 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                                         JPushInterface.setAlias(applicationContext, loginBean.data.userId, loginBean.data.userId.toString())
                                     }, { throwable -> LogUtils.e("VerificationMnemonicActivity", throwable.message) })
                             dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "校验成功，登录中")
-                            dialogHelper?.dismissDelayed {
-                                SPUtils.getInstance().remove(REG_TEMPTOKEN)
-                                SPUtils.getInstance().remove(REG_INVITATION)
-                                SPUtils.getInstance().remove(REG_MINEMNEMONICS)
-                                SPUtils.getInstance().remove(REG_PRIVATEKEY)
-                                SPUtils.getInstance().remove(REG_REGISTER)
-                                val intent = Intent(this, MainActivity::class.java)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                startActivity(intent)
-                            }
+                            dialogHelper?.dismissDelayed(object : DialogHelper.IDialogDialog {
+                                override fun callback() {
+                                    SPUtils.getInstance().remove(REG_TEMPTOKEN)
+                                    SPUtils.getInstance().remove(REG_INVITATION)
+                                    SPUtils.getInstance().remove(REG_MINEMNEMONICS)
+                                    SPUtils.getInstance().remove(REG_PRIVATEKEY)
+                                    SPUtils.getInstance().remove(REG_REGISTER)
+                                    val intent = Intent(this@VerificationMnemonicActivity, MainActivity::class.java)
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                    startActivity(intent)
+                                }
+                            })
                         } else {
                             dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, loginBean.message)
-                            dialogHelper!!.dismissDelayed { null }
+                            dialogHelper!!.dismissDelayed(null)
                         }
                     }, { error ->
                         if (error is SocketTimeoutException) {
                             dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
                         } else {
-                            dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message)
+                            dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message!!)
                         }
-                        dialogHelper!!.dismissDelayed { null }
+                        dialogHelper!!.dismissDelayed(null)
                     })
         }
     }
 
-    private fun initOutOrderToSort(list: ArrayList<String>) {
+    fun initOutOrderToSort(list: ArrayList<String>) {
         var index = 0
         var random = Random()
         while (list.size > 0) {
@@ -156,7 +158,7 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
 
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         list = intent.getStringArrayListExtra("menmonicss")
         checkMnomonic = ArrayList()
         sortMnomonic = ArrayList()

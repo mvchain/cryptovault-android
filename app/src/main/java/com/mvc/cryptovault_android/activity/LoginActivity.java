@@ -310,7 +310,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter>
 
     @Override
     protected void initMVPView() {
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
         mLoginEmail = findViewById(R.id.login_phone);
         mLoginPwd = findViewById(R.id.login_pwd);
         mPasswordLayout = findViewById(R.id.password_layout);

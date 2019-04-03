@@ -16,6 +16,7 @@ import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
 import com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL
 import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.listener.EditTextChange
+import com.mvc.cryptovault_android.listener.IDialogViewClickListener
 import com.mvc.cryptovault_android.listener.IPayWindowListener
 import com.mvc.cryptovault_android.utils.PointLengthFilter
 import com.mvc.cryptovault_android.utils.RetrofitUtils
@@ -47,7 +48,7 @@ class FinancialDepositActivity : BaseActivity() {
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         detail = intent.getParcelableExtra("detail")
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         deposit_limit.text = "存入限额：${TextUtils.doubleToFour(detail.purchased)}/${TextUtils.doubleToFour(detail.userLimit)}"
         available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
         financial_title.text = "${detail.name}存入"
@@ -119,21 +120,23 @@ class FinancialDepositActivity : BaseActivity() {
                             .subscribe({ date ->
                                 if (date.code === 200) {
                                     dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.success_icon, "存入成功")
-                                    dialogHelper.dismissDelayed {
-                                        EventBus.getDefault().post(FinancialDetailEvent())
-                                        finish()
-                                    }
+                                    dialogHelper.dismissDelayed(object :DialogHelper.IDialogDialog{
+                                        override fun callback() {
+                                            EventBus.getDefault().post(FinancialDetailEvent())
+                                            finish()
+                                        }
+                                    })
                                 } else {
                                     dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, date.message)
-                                    dialogHelper.dismissDelayed { null }
+                                    dialogHelper.dismissDelayed(null)
                                 }
                             }, {
                                 if (it is SocketTimeoutException) {
                                     dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, "连接超时")
                                 } else {
-                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, it.message)
+                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, it.message!!)
                                 }
-                                dialogHelper.dismissDelayed { null }
+                                dialogHelper.dismissDelayed(null)
                             })
                 }
         mPopView.contentView.post { mPopView.contentView.findViewById<PswText>(R.id.pay_text).performClick() }
@@ -157,7 +160,7 @@ class FinancialDepositActivity : BaseActivity() {
     private fun checkNotNullValue(): Boolean {
         if (deposit_count.text.toString() == "") {
             dialogHelper.create(this, R.drawable.miss_icon, "存入金额不许为空").show()
-            dialogHelper.dismissDelayed { null }
+            dialogHelper.dismissDelayed(null)
             return false
         }
         return true

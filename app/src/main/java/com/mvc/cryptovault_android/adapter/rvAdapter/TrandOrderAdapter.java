@@ -118,7 +118,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
             mOrderNum.setText(item.getOrderNumber());
         }
         helper.getView(R.id.order_item_submit).setOnClickListener(v -> {
-            mHintDialog = DialogHelper.getInstance().create(mContext, "确认撤除 " + dataBean.getPair() + "的挂单?", viewId -> {
+            mHintDialog = DialogHelper.Companion.getInstance().create(mContext, "确认撤除 " + dataBean.getPair() + "的挂单?", viewId -> {
                 switch (viewId) {
                     case R.id.hint_cancle:
                         mHintDialog.dismiss();

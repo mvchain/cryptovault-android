@@ -48,7 +48,7 @@ public class AboutActivity extends BaseActivity {
         mVersionAbout = findViewById(R.id.about_version);
         mBackAbout = findViewById(R.id.about_back);
         mBackAbout.setOnClickListener(v -> finish());
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
     }
 
     /**

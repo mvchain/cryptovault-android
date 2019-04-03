@@ -30,7 +30,7 @@ class PrivateKeyVerificationActivity : BaseActivity() {
 
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
     }
 
     fun onClick(view: View) {
@@ -64,7 +64,7 @@ class PrivateKeyVerificationActivity : BaseActivity() {
         json.put("resetType", type)
         json.put("value", value)
         var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
+        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java)
                 .updatePassword(body)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ httpData ->
@@ -73,13 +73,13 @@ class PrivateKeyVerificationActivity : BaseActivity() {
                         var tokenIntent = intent
                         tokenIntent.putExtra("token", httpData.data)
                         startActivity(ResetPasswordActivity::class.java, tokenIntent)
-                    }else{
+                    } else {
                         dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, httpData.message)
-                        dialogHelper?.dismissDelayed { null }
+                        dialogHelper?.dismissDelayed(null)
                     }
                 }, { error ->
-                    dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, error.message)
-                    dialogHelper?.dismissDelayed { null }
+                    dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, error.message!!)
+                    dialogHelper?.dismissDelayed(null)
                 })
     }
 }

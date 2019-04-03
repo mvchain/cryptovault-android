@@ -73,21 +73,21 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ httpToken ->
                             if (httpToken.code === 200) {
-                                dialogHelper?.dismissDelayed({ null }, 0)
+                                dialogHelper?.dismissDelayed(null, 0)
                                 var tokenIntent = intent
                                 tokenIntent.putExtra("token", httpToken.data)
                                 startActivity(ResetPasswordActivity::class.java, tokenIntent)
                             } else {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, httpToken.message)
-                                dialogHelper!!.dismissDelayed { null }
+                                dialogHelper!!.dismissDelayed(null)
                             }
                         }, { error ->
                             if (error is SocketTimeoutException) {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
                             }else{
-                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message)
+                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message!!)
                             }
-                            dialogHelper!!.dismissDelayed { null }
+                            dialogHelper!!.dismissDelayed(null)
                         })
             }
         }
@@ -143,7 +143,7 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
         email = emailIntent.getStringExtra("email")
         list = intent.getStringArrayListExtra("menmonicss")
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         checkMnomonic = ArrayList()
         sortMnomonic = ArrayList()
         checkAdapter = CheckMnemonicsAdapter(R.layout.item_mnemonics_rv, checkMnomonic)

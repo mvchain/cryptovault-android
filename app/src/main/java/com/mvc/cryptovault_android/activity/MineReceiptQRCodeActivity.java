@@ -50,7 +50,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
         tokenName = getIntent().getStringExtra("tokenName");
         mBackM = findViewById(R.id.m_back);
         mLayoutShare = findViewById(R.id.share_layout);

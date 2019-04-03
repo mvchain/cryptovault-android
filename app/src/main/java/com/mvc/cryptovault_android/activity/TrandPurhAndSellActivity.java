@@ -240,7 +240,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
         mBackTrand.setOnClickListener(this);
         mHistroyTrand.setOnClickListener(this);
         mSubmitPurh.setOnClickListener(this);
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
     }
 
     @Override

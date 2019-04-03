@@ -33,7 +33,7 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitationConstrat.Re
             finish()
         }
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
     }
 
     private var dialogHelper: DialogHelper? = null
@@ -118,7 +118,7 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitationConstrat.Re
 
     override fun showValiCode(email: String) {
         dialogHelper?.resetDialogResource(this, R.drawable.success_icon, email)
-        dialogHelper?.dismissDelayed { null }
+        dialogHelper?.dismissDelayed(null)
         TimeVerification.getInstence().setOnTimeEndCallBack(object : OnTimeEndCallBack {
             override fun updata(time: Int) {
                 send_code.isEnabled = false
@@ -138,7 +138,7 @@ class RegisterInvitationActivity : BaseMVPActivity<RegisterInvitationConstrat.Re
 
     override fun showError(error: String) {
         dialogHelper?.resetDialogResource(this, R.drawable.miss_icon, error)
-        dialogHelper?.dismissDelayed { null }
+        dialogHelper?.dismissDelayed(null)
     }
 
 }

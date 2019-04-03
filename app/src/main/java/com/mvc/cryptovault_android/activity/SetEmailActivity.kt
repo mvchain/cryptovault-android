@@ -8,6 +8,7 @@ import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
+import com.mvc.cryptovault_android.event.OptionEvent
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
@@ -16,6 +17,7 @@ import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_set_email.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import java.net.SocketTimeoutException
 
@@ -49,14 +51,14 @@ class SetEmailActivity : BaseActivity() {
                                 } else {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, bean.message)
                                 }
-                                dialogHelper?.dismissDelayed { null }
+                                dialogHelper?.dismissDelayed(null)
                             }, { throwable ->
                                 if (throwable is SocketTimeoutException) {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
                                 }else{
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, throwable.message)
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, throwable.message!!)
                                 }
-                                dialogHelper?.dismissDelayed { null }
+                                dialogHelper?.dismissDelayed(null)
                             })
                 }
             }
@@ -75,20 +77,22 @@ class SetEmailActivity : BaseActivity() {
                             .subscribe({ codeBean ->
                                 if (codeBean.code === 200) {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "换绑成功")
-                                    dialogHelper!!.dismissDelayed {
-                                        startTaskActivity(this)
-                                    }
+                                    dialogHelper!!.dismissDelayed  (object :DialogHelper.IDialogDialog{
+                                        override fun callback() {
+                                            startTaskActivity(this@SetEmailActivity)
+                                        }
+                                    })
                                 } else {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, codeBean.message)
-                                    dialogHelper?.dismissDelayed { null }
+                                    dialogHelper?.dismissDelayed(null)
                                 }
                             }, {
                                 if (it is SocketTimeoutException) {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, "连接超时")
                                 }else{
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message)
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message!!)
                                 }
-                                dialogHelper?.dismissDelayed { null }
+                                dialogHelper?.dismissDelayed(null)
                             })
                 }
             }
@@ -116,7 +120,7 @@ class SetEmailActivity : BaseActivity() {
     private fun checkCodeNotNullValue(): Boolean {
         if (email_code.text.toString() == "") {
             dialogHelper!!.create(this, R.drawable.miss_icon, "验证码不可为空").show()
-            dialogHelper?.dismissDelayed { null }
+            dialogHelper?.dismissDelayed(null)
             return false
         }
         return true
@@ -124,7 +128,7 @@ class SetEmailActivity : BaseActivity() {
     private fun checkEmailNotNullValue(): Boolean {
         if (email.text.toString() == "") {
             dialogHelper!!.create(this, R.drawable.miss_icon, "邮箱不可为空").show()
-            dialogHelper?.dismissDelayed { null }
+            dialogHelper?.dismissDelayed(null)
             return false
         }
         return true
@@ -133,7 +137,7 @@ class SetEmailActivity : BaseActivity() {
     @SuppressLint("CheckResult")
     override fun initView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         tempToken = intent.getStringExtra("token")
 
     }

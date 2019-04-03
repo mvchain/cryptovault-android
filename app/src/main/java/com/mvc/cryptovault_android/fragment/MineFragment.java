@@ -64,7 +64,7 @@ public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> im
 
     @Override
     protected void initView() {
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
         createCarryOut = true;
         mImgUser = rootView.findViewById(R.id.user_img);
         mNameUser = rootView.findViewById(R.id.user_name);

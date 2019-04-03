@@ -21,6 +21,7 @@
             android:id="@+id/increase_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:onClick="onClick"
             android:layout_marginLeft="5dp"
             android:scaleType="center"
             android:src="@drawable/back_icon_black" />
@@ -55,6 +56,7 @@
             android:id="@+id/increase_search"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:onClick="onClick"
             android:padding="5dp"
             android:scaleType="center"
             android:src="@drawable/search_icon_black" />

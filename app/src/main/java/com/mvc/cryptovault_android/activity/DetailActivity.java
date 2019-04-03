@@ -64,7 +64,7 @@ public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresent
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
         mBackDetail = findViewById(R.id.detail_back);
         mBackDetail.setOnClickListener(this);
         mShareDetail = findViewById(R.id.detail_share);

@@ -159,7 +159,7 @@ class InvatitionActivity : BaseActivity() {
 
     override fun initView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         invaList = ArrayList()
         invaAdapter = InvatitionAdapter(R.layout.item_invatation, invaList)
         mPop = createPopWindow()

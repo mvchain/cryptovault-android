@@ -57,12 +57,12 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                                     startActivity(MineMnemonicsActivity::class.java)
                                 } else {
                                     dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, mnemon.message)
-                                    dialogHelper?.dismissDelayed { null }
+                                    dialogHelper?.dismissDelayed(null)
                                 }
                             }, { t ->
                                 LogUtils.e(t.message)
-                                dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, t.message)
-                                dialogHelper?.dismissDelayed { null }
+                                dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, t.message!!)
+                                dialogHelper?.dismissDelayed(null)
                             })
                 }
             }
@@ -96,7 +96,7 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
 
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         reg_login_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var lenght = s!!.length

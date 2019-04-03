@@ -178,7 +178,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mMainVpHome = findViewById(R.id.home_main_vp);
         mButtonGroupHome = findViewById(R.id.home_button_group);
         mFragment = new ArrayList<>();
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

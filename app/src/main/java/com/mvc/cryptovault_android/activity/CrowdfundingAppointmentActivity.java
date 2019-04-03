@@ -183,7 +183,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
         mBwPriceM.setFocusable(true);
         mBwPriceM.setFocusableInTouchMode(true);
         mBwPriceM.requestFocus();
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
     }
 
     @Override

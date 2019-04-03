@@ -39,7 +39,7 @@ class SendEmailActivity : BaseActivity() {
             }
             R.id.send_code -> {
                 dialogHelper!!.create(this, R.drawable.pending_icon_1, "发送验证码").show()
-                RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendEmail(MyApplication.getTOKEN())
+                RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).sendEmail(MyApplication.getTOKEN())
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ codeBean ->
                             if (codeBean.code === 200) {
@@ -48,10 +48,10 @@ class SendEmailActivity : BaseActivity() {
                             } else {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, codeBean.message)
                             }
-                            dialogHelper?.dismissDelayed { null }
+                            dialogHelper?.dismissDelayed(null)
                         }, {
-                            dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message)
-                            dialogHelper?.dismissDelayed { null }
+                            dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message!!)
+                            dialogHelper?.dismissDelayed(null)
                         })
             }
             R.id.submit -> {
@@ -61,25 +61,25 @@ class SendEmailActivity : BaseActivity() {
                     var json = JSONObject()
                     json.put("valiCode", code)
                     var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-                    RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).verificationCode(MyApplication.getTOKEN(), body)
+                    RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).verificationCode(MyApplication.getTOKEN(), body)
                             .compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ codeBean ->
                                 if (codeBean.code === 200) {
-                                    dialogHelper!!.dismissDelayed({ null }, 0)
+                                    dialogHelper!!.dismissDelayed(null, 0)
                                     var dataIntent = intent
                                     dataIntent.putExtra("token", codeBean.data)
                                     startActivity(SetEmailActivity::class.java, dataIntent)
                                 } else {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, codeBean.message)
                                 }
-                                dialogHelper?.dismissDelayed { null }
+                                dialogHelper?.dismissDelayed(null)
                             }, {
                                 if (it is SocketTimeoutException) {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, "连接超时")
                                 } else {
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message)
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message!!)
                                 }
-                                dialogHelper?.dismissDelayed { null }
+                                dialogHelper?.dismissDelayed(null)
                             })
 
                 }
@@ -107,11 +107,10 @@ class SendEmailActivity : BaseActivity() {
     }
 
 
-
     private fun checkNotNullValue(): Boolean {
         if (email_code.text.toString() == "") {
             dialogHelper!!.create(this, R.drawable.miss_icon, "验证码不可为空").show()
-            dialogHelper?.dismissDelayed { null }
+            dialogHelper?.dismissDelayed(null)
             return false
         }
         return true
@@ -119,7 +118,7 @@ class SendEmailActivity : BaseActivity() {
 
     override fun initView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         val userJson = SPUtils.getInstance().getString(USER_INFO)
         val infoBean = JsonHelper.stringToJson(userJson, UserInfoBean::class.java) as UserInfoBean
         email_content.text = "验证当前邮箱：${infoBean.data.username}"

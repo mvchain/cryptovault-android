@@ -89,7 +89,7 @@ class BlockAssetsActivity : BaseMVPActivity<BlockAssetsContract.BlockAssetsPrese
                 override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         var layoutManager = recyclerView?.layoutManager as LinearLayoutManager
-                        var lastVisibleItemPosition = layoutManager?.findLastVisibleItemPosition()
+                        var lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
                         if (lastVisibleItemPosition + 1 == blockOrderAdapter.itemCount && blockOrderAdapter.itemCount >= 20) {
                             mPresenter.getBlockOrder(blockOrderBean[blockOrderBean.size].id, 20, publicKey)
                         }

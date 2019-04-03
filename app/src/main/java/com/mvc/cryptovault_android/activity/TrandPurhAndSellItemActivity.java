@@ -175,7 +175,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
     @Override
     protected void initView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
         mTitleTrand = findViewById(R.id.trand_title);
         mBackTrand = findViewById(R.id.trand_back);
         mHistroyTrand = findViewById(R.id.trand_histroy);

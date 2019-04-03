@@ -37,7 +37,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
 
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
-        dialogHelper = DialogHelper.getInstance()
+        dialogHelper = DialogHelper.instance
         account = intent.getStringExtra("token")
         type = intent.getIntExtra("type", -1)
         when (passwordType) {
@@ -111,25 +111,27 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                         .subscribe({ updateBean ->
                             if (updateBean.code === 200) {
                                 dialogHelper?.resetDialogResource(this, R.drawable.success_icon, "密码修改成功")
-                                dialogHelper?.dismissDelayed {
-                                    if (passwordType == TYPE_LOGIN_PASSWORD) {
-                                        startTaskActivity(this)
-                                    } else {
-                                        EventBus.getDefault().post(PayPwdRefreshEvent())
-                                        finish()
+                                dialogHelper?.dismissDelayed(object :DialogHelper.IDialogDialog{
+                                    override fun callback() {
+                                        if (passwordType == TYPE_LOGIN_PASSWORD) {
+                                            startTaskActivity(this@ResetPasswordActivity)
+                                        } else {
+                                            EventBus.getDefault().post(PayPwdRefreshEvent())
+                                            finish()
+                                        }
                                     }
-                                }
+                                })
                             } else {
                                 dialogHelper?.resetDialogResource(this, R.drawable.pending_icon_1, updateBean.message)
-                                dialogHelper?.dismissDelayed { null }
+                                dialogHelper?.dismissDelayed(null)
                             }
                         }, { error ->
                             if (error is SocketTimeoutException) {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
                             } else {
-                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message)
+                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message!!)
                             }
-                            dialogHelper?.dismissDelayed { null }
+                            dialogHelper?.dismissDelayed(null)
                         })
             }
         }

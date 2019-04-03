@@ -64,7 +64,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract
     @Override
     protected void initMVPView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
-        dialogHelper = DialogHelper.getInstance();
+        dialogHelper = DialogHelper.Companion.getInstance();
         mBackM = findViewById(R.id.m_back);
         mBackM.setOnClickListener(this);
         mTitleM = findViewById(R.id.m_title);

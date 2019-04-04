@@ -25,7 +25,6 @@ public class TrandChildModel extends BaseModel implements ITrandChildContract.IT
 
     @Override
     public Observable<TrandChildBean> getVrt(int pairType) {
-
         return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getVrtAndBalance(MyApplication.getTOKEN(), pairType).compose(RxHelper.rxSchedulerHelper()).map(trandChildBean -> trandChildBean);
     }
 

@@ -18,6 +18,7 @@ import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.listener.IDialogViewClickListener
 import com.mvc.cryptovault_android.listener.IPayWindowListener
+import com.mvc.cryptovault_android.listener.PswMaxListener
 import com.mvc.cryptovault_android.utils.PointLengthFilter
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
@@ -74,7 +75,7 @@ class FinancialDepositActivity : BaseActivity() {
     }
 
     private fun initPopHelper() {
-        mPopView = PopViewHelper.getInstance()
+        mPopView = PopViewHelper.instance
                 .create(this
                         , R.layout.layout_paycode
                         , "${deposit_count.text} ${detail.baseTokenName}"
@@ -102,8 +103,7 @@ class FinancialDepositActivity : BaseActivity() {
                         setAlpha(1f)
                         KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
                     }
-                }
-                ) { num ->
+                }, PswMaxListener { num ->
                     val email = SPUtils.getInstance().getString(USER_EMAIL)
                     KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
                     mPopView.dismiss()
@@ -138,7 +138,7 @@ class FinancialDepositActivity : BaseActivity() {
                                 }
                                 dialogHelper.dismissDelayed(null)
                             })
-                }
+                })
         mPopView.contentView.post { mPopView.contentView.findViewById<PswText>(R.id.pay_text).performClick() }
         mPopView.showAtLocation(deposit_count, Gravity.BOTTOM, 0, 0)
         setAlpha(0.5f)

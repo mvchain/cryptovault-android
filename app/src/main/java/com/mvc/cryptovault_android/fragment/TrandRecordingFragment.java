@@ -1,4 +1,4 @@
-package com.mvc.cryptovault_android.activity;
+package com.mvc.cryptovault_android.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -28,6 +28,9 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
+import com.mvc.cryptovault_android.activity.TrandOrderActivity;
+import com.mvc.cryptovault_android.activity.TrandPurhAndSellActivity;
+import com.mvc.cryptovault_android.activity.TrandPurhAndSellItemActivity;
 import com.mvc.cryptovault_android.adapter.TrandRecorAdapter;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseActivity;
@@ -35,7 +38,6 @@ import com.mvc.cryptovault_android.bean.KLineBean;
 import com.mvc.cryptovault_android.bean.PairTickersBean;
 import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
-import com.mvc.cryptovault_android.fragment.RecordingFragment;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.utils.TextUtils;

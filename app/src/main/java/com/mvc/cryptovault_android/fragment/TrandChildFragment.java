@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.activity.TrandRecordingFragment;
 import com.mvc.cryptovault_android.adapter.rvAdapter.TrandChildAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
@@ -86,7 +85,7 @@ public class TrandChildFragment extends BaseMVPFragment<ITrandChildContract.Tran
                     Intent intent = new Intent(activity, TrandRecordingFragment.class);
                     TrandChildBean.DataBean dataBean = data.get(position);
                     intent.putExtra("data", dataBean);
-                    SPUtils.getInstance().put(RECORDING_TYPE, dataBean.getPair().substring(dataBean.getPair().indexOf("/") + 1, dataBean.getPair().length()));
+                    SPUtils.getInstance().put(RECORDING_TYPE, dataBean.getPair().substring(dataBean.getPair().indexOf("/") + 1));
                     startActivity(intent);
                     break;
             }

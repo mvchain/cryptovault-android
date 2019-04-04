@@ -50,12 +50,12 @@ public class TrandFragment extends BaseFragment implements View.OnClickListener 
         trandPagerAdapter = new TrandPagerAdapter(getChildFragmentManager(), mFragments);
         mVpTrand.setAdapter(trandPagerAdapter);
         mTableTrand.setupWithViewPager(mVpTrand);
-        //保存所有交易对
-        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getAllVrtAndBalance(getToken())
-                .compose(RxHelper.rxSchedulerHelper())
-                .subscribe(trandChildBean ->
-                                SPUtils.getInstance().put(TRAND_LIST, JsonHelper.jsonToString(trandChildBean))
-                        , throwable -> LogUtils.e("TrandFragment", throwable.getMessage()));
+//        //保存所有交易对
+//        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getAllVrtAndBalance(getToken())
+//                .compose(RxHelper.rxSchedulerHelper())
+//                .subscribe(trandChildBean ->
+//                                SPUtils.getInstance().put(TRAND_LIST, JsonHelper.jsonToString(trandChildBean))
+//                        , throwable -> LogUtils.e("TrandFragment", throwable.getMessage()));
     }
 
     @Override

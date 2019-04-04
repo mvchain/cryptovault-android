@@ -216,7 +216,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 }
 
 //                startActivity(PayCodeActivity.class);
-                mPopView = PopViewHelper.getInstance()
+                mPopView = PopViewHelper.Companion.getInstance()
                         .create(this
                                 , R.layout.layout_paycode
                                 , "确认转账"

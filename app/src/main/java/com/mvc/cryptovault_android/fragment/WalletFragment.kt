@@ -219,7 +219,7 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
                 content.add(dataBean.name)
                 mExchange.add(dataBean)
             }
-            mPopView = PopViewHelper.getInstance().create(activity, R.layout.layout_rate_pop, content, this)
+            mPopView = PopViewHelper.instance.create(activity, R.layout.layout_rate_pop, content, this)
         }
     }
 

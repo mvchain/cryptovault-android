@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.activity.TrandRecordingFragment;
 import com.mvc.cryptovault_android.adapter.rvAdapter.RecorAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;

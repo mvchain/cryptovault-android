@@ -23,6 +23,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"/>
 		<TextView
+				android:id="@+id/select_mvc"
 				android:text="USDT"
 				android:layout_centerVertical="true"
 				android:layout_marginLeft="13dp"
@@ -36,6 +37,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="21dp"/>
 		<ImageView
+				android:id="@+id/menu"
 				android:layout_width="44dp"
 				android:src="@drawable/search_icon_drawable_edit"
 				android:scaleType="center"
@@ -131,7 +133,7 @@
 				android:orientation="horizontal">
 
 			<RadioButton
-					android:id="@+id/recording_in_radio"
+					android:id="@+id/recording_out_radio"
 					android:layout_width="0dp"
 					android:layout_height="36dp"
 					android:layout_weight="1"
@@ -139,18 +141,18 @@
 					android:button="@null"
 					android:checked="true"
 					android:gravity="center"
-					android:text="出售订单"
+					android:text="购买订单"
 					android:textColor="@color/select_recording_radio"/>
 
 			<RadioButton
-					android:id="@+id/recording_out_radio"
+					android:id="@+id/recording_in_radio"
 					android:layout_width="0dp"
 					android:layout_height="36dp"
 					android:layout_weight="1"
 					android:background="@drawable/select_recording_radio"
 					android:button="@null"
 					android:gravity="center"
-					android:text="购买订单"
+					android:text="出售订单"
 					android:textColor="@color/select_recording_radio"/>
 		</RadioGroup>
 		<com.mvc.cryptovault_android.view.NoScrollViewPager

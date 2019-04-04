@@ -203,7 +203,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                     ToastUtils.showLong("购买数量不可为空");
                     return;
                 }
-                mPopView = PopViewHelper.getInstance()
+                mPopView = PopViewHelper.Companion.getInstance()
                         .create(this
                                 , R.layout.layout_paycode
                                 , "确认预约"

@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrandChildBean implements Parcelable{
@@ -15,7 +16,7 @@ public class TrandChildBean implements Parcelable{
 
     private int code;
     private String message;
-    private List<DataBean> data;
+    private ArrayList<DataBean> data;
 
     protected TrandChildBean(Parcel in) {
         code = in.readInt();
@@ -51,11 +52,11 @@ public class TrandChildBean implements Parcelable{
         this.message = message;
     }
 
-    public List<DataBean> getData() {
+    public ArrayList<DataBean> getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(ArrayList<DataBean> data) {
         this.data = data;
     }
 

@@ -155,7 +155,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
                     ToastUtils.showLong("取出余额不可为空");
                     return;
                 }
-                mPopView = PopViewHelper.getInstance()
+                mPopView = PopViewHelper.Companion.getInstance()
                         .create(this
                                 , R.layout.layout_paycode
                                 , "确认取出"

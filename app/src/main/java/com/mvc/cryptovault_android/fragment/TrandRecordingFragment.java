@@ -149,9 +149,9 @@ public class TrandRecordingFragment extends BaseActivity implements View.OnClick
                 {
                     if (pickBean.getCode() == 200) {
                         PairTickersBean.DataBean data = pickBean.getData();
-                        mCurrentTvRecording.setText(TextUtils.doubleToFour(data.getPrice()) + " " + recordingType);
-                        mDayMaxTvRecording.setText(TextUtils.doubleToFour(data.getHigh()) + " " + recordingType);
-                        mDayMinTvRecording.setText(TextUtils.doubleToFour(data.getLow()) + " " + recordingType);
+                        mCurrentTvRecording.setText(TextUtils.doubleToEight(data.getPrice()) + " " + recordingType);
+                        mDayMaxTvRecording.setText(TextUtils.doubleToEight(data.getHigh()) + " " + recordingType);
+                        mDayMinTvRecording.setText(TextUtils.doubleToEight(data.getLow()) + " " + recordingType);
                     }
                 }, throwable -> {
                     LogUtils.e("TrandRecordingFragment", throwable.getMessage());

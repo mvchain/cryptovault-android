@@ -33,7 +33,7 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         financial_title.text = bean.name
         financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
         time_cycle.text = "需累计签到${bean.times}天"
-        starting.text = "${TextUtils.doubleToFour(bean.minValue)} ${bean.baseTokenName}"
+        starting.text = "${TextUtils.doubleToEight(bean.minValue)} ${bean.baseTokenName}"
         content.text = bean.content
         rule.text = bean.rule
         detail = bean

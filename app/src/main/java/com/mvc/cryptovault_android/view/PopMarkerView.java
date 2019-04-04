@@ -3,7 +3,6 @@ package com.mvc.cryptovault_android.view;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.MarkerView;
@@ -40,7 +39,7 @@ public class PopMarkerView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         mTimeMarker.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(Long.valueOf(new BigDecimal(e.getX()).toString()))));
-        mValueMarker.setText(TextUtils.doubleToFour(e.getY()) + " " + recordingType);
+        mValueMarker.setText(TextUtils.doubleToEight(e.getY()) + " " + recordingType);
     }
 
     @Override

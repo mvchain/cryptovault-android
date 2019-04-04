@@ -4,10 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -20,7 +18,6 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
 import com.mvc.cryptovault_android.bean.TrandOrderBean;
-import com.mvc.cryptovault_android.bean.UpdateBean;
 import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.event.TrandOrderEvent;
 import com.mvc.cryptovault_android.utils.JsonHelper;
@@ -32,8 +29,6 @@ import com.mvc.cryptovault_android.view.DialogHelper;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
-
-import io.reactivex.functions.Consumer;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 
@@ -86,7 +81,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         TrandChildBean.DataBean dataBean = orderBean.get(position);
         mPurchase.setText(item.getDeal() + " " + dataBean.getTokenName());
         mPendContent.setText(item.getDeal() + " " + dataBean.getTokenName());
-        mPrice.setText(TextUtils.doubleToFour(item.getPrice()) + " " + dataBean.getPair().substring(0, dataBean.getPair().indexOf("/")));
+        mPrice.setText(TextUtils.doubleToEight(item.getPrice()) + " " + dataBean.getPair().substring(0, dataBean.getPair().indexOf("/")));
         if (item.getStatus() == 0) {//进行中的订单
             helper.getView(R.id.order_item_num_layout).setVisibility(View.GONE);
             helper.getView(R.id.order_item_seller_layout).setVisibility(View.GONE);

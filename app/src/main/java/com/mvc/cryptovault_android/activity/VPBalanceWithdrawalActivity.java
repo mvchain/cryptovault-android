@@ -84,7 +84,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
                         mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.red));
                         mSubmitVp.setEnabled(false);
                     } else {
-                        mPriceVp.setText("余额：" + TextUtils.doubleToFour(vpBalanceBean.getData()));
+                        mPriceVp.setText("余额：" + TextUtils.doubleToEight(vpBalanceBean.getData()));
                         mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.login_edit_bg));
                         mSubmitVp.setEnabled(true);
                     }
@@ -111,7 +111,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
     @Override
     public void showSuccess(VPBalanceBean data) {
         this.vpBalanceBean = data;
-        mPriceVp.setText("余额：" + TextUtils.doubleToFour(data.getData()));
+        mPriceVp.setText("余额：" + TextUtils.doubleToEight(data.getData()));
     }
 
     @Override

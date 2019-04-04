@@ -36,7 +36,7 @@ public class WalletAssetsAdapter extends BaseQuickAdapter<AssetListBean.DataBean
         helper.addOnClickListener(R.id.item_assets_layout); //add onclick to the layout to jump startActivity
         type.setText(item.getTokenName());
         money.setText(SPUtils.getInstance().getString(DEFAULT_SYMBOL) + TextUtils.rateToPrice(item.getRatio() * item.getValue()));
-        actual.setText(TextUtils.doubleToFour(item.getValue()) + " " + tokenName);
+        actual.setText(TextUtils.doubleToEight(item.getValue()) + " " + tokenName);
         RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
         Glide.with(mContext).load(item.getTokenImage()).apply(options).into(icon);
     }

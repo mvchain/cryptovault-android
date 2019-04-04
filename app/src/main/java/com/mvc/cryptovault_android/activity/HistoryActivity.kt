@@ -140,7 +140,7 @@ class HistoryActivity : BaseMVPActivity<IHistoryContract.HistroyPrecenter>(), IH
         }
         mPriceHis.text = SpanUtils().append(TextUtils.rateToPrice(dataBean.ratio * dataBean.value) + " ").setFontSize(36, true)
                 .append(rateType).setFontSize(10, true).create()
-        mActualHis.text = TextUtils.doubleToFour(dataBean.value) + " " + dataBean.tokenName
+        mActualHis.text = TextUtils.doubleToEight(dataBean.value) + " " + dataBean.tokenName
     }
 
     override fun getLayoutId(): Int {
@@ -250,7 +250,7 @@ class HistoryActivity : BaseMVPActivity<IHistoryContract.HistroyPrecenter>(), IH
     @Subscribe
     fun changePrice(event: HistroyEvent) {
         val price = event.price
-        mActualHis.text = TextUtils.doubleToFour(java.lang.Double.parseDouble(mActualHis.text.toString().split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]) - java.lang.Double.parseDouble(price))
+        mActualHis.text = TextUtils.doubleToEight(java.lang.Double.parseDouble(mActualHis.text.toString().split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]) - java.lang.Double.parseDouble(price))
         val newsPrice = mActualHis.text.toString().split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
         mPriceHis.text = TextUtils.rateToPrice(java.lang.Double.parseDouble(newsPrice) * dataBean.ratio)
     }
@@ -264,7 +264,7 @@ class HistoryActivity : BaseMVPActivity<IHistoryContract.HistroyPrecenter>(), IH
                     val dataBean = assetsBean.data
                     mPriceHis.text = SpanUtils().append(TextUtils.rateToPrice(dataBean.ratio * dataBean.value) + " ").setFontSize(36, true)
                             .append(rateType).setFontSize(10, true).create()
-                    mActualHis.text = TextUtils.doubleToFour(dataBean.value) + " " + dataBean.tokenName
+                    mActualHis.text = TextUtils.doubleToEight(dataBean.value) + " " + dataBean.tokenName
                 }, { throwable -> LogUtils.e(throwable.message) })
     }
 }

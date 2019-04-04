@@ -111,7 +111,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         mNameBusiness.setText(recorBean.getNickname());
         price = recorBean.getPrice().toString();
         mNumRemaining.setText(recorBean.getLimitValue() + " " + getIntent().getStringExtra("title"));
-        mPriceNumSale.setText(TextUtils.doubleToFour(recorBean.getPrice().doubleValue()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
+        mPriceNumSale.setText(TextUtils.doubleToEight(recorBean.getPrice().doubleValue()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
         this.currentPrice = recorBean.getPrice().doubleValue();
         mNumPrice.setText((type == 1 ? "购买" : "出售") + "量");
         RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
@@ -121,11 +121,11 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                         TrandPurhBean.DataBean data = trandPurhBean.getData();
                         this.tokenBalance = data.getTokenBalance();
                         this.balance = data.getBalance();
-                        mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
-                        mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
+                        mPrice.setText(TextUtils.doubleToEight(data.getTokenBalance()));
+                        mPriceVrt.setText(TextUtils.doubleToEight(data.getBalance()));
                         mHintPrice.setText("可用" + TrandPurhAndSellItemActivity.this.data.getTokenName());
                         mAllPricePurh.setText("0.0000 " + allPriceUnit);
-                        mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
+                        mPrice.setText(TextUtils.doubleToEight(data.getTokenBalance()));
                         mEditPurh.setFilters(new InputFilter[]{new PointLengthFilter()});
                         mEditPurh.addTextChangedListener(new EditTextChange() {
                             @Override
@@ -229,19 +229,19 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                     return;
                 }
                 if (type == 1 && Double.valueOf(currentNum) > balance) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToFour(balance)).show();
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToEight(balance)).show();
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (type == 2 && Double.valueOf(currentNum) > tokenBalance) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToFour(tokenBalance)).show();
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToEight(tokenBalance)).show();
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 String type = (this.type == 1 ? data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()) : unitPrice);
                 String numType = (this.type == 1 ? data.getPair().substring(0, data.getPair().indexOf("/")) : data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
                 String payNum = currentAllPrice.split(" ")[0];
-                String buyPrice = this.type == 1 ? currentNum : TextUtils.doubleToFour(Double.parseDouble(currentNum) * currentPrice);
+                String buyPrice = this.type == 1 ? currentNum : TextUtils.doubleToEight(Double.parseDouble(currentNum) * currentPrice);
                 mPopView = createPopWindow(this, R.layout.layout_paycode
                         , this.type == 1 ? "确认购买" : "确认发布"
                         , "总计需支付"
@@ -249,7 +249,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                         , this.type == 1 ? "购买数量" : "总价"
                         , buyPrice + " " + numType
                         , this.type == 1 ? "购买单价" : "出售单价"
-                        , TextUtils.doubleToFour(currentPrice) + " " + data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length())
+                        , TextUtils.doubleToEight(currentPrice) + " " + data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length())
                         , new IPayWindowListener() {
                             @Override
                             public void onclick(View view) {

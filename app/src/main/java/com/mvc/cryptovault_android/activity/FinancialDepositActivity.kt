@@ -16,7 +16,6 @@ import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
 import com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL
 import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.listener.EditTextChange
-import com.mvc.cryptovault_android.listener.IDialogViewClickListener
 import com.mvc.cryptovault_android.listener.IPayWindowListener
 import com.mvc.cryptovault_android.listener.PswMaxListener
 import com.mvc.cryptovault_android.utils.PointLengthFilter
@@ -50,8 +49,8 @@ class FinancialDepositActivity : BaseActivity() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         detail = intent.getParcelableExtra("detail")
         dialogHelper = DialogHelper.instance
-        deposit_limit.text = "存入限额：${TextUtils.doubleToFour(detail.purchased)}/${TextUtils.doubleToFour(detail.userLimit)}"
-        available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
+        deposit_limit.text = "存入限额：${TextUtils.doubleToEight(detail.purchased)}/${TextUtils.doubleToEight(detail.userLimit)}"
+        available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
         financial_title.text = "${detail.name}存入"
         deposit_count.filters = arrayOf<InputFilter>(PointLengthFilter())
         deposit_count.addTextChangedListener(object : EditTextChange() {
@@ -63,11 +62,11 @@ class FinancialDepositActivity : BaseActivity() {
                         available.text = "可用${detail.baseTokenName}：不足"
                         available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.red))
                     } else {
-                        available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
+                        available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
                         available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.login_content))
                     }
                 } else {
-                    available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToFour(detail.balance)}"
+                    available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
                     available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.login_content))
                 }
             }

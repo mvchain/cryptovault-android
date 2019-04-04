@@ -128,7 +128,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                         mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
                         mSubmitBtc.setEnabled(false);
                     } else {
-                        mPriceBtc.setText(String.format("可用%s：" + TextUtils.doubleToFour(mTransBean.getBalance()), tokenName));
+                        mPriceBtc.setText(String.format("可用%s：" + TextUtils.doubleToEight(mTransBean.getBalance()), tokenName));
                         mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.login_edit_bg));
                         mSubmitBtc.setEnabled(true);
                     }
@@ -292,7 +292,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
     @Override
     public void showSuccess(IDToTransferBean.DataBean data) {
         this.mTransBean = data;
-        mPriceBtc.setText(String.format("可用%s：" + TextUtils.doubleToFour(data.getBalance()), tokenName));
+        mPriceBtc.setText(String.format("可用%s：" + TextUtils.doubleToEight(data.getBalance()), tokenName));
         mSxfBtc.setText(TextUtils.doubleToSix(data.getFee()) + " " + data.getFeeTokenName());
     }
 

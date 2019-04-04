@@ -112,10 +112,10 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                 .subscribe(trandPurhBean -> {
                     if (trandPurhBean.getCode() == 200) {
                         TrandPurhBean.DataBean data = trandPurhBean.getData();
-                        mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
-                        mPriceVrt.setText(TextUtils.doubleToFour(data.getBalance()));
+                        mPrice.setText(TextUtils.doubleToEight(data.getTokenBalance()));
+                        mPriceVrt.setText(TextUtils.doubleToEight(data.getBalance()));
                         mHintPrice.setText("可用" + TrandPurhAndSellActivity.this.data.getTokenName());
-                        mPriceCurrent.setText("当前价格" + TextUtils.doubleToFour(data.getPrice()) + unitPrice);
+                        mPriceCurrent.setText("当前价格" + TextUtils.doubleToEight(data.getPrice()) + unitPrice);
                         this.tokenBalance = data.getTokenBalance();
                         this.balance = data.getBalance();
                         this.currentPricePurh = data.getPrice();
@@ -131,14 +131,14 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                             mSeekPurh.setProgress(mSeekPurh.getMax() / 2);
                         }
                         mAllPricePurh.setText("0.0000 " + allPriceUnit);
-                        mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " " + unitPrice);
+                        mPricePurh.setText(TextUtils.doubleToEight(data.getPrice() * ((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100))) / 100) + " " + unitPrice);
                         mSeekNumPurh.setText((100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(mSeekPurh.getProgress() / 100)) + "%");
                         mSeekPurh.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                             @Override
                             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                                 double currentPro = (100 + data.getMin()) + (int) Double.parseDouble(TextUtils.doubleToDouble(progress / 100));
                                 mSeekNumPurh.setText(currentPro + "%");
-                                mPricePurh.setText(TextUtils.doubleToFour(data.getPrice() * currentPro / 100) + " " + unitPrice);
+                                mPricePurh.setText(TextUtils.doubleToEight(data.getPrice() * currentPro / 100) + " " + unitPrice);
                                 currentPricePurh = data.getPrice() * currentPro / 100;
                                 if (!mEditPurh.getText().toString().equals("")) {
                                     double allPrice = (data.getPrice() * currentPro / 100) * Double.valueOf(mEditPurh.getText().toString());
@@ -156,7 +156,7 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
 
                             }
                         });
-                        mPrice.setText(TextUtils.doubleToFour(data.getTokenBalance()));
+                        mPrice.setText(TextUtils.doubleToEight(data.getTokenBalance()));
                         mEditPurh.setFilters(new InputFilter[]{new PointLengthFilter()});
                         mEditPurh.addTextChangedListener(new EditTextChange() {
                             @Override
@@ -270,12 +270,12 @@ public class TrandPurhAndSellActivity extends BaseActivity implements View.OnCli
                     return;
                 }
                 if (type == 1 && Double.parseDouble(currentNum) > balance) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToFour(balance)).show();
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToEight(balance)).show();
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (type == 2 && Double.parseDouble(currentNum) > tokenBalance) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToFour(tokenBalance)).show();
+                    dialogHelper.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToEight(tokenBalance)).show();
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }

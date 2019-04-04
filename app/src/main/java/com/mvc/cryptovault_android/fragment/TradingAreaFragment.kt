@@ -8,19 +8,32 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RadioButton
 import android.widget.TextView
+import com.blankj.utilcode.util.SPUtils
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.adapter.TrandRecorAdapter
 import com.mvc.cryptovault_android.base.BaseMVPFragment
 import com.mvc.cryptovault_android.base.BasePresenter
+import com.mvc.cryptovault_android.bean.PairTickersBean
 import com.mvc.cryptovault_android.bean.TrandChildBean
+import com.mvc.cryptovault_android.common.Constant.SP.TRADING_PAIRID
 import com.mvc.cryptovault_android.contract.IAreaContract
-import com.mvc.cryptovault_android.contract.ISetPasswordContract
 import com.mvc.cryptovault_android.listener.ISelectWindowListener
 import com.mvc.cryptovault_android.presenter.AreaPresenter
+import com.mvc.cryptovault_android.utils.TextUtils
 import com.mvc.cryptovault_android.view.NoScrollViewPager
 import com.mvc.cryptovault_android.view.PopViewHelper
 
 class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAreaContract.AreaView {
+    override fun pairTickersSuccess(pairTickersBean: PairTickersBean.DataBean) {
+        mRecordingCurrent.text = TextUtils.doubleToEight(pairTickersBean.price)
+        mRecordingDayMax.text = TextUtils.doubleToEight(pairTickersBean.high)
+        mRecordingDayMin.text = TextUtils.doubleToEight(pairTickersBean.low)
+    }
+
+    override fun pairTickersFailed(msg: String) {
+
+    }
+
     private lateinit var mMask: View
     private lateinit var mMenu: ImageView
     private lateinit var mSelect: TextView
@@ -35,6 +48,9 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
     private lateinit var mMenuPop: PopupWindow
     private lateinit var ratioList: ArrayList<TrandChildBean.DataBean>
     private lateinit var menuList: ArrayList<String>
+    private var pairId = 1
+    private var createCarryOut: Boolean = false
+
 
     override fun initView() {
         mFragment = ArrayList()
@@ -43,6 +59,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         menuList.add("购买MVC挂单")
         menuList.add("出售MVC挂单")
         menuList.add("交易记录")
+        createCarryOut = true
         mMenu = rootView.findViewById(R.id.menu)
         mMask = rootView.findViewById(R.id.mask)
         mSelect = rootView.findViewById(R.id.select_mvc)
@@ -80,9 +97,21 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
 
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && createCarryOut) {
+            mPresenter.getAllVrtAndBalance()
+            mPresenter.getVrt(pairId)
+            mPresenter.getPairTickers(pairId)
+        }
+    }
+
     private lateinit var mFragment: ArrayList<Fragment>
 
     override fun vrtSuccess(trandChildBean: ArrayList<TrandChildBean.DataBean>) {
+        if (SPUtils.getInstance().getInt(TRADING_PAIRID,-1) == -1) {
+            SPUtils.getInstance().put(TRADING_PAIRID,trandChildBean[0].pair)
+        }
         ratioList.addAll(trandChildBean)
         loadFragment(0)
         mRecordingVp.adapter = recorAdapter
@@ -145,11 +174,8 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
     private fun initLeftPop() {
         mSelectPop = PopViewHelper.instance.create(activity, R.layout.layout_ratio_pop, ratioList, object : ISelectWindowListener {
             override fun onclick(position: Int) {
-                for (fragment in mFragment) {
-                    fragment as RecordingFragment
-                    fragment.setPairId(ratioList[position].pairId)
-                    fragment.eventRefresh(null)
-                }
+                refreshFragment(position)
+                SPUtils.getInstance().put(TRADING_PAIRID,ratioList[position].pair)
                 mSelectPop.dismiss()
             }
 
@@ -157,6 +183,15 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                 mMask.visibility = View.INVISIBLE
             }
         })
+    }
+
+    private fun refreshFragment(position: Int) {
+        for (fragment in mFragment) {
+            fragment as RecordingFragment
+            fragment.setPairId(ratioList[position].pairId)
+            fragment.eventRefresh(null)
+        }
+        pairId = position
     }
 
     override fun getLayoutId(): Int {
@@ -170,6 +205,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
     override fun initData() {
         super.initData()
         mPresenter.getAllVrtAndBalance()
-        mPresenter.getVrt(1)
+        mPresenter.getVrt(pairId)
+        mPresenter.getPairTickers(pairId)
     }
 }

@@ -23,9 +23,9 @@ public class TextUtils {
         return Double.parseDouble(string);
     }
 
-    public static String doubleToFour(double price) {
+    public static String doubleToEight(double price) {
         BigDecimal decimal = new BigDecimal(Double.toString(price));
-        return decimal.setScale(4, RoundingMode.DOWN).toString();
+        return decimal.setScale(8, RoundingMode.DOWN).toString();
     }
 
     public static String doubleToFourPrice(double price) {

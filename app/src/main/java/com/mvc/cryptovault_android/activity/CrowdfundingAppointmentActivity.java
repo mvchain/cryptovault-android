@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
@@ -33,7 +31,6 @@ import com.mvc.cryptovault_android.base.BaseActivity;
 import com.mvc.cryptovault_android.bean.PurchaseBean;
 import com.mvc.cryptovault_android.bean.TogeBean;
 import com.mvc.cryptovault_android.event.TogeFragmentEvent;
-import com.mvc.cryptovault_android.event.WalletMsgEvent;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.IPayWindowListener;
 import com.mvc.cryptovault_android.utils.PointLengthFilter;
@@ -102,7 +99,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         maxPurchase = purchaseBean.getData().getLimitValue();
                         minPurchase = purchaseBean.getData().getProjectMin();
                         mInfoMaxM.setText("限购额：" + TextUtils.doubleToInt(dataBean.getProjectLimit() - maxPurchase) + "/" + TextUtils.doubleToInt(dataBean.getProjectLimit()));
-                        mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
+                        mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToEight(purchaseBean.getData().getBalance()));
                     }
                 }, throwable -> {
                     LogUtils.e("CrowdfundingAppointment", throwable.getMessage());
@@ -117,7 +114,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 if (!updateTv.equals("")) {
                     ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(), R.drawable.clean_icon_edit), mBwPriceM);
                     Double currentNum = Double.valueOf(updateTv);
-                    mPriceM.setText(TextUtils.doubleToFour(currentNum * dataBean.getRatio()));
+                    mPriceM.setText(TextUtils.doubleToEight(currentNum * dataBean.getRatio()));
                     if (currentNum * dataBean.getRatio() > purchaseBean.getData().getBalance()) {
                         mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "不足！");
                         mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
@@ -125,7 +122,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else {
                         if (purchaseBean != null) {
-                            mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
+                            mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToEight(purchaseBean.getData().getBalance()));
                             mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.trand_gray));
                             mSubmitM.setEnabled(true);
                             mSubmitM.setBackgroundResource(R.drawable.bg_login_submit);
@@ -150,7 +147,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                     }
                 } else {
                     ViewDrawUtils.clearDraw(mBwPriceM);
-                    mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToFour(purchaseBean.getData().getBalance()));
+                    mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToEight(purchaseBean.getData().getBalance()));
                     mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.trand_gray));
                     mNumHint.setVisibility(View.INVISIBLE);
                     mPriceM.setText("0.0000");

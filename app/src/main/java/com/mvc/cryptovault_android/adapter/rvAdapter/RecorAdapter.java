@@ -10,13 +10,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.bean.RecorBean;
-import com.mvc.cryptovault_android.common.Constant;
 import com.mvc.cryptovault_android.utils.TextUtils;
 
 import java.util.List;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
-import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_UNIT;
 
 public class RecorAdapter extends BaseQuickAdapter<RecorBean.DataBean, BaseViewHolder> {
     public RecorAdapter(int layoutResId, @Nullable List<RecorBean.DataBean> data) {
@@ -27,8 +25,8 @@ public class RecorAdapter extends BaseQuickAdapter<RecorBean.DataBean, BaseViewH
     protected void convert(BaseViewHolder helper, RecorBean.DataBean item) {
         ImageView recIcon = helper.getView(R.id.recor_icon);
         helper.setText(R.id.recor_nickname, item.getNickname());
-        helper.setText(R.id.recor_max, (item.getTransactionType() == 1 ? "剩余购买量：" : "剩余出售量：") + TextUtils.doubleToFour(item.getLimitValue()));
-        helper.setText(R.id.recor_price, TextUtils.doubleToFour(item.getPrice().doubleValue()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
+        helper.setText(R.id.recor_max, (item.getTransactionType() == 1 ? "剩余购买量：" : "剩余出售量：") + TextUtils.doubleToEight(item.getLimitValue()));
+        helper.setText(R.id.recor_price, TextUtils.doubleToEight(item.getPrice().doubleValue()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
         RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
         Glide.with(mContext).load(item.getHeadImage()).apply(options).into(recIcon);
         helper.addOnClickListener(R.id.recording_layout);

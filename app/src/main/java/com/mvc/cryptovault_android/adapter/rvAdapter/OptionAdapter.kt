@@ -14,8 +14,8 @@ class OptionAdapter(layoutResId: Int, data: ArrayList<OptionBean.DataBean>?) : B
         var superText = helper?.getView<SuperTextView>(R.id.option_title)
         superText!!.setLeftTopString(item?.name)
         superText!!.setLeftBottomString("剩余签到${item?.times}天")
-        helper?.setText(R.id.yesterday_earnings, TextUtils.doubleToFour(item!!.value) + item.tokenName)
-        helper?.setText(R.id.option_price, TextUtils.doubleToFour(item!!.partake) + item.baseTokenName)
+        helper?.setText(R.id.yesterday_earnings, TextUtils.doubleToEight(item!!.value) + item.tokenName)
+        helper?.setText(R.id.option_price, TextUtils.doubleToEight(item!!.partake) + item.baseTokenName)
         helper?.addOnClickListener(R.id.item_layout)
     }
 }

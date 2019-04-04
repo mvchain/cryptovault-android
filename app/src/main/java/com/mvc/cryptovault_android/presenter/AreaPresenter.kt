@@ -8,6 +8,19 @@ import com.mvc.cryptovault_android.model.AreaModel
 import com.mvc.cryptovault_android.utils.JsonHelper
 
 class AreaPresenter : IAreaContract.AreaPresenter() {
+    override fun getPairTickers(pairId: Int) {
+        rxUtils.register(mIModel.getPairTickers(pairId).subscribe(
+                { pairBean ->
+                    if (pairBean.code == 200) {
+                        mIView.pairTickersSuccess(pairBean.data)
+                    } else {
+                        mIView.pairTickersFailed(pairBean.message)
+                    }
+                }, { error ->
+            mIView.pairTickersFailed(error.message!!)
+        }))
+    }
+
     override fun getVrt(pairType: Int) {
         rxUtils.register(mIModel.getVrt(pairType).subscribe(
                 { areaBean ->

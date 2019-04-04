@@ -16,7 +16,7 @@ class FinanciaAdapter(layoutResId: Int, data: List<FinancialListBean.DataBean>?)
         helper.setText(R.id.income, "${TextUtils.doubleToDouble(item.incomeMin)}-${TextUtils.doubleToDouble(item.incomeMax)} %")
         helper.setText(R.id.name, item.name)
         helper.setText(R.id.tag_time, "签到${item.times}天")
-        helper.setText(R.id.tag_start, "${TextUtils.doubleToFour(item.minValue)}${item.baseTokenName}起投")
+        helper.setText(R.id.tag_start, "${TextUtils.doubleToEight(item.minValue)}${item.baseTokenName}起投")
         helper.addOnClickListener(R.id.financial_layout)
     }
 }

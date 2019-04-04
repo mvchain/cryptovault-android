@@ -21,7 +21,7 @@ class BlockTransferDetailActivity : BaseMVPActivity<IBlockTransferDetailContract
         detail_hash.text = blockTransferDetailBean.hash
         detail_time.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(blockTransferDetailBean.createdAt))
         detail_number.text = "${blockTransferDetailBean.confirm}个确认"
-        detail_price.text = TextUtils.doubleToFour(blockTransferDetailBean.value)
+        detail_price.text = TextUtils.doubleToEight(blockTransferDetailBean.value)
         detail_receivables.text = blockTransferDetailBean.from
         detail_transfer.text = blockTransferDetailBean.to
         detail_height.text = "${blockTransferDetailBean.height}"

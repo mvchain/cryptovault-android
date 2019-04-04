@@ -35,6 +35,8 @@ public class Constant {
         public static final String REG_REGISTER= "reg_register";
         public static final String REG_LOGINPWD = "reg_loginpwd";
         public static final String REG_PAYLOGIN = "reg_paylogin";
+        public static final String TRADING_PAIRID = "trading_pairid";
+
 
     }
 

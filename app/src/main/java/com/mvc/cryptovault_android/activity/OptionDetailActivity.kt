@@ -49,8 +49,8 @@ class OptionDetailActivity : BaseMVPActivity<IOptionDetailContract.OptionDetailP
     @SuppressLint("SetTextI18n")
     override fun showDetailSuccess(detail: OptionDetailBean.DataBean) {
         daily_swipe.post { daily_swipe.isRefreshing = false }
-        investment_amount.text = TextUtils.doubleToFour(detail.value) + detail.baseTokenName
-        cumulative_income.text = TextUtils.doubleToFour(detail.income) + detail.tokenName
+        investment_amount.text = TextUtils.doubleToEight(detail.value) + detail.baseTokenName
+        cumulative_income.text = TextUtils.doubleToEight(detail.income) + detail.tokenName
         remaining_days.text = "剩余签到天数${detail.times}天"
         detail_title.text = "${detail.financialName}持仓详情"
         detail_content.text = detail.financialName

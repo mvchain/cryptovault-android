@@ -1,10 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.BlockTransferDetailContract
+import com.mvc.cryptovault_android.contract.IBlockTransferDetailContract
 import com.mvc.cryptovault_android.model.BlockTransferDetailModel
 
-class BlockTransferDetailPresenter : BlockTransferDetailContract.BlockTransferDetailPresenter() {
+class BlockTransferDetailPresenter : IBlockTransferDetailContract.BlockTransferDetailPresenter() {
     override fun getTransferDetail(hash: String) {
         rxUtils.register(mIModel.getTransferDetail(hash)
                 .subscribe({
@@ -26,7 +26,7 @@ class BlockTransferDetailPresenter : BlockTransferDetailContract.BlockTransferDe
         }
     }
 
-    override fun getModel(): BlockTransferDetailContract.BlockTransferDetailModel {
+    override fun getModel(): IBlockTransferDetailContract.BlockTransferDetailModel {
         return BlockTransferDetailModel.instance
     }
 

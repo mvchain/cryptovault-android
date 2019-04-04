@@ -4,12 +4,12 @@ import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.OptionBean
-import com.mvc.cryptovault_android.contract.OptionContract
+import com.mvc.cryptovault_android.contract.IOptionContract
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import io.reactivex.Observable
 
-class OptionModel : BaseModel(), OptionContract.OptionModel {
+class OptionModel : BaseModel(), IOptionContract.OptionModel {
 
     companion object {
         val instance: OptionModel

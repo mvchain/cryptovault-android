@@ -8,12 +8,12 @@ import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.BlockOrderOnIdBean
-import com.mvc.cryptovault_android.contract.AssetsDetailContract
+import com.mvc.cryptovault_android.contract.IAssetsDetailContract
 import com.mvc.cryptovault_android.presenter.AssetsDetailPresenter
 import com.mvc.cryptovault_android.utils.TextUtils
 import kotlinx.android.synthetic.main.activity_block_assets_detail.*
 
-class BlockAssetsDetailActivity : BaseMVPActivity<AssetsDetailContract.AssetsDetailPresenter>(), AssetsDetailContract.AssetsDetailView {
+class BlockAssetsDetailActivity : BaseMVPActivity<IAssetsDetailContract.AssetsDetailPresenter>(), IAssetsDetailContract.AssetsDetailView {
     private var id = 0
 
     @SuppressLint("SetTextI18n")

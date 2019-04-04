@@ -4,14 +4,13 @@ import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
-import com.mvc.cryptovault_android.contract.MineContract;
+import com.mvc.cryptovault_android.contract.IMineContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 
-public class MineModel extends BaseModel implements MineContract.IMineModel {
+public class MineModel extends BaseModel implements IMineContract.IMineModel {
     public static MineModel getInstance() {
         return new MineModel();
     }

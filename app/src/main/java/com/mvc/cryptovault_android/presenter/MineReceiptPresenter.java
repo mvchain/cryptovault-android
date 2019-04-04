@@ -3,12 +3,12 @@ package com.mvc.cryptovault_android.presenter;
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.ReceiptBean;
-import com.mvc.cryptovault_android.contract.ReceiptQRContract;
+import com.mvc.cryptovault_android.contract.IReceiptQRContract;
 import com.mvc.cryptovault_android.model.MineReceiptModel;
 
 import io.reactivex.functions.Consumer;
 
-public class MineReceiptPresenter extends ReceiptQRContract.ReceiptQRPresenter {
+public class MineReceiptPresenter extends IReceiptQRContract.ReceiptQRPresenter {
      public static BasePresenter newIntance() {
              return new MineReceiptPresenter();
      }
@@ -28,7 +28,7 @@ public class MineReceiptPresenter extends ReceiptQRContract.ReceiptQRPresenter {
     }
 
     @Override
-    protected ReceiptQRContract.IReceiptQRModel getModel() {
+    protected IReceiptQRContract.IReceiptQRModel getModel() {
         return MineReceiptModel.getInstance();
     }
 

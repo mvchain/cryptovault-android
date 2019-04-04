@@ -1,14 +1,14 @@
 package com.mvc.cryptovault_android.presenter;
 
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.contract.HistroyContract;
+import com.mvc.cryptovault_android.contract.IHistoryContract;
 import com.mvc.cryptovault_android.model.HistoryModel;
 
 import java.util.List;
 
 import io.reactivex.functions.Consumer;
 
-public class HistoryPresenter extends HistroyContract.HistroyPrecenter {
+public class HistoryPresenter extends IHistoryContract.HistroyPrecenter {
      public static BasePresenter newIntance() {
              return new HistoryPresenter();
      }

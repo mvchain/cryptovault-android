@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -17,11 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.barlibrary.ImmersionBar;
@@ -30,7 +27,7 @@ import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.IDToTransferBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
-import com.mvc.cryptovault_android.contract.BTCTransferContract;
+import com.mvc.cryptovault_android.contract.IBTCTransferContract;
 import com.mvc.cryptovault_android.event.HistroyEvent;
 import com.mvc.cryptovault_android.event.HistroyFragmentEvent;
 import com.mvc.cryptovault_android.event.WalletMsgEvent;
@@ -54,7 +51,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYP
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
 
 
-public class BTCTransferActivity extends BaseMVPActivity<BTCTransferContract.BTCTransferPresenter> implements BTCTransferContract.BTCTransferView, View.OnClickListener {
+public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BTCTransferPresenter> implements IBTCTransferContract.BTCTransferView, View.OnClickListener {
     private ImageView mBackM;
     private TextView mTitleM;
     private ImageView mQCodeM;

@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.gyf.barlibrary.ImmersionBar;
@@ -23,14 +22,14 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.DetailBean;
-import com.mvc.cryptovault_android.contract.DetailContract;
+import com.mvc.cryptovault_android.contract.IDetailContract;
 import com.mvc.cryptovault_android.presenter.DetailPresenter;
 import com.mvc.cryptovault_android.utils.TextUtils;
 import com.mvc.cryptovault_android.view.DialogHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 
-public class DetailActivity extends BaseMVPActivity<DetailContract.DetailPresenter> implements DetailContract.IDetailView, View.OnClickListener {
+public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresenter> implements IDetailContract.IDetailView, View.OnClickListener {
     private ImageView mBackDetail;
     private ImageView mShareDetail;
     private ImageView mIconDetail;

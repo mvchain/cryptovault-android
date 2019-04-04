@@ -1,10 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.AssetsDetailContract
+import com.mvc.cryptovault_android.contract.IAssetsDetailContract
 import com.mvc.cryptovault_android.model.AssetsDetailModel
 
-class AssetsDetailPresenter : AssetsDetailContract.AssetsDetailPresenter() {
+class AssetsDetailPresenter : IAssetsDetailContract.AssetsDetailPresenter() {
     companion object {
         fun newInstance(): BasePresenter<*, *> {
                     return AssetsDetailPresenter()
@@ -25,7 +25,7 @@ class AssetsDetailPresenter : AssetsDetailContract.AssetsDetailPresenter() {
                 }))
     }
 
-    override fun getModel(): AssetsDetailContract.AssetsDetailModel {
+    override fun getModel(): IAssetsDetailContract.AssetsDetailModel {
         return AssetsDetailModel.instance
     }
 

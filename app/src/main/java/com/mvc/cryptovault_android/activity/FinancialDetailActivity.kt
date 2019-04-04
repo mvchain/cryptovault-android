@@ -9,7 +9,7 @@ import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.FinancialDetailBean
-import com.mvc.cryptovault_android.contract.FinancialDetailContract
+import com.mvc.cryptovault_android.contract.IFinancialDetailContract
 import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.presenter.FinancialDetailPresenter
 import com.mvc.cryptovault_android.utils.TextUtils
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_financial_detail.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-class FinancialDetailActivity : BaseMVPActivity<FinancialDetailContract.FinancialDetailPresenter>(), FinancialDetailContract.FinancialDetailfoView {
+class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.FinancialDetailPresenter>(), IFinancialDetailContract.FinancialDetailfoView {
     private lateinit var detail: FinancialDetailBean.DataBean
     private lateinit var baseName: String
     //    private var detailId = -1

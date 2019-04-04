@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
@@ -25,7 +24,7 @@ import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
-import com.mvc.cryptovault_android.contract.BalanceContract;
+import com.mvc.cryptovault_android.contract.IBalanceContract;
 import com.mvc.cryptovault_android.event.HistroyEvent;
 import com.mvc.cryptovault_android.event.HistroyFragmentEvent;
 import com.mvc.cryptovault_android.event.WalletMsgEvent;
@@ -45,7 +44,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
 /**
  * 余额提取
  */
-public class VPBalanceWithdrawalActivity extends BaseMVPActivity<BalanceContract.BalancePresenter> implements BalanceContract.BalanceView, View.OnClickListener {
+public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContract.BalancePresenter> implements IBalanceContract.BalanceView, View.OnClickListener {
     private ImageView mBackM;
     private TextView mTitleM;
     private LinearLayout mTitleLayoutVP;

@@ -1,14 +1,14 @@
 package com.mvc.cryptovault_android.model;
 
 import com.mvc.cryptovault_android.base.BaseModel;
-import com.mvc.cryptovault_android.contract.HistroyContract;
+import com.mvc.cryptovault_android.contract.IHistoryContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 
-public class HistoryModel extends BaseModel implements HistroyContract.IHistroyModel {
+public class HistoryModel extends BaseModel implements IHistoryContract.IHistroyModel {
     private List<String> strings = new ArrayList<>();
 
     public static HistoryModel getInstance() {

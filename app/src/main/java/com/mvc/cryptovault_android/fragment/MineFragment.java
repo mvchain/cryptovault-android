@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.allen.library.SuperTextView;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
@@ -25,10 +24,9 @@ import com.mvc.cryptovault_android.activity.SelectResetPasswordActivity;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.UserInfoBean;
-import com.mvc.cryptovault_android.contract.MineContract;
+import com.mvc.cryptovault_android.contract.IMineContract;
 import com.mvc.cryptovault_android.presenter.MinePresenter;
 import com.mvc.cryptovault_android.utils.JsonHelper;
-import com.mvc.cryptovault_android.utils.LanguageUtils;
 import com.mvc.cryptovault_android.view.DialogHelper;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -36,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_INFO;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
 
-public class MineFragment extends BaseMVPFragment<MineContract.MinePresenter> implements MineContract.IMineView, View.OnClickListener {
+public class MineFragment extends BaseMVPFragment<IMineContract.MinePresenter> implements IMineContract.IMineView, View.OnClickListener {
 
     private CircleImageView mImgUser;
     private TextView mNameUser;

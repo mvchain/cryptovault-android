@@ -1,12 +1,11 @@
 package com.mvc.cryptovault_android.presenter
 
-import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.SetPasswordContract
+import com.mvc.cryptovault_android.contract.ISetPasswordContract
 import com.mvc.cryptovault_android.model.SetLoginModel
 import java.net.SocketTimeoutException
 
-class SetLoginPresenter : SetPasswordContract.SetPasswordPresenter() {
+class SetLoginPresenter : ISetPasswordContract.SetPasswordPresenter() {
 
     companion object {
         fun newIntance(): BasePresenter<*, *> {
@@ -48,7 +47,7 @@ class SetLoginPresenter : SetPasswordContract.SetPasswordPresenter() {
                 }))
     }
 
-    override fun getModel(): SetPasswordContract.SetPasswordModel {
+    override fun getModel(): ISetPasswordContract.SetPasswordModel {
         return SetLoginModel.instance
     }
 

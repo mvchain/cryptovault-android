@@ -1,18 +1,17 @@
 package com.mvc.cryptovault_android.presenter;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.contract.TogeHistroyContract;
+import com.mvc.cryptovault_android.contract.ITogeHistoryContract;
 import com.mvc.cryptovault_android.model.TogHisModel;
 
-public class TogeHistroyPresenter extends TogeHistroyContract.TogeHistroyPresenter {
+public class TogeHistroyPresenter extends ITogeHistoryContract.TogeHistroyPresenter {
     public static BasePresenter newIntance() {
         return new TogeHistroyPresenter();
     }
 
     @Override
-    protected TogeHistroyContract.ITogeHisMol getModel() {
+    protected ITogeHistoryContract.ITogeHisMol getModel() {
         return TogHisModel.getInstance();
     }
 

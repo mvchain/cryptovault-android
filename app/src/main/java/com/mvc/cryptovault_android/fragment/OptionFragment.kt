@@ -2,7 +2,6 @@ package com.mvc.cryptovault_android.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -12,7 +11,7 @@ import com.mvc.cryptovault_android.adapter.rvAdapter.OptionAdapter
 import com.mvc.cryptovault_android.base.BaseMVPFragment
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.OptionBean
-import com.mvc.cryptovault_android.contract.OptionContract
+import com.mvc.cryptovault_android.contract.IOptionContract
 import com.mvc.cryptovault_android.event.OptionEvent
 import com.mvc.cryptovault_android.presenter.OptionPresenter
 import kotlinx.android.synthetic.main.fragment_option.*
@@ -21,7 +20,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
-class OptionFragment : BaseMVPFragment<OptionContract.OptionPresenter>(), OptionContract.OptionView {
+class OptionFragment : BaseMVPFragment<IOptionContract.OptionPresenter>(), IOptionContract.OptionView {
     private lateinit var optionList: ArrayList<OptionBean.DataBean>
     private lateinit var optionAdapter: OptionAdapter
     private var financialType = 0

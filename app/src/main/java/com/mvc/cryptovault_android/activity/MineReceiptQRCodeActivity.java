@@ -21,14 +21,14 @@ import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.ReceiptBean;
-import com.mvc.cryptovault_android.contract.ReceiptQRContract;
+import com.mvc.cryptovault_android.contract.IReceiptQRContract;
 import com.mvc.cryptovault_android.presenter.MineReceiptPresenter;
 import com.mvc.cryptovault_android.view.DialogHelper;
 import com.per.rslibrary.IPermissionRequest;
 import com.per.rslibrary.RsPermission;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
-public class MineReceiptQRCodeActivity extends BaseMVPActivity<ReceiptQRContract.ReceiptQRPresenter> implements ReceiptQRContract.IReceiptQRView, View.OnClickListener {
+public class MineReceiptQRCodeActivity extends BaseMVPActivity<IReceiptQRContract.ReceiptQRPresenter> implements IReceiptQRContract.IReceiptQRView, View.OnClickListener {
     private ImageView mBackM;
     private TextView mTitleM;
     private ImageView mShareM;

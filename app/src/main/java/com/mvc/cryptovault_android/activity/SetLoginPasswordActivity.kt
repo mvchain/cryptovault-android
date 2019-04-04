@@ -1,6 +1,5 @@
 package com.mvc.cryptovault_android.activity
 
-import android.text.InputType
 import android.view.View
 import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.SPUtils
@@ -10,15 +9,13 @@ import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
 import com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL
-import com.mvc.cryptovault_android.contract.SetPasswordContract
+import com.mvc.cryptovault_android.contract.ISetPasswordContract
 import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.presenter.SetLoginPresenter
 import com.mvc.cryptovault_android.view.DialogHelper
-import kotlinx.android.synthetic.main.activity_reset_password.*
 import kotlinx.android.synthetic.main.activity_set_password.*
-import kotlinx.android.synthetic.main.activity_set_password.view.*
 
-class SetLoginPasswordActivity : BaseMVPActivity<SetPasswordContract.SetPasswordPresenter>(), SetPasswordContract.SetPasswordView {
+class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswordPresenter>(), ISetPasswordContract.SetPasswordView {
     private var dialogHelper: DialogHelper? = null
 
 

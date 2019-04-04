@@ -3,13 +3,10 @@ package com.mvc.cryptovault_android.activity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
@@ -17,7 +14,7 @@ import com.mvc.cryptovault_android.adapter.rvAdapter.MsgAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.MsgBean;
-import com.mvc.cryptovault_android.contract.MsgContract;
+import com.mvc.cryptovault_android.contract.IMsgContract;
 import com.mvc.cryptovault_android.presenter.MsgPresenter;
 
 import java.util.ArrayList;
@@ -25,7 +22,7 @@ import java.util.List;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.READ_MSG;
 
-public class MsgActivity extends BaseMVPActivity<MsgContract.MsgPresenter> implements MsgContract.IMsgView, View.OnClickListener {
+public class MsgActivity extends BaseMVPActivity<IMsgContract.MsgPresenter> implements IMsgContract.IMsgView, View.OnClickListener {
     private ImageView mBackMsg;
     private TextView mTitleMsg;
     private RecyclerView mRvMsg;

@@ -4,12 +4,12 @@ import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
-import com.mvc.cryptovault_android.contract.BalanceContract;
+import com.mvc.cryptovault_android.contract.IBalanceContract;
 import com.mvc.cryptovault_android.model.VPBalanceModel;
 
 import io.reactivex.functions.Consumer;
 
-public class VPBalancePresenter extends BalanceContract.BalancePresenter {
+public class VPBalancePresenter extends IBalanceContract.BalancePresenter {
     public static BasePresenter newIntance() {
         return new VPBalancePresenter();
     }
@@ -39,7 +39,7 @@ public class VPBalancePresenter extends BalanceContract.BalancePresenter {
     }
 
     @Override
-    protected BalanceContract.BalanceModel getModel() {
+    protected IBalanceContract.BalanceModel getModel() {
         return VPBalanceModel.getInstance();
     }
 

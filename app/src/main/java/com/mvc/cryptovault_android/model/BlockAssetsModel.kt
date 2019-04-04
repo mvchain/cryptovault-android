@@ -5,12 +5,12 @@ import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.BlockBalanceBean
 import com.mvc.cryptovault_android.bean.BlockOrderBean
-import com.mvc.cryptovault_android.contract.BlockAssetsContract
+import com.mvc.cryptovault_android.contract.IBlockAssetsContract
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import io.reactivex.Observable
 
-class BlockAssetsModel : BaseModel(), BlockAssetsContract.BlockAssetsModel {
+class BlockAssetsModel : BaseModel(), IBlockAssetsContract.BlockAssetsModel {
     override fun getBlockBalance(publicKey: String): Observable<BlockBalanceBean> {
         return RetrofitUtils.client(MyApplication.getBaseBrowserUrl(),ApiStore::class.java).getBlockBalance(publicKey)
                 .compose(RxHelper.rxSchedulerHelper())

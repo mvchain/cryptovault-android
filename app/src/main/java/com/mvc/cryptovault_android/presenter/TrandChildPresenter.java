@@ -1,18 +1,15 @@
 package com.mvc.cryptovault_android.presenter;
 
-import android.util.Log;
-
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.contract.TrandChildContract;
+import com.mvc.cryptovault_android.contract.ITrandChildContract;
 import com.mvc.cryptovault_android.model.TrandChildModel;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.TRAND_BALANCE_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.TRAND_VRT_LIST;
 
-public class TrandChildPresenter extends TrandChildContract.TrandChildPresenter {
+public class TrandChildPresenter extends ITrandChildContract.TrandChildPresenter {
 
     public static BasePresenter newIntance() {
         return new TrandChildPresenter();

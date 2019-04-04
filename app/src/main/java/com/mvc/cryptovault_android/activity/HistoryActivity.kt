@@ -27,7 +27,7 @@ import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.ExchangeRateBean
 import com.mvc.cryptovault_android.bean.AssetListBean
 import com.mvc.cryptovault_android.bean.HistoryBeanEvent
-import com.mvc.cryptovault_android.contract.HistroyContract
+import com.mvc.cryptovault_android.contract.IHistoryContract
 import com.mvc.cryptovault_android.event.HistroyEvent
 import com.mvc.cryptovault_android.fragment.HistoryChildFragment
 import com.mvc.cryptovault_android.presenter.HistoryPresenter
@@ -45,7 +45,7 @@ import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
 
-class HistoryActivity : BaseMVPActivity<HistroyContract.HistroyPrecenter>(), HistroyContract.IHistroyView, View.OnClickListener {
+class HistoryActivity : BaseMVPActivity<IHistoryContract.HistroyPrecenter>(), IHistoryContract.IHistroyView, View.OnClickListener {
     private lateinit var mBackHis: ImageView
     private lateinit var mQcodeHis: ImageView
     private lateinit var mPriceHis: TextView

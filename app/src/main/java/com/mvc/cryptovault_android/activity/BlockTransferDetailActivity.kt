@@ -6,14 +6,14 @@ import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.BlockTransferDetailBean
-import com.mvc.cryptovault_android.contract.BlockTransferDetailContract
+import com.mvc.cryptovault_android.contract.IBlockTransferDetailContract
 import com.mvc.cryptovault_android.presenter.BlockTransferDetailPresenter
 import com.mvc.cryptovault_android.utils.TextUtils
 import kotlinx.android.synthetic.main.activity_block_transfer_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BlockTransferDetailActivity : BaseMVPActivity<BlockTransferDetailContract.BlockTransferDetailPresenter>(), BlockTransferDetailContract.BlockTransferDetailView {
+class BlockTransferDetailActivity : BaseMVPActivity<IBlockTransferDetailContract.BlockTransferDetailPresenter>(), IBlockTransferDetailContract.BlockTransferDetailView {
     private lateinit var hash: String
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")

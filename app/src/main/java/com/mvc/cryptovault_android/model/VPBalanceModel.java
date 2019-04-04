@@ -5,7 +5,7 @@ import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.VPBalanceBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
-import com.mvc.cryptovault_android.contract.BalanceContract;
+import com.mvc.cryptovault_android.contract.IBalanceContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
@@ -16,7 +16,7 @@ import io.reactivex.Observable;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-public class VPBalanceModel extends BaseModel implements BalanceContract.BalanceModel {
+public class VPBalanceModel extends BaseModel implements IBalanceContract.BalanceModel {
     public static VPBalanceModel getInstance() {
         return new VPBalanceModel();
     }

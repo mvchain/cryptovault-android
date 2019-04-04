@@ -1,12 +1,11 @@
 package com.mvc.cryptovault_android.presenter
 
-import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.RegisterInvitationConstrat
+import com.mvc.cryptovault_android.contract.IRegisterInvitationConstrat
 import com.mvc.cryptovault_android.model.RegisterInvitationModel
 import java.net.SocketTimeoutException
 
-class RegisterInvitationPresenter : RegisterInvitationConstrat.RegisterInvitationPresenter() {
+class RegisterInvitationPresenter : IRegisterInvitationConstrat.RegisterInvitationPresenter() {
 
 
     companion object {
@@ -52,7 +51,7 @@ class RegisterInvitationPresenter : RegisterInvitationConstrat.RegisterInvitatio
 
     }
 
-    override fun getModel(): RegisterInvitationConstrat.InvitationModel {
+    override fun getModel(): IRegisterInvitationConstrat.InvitationModel {
         return RegisterInvitationModel.instance
     }
 }

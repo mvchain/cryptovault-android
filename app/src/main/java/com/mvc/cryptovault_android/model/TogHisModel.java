@@ -4,13 +4,13 @@ import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.TogeHisBean;
-import com.mvc.cryptovault_android.contract.TogeHistroyContract;
+import com.mvc.cryptovault_android.contract.ITogeHistoryContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
 import io.reactivex.Observable;
 
-public class TogHisModel extends BaseModel implements TogeHistroyContract.ITogeHisMol {
+public class TogHisModel extends BaseModel implements ITogeHistoryContract.ITogeHisMol {
     public static TogHisModel getInstance() {
         return new TogHisModel();
     }

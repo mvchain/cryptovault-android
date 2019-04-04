@@ -17,7 +17,7 @@ import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.HistoryBeanEvent;
 import com.mvc.cryptovault_android.bean.HistroyBean;
-import com.mvc.cryptovault_android.contract.HistroyChildContract;
+import com.mvc.cryptovault_android.contract.IHistroyChildContract;
 import com.mvc.cryptovault_android.event.HistroyFragmentEvent;
 import com.mvc.cryptovault_android.presenter.HistroyChildPresenter;
 import com.mvc.cryptovault_android.view.RuleRecyclerLines;
@@ -28,7 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryChildFragment extends BaseMVPFragment<HistroyChildContract.HistroyChildPrecenter> implements HistroyChildContract.IHistroyChildView {
+public class HistoryChildFragment extends BaseMVPFragment<IHistroyChildContract.HistroyChildPrecenter> implements IHistroyChildContract.IHistroyChildView {
     private RecyclerView mRvChild;
     private ImageView mDataNull;
     private HistoryChildAdapter historyChildAdapter;

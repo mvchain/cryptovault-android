@@ -5,12 +5,12 @@ import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.FinancialBean
 import com.mvc.cryptovault_android.bean.FinancialListBean
-import com.mvc.cryptovault_android.contract.FinancialContract
+import com.mvc.cryptovault_android.contract.IFinancialContract
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import io.reactivex.Observable
 
-class FinancialModel : BaseModel(), FinancialContract.FinancialModel {
+class FinancialModel : BaseModel(), IFinancialContract.FinancialModel {
     override fun getFinancialList(id: Int, pageSize: Int): Observable<FinancialListBean> {
         return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                 .getFinancialList(MyApplication.getTOKEN()

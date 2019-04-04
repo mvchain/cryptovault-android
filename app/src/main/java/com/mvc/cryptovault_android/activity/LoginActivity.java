@@ -27,7 +27,7 @@ import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.LoginValidBean;
 import com.mvc.cryptovault_android.bean.ValidResultBean;
 import com.mvc.cryptovault_android.common.Constant;
-import com.mvc.cryptovault_android.contract.LoginContract;
+import com.mvc.cryptovault_android.contract.ILoginContract;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack;
 import com.mvc.cryptovault_android.presenter.LoginPresenter;
@@ -57,7 +57,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
 import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
 
 
-public class LoginActivity extends BaseMVPActivity<LoginContract.LoginPresenter> implements View.OnClickListener, LoginContract.ILoginView {
+public class LoginActivity extends BaseMVPActivity<ILoginContract.LoginPresenter> implements View.OnClickListener, ILoginContract.ILoginView {
 
     private EditText mLoginEmail;
     private EditText mLoginPwd;

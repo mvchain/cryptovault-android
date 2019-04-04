@@ -5,7 +5,7 @@ import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.IDToTransferBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
-import com.mvc.cryptovault_android.contract.BTCTransferContract;
+import com.mvc.cryptovault_android.contract.IBTCTransferContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
@@ -16,7 +16,7 @@ import io.reactivex.Observable;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-public class BTCTransferModel extends BaseModel implements BTCTransferContract.BTCTransferModel {
+public class BTCTransferModel extends BaseModel implements IBTCTransferContract.BTCTransferModel {
     public static BTCTransferModel getInstance() {
         return new BTCTransferModel();
     }

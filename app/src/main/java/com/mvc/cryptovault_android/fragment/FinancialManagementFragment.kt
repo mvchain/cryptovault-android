@@ -20,14 +20,14 @@ import com.mvc.cryptovault_android.bean.FinancialBean
 import com.mvc.cryptovault_android.bean.FinancialListBean
 import com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_RATE
 import com.mvc.cryptovault_android.common.Constant.SP.SET_RATE
-import com.mvc.cryptovault_android.contract.FinancialContract
+import com.mvc.cryptovault_android.contract.IFinancialContract
 import com.mvc.cryptovault_android.presenter.FinancialPresenter
 import com.mvc.cryptovault_android.utils.JsonHelper
 import com.mvc.cryptovault_android.utils.TextUtils
 import kotlinx.android.synthetic.main.fragment_financial.view.*
 import java.util.ArrayList
 
-class FinancialManagementFragment : BaseMVPFragment<FinancialContract.FinancialPresenter>(), FinancialContract.FinancialView {
+class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.FinancialPresenter>(), IFinancialContract.FinancialView {
     private lateinit var mFinaList: ArrayList<FinancialListBean.DataBean>
     private lateinit var mFinaAdapter: FinanciaAdapter
     private var isRefresh = false

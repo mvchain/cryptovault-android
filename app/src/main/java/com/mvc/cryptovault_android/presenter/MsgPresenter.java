@@ -2,10 +2,10 @@ package com.mvc.cryptovault_android.presenter;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.contract.MsgContract;
+import com.mvc.cryptovault_android.contract.IMsgContract;
 import com.mvc.cryptovault_android.model.MsgModel;
 
-public class MsgPresenter extends MsgContract.MsgPresenter {
+public class MsgPresenter extends IMsgContract.MsgPresenter {
 
     public static BasePresenter newIntance() {
         return new MsgPresenter();

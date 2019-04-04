@@ -1,12 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.FinancialContract
-import com.mvc.cryptovault_android.contract.FinancialDetailContract
+import com.mvc.cryptovault_android.contract.IFinancialDetailContract
 import com.mvc.cryptovault_android.model.FinancialDetailModel
-import com.mvc.cryptovault_android.model.FinancialModel
 
-class FinancialDetailPresenter : FinancialDetailContract.FinancialDetailPresenter() {
+class FinancialDetailPresenter : IFinancialDetailContract.FinancialDetailPresenter() {
     override fun getFinancialDetail(id: Int) {
         rxUtils.register(mIModel.getFinancialDetail(id)
                 .subscribe({ detail ->
@@ -31,7 +29,7 @@ class FinancialDetailPresenter : FinancialDetailContract.FinancialDetailPresente
     override fun onStart() {
     }
 
-    override fun getModel(): FinancialDetailContract.FinancialDetailModel {
+    override fun getModel(): IFinancialDetailContract.FinancialDetailModel {
         return FinancialDetailModel.instance
     }
 }

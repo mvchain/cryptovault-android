@@ -1,11 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
-import com.blankj.utilcode.util.LogUtils
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.FinancialContract
+import com.mvc.cryptovault_android.contract.IFinancialContract
 import com.mvc.cryptovault_android.model.FinancialModel
 
-class FinancialPresenter : FinancialContract.FinancialPresenter() {
+class FinancialPresenter : IFinancialContract.FinancialPresenter() {
     override fun getFinancialBalance() {
         rxUtils.register(mIModel.getFinancialBalance()
                 .subscribe({ finaBean ->
@@ -42,7 +41,7 @@ class FinancialPresenter : FinancialContract.FinancialPresenter() {
     override fun onStart() {
     }
 
-    override fun getModel(): FinancialContract.FinancialModel {
+    override fun getModel(): IFinancialContract.FinancialModel {
         return FinancialModel.instance
     }
 }

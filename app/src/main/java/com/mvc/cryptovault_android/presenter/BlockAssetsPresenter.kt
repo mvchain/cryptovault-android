@@ -1,10 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.BlockAssetsContract
+import com.mvc.cryptovault_android.contract.IBlockAssetsContract
 import com.mvc.cryptovault_android.model.BlockAssetsModel
 
-class BlockAssetsPresenter : BlockAssetsContract.BlockAssetsPresenter() {
+class BlockAssetsPresenter : IBlockAssetsContract.BlockAssetsPresenter() {
     override fun getBlockBalance(publicKey: String) {
         rxUtils.register(mIModel.getBlockBalance(publicKey)
                 .subscribe({ balance ->
@@ -37,7 +37,7 @@ class BlockAssetsPresenter : BlockAssetsContract.BlockAssetsPresenter() {
         }
     }
 
-    override fun getModel(): BlockAssetsContract.BlockAssetsModel {
+    override fun getModel(): IBlockAssetsContract.BlockAssetsModel {
         return BlockAssetsModel.instance
     }
 

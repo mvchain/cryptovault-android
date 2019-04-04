@@ -6,13 +6,13 @@ import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.MsgBean;
-import com.mvc.cryptovault_android.contract.MsgContract;
+import com.mvc.cryptovault_android.contract.IMsgContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
 import io.reactivex.Observable;
 
-public class MsgModel extends BaseModel implements MsgContract.IMsgModel {
+public class MsgModel extends BaseModel implements IMsgContract.IMsgModel {
 
     @Nullable
     public static MsgModel getInstance() {

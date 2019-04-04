@@ -1,10 +1,10 @@
 package com.mvc.cryptovault_android.presenter;
 
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.contract.TogeChildContract;
+import com.mvc.cryptovault_android.contract.ITogeChildContract;
 import com.mvc.cryptovault_android.model.TogeChildModel;
 
-public class TogeChildPresenter extends TogeChildContract.TogeChildPresenter {
+public class TogeChildPresenter extends ITogeChildContract.TogeChildPresenter {
 
     public static BasePresenter newIntance() {
         return new TogeChildPresenter();

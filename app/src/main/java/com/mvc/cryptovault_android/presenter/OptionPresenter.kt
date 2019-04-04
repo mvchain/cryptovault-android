@@ -1,10 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.OptionContract
+import com.mvc.cryptovault_android.contract.IOptionContract
 import com.mvc.cryptovault_android.model.OptionModel
 
-class OptionPresenter : OptionContract.OptionPresenter() {
+class OptionPresenter : IOptionContract.OptionPresenter() {
     companion object {
         fun newIntance(): BasePresenter<*, *> {
             return OptionPresenter()
@@ -24,7 +24,7 @@ class OptionPresenter : OptionContract.OptionPresenter() {
                 }))
     }
 
-    override fun getModel(): OptionContract.OptionModel {
+    override fun getModel(): IOptionContract.OptionModel {
         return OptionModel.instance
     }
 

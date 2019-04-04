@@ -4,13 +4,13 @@ import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.HistroyBean;
-import com.mvc.cryptovault_android.contract.HistroyChildContract;
+import com.mvc.cryptovault_android.contract.IHistroyChildContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
 import io.reactivex.Observable;
 
-public class HistroyChildModel extends BaseModel implements HistroyChildContract.IHistroyChildModel {
+public class HistroyChildModel extends BaseModel implements IHistroyChildContract.IHistroyChildModel {
 
     public static HistroyChildModel getInstance() {
         return new HistroyChildModel();

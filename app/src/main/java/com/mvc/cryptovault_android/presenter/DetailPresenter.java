@@ -2,10 +2,10 @@ package com.mvc.cryptovault_android.presenter;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.contract.DetailContract;
+import com.mvc.cryptovault_android.contract.IDetailContract;
 import com.mvc.cryptovault_android.model.DetailModel;
 
-public class DetailPresenter extends DetailContract.DetailPresenter {
+public class DetailPresenter extends IDetailContract.DetailPresenter {
     public static BasePresenter newIntance() {
         return new DetailPresenter();
     }
@@ -20,7 +20,7 @@ public class DetailPresenter extends DetailContract.DetailPresenter {
     }
 
     @Override
-    protected DetailContract.IDetailModel getModel() {
+    protected IDetailContract.IDetailModel getModel() {
         return DetailModel.getInstance();
     }
 

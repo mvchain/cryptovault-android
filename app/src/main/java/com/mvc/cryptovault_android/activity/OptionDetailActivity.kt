@@ -11,7 +11,7 @@ import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.OptionDailyIncomeBean
 import com.mvc.cryptovault_android.bean.OptionDetailBean
-import com.mvc.cryptovault_android.contract.OptionDetailContract
+import com.mvc.cryptovault_android.contract.IOptionDetailContract
 import com.mvc.cryptovault_android.event.OptionEvent
 import com.mvc.cryptovault_android.listener.IDialogViewClickListener
 import com.mvc.cryptovault_android.presenter.OptionDetailPresenter
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_option_detail.*
 import org.greenrobot.eventbus.EventBus
 import java.util.ArrayList
 
-class OptionDetailActivity : BaseMVPActivity<OptionDetailContract.OptionDetailPresenter>(), OptionDetailContract.OptionDetailView {
+class OptionDetailActivity : BaseMVPActivity<IOptionDetailContract.OptionDetailPresenter>(), IOptionDetailContract.OptionDetailView {
     private lateinit var dailyAdapter: DailyAdapter
     private lateinit var dailyList: ArrayList<OptionDailyIncomeBean.DataBean>
     private var isRefresh = false

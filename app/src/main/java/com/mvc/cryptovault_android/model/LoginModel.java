@@ -2,15 +2,13 @@ package com.mvc.cryptovault_android.model;
 
 import android.support.annotation.Nullable;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.HttpTokenBean;
 import com.mvc.cryptovault_android.bean.LoginBean;
 import com.mvc.cryptovault_android.bean.LoginValidBean;
-import com.mvc.cryptovault_android.bean.UpdateBean;
-import com.mvc.cryptovault_android.contract.LoginContract;
+import com.mvc.cryptovault_android.contract.ILoginContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
@@ -18,11 +16,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
-public class LoginModel extends BaseModel implements LoginContract.ILoginModel {
+public class LoginModel extends BaseModel implements ILoginContract.ILoginModel {
 
     @Nullable
     public static LoginModel getInstance() {

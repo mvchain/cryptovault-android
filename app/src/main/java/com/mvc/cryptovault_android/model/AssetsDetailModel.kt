@@ -4,12 +4,12 @@ import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.BlockOrderOnIdBean
-import com.mvc.cryptovault_android.contract.AssetsDetailContract
+import com.mvc.cryptovault_android.contract.IAssetsDetailContract
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import io.reactivex.Observable
 
-class AssetsDetailModel:BaseModel(),AssetsDetailContract.AssetsDetailModel {
+class AssetsDetailModel:BaseModel(),IAssetsDetailContract.AssetsDetailModel {
     companion object {
         val instance: AssetsDetailModel
               get() = AssetsDetailModel()

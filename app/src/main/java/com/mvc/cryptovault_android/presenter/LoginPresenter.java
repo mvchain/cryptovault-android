@@ -5,12 +5,12 @@ import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.contract.LoginContract;
+import com.mvc.cryptovault_android.contract.ILoginContract;
 import com.mvc.cryptovault_android.model.LoginModel;
 
 import java.net.SocketTimeoutException;
 
-public class LoginPresenter extends LoginContract.LoginPresenter {
+public class LoginPresenter extends ILoginContract.LoginPresenter {
 
     public static BasePresenter newIntance() {
         return new LoginPresenter();

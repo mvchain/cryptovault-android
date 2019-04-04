@@ -16,7 +16,7 @@ import com.mvc.cryptovault_android.adapter.rvAdapter.TogeChildAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.TogeBean;
-import com.mvc.cryptovault_android.contract.TogeChildContract;
+import com.mvc.cryptovault_android.contract.ITogeChildContract;
 import com.mvc.cryptovault_android.event.TogeFragmentEvent;
 import com.mvc.cryptovault_android.presenter.TogeChildPresenter;
 
@@ -27,7 +27,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TogeChildFragment extends BaseMVPFragment<TogeChildContract.TogeChildPresenter> implements TogeChildContract.ITogeView {
+public class TogeChildFragment extends BaseMVPFragment<ITogeChildContract.TogeChildPresenter> implements ITogeChildContract.ITogeView {
     private RecyclerView mChildRvToge;
     private ArrayList<TogeBean.DataBean> mData;
     private TogeChildAdapter togeChildAdapter;

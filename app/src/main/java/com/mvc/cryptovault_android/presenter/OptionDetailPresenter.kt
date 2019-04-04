@@ -1,12 +1,11 @@
 package com.mvc.cryptovault_android.presenter
 
-import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.OptionDetailContract
+import com.mvc.cryptovault_android.contract.IOptionDetailContract
 import com.mvc.cryptovault_android.model.OptionDetailModel
 import java.net.SocketTimeoutException
 
-class OptionDetailPresenter : OptionDetailContract.OptionDetailPresenter() {
+class OptionDetailPresenter : IOptionDetailContract.OptionDetailPresenter() {
 
 
     companion object {
@@ -58,7 +57,7 @@ class OptionDetailPresenter : OptionDetailContract.OptionDetailPresenter() {
                 }))
     }
 
-    override fun getModel(): OptionDetailContract.OptionDetailModel {
+    override fun getModel(): IOptionDetailContract.OptionDetailModel {
         return OptionDetailModel.instance
     }
 

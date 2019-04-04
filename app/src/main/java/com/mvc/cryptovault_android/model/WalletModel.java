@@ -12,7 +12,7 @@ import com.mvc.cryptovault_android.bean.AssetListBean;
 import com.mvc.cryptovault_android.bean.CurrencyBean;
 import com.mvc.cryptovault_android.bean.MsgBean;
 import com.mvc.cryptovault_android.bean.UpdateBean;
-import com.mvc.cryptovault_android.contract.WallteContract;
+import com.mvc.cryptovault_android.contract.IWalletContract;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
@@ -27,7 +27,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_SYMBOL;
 import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
-public class WalletModel extends BaseModel implements WallteContract.
+public class WalletModel extends BaseModel implements IWalletContract.
         IWalletModel {
     @Nullable
     public static WalletModel getInstance() {

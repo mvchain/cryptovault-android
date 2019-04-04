@@ -4,13 +4,13 @@ import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.ReceiptBean;
-import com.mvc.cryptovault_android.contract.ReceiptQRContract;
+import com.mvc.cryptovault_android.contract.IReceiptQRContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
 import io.reactivex.Observable;
 
-public class MineReceiptModel extends BaseModel implements ReceiptQRContract.IReceiptQRModel {
+public class MineReceiptModel extends BaseModel implements IReceiptQRContract.IReceiptQRModel {
     public static MineReceiptModel getInstance() {
         return new MineReceiptModel();
     }

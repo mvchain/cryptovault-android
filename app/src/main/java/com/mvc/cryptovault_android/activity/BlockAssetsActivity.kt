@@ -11,11 +11,11 @@ import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.BlockBalanceBean
 import com.mvc.cryptovault_android.bean.BlockOrderBean
-import com.mvc.cryptovault_android.contract.BlockAssetsContract
+import com.mvc.cryptovault_android.contract.IBlockAssetsContract
 import com.mvc.cryptovault_android.presenter.BlockAssetsPresenter
 import kotlinx.android.synthetic.main.activity_block_assets.*
 
-class BlockAssetsActivity : BaseMVPActivity<BlockAssetsContract.BlockAssetsPresenter>(), BlockAssetsContract.BlockAssetsView {
+class BlockAssetsActivity : BaseMVPActivity<IBlockAssetsContract.BlockAssetsPresenter>(), IBlockAssetsContract.BlockAssetsView {
     private var type = 0
     private lateinit var publicKey: String
     private lateinit var blockOrderAdapter: BlockOrderAdapter

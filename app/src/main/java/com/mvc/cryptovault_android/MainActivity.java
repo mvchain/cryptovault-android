@@ -21,11 +21,7 @@ import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.LanguageEvent;
-import com.mvc.cryptovault_android.fragment.FinancialManagementFragment;
-import com.mvc.cryptovault_android.fragment.MineFragment;
-import com.mvc.cryptovault_android.fragment.TogeFragment;
-import com.mvc.cryptovault_android.fragment.TrandFragment;
-import com.mvc.cryptovault_android.fragment.WalletFragment;
+import com.mvc.cryptovault_android.fragment.*;
 import com.mvc.cryptovault_android.utils.AppInnerDownLoder;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
@@ -52,7 +48,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;
-    private int[] colors = {R.color.status_blue, R.color.white, R.color.white, R.color.white,/* R.color.status_gray*/R.color.status_blue};
+    private int[] colors = {R.color.status_blue, R.color.white, R.color.white,R.color.status_blue};
     private ImmersionBar with;
     private DialogHelper dialogHelper;
 
@@ -114,10 +110,10 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mFragment.add(walletFragment);
         FinancialManagementFragment financial = new FinancialManagementFragment();
         mFragment.add(financial);
-        TrandFragment trandFragment = new TrandFragment();
-        mFragment.add(trandFragment);
-        TogeFragment togeFragment = new TogeFragment();
-        mFragment.add(togeFragment);
+        TradingAreaFragment tradingFragment = new TradingAreaFragment();
+        mFragment.add(tradingFragment);
+//        TogeFragment togeFragment = new TogeFragment();
+//        mFragment.add(togeFragment);
         MineFragment mineFragment = new MineFragment();
         mFragment.add(mineFragment);
         pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), mFragment);
@@ -125,15 +121,12 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         int childCount = mButtonGroupHome.getChildCount();
         for (int i = 0; i < childCount; i++) {
             int finalI = i;
-            mButtonGroupHome.getChildAt(i).setOnClickListener(v ->
-            {
-                mMainVpHome.setCurrentItem(finalI);
-            });
+            mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
         }
         mMainVpHome.addOnPageChangeListener(this);
         with = ImmersionBar.with(this);
         with.statusBarDarkFont(true).statusBarColor(colors[0]).fitsSystemWindows(true).init();
-        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
+        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(installApkBean -> {
                     if (installApkBean.getCode() == 200) {
@@ -180,11 +173,13 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mFragment = new ArrayList<>();
         dialogHelper = DialogHelper.Companion.getInstance();
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -196,7 +191,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (mFragment != null && ((RadioButton)mButtonGroupHome.getChildAt(0)).isChecked() && mFragment.get(0) instanceof WalletFragment) {
+        if (mFragment != null && ((RadioButton) mButtonGroupHome.getChildAt(0)).isChecked() && mFragment.get(0) instanceof WalletFragment) {
             ((WalletFragment) mFragment.get(0)).onRefresh();
         }
     }

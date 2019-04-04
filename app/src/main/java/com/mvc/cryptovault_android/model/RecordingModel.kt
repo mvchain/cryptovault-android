@@ -4,13 +4,13 @@ import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.RecorBean
-import com.mvc.cryptovault_android.contract.RecordingContract
+import com.mvc.cryptovault_android.contract.IRecordingContract
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 
 import io.reactivex.Observable
 
-class RecordingModel : BaseModel(), RecordingContract.IRecordingModel {
+class RecordingModel : BaseModel(), IRecordingContract.IRecordingModel {
 
     override fun getRecorList(id: Int, pageSize: Int, pairId: Int, transactionType: Int, type: Int): Observable<RecorBean> {
         return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)

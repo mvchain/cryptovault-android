@@ -1,13 +1,10 @@
 package com.mvc.cryptovault_android.presenter;
 
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.bean.HistroyBean;
-import com.mvc.cryptovault_android.contract.HistroyChildContract;
+import com.mvc.cryptovault_android.contract.IHistroyChildContract;
 import com.mvc.cryptovault_android.model.HistroyChildModel;
 
-import io.reactivex.functions.Consumer;
-
-public class HistroyChildPresenter extends HistroyChildContract.HistroyChildPrecenter {
+public class HistroyChildPresenter extends IHistroyChildContract.HistroyChildPrecenter {
     public static BasePresenter newIntance() {
         return new HistroyChildPresenter();
     }

@@ -12,12 +12,12 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.activity.TrandRecordingActivity;
+import com.mvc.cryptovault_android.activity.TrandRecordingFragment;
 import com.mvc.cryptovault_android.adapter.rvAdapter.TrandChildAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
-import com.mvc.cryptovault_android.contract.TrandChildContract;
+import com.mvc.cryptovault_android.contract.ITrandChildContract;
 import com.mvc.cryptovault_android.event.TrandFragmentEvent;
 import com.mvc.cryptovault_android.presenter.TrandChildPresenter;
 import com.mvc.cryptovault_android.view.RuleRecyclerLines;
@@ -30,7 +30,7 @@ import java.util.List;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.RECORDING_TYPE;
 
-public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.TrandChildPresenter> implements TrandChildContract.ITrandChildView {
+public class TrandChildFragment extends BaseMVPFragment<ITrandChildContract.TrandChildPresenter> implements ITrandChildContract.ITrandChildView {
     private TextView mCurrencyTc;
     private TextView mPriceTc;
     private TextView mAmountOfIncreaseTc;
@@ -83,7 +83,7 @@ public class TrandChildFragment extends BaseMVPFragment<TrandChildContract.Trand
         childAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.trand_layout:
-                    Intent intent = new Intent(activity, TrandRecordingActivity.class);
+                    Intent intent = new Intent(activity, TrandRecordingFragment.class);
                     TrandChildBean.DataBean dataBean = data.get(position);
                     intent.putExtra("data", dataBean);
                     SPUtils.getInstance().put(RECORDING_TYPE, dataBean.getPair().substring(dataBean.getPair().indexOf("/") + 1, dataBean.getPair().length()));

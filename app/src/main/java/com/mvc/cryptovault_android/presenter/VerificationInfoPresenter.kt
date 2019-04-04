@@ -1,10 +1,10 @@
 package com.mvc.cryptovault_android.presenter
 
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.contract.VerificationInfoContract
+import com.mvc.cryptovault_android.contract.IVerificationInfoContract
 import com.mvc.cryptovault_android.model.VerificationInfoModel
 
-class VerificationInfoPresenter : VerificationInfoContract.VerificationInfoPresenter() {
+class VerificationInfoPresenter : IVerificationInfoContract.VerificationInfoPresenter() {
     override fun verification(email: String, type: Int, value: String) {
         rxUtils.register(mIModel.verification(email, type, value)
                 .subscribe({ httpToken ->
@@ -24,7 +24,7 @@ class VerificationInfoPresenter : VerificationInfoContract.VerificationInfoPrese
         }
     }
 
-    override fun getModel(): VerificationInfoContract.VerificationInfoModel {
+    override fun getModel(): IVerificationInfoContract.VerificationInfoModel {
         return VerificationInfoModel.instance
     }
 

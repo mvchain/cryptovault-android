@@ -9,13 +9,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mvc.cryptovault_android.R;
-import com.mvc.cryptovault_android.activity.TrandRecordingActivity;
+import com.mvc.cryptovault_android.activity.TrandRecordingFragment;
 import com.mvc.cryptovault_android.adapter.rvAdapter.RecorAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.event.RecordingEvent;
-import com.mvc.cryptovault_android.contract.RecordingContract;
+import com.mvc.cryptovault_android.contract.IRecordingContract;
 import com.mvc.cryptovault_android.presenter.RecordingPresenter;
 import com.mvc.cryptovault_android.view.RuleRecyclerLines;
 
@@ -25,7 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecordingFragment extends BaseMVPFragment<RecordingContract.RecordingPresenter> implements RecordingContract.IRecordingView {
+public class RecordingFragment extends BaseMVPFragment<IRecordingContract.RecordingPresenter> implements IRecordingContract.IRecordingView {
     private RecyclerView mRvChild;
     private ImageView mNullData;
     private SwipeRefreshLayout mItemSwipHis;
@@ -64,7 +64,7 @@ public class RecordingFragment extends BaseMVPFragment<RecordingContract.Recordi
             switch (view.getId()) {
                 case R.id.recording_layout:
                     // TODO 18/12/13
-                    ((TrandRecordingActivity) activity).startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
+                    ((TrandRecordingFragment) activity).startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
                     break;
             }
         });

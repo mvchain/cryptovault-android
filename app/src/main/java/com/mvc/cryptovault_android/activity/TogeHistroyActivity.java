@@ -19,7 +19,7 @@ import com.mvc.cryptovault_android.adapter.rvAdapter.TogeHisAdapter;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.TogeHisBean;
-import com.mvc.cryptovault_android.contract.TogeHistroyContract;
+import com.mvc.cryptovault_android.contract.ITogeHistoryContract;
 import com.mvc.cryptovault_android.listener.EditTextChange;
 import com.mvc.cryptovault_android.presenter.TogeHistroyPresenter;
 import com.mvc.cryptovault_android.view.RuleRecyclerLines;
@@ -27,7 +27,7 @@ import com.mvc.cryptovault_android.view.RuleRecyclerLines;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TogeHistroyActivity extends BaseMVPActivity<TogeHistroyContract.TogeHistroyPresenter> implements TogeHistroyContract.ITogeHisView, View.OnClickListener {
+public class TogeHistroyActivity extends BaseMVPActivity<ITogeHistoryContract.TogeHistroyPresenter> implements ITogeHistoryContract.ITogeHisView, View.OnClickListener {
     private ImageView mBackTogehis;
     private TextView mTitleTogehis;
     private EditText mEditTogehis;

@@ -6,12 +6,12 @@ import com.mvc.cryptovault_android.base.BaseModel
 import com.mvc.cryptovault_android.bean.OptionDailyIncomeBean
 import com.mvc.cryptovault_android.bean.OptionDetailBean
 import com.mvc.cryptovault_android.bean.UpdateBean
-import com.mvc.cryptovault_android.contract.OptionDetailContract
+import com.mvc.cryptovault_android.contract.IOptionDetailContract
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import io.reactivex.Observable
 
-class OptionDetailModel : BaseModel(), OptionDetailContract.OptionDetailModel {
+class OptionDetailModel : BaseModel(), IOptionDetailContract.OptionDetailModel {
     override fun getDailyIncome(id: Int,qId:Int,pageSize:Int): Observable<OptionDailyIncomeBean> {
         return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
                 .getDailyIncome(MyApplication.getTOKEN(), id, qId, pageSize)

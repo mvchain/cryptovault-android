@@ -2,16 +2,16 @@ package com.mvc.cryptovault_android.presenter;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.contract.RecordingContract;
+import com.mvc.cryptovault_android.contract.IRecordingContract;
 import com.mvc.cryptovault_android.model.RecordingModel;
 
-public class RecordingPresenter extends RecordingContract.RecordingPresenter {
+public class RecordingPresenter extends IRecordingContract.RecordingPresenter {
     public static BasePresenter newIntance() {
         return new RecordingPresenter();
     }
 
     @Override
-    protected RecordingContract.IRecordingModel getModel() {
+    protected IRecordingContract.IRecordingModel getModel() {
         return RecordingModel.Companion.getInstance();
     }
 

@@ -7,12 +7,11 @@ import com.blankj.utilcode.util.SPUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
-import com.mvc.cryptovault_android.R.id.*
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseMVPActivity
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL
-import com.mvc.cryptovault_android.contract.VerificationInfoContract
+import com.mvc.cryptovault_android.contract.IVerificationInfoContract
 import com.mvc.cryptovault_android.event.PayPwdRefreshEvent
 import com.mvc.cryptovault_android.listener.OnTimeEndCallBack
 import com.mvc.cryptovault_android.presenter.VerificationInfoPresenter
@@ -32,7 +31,7 @@ import java.util.ArrayList
  * 验证私钥，助记词，邮箱
  * 0邮箱 1私钥 2助记词
  */
-class VerificationInfoActivity : BaseMVPActivity<VerificationInfoContract.VerificationInfoPresenter>(), View.OnClickListener, VerificationInfoContract.VerificationInfoView {
+class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.VerificationInfoPresenter>(), View.OnClickListener, IVerificationInfoContract.VerificationInfoView {
 
 
     private val TYPE_EMAIL = 0

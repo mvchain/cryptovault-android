@@ -6,7 +6,7 @@ import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
 import com.mvc.cryptovault_android.bean.TrandChildBean;
-import com.mvc.cryptovault_android.contract.TrandChildContract;
+import com.mvc.cryptovault_android.contract.ITrandChildContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public class TrandChildModel extends BaseModel implements TrandChildContract.ITrandChildModel {
+public class TrandChildModel extends BaseModel implements ITrandChildContract.ITrandChildModel {
     private List<TrandChildBean> strings = new ArrayList<>();
 
     @Nullable

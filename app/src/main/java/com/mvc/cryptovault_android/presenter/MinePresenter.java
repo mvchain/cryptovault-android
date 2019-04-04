@@ -2,13 +2,10 @@ package com.mvc.cryptovault_android.presenter;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.mvc.cryptovault_android.base.BasePresenter;
-import com.mvc.cryptovault_android.bean.UserInfoBean;
-import com.mvc.cryptovault_android.contract.MineContract;
+import com.mvc.cryptovault_android.contract.IMineContract;
 import com.mvc.cryptovault_android.model.MineModel;
 
-import io.reactivex.functions.Consumer;
-
-public class MinePresenter extends MineContract.MinePresenter {
+public class MinePresenter extends IMineContract.MinePresenter {
     public static BasePresenter newIntance() {
         return new MinePresenter();
     }

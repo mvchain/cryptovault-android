@@ -115,51 +115,62 @@
 				android:textColor="@color/login_content"
 				android:textSize="12sp"/>
 	</RelativeLayout>
-	<LinearLayout android:layout_width="match_parent"
-	              android:layout_marginLeft="16dp"
-	              android:layout_marginRight="16dp"
-	              android:layout_marginTop="10dp"
-	              android:orientation="vertical"
-	              android:background="@drawable/shape_round2_white_12dp"
-	              android:layout_height="match_parent">
-		<RadioGroup
-				android:layout_width="match_parent"
-				android:layout_height="36dp"
-				android:layout_marginLeft="10dp"
-				android:layout_marginTop="12dp"
-				android:layout_marginRight="10dp"
-				android:background="@drawable/shape_radiobuttom_gray_18dp"
-				android:gravity="bottom"
-				android:orientation="horizontal">
-
-			<RadioButton
-					android:id="@+id/recording_out_radio"
-					android:layout_width="0dp"
+	<FrameLayout android:layout_width="match_parent"
+	             android:layout_height="match_parent">
+		<LinearLayout android:layout_width="match_parent"
+		              android:layout_marginLeft="16dp"
+		              android:layout_marginRight="16dp"
+		              android:layout_marginTop="10dp"
+		              android:orientation="vertical"
+		              android:background="@drawable/shape_round2_white_12dp"
+		              android:layout_height="match_parent">
+			<RadioGroup
+					android:layout_width="match_parent"
 					android:layout_height="36dp"
-					android:layout_weight="1"
-					android:background="@drawable/select_recording_radio"
-					android:button="@null"
-					android:checked="true"
-					android:gravity="center"
-					android:text="购买订单"
-					android:textColor="@color/select_recording_radio"/>
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="12dp"
+					android:layout_marginRight="10dp"
+					android:background="@drawable/shape_radiobuttom_gray_18dp"
+					android:gravity="bottom"
+					android:orientation="horizontal">
 
-			<RadioButton
-					android:id="@+id/recording_in_radio"
-					android:layout_width="0dp"
-					android:layout_height="36dp"
+				<RadioButton
+						android:id="@+id/recording_out_radio"
+						android:layout_width="0dp"
+						android:layout_height="36dp"
+						android:layout_weight="1"
+						android:background="@drawable/select_recording_radio"
+						android:button="@null"
+						android:checked="true"
+						android:gravity="center"
+						android:text="购买订单"
+						android:textColor="@color/select_recording_radio"/>
+
+				<RadioButton
+						android:id="@+id/recording_in_radio"
+						android:layout_width="0dp"
+						android:layout_height="36dp"
+						android:layout_weight="1"
+						android:background="@drawable/select_recording_radio"
+						android:button="@null"
+						android:gravity="center"
+						android:text="出售订单"
+						android:textColor="@color/select_recording_radio"/>
+			</RadioGroup>
+			<com.mvc.cryptovault_android.view.NoScrollViewPager
+					android:id="@+id/recording_vp"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
 					android:layout_weight="1"
-					android:background="@drawable/select_recording_radio"
-					android:button="@null"
-					android:gravity="center"
-					android:text="出售订单"
-					android:textColor="@color/select_recording_radio"/>
-		</RadioGroup>
-		<com.mvc.cryptovault_android.view.NoScrollViewPager
-				android:id="@+id/recording_vp"
+					android:background="@color/white"/>
+		</LinearLayout>
+
+		<View
+				android:id="@+id/mask"
+				android:visibility="invisible"
+				android:background="#66333333"
 				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:layout_weight="1"
-				android:background="@color/white"/>
-	</LinearLayout>
+				android:layout_height="match_parent"/>
+
+	</FrameLayout>
 </LinearLayout>

@@ -2,7 +2,10 @@ package com.mvc.cryptovault_android.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.Gravity
+import android.view.View
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.RadioButton
 import android.widget.TextView
 import com.mvc.cryptovault_android.R
@@ -18,6 +21,7 @@ import com.mvc.cryptovault_android.view.NoScrollViewPager
 import com.mvc.cryptovault_android.view.PopViewHelper
 
 class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAreaContract.AreaView {
+    private lateinit var mMask: View
     private lateinit var mMenu: ImageView
     private lateinit var mSelect: TextView
     private lateinit var mRecordingDayMax: TextView
@@ -27,12 +31,20 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
     private lateinit var mRecordingOutRadio: RadioButton
     private lateinit var mRecordingVp: NoScrollViewPager
     private lateinit var recorAdapter: TrandRecorAdapter
+    private lateinit var mSelectPop: PopupWindow
+    private lateinit var mMenuPop: PopupWindow
     private lateinit var ratioList: ArrayList<TrandChildBean.DataBean>
+    private lateinit var menuList: ArrayList<String>
 
     override fun initView() {
         mFragment = ArrayList()
         ratioList = ArrayList()
+        menuList = ArrayList()
+        menuList.add("购买MVC挂单")
+        menuList.add("出售MVC挂单")
+        menuList.add("交易记录")
         mMenu = rootView.findViewById(R.id.menu)
+        mMask = rootView.findViewById(R.id.mask)
         mSelect = rootView.findViewById(R.id.select_mvc)
         mRecordingVp = rootView.findViewById(R.id.recording_vp)
         mRecordingInRadio = rootView.findViewById(R.id.recording_in_radio)
@@ -41,6 +53,31 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         mRecordingCurrent = rootView.findViewById(R.id.recording_current_tv)
         mRecordingOutRadio = rootView.findViewById(R.id.recording_out_radio)
         recorAdapter = TrandRecorAdapter(childFragmentManager, mFragment)
+        mRecordingOutRadio.setOnClickListener { mRecordingVp.currentItem = 0 }
+        mRecordingInRadio.setOnClickListener { mRecordingVp.currentItem = 1 }
+        mSelect.setOnClickListener {
+            if(mMenuPop.isShowing){
+                mMenuPop.dismiss()
+            }
+            if (mSelectPop.isShowing) {
+                mSelectPop.dismiss()
+            }else{
+                mSelectPop.showAsDropDown(mSelect,0,0,Gravity.BOTTOM)
+                mMask.visibility = View.VISIBLE
+            }
+        }
+        mMenu.setOnClickListener {
+            if(mSelectPop.isShowing){
+                mSelectPop.dismiss()
+            }
+            if (mMenuPop.isShowing) {
+                mMenuPop.dismiss()
+            }else{
+                mMenuPop.showAsDropDown(mMenu,0,0,Gravity.BOTTOM)
+                mMask.visibility = View.VISIBLE
+            }
+        }
+
     }
 
     private lateinit var mFragment: ArrayList<Fragment>
@@ -49,6 +86,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         ratioList.addAll(trandChildBean)
         loadFragment(0)
         mRecordingVp.adapter = recorAdapter
+        initPop()
     }
 
     private fun loadFragment(position: Int) {
@@ -81,26 +119,42 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
     }
 
     private fun initRightPop() {
-        PopViewHelper.instance.create(activity, R.layout.layout_ratio_pop, ratioList, object : ISelectWindowListener {
+        mMenuPop = PopViewHelper.instance.create(activity, menuList, R.layout.layout_ratio_pop, object : ISelectWindowListener {
             override fun onclick(position: Int) {
-                loadFragment(position)
+                when (position) {
+                    0 -> {
+
+                    }
+                    1 -> {
+
+                    }
+                    2 -> {
+
+                    }
+                }
+                mMenuPop.dismiss()
             }
 
             override fun dismiss() {
-
+                mMask.visibility = View.INVISIBLE
             }
         })
 
     }
 
     private fun initLeftPop() {
-        PopViewHelper.instance.create(activity, R.layout.layout_ratio_pop, ratioList, object : ISelectWindowListener {
+        mSelectPop = PopViewHelper.instance.create(activity, R.layout.layout_ratio_pop, ratioList, object : ISelectWindowListener {
             override fun onclick(position: Int) {
-
+                for (fragment in mFragment) {
+                    fragment as RecordingFragment
+                    fragment.setPairId(ratioList[position].pairId)
+                    fragment.eventRefresh(null)
+                }
+                mSelectPop.dismiss()
             }
 
             override fun dismiss() {
-
+                mMask.visibility = View.INVISIBLE
             }
         })
     }
@@ -117,6 +171,5 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         super.initData()
         mPresenter.getAllVrtAndBalance()
         mPresenter.getVrt(1)
-        initPop()
     }
 }

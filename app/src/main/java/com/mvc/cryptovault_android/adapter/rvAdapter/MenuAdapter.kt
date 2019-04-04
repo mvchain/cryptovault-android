@@ -5,9 +5,9 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.bean.TrandChildBean
 
-class RatioAdapter(layoutResId: Int, data: ArrayList<TrandChildBean.DataBean>) : BaseQuickAdapter<TrandChildBean.DataBean, BaseViewHolder>(layoutResId, data) {
-    override fun convert(helper: BaseViewHolder, item: TrandChildBean.DataBean) {
-        helper.setText(R.id.item_content, "${item.tokenName}")
+class MenuAdapter(layoutResId: Int, data: ArrayList<String>) : BaseQuickAdapter<String, BaseViewHolder>(layoutResId, data) {
+    override fun convert(helper: BaseViewHolder, item: String) {
+        helper.setText(R.id.item_content, "$item")
         helper.addOnClickListener(R.id.item_content)
     }
 }

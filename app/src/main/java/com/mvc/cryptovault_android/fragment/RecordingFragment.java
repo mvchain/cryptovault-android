@@ -47,6 +47,10 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
         super.onDestroy();
     }
 
+    public void setPairId(int pairId) {
+        this.pairId = pairId;
+    }
+
     @Override
     protected void initView() {
         bean = new ArrayList<>();

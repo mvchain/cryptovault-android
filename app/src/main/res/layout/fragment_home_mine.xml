@@ -114,6 +114,7 @@
                         android:layout_height="56dp"
                         android:background="@drawable/ripple_bg"
                         android:paddingLeft="15dp"
+                        android:visibility="gone"
                         android:paddingRight="10dp"
                         app:sDividerLineHeight="1dp"
                         app:sLeftIconRes="@drawable/mine_invite_icon"

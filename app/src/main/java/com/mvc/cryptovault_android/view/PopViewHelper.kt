@@ -15,6 +15,7 @@ import android.widget.PopupWindow
 import android.widget.TextView
 
 import com.mvc.cryptovault_android.R
+import com.mvc.cryptovault_android.adapter.rvAdapter.MenuAdapter
 import com.mvc.cryptovault_android.adapter.rvAdapter.RateAdapter
 import com.mvc.cryptovault_android.adapter.rvAdapter.RatioAdapter
 import com.mvc.cryptovault_android.bean.TrandChildBean
@@ -155,13 +156,34 @@ class PopViewHelper {
         return mPopView
     }
 
-    @SuppressLint("WrongConstant")
+    fun create(context: Context,  title: ArrayList<String>,layoutId: Int, iSelectWindowListener: ISelectWindowListener): PopupWindow {
+        val ratioRv = LayoutInflater.from(context.applicationContext).inflate(layoutId, null) as RecyclerView
+        var ratioAdapter = MenuAdapter(R.layout.item_ratio,title)
+        ratioRv.adapter = ratioAdapter
+        ratioAdapter.setOnItemChildClickListener { adapter, view, position ->
+            iSelectWindowListener.onclick(position)
+        }
+        mPopView = PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        mPopView.setOnDismissListener {
+            iSelectWindowListener.dismiss()
+        }
+        mPopView.contentView = ratioRv
+        mPopView.isFocusable = true
+        mPopView.setBackgroundDrawable(BitmapDrawable())
+        mPopView.isOutsideTouchable = false
+        return mPopView
+    }
+
     fun create(context: Context, layoutId: Int, title: ArrayList<TrandChildBean.DataBean>, iSelectWindowListener: ISelectWindowListener): PopupWindow {
         val ratioRv = LayoutInflater.from(context.applicationContext).inflate(layoutId, null) as RecyclerView
         var ratioAdapter = RatioAdapter(R.layout.item_ratio,title)
         ratioRv.adapter = ratioAdapter
         ratioAdapter.setOnItemChildClickListener { adapter, view, position ->
             iSelectWindowListener.onclick(position)
+        }
+        mPopView = PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        mPopView.setOnDismissListener {
+            iSelectWindowListener.dismiss()
         }
         mPopView.contentView = ratioRv
         mPopView.isFocusable = true

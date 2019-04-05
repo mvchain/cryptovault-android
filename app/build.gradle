@@ -5,10 +5,10 @@ apply plugin: 'kotlin-android-extensions'//启用扩展支持直接使用ID
 android {
     signingConfigs {
         config {
-            keyAlias 'bzt'
-            keyPassword 'bzt_android'
-            storeFile file('E:/AppProject/cryptovault-android/bzt.jks')
-            storePassword 'bzt_android'
+            keyAlias 'ttpay'
+            keyPassword 'mvc_android'
+            storeFile file('/Users/wangwenjie/Desktop/AndroidStudioProjects/cryptovault-android/ttpay')
+            storePassword 'mvc_android'
         }
     }
     compileSdkVersion 27
@@ -92,11 +92,13 @@ dependencies {
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
     implementation 'com.lzy.widget:imagepicker:0.6.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
-    implementation(name: 'geetest_sensebot_android_v4.0.5_20190122', ext: 'aar')
-//    极光推送
-    implementation 'cn.jiguang.sdk:jpush:3.1.6'  // 此处以JPush 3.1.6 版本为例。
+    implementation(name: 'geetest_sensebot_android_v4.0.7_20190311', ext: 'aar')
+    //    极光推送
+    implementation 'cn.jiguang.sdk:jpush:3.1.6'
+    // 此处以JPush 3.1.6 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.2.5'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"  // 此处以JCore 1.2.5 版本为例。
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // 此处以JCore 1.2.5 版本为例。
 }
 repositories {
     mavenCentral()

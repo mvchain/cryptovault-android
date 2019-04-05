@@ -30,36 +30,6 @@ public class WalletPresenter extends IWalletContract.WalletPresenter {
     }
 
     @Override
-    public void getWhetherToSignIn() {
-        rxUtils.register(mIModel.getWhetherToSignIn().subscribe(
-                updateBean -> {
-                    if (updateBean.getCode() == 200) {
-                        mIView.showSignin(updateBean.isData());
-                    }
-                }
-                ,
-                throwable -> {
-                    mIView.showSignin(true);
-                }
-        ));
-    }
-
-    @Override
-    public void putSignIn() {
-        rxUtils.register(mIModel.putSignIn().subscribe(
-                updateBean -> {
-                    if (updateBean.getCode() == 200) {
-                        mIView.signRequest(updateBean.isData());
-                    }
-                }
-                ,
-                throwable -> {
-                    mIView.signRequest(false);
-                }
-        ));
-    }
-
-    @Override
     public void getMsg(long timestamp, int type, int pagesize) {
         rxUtils.register(mIModel.getMsg(timestamp, type, pagesize)
                 .subscribe(msgBean -> {

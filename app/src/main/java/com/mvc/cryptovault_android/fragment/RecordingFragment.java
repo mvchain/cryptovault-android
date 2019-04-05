@@ -1,6 +1,8 @@
 package com.mvc.cryptovault_android.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,14 +10,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.adapter.rvAdapter.RecorAdapter;
+import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseMVPFragment;
 import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.event.RecordingEvent;
 import com.mvc.cryptovault_android.contract.IRecordingContract;
 import com.mvc.cryptovault_android.presenter.RecordingPresenter;
+import com.mvc.cryptovault_android.utils.RetrofitUtils;
+import com.mvc.cryptovault_android.utils.RxHelper;
 import com.mvc.cryptovault_android.view.RuleRecyclerLines;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,6 +60,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
 
     @Override
     protected void initView() {
+        LogUtils.e("trading initView");
         bean = new ArrayList<>();
         mRvChild = rootView.findViewById(R.id.child_rv);
         mNullData = rootView.findViewById(R.id.data_null);
@@ -67,7 +75,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
             switch (view.getId()) {
                 case R.id.recording_layout:
                     // TODO 18/12/13
-                    ((TrandRecordingFragment) activity).startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
+//                    ((TrandRecordingFragment) activity).startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
                     break;
             }
         });
@@ -84,7 +92,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
                     int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                     if (lastVisibleItemPosition + 1 == mRecorAdapter.getItemCount() && mRecorAdapter.getItemCount() >= 10 && !isRefresh) {
                         //发送网络请求获取更多数据
-                        mPresenter.getRecorList(bean.get(bean.size() - 1).getId(), 10, pairId, transType, 1);
+                        getRecorList(bean.get(bean.size() - 1).getId(), 10, pairId, transType, 1);
                     }
                 }
             }
@@ -96,17 +104,37 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
         });
     }
 
+
     @Subscribe
     public void eventRefresh(RecordingEvent recordingEvent) {
         isRefresh = true;
-        mPresenter.getRecorList(0, 10, pairId, transType, 0);
+        getRecorList(0, 10, pairId, transType, 0);
+    }
+
+    @SuppressLint("CheckResult")
+    private void getRecorList(int id, int pageSize, int pairId, int transType, int type) {
+        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class)
+                .getRecording(MyApplication.getTOKEN(), id, pageSize, pairId, transType, type)
+                .compose(RxHelper.rxSchedulerHelper())
+                .subscribe(recorBean ->
+                        {
+                            if (recorBean.getCode() == 200 && recorBean.getData().size() > 0) {
+                                showSuccess(recorBean.getData());
+                            } else {
+                                showNull();
+                            }
+                        },
+                        error -> {
+                            serverError();
+                        });
     }
 
     private void initArgument() {
         Bundle arguments = getArguments();
         transType = arguments.getInt("transType");
-        transionType = arguments.getInt("transionType");
+        transionType = arguments.getInt("transionType",2);
         pairId = arguments.getInt("pairId");
+        LogUtils.e("initArgument");
     }
 
     @Override
@@ -117,7 +145,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
     @Override
     protected void initData() {
         super.initData();
-        mPresenter.getRecorList(0, 10, pairId, transType, 0);
+        getRecorList(0, 10, pairId, transType, 0);
     }
 
     @Override
@@ -125,8 +153,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
         return RecordingPresenter.newIntance();
     }
 
-    @Override
-    public void showSuccess(List<RecorBean.DataBean> bean) {
+    private void showSuccess(List<RecorBean.DataBean> bean) {
         if (isRefresh) {
             this.bean.clear();
             isRefresh = false;
@@ -138,8 +165,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
         mRecorAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void showNull() {
+    private void showNull() {
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         if (bean.size() > 0) {
             mRvChild.setVisibility(View.VISIBLE);
@@ -150,7 +176,6 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
         }
     }
 
-    @Override
     public void serverError() {
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mRvChild.setVisibility(View.GONE);
@@ -159,6 +184,6 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
 
     private void refresh() {
         isRefresh = true;
-        mPresenter.getRecorList(0, 10, pairId, transType, 0);
+        getRecorList(0, 10, pairId, transType, 0);
     }
 }

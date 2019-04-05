@@ -19,18 +19,18 @@ public class RecordingPresenter extends IRecordingContract.RecordingPresenter {
     public void onStart() {
 
     }
-
-    @Override
-    public void getRecorList(int id, int pageSize, int pairId, int transactionType, int type) {
-        rxUtils.register(mIModel.getRecorList(id, pageSize, pairId, transactionType, type).subscribe(recorBean -> {
-            if (recorBean.getCode() == 200 && recorBean.getData().size() > 0) {
-                mIView.showSuccess(recorBean.getData());
-            } else {
-                mIView.showNull();
-            }
-        }, throwable -> {
-            mIView.serverError();
-            LogUtils.e("RecordingPresenter", throwable.getMessage());
-        }));
-    }
+//
+//    @Override
+//    public void getRecorList(int id, int pageSize, int pairId, int transactionType, int type) {
+//        rxUtils.register(mIModel.getRecorList(id, pageSize, pairId, transactionType, type).subscribe(recorBean -> {
+//            if (recorBean.getCode() == 200 && recorBean.getData().size() > 0) {
+//                mIView.showSuccess(recorBean.getData());
+//            } else {
+//                mIView.showNull();
+//            }
+//        }, throwable -> {
+//            mIView.serverError();
+//            LogUtils.e("RecordingPresenter", throwable.getMessage());
+//        }));
+//    }
 }

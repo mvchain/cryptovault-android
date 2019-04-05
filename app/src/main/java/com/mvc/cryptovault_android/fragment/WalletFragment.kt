@@ -69,7 +69,6 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
     private lateinit var mBrowser: ImageView
     private lateinit var mNullAssets: ImageView
     private lateinit var mAddAssets: ImageView
-    private lateinit var mSignInView: ImageView
     private lateinit var mTypeAssets: TextView
     private lateinit var mPriceAssets: TextView
     private lateinit var mAssetsLayout: RecyclerViewHeader
@@ -102,14 +101,12 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
         mRvAssets = rootView.findViewById(R.id.assets_rv)
         mAssetsLayout = rootView.findViewById(R.id.assets_layout)
         mSwipAsstes = rootView.findViewById(R.id.asstes_swip)
-        mSignInView = rootView.findViewById(R.id.assets_sign_in)
         mSwipAsstes.post { mSwipAsstes.isRefreshing = true }
         mSwipAsstes.setOnRefreshListener { onRefresh() }
         mHintAssets.setOnClickListener(this)
         mAddAssets.setOnClickListener(this)
         mTypeAssets.setOnClickListener(this)
         mPriceAssets.setOnClickListener(this)
-        mSignInView.setOnClickListener(this)
         mBrowser.setOnClickListener(this)
         createCarryOut = true
     }
@@ -144,7 +141,6 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
                         ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity, R.drawable.down_icon), mTypeAssets)
                     }
                 }
-            R.id.assets_sign_in -> mPresenter.putSignIn()
             R.id.assets_browser -> startActivity(Intent(activity, BlockchainBrowserActivity::class.java))
         }
     }
@@ -200,14 +196,8 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
         mAssetsLayout.attachTo(mRvAssets)
         mRvAssets.adapter = assetsAdapter
         mPresenter.getAssetList()
-        mPresenter.getWhetherToSignIn()
         val msg_time = SPUtils.getInstance().getLong(MSG_TIME)
         mPresenter.getMsg(if (msg_time == -1L) System.currentTimeMillis() else msg_time, 0, 1)
-        val defalutBean = JsonHelper.stringToJson(defalutRate, ExchangeRateBean.DataBean::class.java) as ExchangeRateBean.DataBean
-        if (defalutBean != null) {
-            val default_type = defalutBean.name
-            mTypeAssets.text = default_type.substring(1, default_type.length)
-        }
     }
 
     private fun initPop() {
@@ -225,6 +215,11 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
 
     override fun refreshAssetList(asset: AssetListBean) {
         SPUtils.getInstance().put(ASSETS_LIST, JsonHelper.jsonToString(asset))
+        val defalutBean = JsonHelper.stringToJson(defalutRate, ExchangeRateBean.DataBean::class.java) as ExchangeRateBean.DataBean
+        if (defalutBean != null) {
+            val default_type = defalutBean.name
+            mTypeAssets.text = default_type.substring(1, default_type.length)
+        }
         mPresenter.getAllAsset()
         mNullAssets.visibility = View.GONE
         mRvAssets.visibility = View.VISIBLE
@@ -255,43 +250,6 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
                 mHintAssets.setImageResource(R.drawable.home_note_icon)
             }
         }
-    }
-
-    override fun showSignin(isSignin: Boolean) {
-        if (!isSignin && mSignInView.visibility == View.INVISIBLE) {
-            val width = mSignInView.width.toFloat()
-            mSignInView.visibility = View.VISIBLE
-            infoLayoutStartAnimation(mAssetsLayout.width + width, mAssetsLayout.width - width + ConvertUtils.dp2px(3f))
-        }
-    }
-
-    override fun signRequest(isSignin: Boolean) {
-        if (isSignin && mSignInView.visibility == View.VISIBLE) {
-            val dialog = Dialog(activity, R.style.translationDialog)
-            val dialogView = LayoutInflater.from(activity).inflate(R.layout.layout_signin_dialog, null)
-            val cancleView = dialogView.findViewById<ImageView>(R.id.dialog_cancle)
-            cancleView.setOnClickListener { v -> dialog.dismiss() }
-            dialog.setContentView(dialogView)
-            dialog.show()
-            val width = mSignInView.width.toFloat()
-            val xAnimation = ObjectAnimator.ofFloat(mSignInView, "X", mAssetsLayout.width - width + ConvertUtils.dp2px(3f), mAssetsLayout.width + width)
-            xAnimation.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    mSignInView.visibility = View.INVISIBLE
-                    super.onAnimationEnd(animation)
-                }
-            })
-            xAnimation.duration = 200
-            xAnimation.start()
-        } else {
-            ToastUtils.showLong("签到失败")
-        }
-    }
-
-    private fun infoLayoutStartAnimation(startX: Float, endX: Float) {
-        val xAnimation = ObjectAnimator.ofFloat(mSignInView, "X", startX, endX)
-        xAnimation.duration = 200
-        xAnimation.start()
     }
 
     override fun showNullAsset() {
@@ -331,7 +289,6 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
         //        mData.clear();
         mPresenter.getAllAsset()
         mPresenter.getAssetList()
-        mPresenter.getWhetherToSignIn()
         val msg_time = SPUtils.getInstance().getLong(MSG_TIME)
         mPresenter.getMsg(if (msg_time == -1L) System.currentTimeMillis() else msg_time, 0, 1)
     }
@@ -349,7 +306,6 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
         //        mData.clear();
         mPresenter.getAllAsset()
         mPresenter.getAssetList()
-        mPresenter.getWhetherToSignIn()
         val msg_time = SPUtils.getInstance().getLong(MSG_TIME)
         mPresenter.getMsg(if (msg_time == -1L) System.currentTimeMillis() else msg_time, 0, 1)
     }

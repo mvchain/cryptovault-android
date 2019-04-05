@@ -8,14 +8,13 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RadioButton
 import android.widget.TextView
-import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.LogUtils
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.adapter.TrandRecorAdapter
 import com.mvc.cryptovault_android.base.BaseMVPFragment
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.bean.PairTickersBean
 import com.mvc.cryptovault_android.bean.TrandChildBean
-import com.mvc.cryptovault_android.common.Constant.SP.TRADING_PAIRID
 import com.mvc.cryptovault_android.contract.IAreaContract
 import com.mvc.cryptovault_android.listener.ISelectWindowListener
 import com.mvc.cryptovault_android.presenter.AreaPresenter
@@ -69,7 +68,6 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         mRecordingDayMin = rootView.findViewById(R.id.recording_day_min_tv)
         mRecordingCurrent = rootView.findViewById(R.id.recording_current_tv)
         mRecordingOutRadio = rootView.findViewById(R.id.recording_out_radio)
-        recorAdapter = TrandRecorAdapter(childFragmentManager, mFragment)
         mRecordingOutRadio.setOnClickListener { mRecordingVp.currentItem = 0 }
         mRecordingInRadio.setOnClickListener { mRecordingVp.currentItem = 1 }
         mSelect.setOnClickListener {
@@ -97,29 +95,18 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
 
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser && createCarryOut) {
-            mPresenter.getAllVrtAndBalance()
-            mPresenter.getVrt(pairId)
-            mPresenter.getPairTickers(pairId)
-        }
-    }
 
     private lateinit var mFragment: ArrayList<Fragment>
 
     override fun vrtSuccess(trandChildBean: ArrayList<TrandChildBean.DataBean>) {
-        if (SPUtils.getInstance().getInt(TRADING_PAIRID,-1) == -1) {
-            SPUtils.getInstance().put(TRADING_PAIRID,trandChildBean[0].pair)
-        }
         ratioList.addAll(trandChildBean)
+        mSelect.text = ratioList[0].tokenName
         loadFragment(0)
-        mRecordingVp.adapter = recorAdapter
         initPop()
     }
 
     private fun loadFragment(position: Int) {
-        mFragment.clear()
+        mFragment = ArrayList()
         val purhFragment = RecordingFragment()
         val purhBundle = Bundle()
         purhBundle.putInt("transType", 1)
@@ -134,7 +121,8 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         sellBundle.putInt("pairId", ratioList[position].pairId)
         sellFragment.arguments = sellBundle
         mFragment.add(sellFragment)
-        recorAdapter.notifyDataSetChanged()
+        recorAdapter = TrandRecorAdapter(fragmentManager, mFragment)
+        mRecordingVp.adapter = recorAdapter
     }
 
     override fun vrtFailed(msg: String) {
@@ -175,7 +163,6 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         mSelectPop = PopViewHelper.instance.create(activity, R.layout.layout_ratio_pop, ratioList, object : ISelectWindowListener {
             override fun onclick(position: Int) {
                 refreshFragment(position)
-                SPUtils.getInstance().put(TRADING_PAIRID,ratioList[position].pair)
                 mSelectPop.dismiss()
             }
 
@@ -190,8 +177,9 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
             fragment as RecordingFragment
             fragment.setPairId(ratioList[position].pairId)
             fragment.eventRefresh(null)
+            mPresenter.getPairTickers(ratioList[position].pairId)
+            mSelect.text = ratioList[position].tokenName
         }
-        pairId = position
     }
 
     override fun getLayoutId(): Int {
@@ -204,6 +192,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
 
     override fun initData() {
         super.initData()
+        ratioList.clear()
         mPresenter.getAllVrtAndBalance()
         mPresenter.getVrt(pairId)
         mPresenter.getPairTickers(pairId)

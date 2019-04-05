@@ -3,10 +3,12 @@ package com.mvc.cryptovault_android.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
-public class TrandRecorAdapter extends FragmentPagerAdapter {
+public class TrandRecorAdapter extends FragmentStatePagerAdapter {
     private ArrayList<Fragment> fragments;
     private FragmentManager fm;
 

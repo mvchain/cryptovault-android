@@ -74,16 +74,6 @@ public class WalletModel extends BaseModel implements IWalletContract.
     }
 
     @Override
-    public Observable<UpdateBean> getWhetherToSignIn() {
-        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getWhetherToSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
-    }
-
-    @Override
-    public Observable<UpdateBean> putSignIn() {
-        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).putSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
-    }
-
-    @Override
     public Observable<MsgBean> getMsg(long timestamp, int type, int pagesize) {
         return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getMsg(MyApplication.getTOKEN(), timestamp, type, pagesize).compose(RxHelper.rxSchedulerHelper()).map(msgBean -> msgBean);
     }

@@ -12,12 +12,12 @@ import io.reactivex.Observable
 
 class RecordingModel : BaseModel(), IRecordingContract.IRecordingModel {
 
-    override fun getRecorList(id: Int, pageSize: Int, pairId: Int, transactionType: Int, type: Int): Observable<RecorBean> {
-        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
-                .getRecording(MyApplication.getTOKEN(), id, pageSize, pairId, transactionType, type)
-                .compose(RxHelper.rxSchedulerHelper())
-                .map { recorBean -> recorBean }
-    }
+//    override fun getRecorList(id: Int, pageSize: Int, pairId: Int, transactionType: Int, type: Int): Observable<RecorBean> {
+//        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
+//                .getRecording(MyApplication.getTOKEN(), id, pageSize, pairId, transactionType, type)
+//                .compose(RxHelper.rxSchedulerHelper())
+//                .map { recorBean -> recorBean }
+//    }
 
     companion object {
         val instance: RecordingModel

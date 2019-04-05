@@ -99,22 +99,22 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
         data = getIntent().getParcelableExtra("data");
         recorBean = (RecorBean.DataBean) getIntent().getSerializableExtra("recorBean");
         type = getIntent().getIntExtra("type", 0);
-        mTitleTrand.setText((type == 1 ? "购买" : "出售") + getIntent().getStringExtra("title"));
+        mTitleTrand.setText(getIntent().getStringExtra("unit_price"));
         pairId = getIntent().getIntExtra("id", 0);
         unitPrice = getIntent().getStringExtra("unit_price");
         allPriceUnit = getIntent().getStringExtra("allprice_unit");
-        mEditPurh.setHint("输入" + (type == 1 ? "购买" : "出售") + "数量");
-        mHintBusiness.setText((type == 1 ? "卖家：" : "买家："));
-        mHintRemaining.setText("剩余" + (type == 1 ? "出售" : "购买") + "量");
-        mPriceHintSale.setText((type == 1 ? "出售" : "购买") + "价格");
+        mEditPurh.setHint("输入" + (type == 1 ? "出售" : "购买") + "数量");
+        mHintBusiness.setText((type == 1 ? "买家：" : "卖家："));
+        mHintRemaining.setText("剩余" + (type == 1 ? "购买" : "出售") + "量");
+        mPriceHintSale.setText((type == 1 ? "购买" : "出售") + "价格");
         mVRTHint.setText("可用" + SPUtils.getInstance().getString(RECORDING_TYPE));
         mNameBusiness.setText(recorBean.getNickname());
         price = recorBean.getPrice().toString();
-        mNumRemaining.setText(recorBean.getLimitValue() + " " + getIntent().getStringExtra("title"));
-        mPriceNumSale.setText(TextUtils.doubleToEight(recorBean.getPrice().doubleValue()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
+        mNumRemaining.setText(recorBean.getLimitValue() + " MVC");
+        mPriceNumSale.setText(TextUtils.doubleToEight(recorBean.getPrice().doubleValue()) + " " + allPriceUnit);
         this.currentPrice = recorBean.getPrice().doubleValue();
-        mNumPrice.setText((type == 1 ? "购买" : "出售") + "量");
-        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
+        mNumPrice.setText((type == 1 ? "出售" : "购买") + "量");
+        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).getTransactionInfo(getToken(), data.getPairId(), type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(trandPurhBean -> {
                     if (trandPurhBean.getCode() == 200) {
@@ -124,7 +124,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                         mPrice.setText(TextUtils.doubleToEight(data.getTokenBalance()));
                         mPriceVrt.setText(TextUtils.doubleToEight(data.getBalance()));
                         mHintPrice.setText("可用" + TrandPurhAndSellItemActivity.this.data.getTokenName());
-                        mAllPricePurh.setText("0.0000 " + allPriceUnit);
+                        mAllPricePurh.setText("0.00000000 " + allPriceUnit);
                         mPrice.setText(TextUtils.doubleToEight(data.getTokenBalance()));
                         mEditPurh.setFilters(new InputFilter[]{new PointLengthFilter()});
                         mEditPurh.addTextChangedListener(new EditTextChange() {
@@ -135,7 +135,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                     Double num = Double.valueOf(numText);
                                     if (num == 0) {
                                         mNumErrorHint.setVisibility(View.INVISIBLE);
-                                        mAllPricePurh.setText("0.0000 " + allPriceUnit);
+                                        mAllPricePurh.setText("0.00000000 " + allPriceUnit);
                                         mSubmitPurh.setEnabled(false);
                                         mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                     } else {
@@ -158,7 +158,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                                     }
                                 } else {
                                     mNumErrorHint.setVisibility(View.INVISIBLE);
-                                    mAllPricePurh.setText("0.0000 " + allPriceUnit);
+                                    mAllPricePurh.setText("0.00000000 " + allPriceUnit);
                                     mSubmitPurh.setEnabled(false);
                                     mSubmitPurh.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                                 }
@@ -224,7 +224,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                 String currentNum = mEditPurh.getText().toString();
                 String currentAllPrice = mAllPricePurh.getText().toString();
                 if (currentNum.equals("") || Double.valueOf(currentNum) <= 0) {
-                    dialogHelper.create(this, R.drawable.miss_icon, type == 1 ? "购买数量不正确" : "出售数量不正确").show();
+                    dialogHelper.create(this, R.drawable.miss_icon, type == 1 ? "出售数量不正确" : "购买数量不正确").show();
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
@@ -238,18 +238,18 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
-                String type = (this.type == 1 ? data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()) : unitPrice);
-                String numType = (this.type == 1 ? data.getPair().substring(0, data.getPair().indexOf("/")) : data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
+                String type = (this.type == 1 ? allPriceUnit:data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
+                String numType = (this.type == 1 ? data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()) : data.getPair().substring(0, data.getPair().indexOf("/")) );
                 String payNum = currentAllPrice.split(" ")[0];
-                String buyPrice = this.type == 1 ? currentNum : TextUtils.doubleToEight(Double.parseDouble(currentNum) * currentPrice);
+                String buyPrice = this.type == 1 ? TextUtils.doubleToEight(Double.parseDouble(currentNum) * currentPrice) : currentNum;
                 mPopView = createPopWindow(this, R.layout.layout_paycode
-                        , this.type == 1 ? "确认购买" : "确认发布"
+                        , this.type == 1 ? "确认发布" : "确认购买"
                         , "总计需支付"
-                        , (this.type == 1 ? payNum : currentNum) + " " + type
-                        , this.type == 1 ? "购买数量" : "总价"
-                        , buyPrice + " " + numType
-                        , this.type == 1 ? "购买单价" : "出售单价"
-                        , TextUtils.doubleToEight(currentPrice) + " " + data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length())
+                        , (this.type == 1 ? currentNum : payNum) + " MVC"
+                        , this.type == 1 ? "总价" : "购买数量"
+                        , buyPrice + " " + allPriceUnit
+                        , this.type == 1 ? "出售单价" : "购买单价"
+                        , TextUtils.doubleToEight(currentPrice) + " " + allPriceUnit
                         , new IPayWindowListener() {
                             @Override
                             public void onclick(View view) {
@@ -284,7 +284,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
                             try {
                                 object.put("id", pairId);
                                 object.put("pairId", data.getPairId());
-                                object.put("password", EncryptUtils.encryptMD5ToString(email +  EncryptUtils.encryptMD5ToString(num)));
+                                object.put("password", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(num)));
                                 object.put("price", price);
                                 object.put("transactionType", this.type);
                                 object.put("value", currentNum);
@@ -314,7 +314,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
      */
     @SuppressLint("CheckResult")
     private void releasePurh(RequestBody body) {
-        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
+        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
                 EventBus.getDefault().post(new RecordingEvent());
@@ -340,7 +340,7 @@ public class TrandPurhAndSellItemActivity extends BaseActivity implements View.O
      */
     @SuppressLint("CheckResult")
     private void releaseSell(RequestBody body) {
-        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
+        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).releaseOrder(getToken(), body).compose(RxHelper.rxSchedulerHelper()).subscribe(updateBean -> {
             if (updateBean.getCode() == 200) {
                 dialogHelper.resetDialogResource(TrandPurhAndSellItemActivity.this, R.drawable.success_icon, (type == 1 ? "购买" : "出售") + "成功");
                 EventBus.getDefault().post(new RecordingEvent());

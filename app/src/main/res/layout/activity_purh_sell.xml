@@ -117,7 +117,7 @@
                             android:id="@+id/vrt_hint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="可用-"
+                            android:text="可用MVC"
                             android:textColor="@color/btc_gray"
                             android:textSize="12sp" />
 
@@ -155,63 +155,46 @@
                         android:textColor="@color/trand_gray"
                         android:textSize="13sp" />
 
-                    <TextView
-                        android:id="@+id/purh_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/price_title"
-                        android:layout_toRightOf="@id/price_title"
-                        android:text="0.0000 - "
-                        android:textColor="@color/login_content"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
                     <LinearLayout
-                        android:id="@+id/process_layout"
+                        android:id="@+id/edit_layout"
+                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/purh_price"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/shape_round_blackgray_5dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="20dp">
+                        android:layout_below="@id/price_title"
+                        android:background="@drawable/shape_round_gray_5dp"
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/reduce_icon" />
-
-                        <SeekBar
-                            android:id="@+id/purh_seek"
-                            android:layout_width="170dp"
-                            android:layout_height="wrap_content"
+                        <EditText
+                            android:id="@+id/price_edit"
+                            android:textSize="13sp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+                            android:layout_width="0dp"
+                            android:layout_height="44dp"
                             android:layout_weight="1"
-                            android:indeterminateDrawable="@color/red"
-                            android:maxHeight="10dp"
-                            android:minHeight="10dp"
-                            android:progressDrawable="@drawable/shape_seekbar_bg"
-                            android:splitTrack="false"
-                            android:thumb="@drawable/buoy_icon" />
-
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:src="@drawable/increase_icon" />
+                            android:background="@null" />
 
                         <TextView
-                            android:id="@+id/purh_seek_num"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/unit_price"
+                            android:layout_width="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="#666666"
+                            android:textStyle="bold"
+                            android:text="USDT"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
-                            android:text="100.0%" />
+                            android:layout_marginRight="20dp" />
+
                     </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/current_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/process_layout"
+                        android:layout_below="@id/edit_layout"
                         android:text="-"
                         android:textColor="@color/trand_gray"
                         android:textSize="13sp" />
@@ -226,27 +209,51 @@
                         android:textColor="@color/trand_gray"
                         android:textSize="13sp" />
 
-                    <EditText
-                        android:id="@+id/purh_edit"
+                    <LinearLayout
+                        android:id="@+id/purh_layout"
                         android:layout_width="match_parent"
+                        android:layout_marginTop="3dp"
                         android:layout_height="44dp"
                         android:layout_below="@id/price_num"
-                        android:textCursorDrawable="@drawable/bg_edit_cursor_color"
-                        android:layout_marginTop="8dp"
                         android:background="@drawable/shape_round_gray_5dp"
-                        android:gravity="center_vertical"
-                        android:hint="输入出售数量"
-                        android:paddingLeft="12dp"
-                        android:textSize="15sp" />
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/purh_edit"
+                            android:textSize="13sp"
+                            android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:layout_width="0dp"
+                            android:hint="输入出售数量"
+                            android:layout_height="44dp"
+                            android:layout_weight="1"
+                            android:background="@null" />
+
+                        <TextView
+                            android:id="@+id/unit_num"
+                            android:layout_width="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="#666666"
+                            android:textStyle="bold"
+                            android:text="USDT"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp" />
+
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/num_error_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/purh_edit"
+                        android:layout_below="@id/purh_layout"
                         android:layout_marginTop="10dp"
-                        android:visibility="invisible"
                         android:textColor="@color/red"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:visibility="invisible" />
+
                     <TextView
                         android:id="@+id/all_price_hint"
                         android:layout_width="wrap_content"
@@ -263,7 +270,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/all_price_hint"
                         android:layout_marginTop="8dp"
-                        android:text="0.00 -"
+                        android:text="0.00000000 -"
                         android:textColor="@color/login_content"
                         android:textSize="21dp" />
                 </RelativeLayout>

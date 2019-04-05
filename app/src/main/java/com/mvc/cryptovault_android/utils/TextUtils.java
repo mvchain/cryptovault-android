@@ -29,7 +29,7 @@ public class TextUtils {
     }
 
     public static String doubleToFourPrice(double price) {
-        DecimalFormat format = new DecimalFormat("0.0000");
+        DecimalFormat format = new DecimalFormat("0.00000000");
         return format.format(price);
     }
     public static String doubleToSix(double price) {

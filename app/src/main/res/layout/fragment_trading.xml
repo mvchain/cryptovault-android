@@ -39,7 +39,7 @@
 		<ImageView
 				android:id="@+id/menu"
 				android:layout_width="44dp"
-				android:src="@drawable/search_icon_drawable_edit"
+				android:src="@drawable/trade_mvc_icon"
 				android:scaleType="center"
 				android:layout_alignParentRight="true"
 				android:layout_height="44dp"/>
@@ -143,7 +143,7 @@
 						android:button="@null"
 						android:checked="true"
 						android:gravity="center"
-						android:text="购买订单"
+						android:text="购买MVC"
 						android:textColor="@color/select_recording_radio"/>
 
 				<RadioButton
@@ -154,7 +154,7 @@
 						android:background="@drawable/select_recording_radio"
 						android:button="@null"
 						android:gravity="center"
-						android:text="出售订单"
+						android:text="出售MVC"
 						android:textColor="@color/select_recording_radio"/>
 			</RadioGroup>
 			<com.mvc.cryptovault_android.view.NoScrollViewPager

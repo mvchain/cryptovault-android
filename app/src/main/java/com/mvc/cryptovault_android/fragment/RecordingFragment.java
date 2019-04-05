@@ -20,6 +20,7 @@ import com.mvc.cryptovault_android.base.BasePresenter;
 import com.mvc.cryptovault_android.bean.RecorBean;
 import com.mvc.cryptovault_android.event.RecordingEvent;
 import com.mvc.cryptovault_android.contract.IRecordingContract;
+import com.mvc.cryptovault_android.listener.IRecordingClick;
 import com.mvc.cryptovault_android.presenter.RecordingPresenter;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
@@ -41,6 +42,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
     private int transionType;
     private int pairId;
     private boolean isRefresh = false;
+    private IRecordingClick recording;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +54,10 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+    }
+
+    public void setRecording(IRecordingClick recording) {
+        this.recording = recording;
     }
 
     public void setPairId(int pairId) {
@@ -75,7 +81,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
             switch (view.getId()) {
                 case R.id.recording_layout:
                     // TODO 18/12/13
-//                    ((TrandRecordingFragment) activity).startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
+                    recording.startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
                     break;
             }
         });

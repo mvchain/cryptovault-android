@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.presenter
 import com.blankj.utilcode.util.SPUtils
 import com.mvc.cryptovault_android.base.BasePresenter
 import com.mvc.cryptovault_android.common.Constant.SP.TRAND_LIST
+import com.mvc.cryptovault_android.common.Constant.SP.TRAND_VRT_LIST
 import com.mvc.cryptovault_android.contract.IAreaContract
 import com.mvc.cryptovault_android.model.AreaModel
 import com.mvc.cryptovault_android.utils.JsonHelper
@@ -25,6 +26,7 @@ class AreaPresenter : IAreaContract.AreaPresenter() {
         rxUtils.register(mIModel.getVrt(pairType).subscribe(
                 { areaBean ->
                     if (areaBean.code == 200) {
+                        SPUtils.getInstance().put(TRAND_VRT_LIST, JsonHelper.jsonToString(areaBean))
                         mIView.vrtSuccess(areaBean.data)
                     } else {
                         mIView.vrtFailed(areaBean.message)

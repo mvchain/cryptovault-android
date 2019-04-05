@@ -174,7 +174,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                 var numText = s.toString()
                                 if (numText != "") {
                                     val num = java.lang.Double.valueOf(numText)
-                                    if (mEditPurh.text.toString() == "" || num<= 0) {
+                                    if (mEditPurh.text.toString() == "" || num <= 0) {
                                         mNumErrorHint!!.visibility = View.INVISIBLE
                                         mAllPricePurh!!.text = "0.00000000 " + allPriceUnit!!
                                         mSubmitPurh!!.isEnabled = false
@@ -210,7 +210,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                             mSubmitPurh!!.isEnabled = true
                                         }
                                     }
-                                }else{
+                                } else {
                                     mNumErrorHint!!.visibility = View.INVISIBLE
                                     mAllPricePurh!!.text = "0.00000000 " + allPriceUnit!!
                                     mSubmitPurh!!.isEnabled = false
@@ -287,11 +287,20 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }
-                val type = if (this.type == 1) data!!.pair.substring(data!!.pair.indexOf("/") + 1, data!!.pair.length) else unitPrice
+                val type = if (this.type == 1) data!!.tokenName else unitPrice
                 val numType = if (this.type == 1) data!!.pair.substring(0, data!!.pair.indexOf("/")) else data!!.pair.substring(data!!.pair.indexOf("/") + 1, data!!.pair.length)
                 val payNum = currentAllPrice.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
                 val buyPrice = if (this.type == 1) currentNum else payNum
-                mPopView = createPopWindow(this, R.layout.layout_paycode, if (this.type == 1) "确认购买" else "确认发布", "总计需支付", (if (this.type == 1) payNum else currentNum) + " " + type, if (this.type == 1) "购买数量" else "总价", "$buyPrice $numType", if (this.type == 1) "购买单价" else "出售单价", unitPrice + " " + data!!.pair.substring(data!!.pair.indexOf("/") + 1, data!!.pair.length), object : IPayWindowListener {
+                mPopView = createPopWindow(this
+                        , R.layout.layout_paycode
+                        , if (this.type == 1) "确认购买" else "确认发布"
+                        , "总计需支付"
+                        , (if (this.type == 1) payNum else currentNum) + " " + type
+                        , if (this.type == 1) "购买数量" else "总价"
+                        , "$buyPrice MVC"
+                        , if (this.type == 1) "购买单价" else "出售单价"
+                        , "${if (price_edit.text.toString() == "") TextUtils.doubleToEight(currentPricePurh) else price_edit.text} ${data!!.tokenName}"
+                        , object : IPayWindowListener {
                     override fun onclick(view: View) {
                         when (view.id) {
                             R.id.pay_close -> {

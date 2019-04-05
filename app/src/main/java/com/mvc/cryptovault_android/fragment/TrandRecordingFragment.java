@@ -258,8 +258,8 @@ public class TrandRecordingFragment extends BaseActivity implements View.OnClick
                 // TODO 18/12/13
                 intent.setClass(this, TrandPurhAndSellActivity.class);
                 intent.putExtra("title", "出售" + data.getTokenName());
-                intent.putExtra("allprice_unit", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
-                intent.putExtra("unit_price", data.getPair().substring(0, data.getPair().indexOf("/")));
+                intent.putExtra("allprice_unit", data.getTokenName());
+                intent.putExtra("unit_price", "MVC");
                 intent.putExtra("data", data);
                 intent.putExtra("type", 2);
                 startActivity(intent);
@@ -268,8 +268,8 @@ public class TrandRecordingFragment extends BaseActivity implements View.OnClick
                 // TODO 18/12/13
                 intent.setClass(this, TrandPurhAndSellActivity.class);
                 intent.putExtra("title", "购买" + data.getTokenName());
-                intent.putExtra("unit_price", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
-                intent.putExtra("allprice_unit", data.getPair().substring(data.getPair().indexOf("/") + 1, data.getPair().length()));
+                intent.putExtra("unit_price", "MVC");
+                intent.putExtra("allprice_unit", data.getTokenName());
                 intent.putExtra("data", data);
                 intent.putExtra("type", 1);
                 startActivity(intent);

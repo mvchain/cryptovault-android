@@ -55,7 +55,7 @@ class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.R
             R.id.reg_submit -> {
                 if (checkNotNullValue()) {
                     dialogHelper?.create(this, R.drawable.pending_icon_1, "请稍后")?.show()
-                    mPresenter.sendInvitationRequest(reg_invitation.text.toString(), reg_email.text.toString(), reg_code.text.toString())
+                    mPresenter.sendInvitationRequest(reg_email.text.toString(), reg_code.text.toString())
                 }
             }
             R.id.send_code -> {
@@ -77,11 +77,6 @@ class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.R
      * 检查元素是否为空
      */
     private fun checkNotNullValue(): Boolean {
-        if (reg_invitation.text.toString() == "") {
-            dialogHelper?.create(this, R.drawable.miss_icon, "邀请码不可为空")?.show()
-            dialogHelper?.dismissDelayed(null)
-            return false
-        }
         if (reg_nickname.text.toString() == "") {
             dialogHelper?.create(this, R.drawable.miss_icon, "昵称不可为空")?.show()
             dialogHelper?.dismissDelayed(null)
@@ -97,7 +92,6 @@ class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.R
             dialogHelper?.dismissDelayed(null)
             return false
         }
-        invitationJson.put("inviteCode", reg_invitation.text.toString())
         invitationJson.put("nickname", reg_nickname.text.toString())
         invitationJson.put("email", reg_email.text.toString())
         SPUtils.getInstance().put(REG_EMAIL, reg_email.text.toString())
@@ -130,7 +124,7 @@ class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.R
             override fun exit() {
                 send_code.isEnabled = true
                 send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
-                send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.login_content))
+                send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.send_code_tv_bg))
                 send_code.text = "重新发送"
             }
         }).updataTime()

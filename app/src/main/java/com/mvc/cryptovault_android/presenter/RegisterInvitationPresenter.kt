@@ -33,8 +33,8 @@ class RegisterInvitationPresenter : IRegisterInvitationConstrat.RegisterInvitati
         }))
     }
 
-    override fun sendInvitationRequest(invitation: String, email: String, code: String) {
-        rxUtils.register(mIModel.sendInvitationRequest(invitation, email, code).subscribe({ httpBean ->
+    override fun sendInvitationRequest(email: String, code: String) {
+        rxUtils.register(mIModel.sendInvitationRequest(email, code).subscribe({ httpBean ->
             if (httpBean.code === 200) {
                 mIView.savaTempToken(httpBean.data)
                 mIView.startActivity()

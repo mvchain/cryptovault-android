@@ -24,10 +24,9 @@ class RegisterInvitationModel : BaseModel(), IRegisterInvitationConstrat.Invitat
                 .compose(RxHelper.rxSchedulerHelper())
                 .map { httpTokenBean -> httpTokenBean }
     }
-    override fun sendInvitationRequest(invitation: String, email: String, code: String): Observable<HttpTokenBean> {
+    override fun sendInvitationRequest(email: String, code: String): Observable<HttpTokenBean> {
         var bodyJson = JSONObject()
         bodyJson.put("email", email)
-        bodyJson.put("inviteCode", invitation)
         bodyJson.put("valiCode", code)
         var body = RequestBody.create(MediaType.parse("text/html"), bodyJson.toString())
         return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendInvitationRequest(body)

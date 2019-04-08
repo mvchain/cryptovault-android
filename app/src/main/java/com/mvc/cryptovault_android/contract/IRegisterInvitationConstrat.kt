@@ -8,12 +8,12 @@ import io.reactivex.Observable
 
 interface IRegisterInvitationConstrat {
     abstract class RegisterInvitationPresenter : BasePresenter<InvitationModel, InvitationView>() {
-        abstract fun sendInvitationRequest(invitation: String, email: String, code: String)
+        abstract fun sendInvitationRequest(email: String, code: String)
         abstract fun sendValiCode(email: String)
     }
 
     interface InvitationModel : IBaseModel {
-        fun sendInvitationRequest(invitation: String, email: String, code: String): Observable<HttpTokenBean>
+        fun sendInvitationRequest(email: String, code: String): Observable<HttpTokenBean>
         fun sendValiCode(email: String): Observable<HttpTokenBean>
     }
 

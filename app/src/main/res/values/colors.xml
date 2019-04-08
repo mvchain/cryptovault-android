@@ -39,5 +39,8 @@
     <color name="light_grey">#F6F7Fb</color>
     <color name="fragment_grey">#F2F2F2</color>
     <color name="verification_check">#8383AF</color>
+    <color name="send_code_tv_bg">#7079FF</color>
+    <color name="send_code_bg">#7F83FB</color>
+
 
 </resources>

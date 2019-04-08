@@ -52,7 +52,7 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                                     SPUtils.getInstance().put(USER_ID, loginBean.data.userId)
                                     SPUtils.getInstance().put(USER_EMAIL, loginBean.data.email)
                                     SPUtils.getInstance().put(USER_PUBLIC_KEY, loginBean.data.publicKey)
-                                    SPUtils.getInstance().put(USER_SALT, loginBean.data.publicKey)
+                                    SPUtils.getInstance().put(USER_SALT, loginBean.data.salt)
                                     startActivity(TurnGoogleActivity::class.java)
                                 } else {
                                     dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, loginBean.message)
@@ -68,20 +68,20 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
             R.id.pwd_show -> {
                 if (reg_login_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
                     reg_login_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
-                    pwd_show.setBackgroundResource(R.drawable.edit_hide)
+                    pwd_show.setImageResource(R.drawable.edit_hide)
                 } else {
                     reg_login_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                    pwd_show.setBackgroundResource(R.drawable.edit_show)
+                    pwd_show.setImageResource(R.drawable.edit_show)
                 }
             }
 
             R.id.pay_pwd_show -> {
                 if (reg_pay_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
                     reg_pay_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
-                    pay_pwd_show.setBackgroundResource(R.drawable.edit_hide)
+                    pay_pwd_show.setImageResource(R.drawable.edit_hide)
                 } else {
                     reg_pay_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                    pay_pwd_show.setBackgroundResource(R.drawable.edit_show)
+                    pay_pwd_show.setImageResource(R.drawable.edit_show)
                 }
             }
         }

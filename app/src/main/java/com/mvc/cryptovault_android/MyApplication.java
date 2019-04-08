@@ -57,15 +57,15 @@ public class MyApplication extends Application {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         MultiDex.install(this);
-        if (SPUtils.getInstance().getString(DEFAULT_ENGLUSH).equals("")) {
-            Locale locale = new Locale(ENGLISH);
-            Locale.setDefault(locale);
-            Configuration config = getResources().getConfiguration();
-            DisplayMetrics metrics = getResources().getDisplayMetrics();
-            config.locale = Locale.SIMPLIFIED_CHINESE;
-            getResources().updateConfiguration(config, metrics);
-            SPUtils.getInstance().put(DEFAULT_LANGUAGE, ENGLISH);
-            SPUtils.getInstance().put(DEFAULT_ACCEPT_LANGUAGE, ACCEPT_ENGLISH);
-        }
+//        if (SPUtils.getInstance().getString(DEFAULT_ENGLUSH).equals("")) {
+//            Locale locale = new Locale(ENGLISH);
+//            Locale.setDefault(locale);
+//            Configuration config = getResources().getConfiguration();
+//            DisplayMetrics metrics = getResources().getDisplayMetrics();
+//            config.locale = Locale.SIMPLIFIED_CHINESE;
+//            getResources().updateConfiguration(config, metrics);
+//            SPUtils.getInstance().put(DEFAULT_LANGUAGE, ENGLISH);
+//            SPUtils.getInstance().put(DEFAULT_ACCEPT_LANGUAGE, ACCEPT_ENGLISH);
+//        }
     }
 }

@@ -121,6 +121,8 @@
 		<activity android:name=".activity.TurnGoogleActivity"/>
 		<activity android:name=".activity.GoogleCodeActivity"/>
 		<activity android:name=".activity.GoogleVerificationActivity"/>
+		<activity android:name=".activity.LoginVerificationGoogleActivity"/>
+
 
 		<receiver
 				android:name=".receiver.PushReceiver"

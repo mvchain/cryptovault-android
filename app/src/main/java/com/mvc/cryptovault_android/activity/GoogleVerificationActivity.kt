@@ -19,6 +19,8 @@ import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_google_verification.*
 
 class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresenter>(),IGoogleContract.GoogleView {
+    private var googleStatus = 0
+
     private lateinit var dialogHelper: DialogHelper
 
     override fun getLayoutId(): Int {
@@ -30,6 +32,9 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
     }
 
     override fun initView() {
+        googleStatus = intent.getIntExtra("googleStatus",0)
+
+
     }
 
     fun onClick(v: View) {
@@ -50,6 +55,7 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
 
             R.id.google_submit->{
                 dialogHelper.create(this,R.drawable.pending_icon,"验证中...").show()
+                mPresenter.changeGoogleVerification(google_code.text.toString(),google_pwd.text.toString(),googleStatus)
             }
         }
     }
@@ -77,13 +83,13 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
         SPUtils.getInstance().put(USER_ID, loginBean.data.userId)
         SPUtils.getInstance().put(USER_EMAIL, loginBean.data.email)
         SPUtils.getInstance().put(USER_PUBLIC_KEY, loginBean.data.publicKey)
-        SPUtils.getInstance().put(USER_SALT, loginBean.data.publicKey)
+        SPUtils.getInstance().put(USER_SALT, loginBean.data.salt)
         dialogHelper.create(this, IDialogViewClickListener{viewId->
             dialogHelper.dismiss()
             val intent = Intent(this@GoogleVerificationActivity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-        },"已成功开启Google验证登录")
+        },"已成功开启Google验证登录").show()
     }
 
     override fun changeFailed(msg: String) {

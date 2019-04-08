@@ -5,13 +5,13 @@ import android.support.annotation.Nullable;
 import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
-import com.mvc.cryptovault_android.bean.HttpTokenBean;
-import com.mvc.cryptovault_android.bean.LoginBean;
-import com.mvc.cryptovault_android.bean.LoginValidBean;
+import com.mvc.cryptovault_android.bean.*;
 import com.mvc.cryptovault_android.contract.ILoginContract;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
 import com.mvc.cryptovault_android.utils.RxHelper;
 
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,33 +27,37 @@ public class LoginModel extends BaseModel implements ILoginContract.ILoginModel 
     }
 
     @Override
-    public Observable<LoginBean> getLoginStatus(String token,String email, String pwd, String code) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("imageToken", token);
-            jsonObject.put("username", email);
-            jsonObject.put("password", pwd);
-            jsonObject.put("validCode", code);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        String loginInfo = jsonObject.toString();
-        RequestBody requestBody = RequestBody.create(MediaType.parse("text/html"), loginInfo);
-        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).login(requestBody)
+    public Observable<LoginBean> getLoginStatus(String token, String email, String pwd, String code) {
+        return RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).getUserSalt(MyApplication.getTOKEN()
+                , email)
                 .compose(RxHelper.rxSchedulerHelper())
+                .flatMap((Function<HttpTokenBean, ObservableSource<LoginBean>>) salt -> {
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("imageToken", token);
+                        jsonObject.put("username", email);
+                        jsonObject.put("password", pwd);
+                        jsonObject.put("validCode", code);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    String loginInfo = jsonObject.toString();
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("text/html"), loginInfo);
+                    return RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).login(requestBody).compose(RxHelper.rxSchedulerHelper());
+                })
                 .map(loginBean -> loginBean);
     }
 
     @Override
     public Observable<HttpTokenBean> sendCode(String cellphone) {
-        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).sendValiCode(cellphone)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).sendValiCode(cellphone)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(httpTokenBean -> httpTokenBean);
     }
 
     @Override
     public Observable<LoginValidBean> getValid(String email) {
-        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getValid(email).compose(RxHelper.rxSchedulerHelper())
+        return RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).getValid(email).compose(RxHelper.rxSchedulerHelper())
                 .map(loginValidBean -> loginValidBean);
     }
 
@@ -71,7 +75,7 @@ public class LoginModel extends BaseModel implements ILoginContract.ILoginModel 
         }
         String loginInfo = jsonObject.toString();
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/html"), loginInfo);
-        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).postValid(requestBody)
+        return RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).postValid(requestBody)
                 .compose(RxHelper.rxSchedulerHelper())
                 .map(pstValid -> pstValid);
     }

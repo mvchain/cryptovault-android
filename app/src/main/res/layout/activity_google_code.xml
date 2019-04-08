@@ -32,8 +32,7 @@
 				android:layout_height="40dp"
 				android:layout_centerVertical="true"
 				android:layout_marginLeft="6dp"
-				android:scaleType="center"
-				android:src="@drawable/back_icon_black"/>
+				android:scaleType="center"/>
 	</RelativeLayout>
 	<TextView
 			android:text="请备份好16位密钥，如果手机丢失，您可以通过密钥恢复您的谷歌验证。"

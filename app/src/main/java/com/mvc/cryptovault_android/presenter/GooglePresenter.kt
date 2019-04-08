@@ -11,7 +11,7 @@ class GooglePresenter : IGoogleContract.GooglePresenter() {
         }
     }
 
-    override fun changeGoogleVerification(googleCode: Int, password: String, status: Int) {
+    override fun changeGoogleVerification(googleCode: String, password: String, status: Int) {
         rxUtils.register(mIModel.changeGoogleVerification(googleCode, password, status)
                 .subscribe({ login ->
                     if (login.code == 200) {

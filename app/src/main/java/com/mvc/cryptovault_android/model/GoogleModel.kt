@@ -22,7 +22,7 @@ class GoogleModel : BaseModel(), IGoogleContract.GoogleModel {
             get() = GoogleModel()
     }
 
-    override fun changeGoogleVerification(googleCode: Int, password: String, status: Int): Observable<LoginBean> {
+    override fun changeGoogleVerification(googleCode: String, password: String, status: Int): Observable<LoginBean> {
         return RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getUserSalt(MyApplication.getTOKEN()
                 , SPUtils.getInstance().getString(USER_EMAIL))
                 .compose(RxHelper.rxSchedulerHelper())

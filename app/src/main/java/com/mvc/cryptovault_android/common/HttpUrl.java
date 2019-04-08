@@ -266,4 +266,17 @@ public class HttpUrl {
      * 根据hash查询交易详情
      */
     public static final String BLOCK_TRANSACTION_TX = URL_BROWSER + "block/transaction/tx";
+
+
+    /**
+     * 获取谷歌验证信息
+     */
+    public static final String USER_GOOGLE = URL_PATH + "user/google";
+
+
+    /**
+     * 获取用户盐
+     */
+    public static final String USER_SALT = URL_PATH + "user/salt";
+
 }

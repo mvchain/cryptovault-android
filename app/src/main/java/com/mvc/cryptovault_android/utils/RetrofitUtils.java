@@ -44,12 +44,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
-import static com.mvc.cryptovault_android.common.Constant.SP.TAG_NAME;
-import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
-import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
-import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
-import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
+import static com.mvc.cryptovault_android.common.Constant.SP.*;
 
 public class RetrofitUtils {
     private static Retrofit mRetrofit;
@@ -112,6 +107,7 @@ public class RetrofitUtils {
                         JPushInterface.deleteAlias(MyApplication.getAppContext().getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
                         SPUtils.getInstance().remove(USER_ID);
                         SPUtils.getInstance().remove(USER_PUBLIC_KEY);
+                        SPUtils.getInstance().remove(USER_SALT);
                         if (!(ActivityUtils.getTopActivity() instanceof SelectLoginActivity)) {
                             Intent intent = new Intent();
                             intent.setAction(MyApplication.getAppContext().getPackageName() + ".android.login");

@@ -32,7 +32,7 @@ class FinancialPresenter : IFinancialContract.FinancialPresenter() {
     }
 
     companion object {
-        fun newIntance(): BasePresenter<*, *> {
+        fun newInstance(): BasePresenter<*, *> {
             return FinancialPresenter()
         }
     }

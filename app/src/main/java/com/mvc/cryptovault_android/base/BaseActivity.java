@@ -24,11 +24,7 @@ import java.util.Locale;
 import cn.jpush.android.api.JPushInterface;
 
 import static com.mvc.cryptovault_android.common.Constant.LANGUAGE.CHINESE;
-import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
-import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
-import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
-import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
-import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
+import static com.mvc.cryptovault_android.common.Constant.SP.*;
 
 public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
@@ -82,6 +78,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         JPushInterface.deleteAlias(getApplicationContext(), SPUtils.getInstance().getInt(USER_ID));
         SPUtils.getInstance().remove(USER_ID);
         SPUtils.getInstance().remove(USER_PUBLIC_KEY);
+        SPUtils.getInstance().remove(USER_SALT);
         Intent intent = new Intent(activity, SelectLoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

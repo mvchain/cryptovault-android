@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.mvc.cryptovault_android.R
@@ -124,7 +123,7 @@ class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.Financial
     }
 
     override fun initPresenter(): BasePresenter<*, *> {
-        return FinancialPresenter.newIntance()
+        return FinancialPresenter.newInstance()
     }
 
     override fun startActivity() {

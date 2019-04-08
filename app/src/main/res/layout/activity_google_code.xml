@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/white"
+              android:gravity="center_horizontal"
+              android:layout_height="match_parent">
+
+	<View
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"/>
+
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:layout_below="@id/status_bar"
+			android:background="@color/white">
+
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:text="Google安全验证"
+				android:textColor="@color/login_content"
+				android:textSize="17sp"/>
+
+		<ImageView
+				android:id="@+id/google_back"
+				android:layout_width="40dp"
+				android:onClick="onClick"
+				android:layout_height="40dp"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="6dp"
+				android:scaleType="center"
+				android:src="@drawable/back_icon_black"/>
+	</RelativeLayout>
+	<TextView
+			android:text="请备份好16位密钥，如果手机丢失，您可以通过密钥恢复您的谷歌验证。"
+			android:layout_marginLeft="40dp"
+			android:textColor="#F34B4B"
+			android:textSize="12sp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="40dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	<ImageView
+			android:id="@+id/google_qcode"
+			android:layout_marginTop="15dp"
+			android:layout_width="135dp"
+			android:scaleType="centerCrop"
+			android:layout_height="135dp"/>
+	<TextView
+			android:id="@+id/google_key"
+			android:layout_marginLeft="57dp"
+			android:textColor="@color/login_content"
+			android:background="@drawable/shape_round_gray_5dp"
+			android:layout_marginRight="57dp"
+			android:layout_width="match_parent"
+			android:layout_marginTop="13dp"
+			android:onClick="onClick"
+			android:gravity="center"
+			android:layout_height="46dp"/>
+	<TextView
+			android:text="使用 Google 验证器扫码上方二维码，如果您无法扫描二维码，可以将16位密钥手动输入到Google验证器中。"
+			android:layout_marginLeft="40dp"
+			android:textColor="#666666"
+			android:textSize="12sp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="40dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	<TextView
+			android:id="@+id/google_app"
+			android:text="我还没有安装 Google 验证器 App"
+			android:layout_marginLeft="40dp"
+			android:textColor="#6969B8"
+			android:textSize="12sp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="40dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	<View
+			android:layout_width="match_parent"
+	      android:layout_height="0dp"
+	      android:layout_weight="1"/>
+
+	<TextView
+			android:id="@+id/google_next"
+			android:layout_width="match_parent"
+			android:layout_height="44dp"
+			android:layout_marginLeft="44dp"
+			android:layout_marginRight="44dp"
+			android:layout_marginBottom="60dp"
+			android:background="@drawable/bg_his_in"
+			android:gravity="center"
+			android:textSize="15sp"
+			android:onClick="onClick"
+			android:text="下一步"
+			android:textColor="@color/white" />
+</LinearLayout>

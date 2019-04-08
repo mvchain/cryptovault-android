@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Handler
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -33,6 +32,18 @@ class DialogHelper {
         val title = dialogView.findViewById<TextView>(R.id.dialog_title)
         Glide.with(context).load(resId).into(icon)
         title.text = msg
+        mDialog.setContentView(dialogView)
+        return mDialog
+    }
+
+    fun create(context: Context, clickListener: IDialogViewClickListener,msg:String): Dialog {
+        mDialog = Dialog(context, R.style.tras_dialog)
+        mDialog.setCanceledOnTouchOutside(false)
+        mDialog.setCancelable(false)
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.layout_skip_dialog, null)
+        dialogView.findViewById<TextView>(R.id.dialog_title).text = msg
+        val submit = dialogView.findViewById<TextView>(R.id.dialog_submit)
+        submit.setOnClickListener { clickListener.click(submit.id) }
         mDialog.setContentView(dialogView)
         return mDialog
     }

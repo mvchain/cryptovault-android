@@ -32,7 +32,7 @@
 
     <!--背景-->
     <color name="login_edit_bg">#FF8E8E9E</color>
-    <color name="edit_bg">#C7C7D1</color>
+    <color name="edit_bg">#999999</color>
     <color name="aoi_bg_orangey">#E86636</color>
     <color name="aoi_bg_ching">#0AA8A5</color>
     <color name="lines_bg">#F6F7FB</color>

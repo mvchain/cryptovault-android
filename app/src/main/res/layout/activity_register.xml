@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="注册"
+            android:text="@string/register"
             android:textColor="@color/login_content"
             android:textSize="23sp"
             android:textStyle="bold" />
@@ -101,6 +101,7 @@
             android:hint="请输入邮箱验证码"
             android:inputType="number"
             android:maxLines="1"
+            android:maxLength="6"
             android:padding="10dp"
             android:textColor="@color/login_content"
             android:textColorHint="@color/edit_bg"

@@ -2,7 +2,6 @@ package com.mvc.cryptovault_android.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -66,7 +65,6 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
 
     @Override
     protected void initView() {
-        LogUtils.e("trading initView");
         bean = new ArrayList<>();
         mRvChild = rootView.findViewById(R.id.child_rv);
         mNullData = rootView.findViewById(R.id.data_null);

@@ -47,14 +47,7 @@ import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 
-import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
-import static com.mvc.cryptovault_android.common.Constant.SP.REG_EMAIL;
-import static com.mvc.cryptovault_android.common.Constant.SP.TAG_NAME;
-import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
-import static com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE;
-import static com.mvc.cryptovault_android.common.Constant.SP.USER_EMAIL;
-import static com.mvc.cryptovault_android.common.Constant.SP.USER_ID;
-import static com.mvc.cryptovault_android.common.Constant.SP.USER_PUBLIC_KEY;
+import static com.mvc.cryptovault_android.common.Constant.SP.*;
 
 
 public class LoginActivity extends BaseMVPActivity<ILoginContract.LoginPresenter> implements View.OnClickListener, ILoginContract.ILoginView {
@@ -201,6 +194,7 @@ public class LoginActivity extends BaseMVPActivity<ILoginContract.LoginPresenter
         SPUtils.getInstance().put(USER_ID, data.getUserId());
         SPUtils.getInstance().put(USER_EMAIL, data.getEmail());
         SPUtils.getInstance().put(USER_PUBLIC_KEY, data.getPublicKey());
+        SPUtils.getInstance().put(USER_SALT, data.getPublicKey());
         MyApplication.setTOKEN(data.getToken());
         RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())
                 .subscribe(tagBean -> {

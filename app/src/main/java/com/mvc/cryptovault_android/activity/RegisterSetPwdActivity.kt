@@ -17,10 +17,11 @@ import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_reg_setpassword.*
-import kotlinx.android.synthetic.main.activity_register.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.json.JSONObject
+import java.util.*
+import java.util.regex.Pattern
 
 class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
     private var dialogHelper: DialogHelper? = null
@@ -35,28 +36,26 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
             R.id.reg_submit -> {
                 if (checkNotNullValue()) {
                     var userJson = JSONObject(userInfo)
-                    var email = SPUtils.getInstance().getString(REG_EMAIL)
-                    LogUtils.e(reg_login_pwd.text.toString())
-                    LogUtils.e(email)
-                    userJson.put("password", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(reg_login_pwd.text.toString())))
-                    userJson.put("transactionPassword", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(reg_pay_pwd.text.toString())))
+                    var salt = UUID.randomUUID().toString().replace("-", "")
+                    userJson.put("salt", salt)
+                    userJson.put("password", EncryptUtils.encryptMD5ToString(salt + EncryptUtils.encryptMD5ToString(reg_login_pwd.text.toString())))
+                    userJson.put("transactionPassword", EncryptUtils.encryptMD5ToString(salt + EncryptUtils.encryptMD5ToString(reg_pay_pwd.text.toString())))
                     dialogHelper?.create(this, R.drawable.pending_icon_1, "请稍后")?.show()
                     val body = RequestBody.create(MediaType.parse("text/html"), userJson.toString())
-                    RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).userRegister(body).compose(RxHelper.rxSchedulerHelper())
-                            .subscribe({ mnemon ->
-                                if (mnemon.code == 200) {
+                    RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).userRegister(body).compose(RxHelper.rxSchedulerHelper())
+                            .subscribe({ loginBean ->
+                                if (loginBean.code == 200) {
+                                    dialogHelper?.resetDialogResource(baseContext, R.drawable.success_icon, "注册成功")
                                     dialogHelper?.dismissDelayed(null, 0)
-                                    var sb = StringBuffer()
-                                    var datas = mnemon.data.mnemonics
-                                    for (data in datas) {
-                                        sb.append("$data,")
-                                    }
-                                    SPUtils.getInstance().put(REG_MINEMNEMONICS, sb.toString())
-                                    SPUtils.getInstance().put(REG_PRIVATEKEY, mnemon.data.privateKey)
-                                    SPUtils.getInstance().put(REG_REGISTER, true)
-                                    startActivity(MineMnemonicsActivity::class.java)
+                                    SPUtils.getInstance().put(REFRESH_TOKEN, loginBean.data.refreshToken)
+                                    SPUtils.getInstance().put(TOKEN, loginBean.data.token)
+                                    SPUtils.getInstance().put(USER_ID, loginBean.data.userId)
+                                    SPUtils.getInstance().put(USER_EMAIL, loginBean.data.email)
+                                    SPUtils.getInstance().put(USER_PUBLIC_KEY, loginBean.data.publicKey)
+                                    SPUtils.getInstance().put(USER_SALT, loginBean.data.publicKey)
+                                    startActivity(TurnGoogleActivity::class.java)
                                 } else {
-                                    dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, mnemon.message)
+                                    dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, loginBean.message)
                                     dialogHelper?.dismissDelayed(null)
                                 }
                             }, { t ->
@@ -64,6 +63,25 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                                 dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, t.message!!)
                                 dialogHelper?.dismissDelayed(null)
                             })
+                }
+            }
+            R.id.pwd_show -> {
+                if (reg_login_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
+                    reg_login_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
+                    pwd_show.setBackgroundResource(R.drawable.edit_hide)
+                } else {
+                    reg_login_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    pwd_show.setBackgroundResource(R.drawable.edit_show)
+                }
+            }
+
+            R.id.pay_pwd_show -> {
+                if (reg_pay_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
+                    reg_pay_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
+                    pay_pwd_show.setBackgroundResource(R.drawable.edit_hide)
+                } else {
+                    reg_pay_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    pay_pwd_show.setBackgroundResource(R.drawable.edit_show)
                 }
             }
         }
@@ -75,6 +93,11 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
     private fun checkNotNullValue(): Boolean {
         if (reg_login_pwd.text.toString() == "") {
             dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为空")?.show()
+            dialogHelper?.dismissDelayed(null)
+            return false
+        }
+        if (Pattern.compile("[0-9]*").matcher(reg_login_pwd.text.toString()).matches()) {
+            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为纯数字")?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }
@@ -100,13 +123,13 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
         reg_login_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var lenght = s!!.length
-                login_pwd_layout.isPasswordVisibilityToggleEnabled = lenght > 0
+                pwd_show.visibility = if (lenght > 0) View.VISIBLE else View.INVISIBLE
             }
         })
         reg_pay_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var lenght = s!!.length
-                pay_pwd_layout.isPasswordVisibilityToggleEnabled = lenght > 0
+                pay_pwd_show.visibility = if (lenght > 0) View.VISIBLE else View.INVISIBLE
             }
         })
     }

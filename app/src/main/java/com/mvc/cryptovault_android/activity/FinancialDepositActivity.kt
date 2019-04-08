@@ -106,7 +106,7 @@ class FinancialDepositActivity : BaseActivity() {
                     val email = SPUtils.getInstance().getString(USER_EMAIL)
                     KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
                     mPopView.dismiss()
-                    dialogHelper?.create(this@FinancialDepositActivity, R.drawable.pending_icon_1, "存入中").show()
+                    dialogHelper.create(this@FinancialDepositActivity, R.drawable.pending_icon_1, "存入中").show()
                     var json = JSONObject()
                     LogUtils.e(num)
                     LogUtils.e(email)
@@ -117,7 +117,7 @@ class FinancialDepositActivity : BaseActivity() {
                             .depositFinancial(MyApplication.getTOKEN(), body, detail.id)
                             .compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ date ->
-                                if (date.code === 200) {
+                                if (date.code == 200) {
                                     dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.success_icon, "存入成功")
                                     dialogHelper.dismissDelayed(object :DialogHelper.IDialogDialog{
                                         override fun callback() {

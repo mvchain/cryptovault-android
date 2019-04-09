@@ -1,5 +1,7 @@
 package com.mvc.cryptovault_android.activity
 
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import com.blankj.utilcode.util.EncryptUtils
 import com.blankj.utilcode.util.SPUtils
@@ -14,6 +16,7 @@ import com.mvc.cryptovault_android.listener.EditTextChange
 import com.mvc.cryptovault_android.presenter.SetLoginPresenter
 import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_set_password.*
+import java.util.regex.Pattern
 
 class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswordPresenter>(), ISetPasswordContract.SetPasswordView {
     private var dialogHelper: DialogHelper? = null
@@ -62,26 +65,26 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
         old_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val length = s.length
-                old_layout.isPasswordVisibilityToggleEnabled = length > 0
+                old_pwd_show.visibility = if (length > 0) View.VISIBLE else View.INVISIBLE
             }
         })
         new_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val length = s.length
-                new_layout.isPasswordVisibilityToggleEnabled = length > 0
+                new_pwd_show.visibility = if (length > 0) View.VISIBLE else View.INVISIBLE
             }
         })
         //设置眼睛可见
         old_pay_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val length = s.length
-                old_pay_layout.isPasswordVisibilityToggleEnabled = length > 0
+                old_pay_pwd_show.visibility = if (length > 0) View.VISIBLE else View.INVISIBLE
             }
         })
         new_pay_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val length = s.length
-                new_pay_layout.isPasswordVisibilityToggleEnabled = length > 0
+                new_pay_pwd_show.visibility = if (length > 0) View.VISIBLE else View.INVISIBLE
             }
         })
     }
@@ -125,6 +128,50 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
                     startActivity(ForgetPasswordActivity::class.java)
                 }
             }
+            R.id.old_pwd_show -> {
+                if (old_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
+                    old_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
+                    old_pwd_show.setImageResource(R.drawable.edit_hide)
+                    old_pwd.setSelection(old_pwd.text.length)
+                } else {
+                    old_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    old_pwd_show.setImageResource(R.drawable.edit_show)
+                    old_pwd.setSelection(old_pwd.text.length)
+                }
+            }
+            R.id.new_pwd_show -> {
+                if (new_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
+                    new_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
+                    new_pwd_show.setImageResource(R.drawable.edit_hide)
+                    new_pwd.setSelection(new_pwd.text.length)
+                } else {
+                    new_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    new_pwd_show.setImageResource(R.drawable.edit_show)
+                    new_pwd.setSelection(new_pwd.text.length)
+                }
+            }
+            R.id.old_pay_pwd_show -> {
+                if (old_pay_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
+                    old_pay_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
+                    old_pay_pwd_show.setImageResource(R.drawable.edit_hide)
+                    old_pay_pwd.setSelection(old_pay_pwd.text.length)
+                } else {
+                    old_pay_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    old_pay_pwd_show.setImageResource(R.drawable.edit_show)
+                    old_pay_pwd.setSelection(old_pay_pwd.text.length)
+                }
+            }
+            R.id.new_pay_pwd_show -> {
+                if (new_pay_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
+                    new_pay_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
+                    new_pay_pwd_show.setImageResource(R.drawable.edit_hide)
+                    new_pay_pwd.setSelection(new_pay_pwd.text.length)
+                } else {
+                    new_pay_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    new_pay_pwd_show.setImageResource(R.drawable.edit_show)
+                    new_pay_pwd.setSelection(new_pay_pwd.text.length)
+                }
+            }
         }
     }
 
@@ -136,6 +183,11 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
         }
         if (new_pwd.text.toString() == "") {
             dialogHelper!!.create(this, R.drawable.miss_icon, "新密码不可为空").show()
+            dialogHelper!!.dismissDelayed(null)
+            return false
+        }
+        if (Pattern.compile("[0-9]*").matcher(new_pwd.text.toString()).matches()) {
+            dialogHelper!!.create(this, R.drawable.miss_icon, "密码不可为纯数字").show()
             dialogHelper!!.dismissDelayed(null)
             return false
         }

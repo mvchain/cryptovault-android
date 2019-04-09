@@ -73,7 +73,7 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
     }
 
     override fun showSuccess(token: String) {
-        dialogHelper?.dismissDelayed(null, 0)
+        dialogHelper?.dismiss()
         var tokenIntent = intent
         tokenIntent.putExtra("token", token)
         startActivity(ResetPasswordActivity::class.java, tokenIntent)
@@ -99,7 +99,7 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
                 RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendValiCode(account.text.toString())
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ httpTokenBean ->
-                            if (httpTokenBean.code === 200) {
+                            if (httpTokenBean.code == 200) {
                                 dialogHelper?.resetDialogResource(this, R.drawable.success_icon, "验证码发送成功")
                                 dialogHelper?.dismissDelayed(null)
                                 startTimeCountdown()
@@ -206,13 +206,11 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
         when (resetType) {
             TYPE_EMAIL -> {
                 verification_title.text = "邮箱验证"
-                account_hint.hint = "邮箱"
                 hintMsg = "邮箱"
                 email_layout.visibility = View.VISIBLE
             }
             TYPE_PRIVATEKEY, TYPE_MNEMONICS -> {
                 verification_title.text = "输入邮箱账户"
-                account_hint.hint = "邮箱"
                 hintMsg = "邮箱账户"
                 email_layout.visibility = View.GONE
             }

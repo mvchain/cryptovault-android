@@ -1,95 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".MainActivity">
 
-    <View
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/status_blue" />
+	<View
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:background="@drawable/home_top_toolbar"/>
 
-    <com.mvc.cryptovault_android.view.NoScrollViewPager
-        android:id="@+id/home_main_vp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+	<com.mvc.cryptovault_android.view.NoScrollViewPager
+			android:id="@+id/home_main_vp"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1"/>
 
-    <RadioGroup
-        android:id="@+id/home_button_group"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/bg_home_button_radio"
-        android:orientation="horizontal">
+	<RadioGroup
+			android:id="@+id/home_button_group"
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:background="@drawable/bg_home_button_radio"
+			android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/home_wallet"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:checked="true"
-            android:drawableTop="@drawable/select_home_button_wallet"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="@string/navi_assets"
-            android:textColor="@color/select_home_button_wallet"
-            android:textSize="10sp" />
+		<RadioButton
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:button="@null"
+				android:checked="true"
+				android:drawableTop="@drawable/select_home_button_wallet"
+				android:gravity="center"
+				android:clickable="true"
+				android:paddingTop="5dp"
+				android:text="@string/navi_assets"
+				android:textColor="@color/select_home_button_wallet"
+				android:textSize="10sp"/>
 
-        <RadioButton
-            android:id="@+id/home_financial"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/select_home_button_financial"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="@string/navi_financial"
-            android:textColor="@color/select_home_button_wallet"
-            android:textSize="10sp" />
+		<RadioButton
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:button="@null"
+				android:drawableTop="@drawable/select_home_button_financial"
+				android:gravity="center"
+				android:paddingTop="5dp"
+				android:text="@string/navi_financial"
+				android:textColor="@color/select_home_button_wallet"
+				android:textSize="10sp"/>
 
-        <RadioButton
-            android:id="@+id/home_trand"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/select_home_button_trand"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="@string/navi_trand"
-            android:textColor="@color/select_home_button_wallet"
-            android:textSize="10sp" />
+		<RadioButton
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:button="@null"
+				android:drawableTop="@drawable/select_home_button_trand"
+				android:gravity="center"
+				android:paddingTop="5dp"
+				android:text="@string/navi_trand"
+				android:textColor="@color/select_home_button_wallet"
+				android:textSize="10sp"/>
 
-        <!--<RadioButton-->
-            <!--android:id="@+id/home_together"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:button="@null"-->
-            <!--android:drawableTop="@drawable/select_home_button_together"-->
-            <!--android:gravity="center"-->
-            <!--android:paddingTop="5dp"-->
-            <!--android:text="@string/navi_toge"-->
-            <!--android:textColor="@color/select_home_button_wallet"-->
-            <!--android:textSize="10sp" />-->
-
-        <RadioButton
-            android:id="@+id/home_main"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/select_home_button_main"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:text="@string/navi_mine"
-            android:textColor="@color/select_home_button_wallet"
-            android:textSize="10sp" />
-    </RadioGroup>
+		<RadioButton
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:button="@null"
+				android:drawableTop="@drawable/select_home_button_main"
+				android:gravity="center"
+				android:paddingTop="5dp"
+				android:text="@string/navi_mine"
+				android:textColor="@color/select_home_button_wallet"
+				android:textSize="10sp"/>
+	</RadioGroup>
 </LinearLayout>

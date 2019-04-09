@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.activity.AboutActivity
 import com.mvc.cryptovault_android.activity.InvatitionActivity

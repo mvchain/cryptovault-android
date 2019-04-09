@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
 
-    <View
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+	<View
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:gravity="center_vertical">
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:id="@+id/assets_title"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="交易记录"
-            android:textSize="17sp" />
-        <ImageView
-            android:id="@+id/assets_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:scaleType="center"
-            android:src="@drawable/back_icon_black" />
-    </RelativeLayout>
+		<TextView
+				android:layout_width="match_parent"
+				android:id="@+id/assets_title"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:text="交易记录"
+				android:textSize="17sp"/>
+		<ImageView
+				android:id="@+id/assets_back"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="5dp"
+				android:scaleType="center"
+				android:src="@drawable/back_icon_black"/>
+	</RelativeLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/assets_swipe"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+	<android.support.v4.widget.SwipeRefreshLayout
+			android:id="@+id/assets_swipe"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:orientation="horizontal">
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="20dp"
+					android:layout_marginRight="20dp"
+					android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/assets_type"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="交易类型"
-                    android:textSize="13sp" />
+				<TextView
+						android:id="@+id/assets_type"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="left"
+						android:text="交易类型"
+						android:textSize="13sp"/>
 
-                <TextView
-                    android:id="@+id/assets_actual"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="交易时间"
-                    android:textSize="13sp" />
-            </LinearLayout>
+				<TextView
+						android:id="@+id/assets_actual"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:gravity="right"
+						android:text="交易时间"
+						android:textSize="13sp"/>
+			</LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/light_grey" />
+			<View
+					android:layout_width="match_parent"
+					android:layout_height="1dp"
+					android:layout_marginTop="10dp"
+					android:background="@color/light_grey"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/assets_rv"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp" />
-        </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+			<android.support.v7.widget.RecyclerView
+					android:id="@+id/assets_rv"
+					android:layout_marginLeft="20dp"
+					android:layout_marginRight="20dp"
+					app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginTop="10dp"/>
+		</LinearLayout>
+	</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

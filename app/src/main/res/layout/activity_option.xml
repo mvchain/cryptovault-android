@@ -39,8 +39,8 @@
     </RelativeLayout>
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/option_tab"
-        android:layout_width="match_parent"
+		    android:id="@+id/option_tab"
+		    android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
         app:tabGravity="fill"
@@ -48,7 +48,7 @@
         app:tabSelectedTextColor="@color/login_content" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/option_vp"
-        android:layout_width="match_parent"
+		    android:id="@+id/option_vp"
+		    android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

@@ -3,8 +3,6 @@ package com.mvc.cryptovault_android.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.SPUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.MyApplication
@@ -14,14 +12,11 @@ import com.mvc.cryptovault_android.adapter.rvAdapter.SortMnemonicsAdapter
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.bean.VerificationMnemonicBean
-import com.mvc.cryptovault_android.common.Constant.SP.UPDATE_PASSWORD_TYPE
 import com.mvc.cryptovault_android.event.PayPwdRefreshEvent
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
 import com.mvc.cryptovault_android.view.DialogHelper
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_verification_mnomonic.*
+import kotlinx.android.synthetic.main.activity_reset_verification_mnomonic.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus

@@ -182,7 +182,7 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
                     browser_edit.isFocusable = true
                     browser_edit.requestFocus()
                     KeyboardUtils.showSoftInput(this)
-                    browser_edit.setOnEditorActionListener { v, actionId, event ->
+                    browser_edit.setOnEditorActionListener { _, actionId, _ ->
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             var searchMsg = browser_edit.text.toString().trim()
                             if (browser_edit.text.toString().trim() == "") {

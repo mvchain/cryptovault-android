@@ -18,8 +18,8 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/financial_title"
-            android:layout_width="match_parent"
+		        android:id="@+id/financial_title"
+		        android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="- 存入"
@@ -51,8 +51,8 @@
         android:paddingBottom="15dp">
 
         <TextView
-                android:id="@+id/deposit_limit"
-                android:layout_width="match_parent"
+		        android:id="@+id/deposit_limit"
+		        android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:background="@color/white"
                 android:gravity="center_vertical|left"
@@ -84,8 +84,8 @@
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/deposit_count"
-            android:layout_width="match_parent"
+		        android:id="@+id/deposit_count"
+		        android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="6dp"
             android:digits="1234567890."
@@ -96,14 +96,14 @@
             android:theme="@style/Edit_Style" />
 
         <TextView
-            android:id="@+id/available"
-            android:layout_width="wrap_content"
+		        android:id="@+id/available"
+		        android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:text="可用VPC：2000"
             android:textColor="@color/login_content"
             android:textSize="15sp" />
-    </LinearLayout>
+    </LinearLayout>financial_title
 
     <TextView
         android:id="@+id/submit"

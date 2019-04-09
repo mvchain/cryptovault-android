@@ -205,15 +205,13 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
         resetType = getIntent.getIntExtra("type", -1)
         when (resetType) {
             TYPE_EMAIL -> {
-                verification_title.text = "邮箱验证"
                 hintMsg = "邮箱"
-                email_layout.visibility = View.VISIBLE
             }
-            TYPE_PRIVATEKEY, TYPE_MNEMONICS -> {
-                verification_title.text = "输入邮箱账户"
-                hintMsg = "邮箱账户"
-                email_layout.visibility = View.GONE
-            }
+//            TYPE_PRIVATEKEY, TYPE_MNEMONICS -> {
+//                verification_title.text = "输入邮箱账户"
+//                hintMsg = "邮箱账户"
+//                email_layout.visibility = View.GONE
+//            }
         }
     }
 }

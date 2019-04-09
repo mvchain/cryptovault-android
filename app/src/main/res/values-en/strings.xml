@@ -5,9 +5,7 @@
     <!--App login-->
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="login_success">Login Successful</string>
-    <string name="login_faild">Login failed</string>
-    <string name="login_load">logging in</string>
+	<string name="login_load">logging in</string>
     <!--App exit-->
     <string name="app_exit">Please press again to exit the app</string>
     <!--navigation-->
@@ -22,8 +20,7 @@
     <string name="language_title">Language</string>
     <string name="about_title">About</string>
     <string name="navi_financial">Financial</string>
-    <string name="detail_title">Detail</string>
-    <!--content-->
+	<!--content-->
     <string name="sing_out">Sign out</string>
     <string name="toge_get_on">Appointment</string>
     <string name="toge_comming_soon">Appointment soon</string>

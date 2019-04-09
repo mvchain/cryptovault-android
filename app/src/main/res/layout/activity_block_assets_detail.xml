@@ -1,223 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <View
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+	<View
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:gravity="center_vertical">
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/detail_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="-"
-            android:textSize="17sp" />
+		<TextView
+				android:id="@+id/detail_title"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:text="-"
+				android:textSize="17sp"/>
 
-        <ImageView
-            android:id="@+id/detail_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:scaleType="center"
-            android:src="@drawable/back_icon_black" />
-    </RelativeLayout>
+		<ImageView
+				android:id="@+id/detail_back"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="5dp"
+				android:scaleType="center"
+				android:src="@drawable/back_icon_black"/>
+	</RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:orientation="vertical">
+	<LinearLayout
+			android:id="@+id/group"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="22dp"
+			android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/type_coin_buyer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:id="@+id/type_coin_buyer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="买方"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="买方"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/type_coin_buyer_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/type_coin_buyer_content"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/type_coin_purchase"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:id="@+id/type_coin_purchase"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="买入金额"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="买入金额"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/type_coin_purchase_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/type_coin_purchase_content"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/type_coin_seller"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:id="@+id/type_coin_seller"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="卖方"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="卖方"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/type_coin_seller_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/type_coin_seller_content"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/type_coin_selling"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:id="@+id/type_coin_selling"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="卖出金额"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="卖出金额"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/type_coin_selling_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/type_coin_selling_content"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/type_transfer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:id="@+id/type_transfer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="转账地址"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="转账地址"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/type_transfer_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/type_transfer_content"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/type_receipt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:id="@+id/type_receipt"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="收款地址"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="收款地址"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/type_receipt_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/type_receipt_content"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/type_transfer_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:id="@+id/type_transfer_price"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="转账金额"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="转账金额"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/type_transfer_price_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
-    </LinearLayout>
+			<TextView
+					android:id="@+id/type_transfer_price_content"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
+	</LinearLayout>
 </LinearLayout>

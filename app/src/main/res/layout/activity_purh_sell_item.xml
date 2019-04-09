@@ -286,8 +286,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/error_hint"
-                android:layout_width="match_parent"
+		            android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_below="@id/m_title_layout"
                 android:background="#66000000"

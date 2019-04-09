@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -36,7 +37,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-
 public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageChangeListener {
     private boolean isBack = false;
     private Timer timer = new Timer();
@@ -44,8 +44,8 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;
-    private int[] colors = {R.color.status_blue, R.color.white, R.color.white,R.color.status_blue};
-    private ImmersionBar with;
+    private View statusBar;
+    private int[] colors = {R.drawable.home_top_toolbar, R.drawable.home_top_toolbar, R.drawable.imm_white, R.drawable.home_top_toolbar};
     private DialogHelper dialogHelper;
 
     @Override
@@ -91,7 +91,8 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     @Override
     public void onPageSelected(int position) {
         ((RadioButton) mButtonGroupHome.getChildAt(position)).setChecked(true);
-        with.statusBarDarkFont(true).statusBarColor(colors[position]).fitsSystemWindows(true).init();
+        statusBar.setBackgroundResource(colors[position]);
+        ImmersionBar.with(this).titleBar(statusBar).statusBarDarkFont(true).init();
     }
 
     @Override
@@ -120,8 +121,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
             mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
         }
         mMainVpHome.addOnPageChangeListener(this);
-        with = ImmersionBar.with(this);
-        with.statusBarDarkFont(true).statusBarColor(colors[0]).fitsSystemWindows(true).init();
+        ImmersionBar.with(this).titleBar(statusBar).statusBarDarkFont(true).init();
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(installApkBean -> {
@@ -166,6 +166,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     protected void initMVPView() {
         mMainVpHome = findViewById(R.id.home_main_vp);
         mButtonGroupHome = findViewById(R.id.home_button_group);
+        statusBar = findViewById(R.id.status_bar);
         mFragment = new ArrayList<>();
         dialogHelper = DialogHelper.Companion.getInstance();
     }

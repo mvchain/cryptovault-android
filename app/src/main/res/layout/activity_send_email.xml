@@ -13,15 +13,13 @@
         android:background="@color/white" />
 
     <RelativeLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+		    android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_below="@id/status_bar"
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="match_parent"
+		        android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/account_verification"
@@ -40,8 +38,8 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/email_content"
-        android:layout_width="wrap_content"
+		    android:id="@+id/email_content"
+		    android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#C7C7D1"
         android:layout_marginLeft="50dp"
@@ -59,8 +57,8 @@
 
 
         <EditText
-                android:id="@+id/email_code"
-                android:layout_width="0dp"
+		        android:id="@+id/email_code"
+		        android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="17dp"
                 android:layout_weight="1"

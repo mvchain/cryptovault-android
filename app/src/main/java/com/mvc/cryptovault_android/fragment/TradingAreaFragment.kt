@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
@@ -24,6 +25,7 @@ import com.mvc.cryptovault_android.listener.IRecordingClick
 import com.mvc.cryptovault_android.listener.ISelectWindowListener
 import com.mvc.cryptovault_android.presenter.AreaPresenter
 import com.mvc.cryptovault_android.utils.TextUtils
+import com.mvc.cryptovault_android.utils.ViewDrawUtils
 import com.mvc.cryptovault_android.view.NoScrollViewPager
 import com.mvc.cryptovault_android.view.PopViewHelper
 
@@ -83,6 +85,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                 mSelectPop.dismiss()
             } else {
                 mSelectPop.showAsDropDown(mSelect, 0, 0, Gravity.BOTTOM)
+                ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.up_tab),mSelect)
                 mMask.visibility = View.VISIBLE
             }
         }
@@ -207,6 +210,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
             }
 
             override fun dismiss() {
+                ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.down_tab),mSelect)
                 mMask.visibility = View.INVISIBLE
             }
         })

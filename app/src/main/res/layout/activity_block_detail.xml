@@ -19,8 +19,7 @@
 
 
         <TextView
-            android:id="@+id/browser_title"
-            android:layout_width="match_parent"
+		        android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="区块详情"
@@ -37,8 +36,8 @@
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe"
-        android:layout_width="match_parent"
+            android:id="@+id/swipe"
+		    android:layout_width="match_parent"
         android:layout_height="match_parent">
 
             <RelativeLayout
@@ -47,8 +46,8 @@
                 android:orientation="vertical">
 
                 <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
-                    android:id="@+id/browser_header"
-                    android:layout_width="match_parent"
+                        android:id="@+id/browser_header"
+		                android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -81,8 +80,8 @@
                                     android:textSize="13sp" />
 
                                 <TextView
-                                    android:id="@+id/current_block"
-                                    android:layout_width="0dp"
+                                        android:id="@+id/current_block"
+		                                android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:gravity="right|center_vertical"
@@ -109,8 +108,8 @@
                                     android:textSize="13sp" />
 
                                 <TextView
-                                    android:id="@+id/block_number"
-                                    android:layout_width="0dp"
+                                        android:id="@+id/block_number"
+		                                android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:gravity="right|center_vertical"
@@ -137,8 +136,8 @@
                                     android:textSize="13sp" />
 
                                 <TextView
-                                    android:id="@+id/block_time"
-                                    android:layout_width="0dp"
+                                        android:id="@+id/block_time"
+		                                android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:gravity="right|center_vertical"
@@ -212,8 +211,8 @@
                 </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/browser_transfer_rv"
-                    android:layout_width="match_parent"
+                        android:id="@+id/browser_transfer_rv"
+		                android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"

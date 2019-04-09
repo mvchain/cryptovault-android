@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.gyf.barlibrary.ImmersionFragment;
 import com.mvc.cryptovault_android.activity.SelectLoginActivity;
 import com.mvc.cryptovault_android.common.Constant;
 

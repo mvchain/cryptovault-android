@@ -1,12 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
     <style name="tras_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -32,10 +25,5 @@
     <style name="MyPopupWindow_anim_style">
         <item name="android:windowEnterAnimation">@anim/popupwindow_show_anim</item>
         <item name="android:windowExitAnimation">@anim/popupwindow_hidden_anim</item>
-    </style>
-    <style name="translationDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
     </style>
 </resources>

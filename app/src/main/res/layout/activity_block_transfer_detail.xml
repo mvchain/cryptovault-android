@@ -1,215 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <View
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+	<View
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:gravity="center_vertical">
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/detail_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="交易信息"
-            android:textSize="17sp" />
+		<TextView
+				android:id="@+id/detail_title"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:text="交易信息"
+				android:textSize="17sp"/>
 
-        <ImageView
-            android:id="@+id/detail_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:scaleType="center"
-            android:src="@drawable/back_icon_black" />
-    </RelativeLayout>
+		<ImageView
+				android:id="@+id/detail_back"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="5dp"
+				android:scaleType="center"
+				android:src="@drawable/back_icon_black"/>
+	</RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:orientation="vertical">
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="22dp"
+			android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="交易Hash"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="交易Hash"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/detail_hash"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/detail_hash"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="交易时间"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="交易时间"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/detail_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/detail_time"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="确认数"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="确认数"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/detail_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/detail_number"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="交易金额"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="交易金额"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/detail_price"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/detail_price"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="收款地址"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="收款地址"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/detail_receivables"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/detail_receivables"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="转账地址"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="转账地址"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/detail_transfer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
+			<TextView
+					android:id="@+id/detail_transfer"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="22dp"
-            android:orientation="horizontal">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="22dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginRight="22dp"
+				android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="区块高度"
-                android:textSize="13sp" />
+			<TextView
+					android:layout_width="60dp"
+					android:layout_height="wrap_content"
+					android:text="区块高度"
+					android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/detail_height"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="-"
-                android:textSize="13sp" />
-        </LinearLayout>
-    </LinearLayout>
+			<TextView
+					android:id="@+id/detail_height"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:gravity="right"
+					android:text="-"
+					android:textSize="13sp"/>
+		</LinearLayout>
+	</LinearLayout>
 
 </LinearLayout>

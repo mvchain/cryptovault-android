@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/home_button_trand_icon_check" android:state_checked="true" />
-    <item android:drawable="@drawable/home_button_trand_icon_uncheck" android:state_checked="false"/>
+    <item android:drawable="@drawable/trade_check" android:state_checked="true" />
+    <item android:drawable="@drawable/trade" android:state_checked="false"/>
 </selector>

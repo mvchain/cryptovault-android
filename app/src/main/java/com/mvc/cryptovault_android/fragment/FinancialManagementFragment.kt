@@ -39,9 +39,9 @@ class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.Financial
         rootView.refresh.post { rootView.refresh.isRefreshing = false }
         SPUtils.getInstance().getString(DEFAULT_RATE)
         var incomeDouble = TextUtils.rateToPrice(financialBean.balance.toDouble())
-        rootView.me_financia.text = SpanUtils().append("$incomeDouble ").setFontSize(34, true)
+        rootView.me_financia.text = SpanUtils().append("$incomeDouble ").setFontSize(33, true)
                 .append(defaultRate)
-                .setFontSize(10, true).create()
+                .setFontSize(9, true).create()
         rootView.yesterday_earnings.text = "${TextUtils.rateToPrice(financialBean.lastIncome.toDouble())} $defaultRate"
         rootView.all_earnings.text = "${TextUtils.rateToPrice(financialBean.income.toDouble())} $defaultRate"
         rootView.my_option.setOnClickListener {

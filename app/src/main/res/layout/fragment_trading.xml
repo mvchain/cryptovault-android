@@ -25,6 +25,8 @@
 		<TextView
 				android:id="@+id/select_mvc"
 				android:text="USDT"
+				android:drawableRight="@drawable/down_tab"
+				android:drawablePadding="5dp"
 				android:layout_centerVertical="true"
 				android:layout_marginLeft="13dp"
 				android:textSize="11sp"
@@ -66,7 +68,6 @@
 				android:textSize="12sp"/>
 
 		<TextView
-				android:id="@+id/day_max_hint"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_centerHorizontal="true"
@@ -75,7 +76,6 @@
 				android:textSize="12sp"/>
 
 		<TextView
-				android:id="@+id/day_min_hint"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentRight="true"

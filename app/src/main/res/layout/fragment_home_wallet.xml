@@ -34,8 +34,7 @@
                     android:src="@drawable/home_note_icon" />
 
                 <TextView
-                    android:id="@+id/assets_title"
-                    android:layout_width="match_parent"
+		                android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="BZT Wallet"

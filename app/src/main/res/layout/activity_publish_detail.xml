@@ -1,265 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/fragment_grey"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/fragment_grey"
+              android:orientation="vertical">
 
-    <View
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white" />
+	<View
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:background="@color/white"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_below="@id/status_bar"
-        android:background="@color/white">
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:layout_below="@id/status_bar"
+			android:background="@color/white">
 
-        <TextView
-            android:id="@+id/publish_detail_toobar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="--参与详情"
-            android:textColor="@color/login_content"
-            android:textSize="17sp" />
+		<TextView
+				android:id="@+id/publish_detail_toobar"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:text="--参与详情"
+				android:textColor="@color/login_content"
+				android:textSize="17sp"/>
 
-        <ImageView
-            android:id="@+id/publish_detail_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="6dp"
-            android:scaleType="center"
-            android:src="@drawable/back_icon_black" />
-    </RelativeLayout>
+		<ImageView
+				android:id="@+id/publish_detail_back"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="6dp"
+				android:scaleType="center"
+				android:src="@drawable/back_icon_black"/>
+	</RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbars="none">
+	<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fillViewport="true"
+			android:scrollbars="none">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/shape_round_white_5dp"
-                android:duplicateParentState="true"
-                android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingTop="10dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="12dp">
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="16dp"
+					android:layout_marginTop="12dp"
+					android:layout_marginRight="16dp"
+					android:background="@drawable/shape_round_white_5dp"
+					android:duplicateParentState="true"
+					android:orientation="vertical"
+					android:paddingLeft="16dp"
+					android:paddingTop="10dp"
+					android:paddingRight="16dp"
+					android:paddingBottom="12dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+				<RelativeLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/icon_layout"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_centerVertical="true"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="0dp">
+					<android.support.v7.widget.CardView
+							android:id="@+id/icon_layout"
+							android:layout_width="36dp"
+							android:layout_height="36dp"
+							android:layout_centerVertical="true"
+							app:cardCornerRadius="5dp"
+							app:cardElevation="0dp">
 
-                        <ImageView
-                            android:id="@+id/publish_detail_icon"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="fitXY" />
-                    </android.support.v7.widget.CardView>
+						<ImageView
+								android:id="@+id/publish_detail_icon"
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"
+								android:scaleType="fitXY"/>
+					</android.support.v7.widget.CardView>
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/icon_layout"
-                        android:orientation="vertical">
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_toRightOf="@id/icon_layout"
+							android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/publish_detail_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
-                            android:text="-"
-                            android:textColor="@color/login_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+						<TextView
+								android:id="@+id/publish_detail_title"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginLeft="10dp"
+								android:layout_weight="1"
+								android:text="-"
+								android:textColor="@color/login_content"
+								android:textSize="16sp"
+								android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/publish_detail_recevie_type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="3dp"
-                            android:layout_weight="1"
-                            android:gravity="left|center_vertical"
-                            android:text="-"
-                            android:textColor="@color/trand_gray"
-                            android:textSize="13sp" />
+						<TextView
+								android:id="@+id/publish_detail_recevie_type"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginLeft="10dp"
+								android:layout_marginTop="3dp"
+								android:layout_weight="1"
+								android:gravity="left|center_vertical"
+								android:text="-"
+								android:textColor="@color/trand_gray"
+								android:textSize="13sp"/>
 
-                    </LinearLayout>
-                </RelativeLayout>
+					</LinearLayout>
+				</RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="13dp"
-                    android:background="@color/lines_bg" />
+				<View
+						android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:layout_marginTop="13dp"
+						android:background="@color/lines_bg"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
-                    android:orientation="horizontal">
+				<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="11dp"
+						android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+					<LinearLayout
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical|left"
-                            android:text="支付金额/预约金额"
-                            android:textColor="@color/toge_gray"
-                            android:textSize="12sp" />
+						<TextView
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="4dp"
+								android:gravity="center_vertical|left"
+								android:text="支付金额/预约金额"
+								android:textColor="@color/toge_gray"
+								android:textSize="12sp"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical|left"
-                            android:text="成功数量/预约数量"
-                            android:textColor="@color/toge_gray"
-                            android:textSize="12sp" />
+						<TextView
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="4dp"
+								android:gravity="center_vertical|left"
+								android:text="成功数量/预约数量"
+								android:textColor="@color/toge_gray"
+								android:textSize="12sp"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical|left"
-                            android:text="兑换比例"
-                            android:textColor="@color/toge_gray"
-                            android:textSize="12sp" />
+						<TextView
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="4dp"
+								android:gravity="center_vertical|left"
+								android:text="兑换比例"
+								android:textColor="@color/toge_gray"
+								android:textSize="12sp"/>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical|left"
-                            android:text="发币时间"
-                            android:textColor="@color/toge_gray"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+						<TextView
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="4dp"
+								android:gravity="center_vertical|left"
+								android:text="发币时间"
+								android:textColor="@color/toge_gray"
+								android:textSize="12sp"/>
+					</LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+					<LinearLayout
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/publish_detail_pay"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical|right"
-                            android:text="-"
-                            android:textColor="@color/toge_gray"
-                            android:textSize="12sp" />
+						<TextView
+								android:id="@+id/publish_detail_pay"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="4dp"
+								android:gravity="center_vertical|right"
+								android:text="-"
+								android:textColor="@color/toge_gray"
+								android:textSize="12sp"/>
 
-                        <TextView
-                            android:id="@+id/publish_detail_success"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical|right"
-                            android:text="-"
-                            android:textColor="@color/toge_gray"
-                            android:textSize="12sp" />
+						<TextView
+								android:id="@+id/publish_detail_success"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="4dp"
+								android:gravity="center_vertical|right"
+								android:text="-"
+								android:textColor="@color/toge_gray"
+								android:textSize="12sp"/>
 
-                        <TextView
-                            android:id="@+id/publish_detail_jg"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical|right"
-                            android:text="-"
-                            android:textColor="@color/toge_gray"
-                            android:textSize="12sp" />
+						<TextView
+								android:id="@+id/publish_detail_jg"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="4dp"
+								android:gravity="center_vertical|right"
+								android:text="-"
+								android:textColor="@color/toge_gray"
+								android:textSize="12sp"/>
 
-                        <TextView
-                            android:id="@+id/publish_detail_time"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical|right"
-                            android:text="-"
-                            android:textColor="@color/toge_gray"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
+						<TextView
+								android:id="@+id/publish_detail_time"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="4dp"
+								android:gravity="center_vertical|right"
+								android:text="-"
+								android:textColor="@color/toge_gray"
+								android:textSize="12sp"/>
+					</LinearLayout>
+				</LinearLayout>
+			</LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="15dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_round_white_5dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="vertical">
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_marginLeft="16dp"
+					android:layout_marginTop="12dp"
+					android:layout_marginRight="16dp"
+					android:layout_marginBottom="15dp"
+					android:layout_weight="1"
+					android:background="@drawable/shape_round_white_5dp"
+					android:focusable="true"
+					android:focusableInTouchMode="true"
+					android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="发币记录" />
+				<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:gravity="center"
+						android:padding="10dp"
+						android:text="发币记录"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+				<RelativeLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/publish_detail_null"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:paddingTop="40dp"
-                        android:text="暂无发币记录" />
+					<TextView
+							android:id="@+id/publish_detail_null"
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:gravity="center_horizontal"
+							android:paddingTop="40dp"
+							android:text="暂无发币记录"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/publish_detail_rv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="17dp"
-                        android:layout_marginRight="17dp"
-                        android:visibility="invisible"
-                        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+					<android.support.v7.widget.RecyclerView
+							android:id="@+id/publish_detail_rv"
+							android:layout_width="match_parent"
+							android:layout_height="match_parent"
+							android:layout_marginLeft="17dp"
+							android:layout_marginRight="17dp"
+							android:visibility="invisible"
+							app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+				</RelativeLayout>
+			</LinearLayout>
+		</LinearLayout>
+	</ScrollView>
 </LinearLayout>

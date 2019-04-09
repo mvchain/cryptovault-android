@@ -49,11 +49,45 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnClickListener, ILoginContract.ILoginView {
+    override fun showLoginStatus(isSuccess: Boolean, msg: String, loginBean: LoginBean?) {
+        if (isSuccess) {
+            if (loginBean!!.data.googleCheck == 1) {
+                dialogHelper.dismiss()
+                SPUtils.getInstance().put(TOKEN, loginBean.data.token) //token  必须提前保存，如果谷歌验证开启，要用来验证
+                startActivity(Intent(this@LoginActivity, LoginVerificationGoogleActivity::class.java))
+            } else {
+                dialogHelper.resetDialogResource(this, R.drawable.success_icon, msg)
+                dialogHelper.dismissDelayed(object : DialogHelper.IDialogDialog {
+                    override fun callback() {
+                        if (loginBean != null) {
+                            saveUserInfo(loginBean)
+                        }
+                        val mIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                        mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(mIntent)
+                    }
+                }, 2000)
+            }
+        } else {
+            dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg)
+            dialogHelper.dismissDelayed(null, 2000)
+        }
+    }
+
+    override fun showValid(result: LoginValidBean.DataBean) {
+        if (result != null) {
+            status = result.status
+            uid = result.uid
+            gt3ConfigBean.api1Json = JSONObject(result.result)
+            gt3GeetestUtils.getGeetest()
+        }
+    }
+
     private lateinit var dialogHelper: DialogHelper
     private lateinit var gt3GeetestUtils: GT3GeetestUtils
     private lateinit var gt3ConfigBean: GT3ConfigBean
     private var status: Int = 0
-    private var uid: String? = null
+    private var uid: String = ""
     private var mToken = ""
     private var isValid = false
 
@@ -155,28 +189,6 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
         gt3GeetestUtils.destory()
     }
 
-    override fun showLoginStatus(isSuccess: Boolean, msg: String, loginBean: LoginBean) {
-        if (isSuccess) {
-            if (loginBean.data.googleCheck == 1) {
-                dialogHelper.dismiss()
-                SPUtils.getInstance().put(TOKEN, loginBean.data.token) //token  必须提前保存，如果谷歌验证开启，要用来验证
-                startActivity(Intent(this@LoginActivity, LoginVerificationGoogleActivity::class.java))
-            } else {
-                dialogHelper.resetDialogResource(this, R.drawable.success_icon, msg)
-                dialogHelper.dismissDelayed(object : DialogHelper.IDialogDialog {
-                    override fun callback() {
-                        saveUserInfo(loginBean)
-                        val mIntent = Intent(this@LoginActivity, MainActivity::class.java)
-                        mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(mIntent)
-                    }
-                }, 2000)
-            }
-        } else {
-            dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg)
-            dialogHelper.dismissDelayed(null, 2000)
-        }
-    }
 
     fun saveUserInfo(loginBean: LoginBean) {
         val data = loginBean.data
@@ -238,15 +250,6 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
         dialogHelper.dismissDelayed(null, 2000)
     }
 
-    @Throws(JSONException::class)
-    override fun showValid(result: LoginValidBean.DataBean?) {
-        if (result != null) {
-            status = result.status
-            uid = result.uid
-            gt3ConfigBean.api1Json = JSONObject(result.result)
-            gt3GeetestUtils.getGeetest()
-        }
-    }
 
     override fun showVerification(message: String) {
         //                 开启验证

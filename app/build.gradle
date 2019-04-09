@@ -7,8 +7,8 @@ android {
         config {
             keyAlias 'ttpay'
             keyPassword 'mvc_android'
-//            storeFile file('/Users/wangwenjie/Desktop/AndroidStudioProjects/cryptovault-android/ttpay')
-            storeFile file('E:/AppProject/cryptovault-android/ttpay')
+            storeFile file('/Users/wangwenjie/Desktop/AndroidStudioProjects/cryptovault-android/ttpay')
+//            storeFile file('E:/AppProject/cryptovault-android/ttpay')
             storePassword 'mvc_android'
         }
     }

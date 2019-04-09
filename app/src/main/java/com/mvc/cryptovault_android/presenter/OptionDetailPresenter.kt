@@ -43,7 +43,7 @@ class OptionDetailPresenter : IOptionDetailContract.OptionDetailPresenter() {
     override fun extractOptionDetail(id: Int) {
         rxUtils.register(mIModel.extractOptionDetail(id)
                 .subscribe({ updataBean ->
-                    if (updataBean.code === 200) {
+                    if (updataBean.code == 200) {
                         mIView.showExtractSuccess()
                     } else {
                         mIView.showExtractError(updataBean.message)

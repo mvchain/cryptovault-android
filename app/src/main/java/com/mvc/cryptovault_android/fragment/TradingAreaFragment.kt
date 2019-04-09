@@ -114,15 +114,15 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         mFragment = ArrayList()
         val purhFragment = RecordingFragment()
         val purhBundle = Bundle()
-        purhBundle.putInt("transType", 1)
-        purhBundle.putInt("transionType", 2) //如果获取的是购买挂单列表，那id就是
+        purhBundle.putInt("transType", 2)
+        purhBundle.putInt("transionType", 1) //如果获取的是购买挂单列表，那id就是
         purhBundle.putInt("pairId", ratioList[position].pairId)
         purhFragment.arguments = purhBundle
         mFragment.add(purhFragment)
         val sellFragment = RecordingFragment()
         val sellBundle = Bundle()
-        sellBundle.putInt("transType", 2)
-        sellBundle.putInt("transionType", 1)
+        sellBundle.putInt("transType", 1)
+        sellBundle.putInt("transionType", 2)
         sellBundle.putInt("pairId", ratioList[position].pairId)
         sellFragment.arguments = sellBundle
         mFragment.add(sellFragment)
@@ -137,7 +137,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                     intent.putExtra("recorBean", recorBean)
                     intent.putExtra("type", transionType)
 //        unitPrice
-                    if (transionType == 1) {
+                    if (transionType == 2) {
                         intent.putExtra("unit_price", "出售MVC挂单")
                     } else {
                         intent.putExtra("unit_price", "购买MVC挂单")

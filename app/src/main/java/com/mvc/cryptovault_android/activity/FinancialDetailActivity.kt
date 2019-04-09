@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -29,6 +30,7 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         LogUtils.e(error)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun showSuccess(bean: FinancialDetailBean.DataBean) {
         financial_title.text = bean.name
         financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
@@ -39,6 +41,9 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         detail = bean
         deposit.isEnabled = true
         deposit.setBackgroundResource(R.drawable.bg_login_submit)
+        remaining_amount_progress.max = bean.limitValue.toInt()
+        remaining_amount_progress.progress = (bean.limitValue - bean.sold).toInt()
+        remaining_amount.text = "剩余总额度 ${TextUtils.doubleToFourPrice(bean.limitValue - bean.sold)} ${bean.baseTokenName}"
     }
 
     private var id = 0

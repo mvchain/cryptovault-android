@@ -48,6 +48,7 @@ data class FinancialDetailBean(
             var purchased: Double,
             var ratio: Double,
             var rule: String,
+            var sold: Double,
             var startAt: Long,
             var stopAt: Long,
             var times: Int,
@@ -69,12 +70,14 @@ data class FinancialDetailBean(
                 parcel.readDouble(),
                 parcel.readDouble(),
                 parcel.readString(),
+                parcel.readDouble(),
                 parcel.readLong(),
                 parcel.readLong(),
                 parcel.readInt(),
                 parcel.readInt(),
                 parcel.readString(),
-                parcel.readDouble())
+                parcel.readDouble()) {
+        }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
             parcel.writeDouble(balance)
@@ -90,6 +93,7 @@ data class FinancialDetailBean(
             parcel.writeDouble(purchased)
             parcel.writeDouble(ratio)
             parcel.writeString(rule)
+            parcel.writeDouble(sold)
             parcel.writeLong(startAt)
             parcel.writeLong(stopAt)
             parcel.writeInt(times)
@@ -111,5 +115,6 @@ data class FinancialDetailBean(
                 return arrayOfNulls(size)
             }
         }
+
     }
 }

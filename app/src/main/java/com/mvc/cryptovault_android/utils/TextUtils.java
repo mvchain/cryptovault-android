@@ -24,12 +24,12 @@ public class TextUtils {
     }
 
     public static String doubleToEight(double price) {
-        BigDecimal decimal = new BigDecimal(Double.toString(price));
-        return decimal.setScale(8, RoundingMode.DOWN).toString();
+        DecimalFormat format = new DecimalFormat("0.00000000");
+        return format.format(price);
     }
 
     public static String doubleToFourPrice(double price) {
-        DecimalFormat format = new DecimalFormat("0.00000000");
+        DecimalFormat format = new DecimalFormat("0.0000");
         return format.format(price);
     }
     public static String doubleToSix(double price) {

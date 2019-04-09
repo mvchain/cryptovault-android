@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.annotation.SuppressLint
 import android.support.v4.content.ContextCompat
 import android.text.InputFilter
 import android.view.Gravity
@@ -45,13 +46,17 @@ class FinancialDepositActivity : BaseActivity() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         detail = intent.getParcelableExtra("detail")
         dialogHelper = DialogHelper.instance
-        deposit_limit.text = "存入限额：${TextUtils.doubleToEight(detail.purchased)}/${TextUtils.doubleToEight(detail.userLimit)}"
+        deposit_limit.text = "产品限额：${TextUtils.doubleToEight(detail.purchased)}/${TextUtils.doubleToEight(detail.userLimit)}"
         available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
         financial_title.text = "${detail.name}存入"
+        remaining_amount_progress.max = detail.limitValue.toInt()
+        remaining_amount_progress.progress = (detail.limitValue - detail.sold).toInt()
+        remaining_amount.text = "剩余总额度 ${TextUtils.doubleToFourPrice(detail.limitValue - detail.sold)} ${detail.baseTokenName}"
         deposit_count.filters = arrayOf<InputFilter>(PointLengthFilter())
         deposit_count.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -107,16 +112,18 @@ class FinancialDepositActivity : BaseActivity() {
                     KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
                     mPopView.dismiss()
                     dialogHelper.create(this@FinancialDepositActivity, R.drawable.pending_icon_1, "存入中").show()
-                    var json = JSONObject()
-                    LogUtils.e(num)
-                    LogUtils.e(email)
-                    json.put("transactionPassword", EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(num)))
-                    json.put("value", deposit_count.text.toString())
-                    var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
-                    RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
-                            .depositFinancial(MyApplication.getTOKEN(), body, detail.id)
+                    RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getUserSalt(MyApplication.getTOKEN(), email)
                             .compose(RxHelper.rxSchedulerHelper())
-                            .subscribe({ date ->
+                            .flatMap {
+                                salt->
+                                var json = JSONObject()
+                                json.put("transactionPassword", EncryptUtils.encryptMD5ToString("${salt.data}${EncryptUtils.encryptMD5ToString(num)}"))
+                                json.put("value", deposit_count.text.toString())
+                                var body = RequestBody.create(MediaType.parse("text/html"), json.toString())
+                                RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java)
+                                        .depositFinancial(MyApplication.getTOKEN(), body, detail.id)
+                                        .compose(RxHelper.rxSchedulerHelper())
+                            }.subscribe({ date ->
                                 if (date.code == 200) {
                                     dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.success_icon, "存入成功")
                                     dialogHelper.dismissDelayed(object :DialogHelper.IDialogDialog{

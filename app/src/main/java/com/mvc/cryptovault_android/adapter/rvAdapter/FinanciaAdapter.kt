@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.adapter.rvAdapter
 
+import android.widget.ProgressBar
 import com.blankj.utilcode.util.TimeUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -12,9 +13,13 @@ import java.text.SimpleDateFormat
 class FinanciaAdapter(layoutResId: Int, data: List<FinancialListBean.DataBean>?) : BaseQuickAdapter<FinancialListBean.DataBean, BaseViewHolder>(layoutResId, data) {
 
     override fun convert(helper: BaseViewHolder, item: FinancialListBean.DataBean) {
+        var bar = helper.getView<ProgressBar>(R.id.remaining_amount_progress)
         helper.setText(R.id.stop_time, "下线时间：${TimeUtils.millis2String(item.stopAt, SimpleDateFormat("yyyy-MM-dd"))}")
         helper.setText(R.id.income, "${TextUtils.doubleToDouble(item.incomeMin)}-${TextUtils.doubleToDouble(item.incomeMax)} %")
         helper.setText(R.id.name, item.name)
+        helper.setText(R.id.remaining_amount, "产品剩余额度:${TextUtils.doubleToFourPrice(item.limitValue-item.sold)} ${item.baseTokenName}")
+        bar.max = item.limitValue.toInt()
+        bar.progress = (item.limitValue-item.sold).toInt()
         helper.setText(R.id.tag_time, "签到${item.times}天")
         helper.setText(R.id.tag_start, "${TextUtils.doubleToEight(item.minValue)}${item.baseTokenName}起投")
         helper.addOnClickListener(R.id.financial_layout)

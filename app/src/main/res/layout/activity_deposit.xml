@@ -37,43 +37,61 @@
             android:src="@drawable/back_icon_black" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/deposit_limit"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/white"
-        android:gravity="center_vertical|left"
-        android:paddingLeft="16dp"
-        android:text="存入限额：0/1000"
-        android:textColor="@color/login_content"
-        android:textSize="15sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:background="@color/white"
+        android:background="@drawable/shape_round_white_12dp"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
+        android:paddingLeft="14dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:paddingTop="12dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="9dp">
+        android:paddingRight="14dp"
+        android:paddingBottom="15dp">
+
+        <TextView
+                android:id="@+id/deposit_limit"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@color/white"
+                android:gravity="center_vertical|left"
+                android:text="产品限额：-/-"
+                android:textColor="@color/login_content"
+                android:textSize="15sp" />
+        <TextView
+                android:id="@+id/remaining_amount"
+                android:layout_below="@id/info_layout"
+                android:layout_marginTop="6dp"
+                android:textSize="11sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <ProgressBar
+                android:id="@+id/remaining_amount_progress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_below="@id/remaining_amount"
+                android:layout_marginTop="6dp"
+                android:progressDrawable="@drawable/financial_drawble"
+                android:layout_height="3dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="存入数量"
+            android:layout_marginTop="16dp"
             android:textColor="@color/login_content"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/deposit_count"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="6dp"
             android:digits="1234567890."
             android:inputType="numberDecimal"
+            android:background="@drawable/shape_round_gray_5dp"
+            android:padding="10dp"
             android:textCursorDrawable="@drawable/bg_edit_cursor_color"
             android:theme="@style/Edit_Style" />
 
@@ -91,9 +109,9 @@
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_marginLeft="116dp"
+        android:layout_marginLeft="44dp"
         android:layout_marginTop="29dp"
-        android:layout_marginRight="116dp"
+        android:layout_marginRight="44dp"
         android:layout_marginBottom="2dp"
         android:background="@drawable/bg_login_submit"
         android:gravity="center"

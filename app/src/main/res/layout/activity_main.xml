@@ -34,7 +34,6 @@
 				android:checked="true"
 				android:drawableTop="@drawable/select_home_button_wallet"
 				android:gravity="center"
-				android:clickable="true"
 				android:paddingTop="5dp"
 				android:text="@string/navi_assets"
 				android:textColor="@color/select_home_button_wallet"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BZT</string>
+    <string name="app_name">TTPay</string>
     <!--APP登陆成功-->
     <!---->
     <string name="login">登录</string>

@@ -102,7 +102,7 @@ class VerificationMnemonicActivity : BaseActivity(), BaseQuickAdapter.OnItemChil
                             SPUtils.getInstance().put(USER_EMAIL, data.email)
                             SPUtils.getInstance().put(USER_PUBLIC_KEY, data.publicKey)
                             SPUtils.getInstance().put(USER_SALT,data.salt)
-
+                            SPUtils.getInstance().put(USER_GOOGLE,data.googleCheck)
                             MyApplication.setTOKEN(data.token)
                             RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getPushTag(MyApplication.getTOKEN()).compose<TagBean>(RxHelper.rxSchedulerHelper<TagBean>())
                                     .subscribe({ tagBean ->

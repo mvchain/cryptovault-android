@@ -23,7 +23,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/home_page_top_title_bg"
+                android:background="@drawable/home_top_toolbar"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -86,7 +86,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/home_page_top_bg"
+                            android:background="@drawable/home_top_bg"
                             android:paddingBottom="10dp">
 
                             <TextView

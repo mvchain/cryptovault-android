@@ -53,6 +53,7 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                                     SPUtils.getInstance().put(USER_EMAIL, loginBean.data.email)
                                     SPUtils.getInstance().put(USER_PUBLIC_KEY, loginBean.data.publicKey)
                                     SPUtils.getInstance().put(USER_SALT, loginBean.data.salt)
+                                    SPUtils.getInstance().put(USER_GOOGLE,loginBean.data.googleCheck)
                                     startActivity(TurnGoogleActivity::class.java)
                                 } else {
                                     dialogHelper?.resetDialogResource(baseContext, R.drawable.miss_icon, loginBean.message)
@@ -69,9 +70,12 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                 if (reg_login_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
                     reg_login_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
                     pwd_show.setImageResource(R.drawable.edit_hide)
+                    reg_login_pwd.setSelection(reg_login_pwd.text.length)
+
                 } else {
                     reg_login_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
                     pwd_show.setImageResource(R.drawable.edit_show)
+                    reg_login_pwd.setSelection(reg_login_pwd.text.length)
                 }
             }
 
@@ -79,9 +83,11 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                 if (reg_pay_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
                     reg_pay_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
                     pay_pwd_show.setImageResource(R.drawable.edit_hide)
+                    reg_pay_pwd.setSelection(reg_pay_pwd.text.length)
                 } else {
                     reg_pay_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
                     pay_pwd_show.setImageResource(R.drawable.edit_show)
+                    reg_pay_pwd.setSelection(reg_pay_pwd.text.length)
                 }
             }
         }

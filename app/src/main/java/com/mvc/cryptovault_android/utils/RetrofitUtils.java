@@ -108,6 +108,7 @@ public class RetrofitUtils {
                         SPUtils.getInstance().remove(USER_ID);
                         SPUtils.getInstance().remove(USER_PUBLIC_KEY);
                         SPUtils.getInstance().remove(USER_SALT);
+                        SPUtils.getInstance().remove(USER_GOOGLE);
                         if (!(ActivityUtils.getTopActivity() instanceof SelectLoginActivity)) {
                             Intent intent = new Intent();
                             intent.setAction(MyApplication.getAppContext().getPackageName() + ".android.login");

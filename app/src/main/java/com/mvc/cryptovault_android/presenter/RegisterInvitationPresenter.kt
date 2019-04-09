@@ -9,7 +9,7 @@ class RegisterInvitationPresenter : IRegisterInvitationConstrat.RegisterInvitati
 
 
     companion object {
-        fun newIntance(): BasePresenter<*, *> {
+        fun newInstance(): BasePresenter<*, *> {
             return RegisterInvitationPresenter()
         }
     }
@@ -35,7 +35,7 @@ class RegisterInvitationPresenter : IRegisterInvitationConstrat.RegisterInvitati
 
     override fun sendInvitationRequest(email: String, code: String) {
         rxUtils.register(mIModel.sendInvitationRequest(email, code).subscribe({ httpBean ->
-            if (httpBean.code === 200) {
+            if (httpBean.code == 200) {
                 mIView.savaTempToken(httpBean.data)
                 mIView.startActivity()
             } else {

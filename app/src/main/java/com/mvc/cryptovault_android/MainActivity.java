@@ -9,12 +9,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.adapter.HomePagerAdapter;
 import com.mvc.cryptovault_android.api.ApiStore;
@@ -37,8 +35,6 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.mvc.cryptovault_android.common.Constant.SP.REFRESH_TOKEN;
-import static com.mvc.cryptovault_android.common.Constant.SP.TOKEN;
 
 
 public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageChangeListener {

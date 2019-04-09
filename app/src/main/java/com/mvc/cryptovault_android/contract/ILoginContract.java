@@ -13,13 +13,14 @@ import io.reactivex.Observable;
 
 public interface ILoginContract {
     abstract class LoginPresenter extends BasePresenter<ILoginModel, ILoginView> {
-        public abstract void login(String imageToken,String email, String pwd, String code);
+        public abstract void login(String imageToken, String email, String pwd, String code);
 
         public abstract void sendCode(String cellphone);
 
 
         public abstract void getValid(String email);
-        public abstract void postValid(String geetest_challenge,String geetest_seccode,String geetest_validate,int status,String uid);
+
+        public abstract void postValid(String geetest_challenge, String geetest_seccode, String geetest_validate, int status, String uid);
     }
 
     interface ILoginModel extends IBaseModel {
@@ -30,13 +31,13 @@ public interface ILoginContract {
          * @param pwd
          * @return
          */
-        Observable<LoginBean> getLoginStatus(String imageToken,String email, String pwd, String code);
+        Observable<LoginBean> getLoginStatus(String imageToken, String email, String pwd, String code);
 
         Observable<HttpTokenBean> sendCode(String cellphone);
 
         Observable<LoginValidBean> getValid(String email);
 
-        Observable<HttpTokenBean> postValid(String geetest_challenge,String geetest_seccode,String geetest_validate,int status,String uid);
+        Observable<HttpTokenBean> postValid(String geetest_challenge, String geetest_seccode, String geetest_validate, int status, String uid);
 
     }
 
@@ -46,14 +47,8 @@ public interface ILoginContract {
          *
          * @param msg
          */
-        void showLoginStauts(boolean isSuccess,String msg);
+        void showLoginStatus(boolean isSuccess, String msg, LoginBean loginBean);
 
-        /**
-         * 保存用户token
-         *
-         * @param loginBean
-         */
-        void saveUserInfo(LoginBean loginBean);
         /**
          * 用户未激活
          *
@@ -66,12 +61,14 @@ public interface ILoginContract {
          *
          * @param msg
          */
-        void showSendCode(boolean isSuccess,String msg);
+        void showSendCode(boolean isSuccess, String msg);
 
         void showValid(LoginValidBean.DataBean result) throws JSONException;
 
         void showVerification(String message) throws JSONException;
+
         void showSecondaryVerification(String token);
+
         /**
          * 显示dialog
          */

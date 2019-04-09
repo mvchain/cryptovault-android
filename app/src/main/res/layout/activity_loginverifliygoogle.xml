@@ -2,6 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
+              android:background="@color/white"
               android:layout_height="match_parent">
+	<View
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"/>
 
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="56dp">
+
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:text="@string/login"
+				android:textColor="@color/login_content"
+				android:textSize="24sp"
+				android:textStyle="bold"/>
+
+		<ImageView
+				android:id="@+id/back"
+				android:layout_width="44dp"
+				android:layout_height="44dp"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="6dp"
+				android:layout_marginTop="10dp"
+				android:onClick="onClick"
+				android:scaleType="centerCrop"
+				android:src="@drawable/back_icon_black" />
+	</RelativeLayout>
+	<EditText
+			android:id="@+id/google_code"
+			android:layout_width="match_parent"
+			android:layout_height="44dp"
+			android:gravity="center_vertical"
+			android:hint="输入Google验证码"
+			android:layout_marginLeft="44dp"
+			android:layout_marginTop="46dp"
+			android:background="@drawable/shape_round_gray_5dp"
+			android:layout_marginRight="44dp"
+			android:inputType="number"
+			android:maxLines="1"
+			android:textColor="@color/login_content"
+			android:padding="10dp"
+			android:textColorHint="@color/edit_bg"
+			android:textCursorDrawable="@drawable/bg_edit_cursor_color"
+			android:textSize="14dp"
+			android:theme="@style/Edit_Style"/>
+	<TextView
+			android:id="@+id/google_forget"
+			android:padding="10dp"
+			android:text="丢失Google验证器？"
+			android:onClick="onClick"
+			android:layout_gravity="right"
+			android:layout_marginRight="30dp"
+			android:textSize="13sp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	<View
+			android:layout_weight="1"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"/>
+	<Button
+			android:id="@+id/google_submit"
+			android:layout_width="match_parent"
+			android:layout_height="44dp"
+			android:onClick="onClick"
+			android:layout_marginLeft="44dp"
+			android:layout_marginRight="44dp"
+			android:layout_marginBottom="45dp"
+			android:background="@drawable/bg_login_submit"
+			android:text="登录"
+			android:textColor="@color/white"/>
 </LinearLayout>

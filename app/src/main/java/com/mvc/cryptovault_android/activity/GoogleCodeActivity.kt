@@ -34,12 +34,12 @@ class GoogleCodeActivity : BaseActivity() {
                     if (google.code == 200) {
                         google_key.text = google.data.secret
                     }
-                    LogUtils.e("${google.data.otpAuthURL}")
                     Observable.just(google.data.otpAuthURL)
                 }
                 .observeOn(Schedulers.io())
                 .subscribe({ gooJson ->
                     val body = Jsoup.connect(gooJson).get().body()
+                    LogUtils.e("${Thread.currentThread().name}   ------   ${body.html()}")
                     var imgSrc = body.getElementsByTag("img").attr("src")
                     val options = RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project)
                     runOnUiThread {

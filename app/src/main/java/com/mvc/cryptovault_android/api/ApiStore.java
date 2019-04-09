@@ -365,6 +365,9 @@ public interface ApiStore {
     @PUT(HttpUrl.USER_GOOGLE)
     Observable<LoginBean> changeGoogleVerification(@Header("Authorization") String token,@Body RequestBody googleInfo);
 
+    @POST(HttpUrl.USER_GOOGLE)
+    Observable<LoginBean> verificationGoogle(@Header("Authorization") String token,@Query("googleCode") String googleCode );
+
     @POST(HttpUrl.USER_SALT)
     Observable<HttpTokenBean> getUserSalt(@Header("Authorization") String token,@Query("email") String email);
 }

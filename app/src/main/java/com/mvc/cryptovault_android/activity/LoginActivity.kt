@@ -71,19 +71,19 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
         // 配置bean文件，也可在oncreate初始化
         gt3ConfigBean = GT3ConfigBean()
         // 设置验证模式，1：bind，2：unbind
-        gt3ConfigBean!!.pattern = 1
+        gt3ConfigBean.pattern = 1
         // 设置点击灰色区域是否消失，默认不消息
-        gt3ConfigBean!!.isCanceledOnTouchOutside = false
+        gt3ConfigBean.isCanceledOnTouchOutside = false
         // 设置debug模式，开代理可调试
-        gt3ConfigBean!!.isDebug = false
+        gt3ConfigBean.isDebug = false
         // 设置语言，如果为null则使用系统默认语言
-        gt3ConfigBean!!.lang = SPUtils.getInstance().getString(Constant.LANGUAGE.DEFAULT_LANGUAGE)
+        gt3ConfigBean.lang = SPUtils.getInstance().getString(Constant.LANGUAGE.DEFAULT_LANGUAGE)
         // 设置加载webview超时时间，单位毫秒，默认10000，仅且webview加载静态文件超时，不包括之前的http请求
-        gt3ConfigBean!!.timeout = 10000
+        gt3ConfigBean.timeout = 10000
         // 设置webview请求超时(用户点选或滑动完成，前端请求后端接口)，单位毫秒，默认10000
-        gt3ConfigBean!!.webviewTimeout = 10000
+        gt3ConfigBean.webviewTimeout = 10000
         // 设置回调监听
-        gt3ConfigBean!!.listener = object : GT3Listener() {
+        gt3ConfigBean.listener = object : GT3Listener() {
             override fun onDialogResult(s: String?) {
                 val validBean = JsonHelper.stringToJson(s, ValidResultBean::class.java) as ValidResultBean
                 mPresenter.postValid(validBean.geetest_challenge, validBean.geetest_seccode, validBean.geetest_validate, status, uid)
@@ -94,7 +94,7 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
             }
 
             override fun onClosed(i: Int) {
-                dialogHelper!!.dismiss()
+                dialogHelper.dismiss()
             }
 
             override fun onSuccess(s: String) {
@@ -110,7 +110,7 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
                 mPresenter.getValid(login_phone!!.text.toString().trim())
             }
         }
-        gt3GeetestUtils!!.init(gt3ConfigBean)
+        gt3GeetestUtils.init(gt3ConfigBean)
     }
 
 
@@ -128,63 +128,71 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
                 startActivity(ForgetPasswordActivity::class.java)
             }
             R.id.send_code -> {
-                dialogHelper!!.create(this, R.drawable.pending_icon_1, "发送验证码").show()
+                dialogHelper.create(this, R.drawable.pending_icon_1, "发送验证码").show()
                 mPresenter.sendCode(email)
             }
             R.id.back -> finish()
-            R.id.login_pwd_show->{
+            R.id.login_pwd_show -> {
                 if (login_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
                     login_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
                     login_pwd_show.setImageResource(R.drawable.edit_hide)
+                    login_pwd.setSelection(login_pwd.text.length)
                 } else {
                     login_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
                     login_pwd_show.setImageResource(R.drawable.edit_show)
+                    login_pwd.setSelection(login_pwd.text.length)
                 }
             }
         }
     }
 
     override fun initPresenter(): BasePresenter<*, *> {
-        return LoginPresenter.newIntance()
+        return LoginPresenter.newInstance()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        gt3GeetestUtils!!.destory()
+        gt3GeetestUtils.destory()
     }
 
-    override fun showLoginStauts(isSuccess: Boolean, msg: String) {
-
+    override fun showLoginStatus(isSuccess: Boolean, msg: String, loginBean: LoginBean) {
         if (isSuccess) {
-            dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, msg)
-            dialogHelper!!.dismissDelayed(object : DialogHelper.IDialogDialog {
-                override fun callback() {
-                    val mIntent = Intent(this@LoginActivity, MainActivity::class.java)
-                    mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(mIntent)
-                }
-            }, 2000)
+            if (loginBean.data.googleCheck == 1) {
+                dialogHelper.dismiss()
+                SPUtils.getInstance().put(TOKEN, loginBean.data.token) //token  必须提前保存，如果谷歌验证开启，要用来验证
+                startActivity(Intent(this@LoginActivity, LoginVerificationGoogleActivity::class.java))
+            } else {
+                dialogHelper.resetDialogResource(this, R.drawable.success_icon, msg)
+                dialogHelper.dismissDelayed(object : DialogHelper.IDialogDialog {
+                    override fun callback() {
+                        saveUserInfo(loginBean)
+                        val mIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                        mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(mIntent)
+                    }
+                }, 2000)
+            }
         } else {
-            dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, msg)
-            dialogHelper!!.dismissDelayed(null, 2000)
+            dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg)
+            dialogHelper.dismissDelayed(null, 2000)
         }
     }
 
-    @SuppressLint("CheckResult")
-    override fun saveUserInfo(loginBean: LoginBean) {
+    fun saveUserInfo(loginBean: LoginBean) {
         val data = loginBean.data
         SPUtils.getInstance().put(REFRESH_TOKEN, data.refreshToken)
-        SPUtils.getInstance().put(TOKEN, data.token)
         SPUtils.getInstance().put(USER_ID, data.userId)
         SPUtils.getInstance().put(USER_EMAIL, data.email)
+        SPUtils.getInstance().put(TOKEN, loginBean.data.token)
         SPUtils.getInstance().put(USER_PUBLIC_KEY, data.publicKey)
         SPUtils.getInstance().put(USER_SALT, data.salt)
+        SPUtils.getInstance().put(USER_GOOGLE, data.googleCheck)
         MyApplication.setTOKEN(data.token)
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getPushTag(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ tagBean ->
-                    if (tagBean.getCode() == 200 && tagBean.getData() != null) {
-                        SPUtils.getInstance().put(TAG_NAME, tagBean.getData())
-                        val tags = tagBean.getData().split(",".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+                    if (tagBean.code == 200 && tagBean.data != null) {
+                        SPUtils.getInstance().put(TAG_NAME, tagBean.data)
+                        val tags = tagBean.data.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                         for (i in tags.indices) {
                             if (i == 0) {
                                 JPushInterface.setTags(application.applicationContext, Integer.parseInt(tags[i]), HashSet(Arrays.asList(tags[i])))
@@ -199,7 +207,7 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
     }
 
     override fun userNotRegister(mnemo: String) {
-        dialogHelper!!.dismissDelayed(null, 0)
+        dialogHelper.dismissDelayed(null, 0)
         val mnemonicss = Arrays.asList(*mnemo.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
         val intent = Intent(this, VerificationMnemonicActivity::class.java)
         intent.putStringArrayListExtra("menmonicss", ArrayList(mnemonicss))
@@ -208,26 +216,26 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
 
     override fun showSendCode(isSuccess: Boolean, msg: String) {
         if (isSuccess) {
-            dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, msg)
+            dialogHelper.resetDialogResource(this, R.drawable.success_icon, msg)
             TimeVerification.getInstence().setOnTimeEndCallBack(object : OnTimeEndCallBack {
                 override fun updata(time: Int) {
                     send_code!!.isEnabled = false
                     send_code!!.setBackgroundResource(R.drawable.shape_load_sendcode_bg)
                     send_code!!.setTextColor(ContextCompat.getColor(baseContext, R.color.edit_bg))
-                    send_code!!.text = time.toString() + "s"
+                    send_code!!.text = "${time}s"
                 }
 
                 override fun exit() {
                     send_code!!.isEnabled = true
                     send_code!!.setBackgroundResource(R.drawable.shape_sendcode_bg)
-                    send_code!!.setTextColor(ContextCompat.getColor(baseContext, R.color.login_content))
+                    send_code!!.setTextColor(ContextCompat.getColor(baseContext, R.color.send_code_tv_bg))
                     send_code!!.text = "重新发送"
                 }
             }).updataTime()
         } else {
-            dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, msg)
+            dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg)
         }
-        dialogHelper!!.dismissDelayed(null, 2000)
+        dialogHelper.dismissDelayed(null, 2000)
     }
 
     @Throws(JSONException::class)
@@ -235,18 +243,18 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
         if (result != null) {
             status = result.status
             uid = result.uid
-            gt3ConfigBean!!.api1Json = JSONObject(result.result)
-            gt3GeetestUtils!!.getGeetest()
+            gt3ConfigBean.api1Json = JSONObject(result.result)
+            gt3GeetestUtils.getGeetest()
         }
     }
 
     override fun showVerification(message: String) {
         //                 开启验证
-        dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, message)
-        dialogHelper!!.dismissDelayed(object : DialogHelper.IDialogDialog {
+        dialogHelper.resetDialogResource(this, R.drawable.miss_icon, message)
+        dialogHelper.dismissDelayed(object : DialogHelper.IDialogDialog {
             override fun callback() {
                 if (isValid) {
-                    gt3GeetestUtils!!.startCustomFlow()
+                    gt3GeetestUtils.startCustomFlow()
                     isValid = false
                 }
             }
@@ -257,7 +265,7 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
     override fun showSecondaryVerification(token: String) {
         if (token != "") {
             this.mToken = token
-            gt3GeetestUtils!!.showSuccessDialog()
+            gt3GeetestUtils.showSuccessDialog()
             val email = login_phone!!.text.toString().trim()
             val pwd = login_pwd!!.text.toString().trim()
             val code = login_code!!.text.toString().trim()
@@ -266,12 +274,12 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
             val newsPwd = EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(pwd))
             mPresenter.login(token, email, newsPwd, code)
         } else {
-            gt3GeetestUtils!!.showFailedDialog()
+            gt3GeetestUtils.showFailedDialog()
         }
     }
 
     override fun show() {
-        dialogHelper!!.create(this@LoginActivity, R.drawable.pending_icon_1, resources.getString(R.string.login_load)).show()
+        dialogHelper.create(this@LoginActivity, R.drawable.pending_icon_1, resources.getString(R.string.login_load)).show()
     }
 
     override fun initMVPData() {

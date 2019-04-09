@@ -1,5 +1,6 @@
 package com.mvc.cryptovault_android.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -18,7 +19,7 @@ import com.mvc.cryptovault_android.presenter.GooglePresenter
 import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_google_verification.*
 
-class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresenter>(),IGoogleContract.GoogleView {
+class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresenter>(), IGoogleContract.GoogleView {
     private var googleStatus = 0
 
     private lateinit var dialogHelper: DialogHelper
@@ -31,10 +32,11 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView() {
-        googleStatus = intent.getIntExtra("googleStatus",0)
-
-
+        googleStatus = intent.getIntExtra("google_status", 0)
+        google_title.text = "${if (googleStatus == 0) "开启" else "关闭"}Google安全验证"
+        google_submit.text = "${if (googleStatus == 0) "开启" else "关闭"}Google验证"
     }
 
     fun onClick(v: View) {
@@ -53,12 +55,13 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
                 finish()
             }
 
-            R.id.google_submit->{
-                dialogHelper.create(this,R.drawable.pending_icon,"验证中...").show()
-                mPresenter.changeGoogleVerification(google_code.text.toString(),google_pwd.text.toString(),googleStatus)
+            R.id.google_submit -> {
+                dialogHelper.create(this, R.drawable.pending_icon, "验证中...").show()
+                mPresenter.changeGoogleVerification(google_code.text.toString(), google_pwd.text.toString(), if (googleStatus == 0) 1 else 0)
             }
         }
     }
+
     override fun initPresenter(): BasePresenter<*, *> {
         return GooglePresenter.newInstance()
     }
@@ -84,16 +87,17 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
         SPUtils.getInstance().put(USER_EMAIL, loginBean.data.email)
         SPUtils.getInstance().put(USER_PUBLIC_KEY, loginBean.data.publicKey)
         SPUtils.getInstance().put(USER_SALT, loginBean.data.salt)
-        dialogHelper.create(this, IDialogViewClickListener{viewId->
+        SPUtils.getInstance().put(USER_GOOGLE, loginBean.data.googleCheck)
+        dialogHelper.create(this, IDialogViewClickListener { viewId ->
             dialogHelper.dismiss()
             val intent = Intent(this@GoogleVerificationActivity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-        },"已成功开启Google验证登录").show()
+        }, "已成功${if (googleStatus == 0) "开启" else "关闭"}Google验证登录").show()
     }
 
     override fun changeFailed(msg: String) {
-        dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, msg)
-        dialogHelper?.dismissDelayed(null)
+        dialogHelper.resetDialogResource(this, R.drawable.miss_icon, msg)
+        dialogHelper.dismissDelayed(null)
     }
 }

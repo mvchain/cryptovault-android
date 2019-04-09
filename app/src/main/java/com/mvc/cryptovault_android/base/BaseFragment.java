@@ -47,6 +47,7 @@ public abstract class BaseFragment extends Fragment {
         SPUtils.getInstance().remove(USER_ID);
         SPUtils.getInstance().remove(USER_PUBLIC_KEY);
         SPUtils.getInstance().remove(USER_SALT);
+        SPUtils.getInstance().remove(USER_GOOGLE);
         Intent intent = new Intent(activity, SelectLoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -55,7 +56,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LogUtils.e("trading onViewCreated");
     }
 
 

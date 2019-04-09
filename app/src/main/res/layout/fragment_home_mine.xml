@@ -26,7 +26,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                android:background="@drawable/home_page_top_bg"
+                android:background="@drawable/home_top_bg"
                 android:orientation="horizontal"
                 android:paddingBottom="25dp">
 
@@ -130,7 +130,7 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="10dp"
                         app:sDividerLineHeight="1dp"
-                        app:sLeftIconRes="@drawable/language_icon"
+                        app:sLeftIconRes="@drawable/mine_language_icon"
                         app:sLeftTextString="@string/language_title"
                         app:sRightIconRes="@drawable/next_icon_black"
                         app:sUseRipple="false" />
@@ -143,7 +143,7 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="10dp"
                         app:sDividerLineHeight="0dp"
-                        app:sLeftIconRes="@drawable/about_icon"
+                        app:sLeftIconRes="@drawable/mine_about_coin"
                         app:sLeftTextString="@string/about_title"
                         app:sRightIconRes="@drawable/next_icon_black"
                         app:sUseRipple="false" />

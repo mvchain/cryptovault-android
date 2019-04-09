@@ -12,7 +12,7 @@ import java.net.SocketTimeoutException;
 
 public class LoginPresenter extends ILoginContract.LoginPresenter {
 
-    public static BasePresenter newIntance() {
+    public static BasePresenter newInstance() {
         return new LoginPresenter();
     }
 
@@ -24,34 +24,33 @@ public class LoginPresenter extends ILoginContract.LoginPresenter {
             return;
         }
         if (phone == null || phone.equals("")) {
-            mIView.showLoginStauts(false, "邮箱不可为空");
+            mIView.showLoginStatus(false, "邮箱不可为空",null);
             return;
         }
         if (pwd == null || pwd.equals("")) {
-            mIView.showLoginStauts(false, "密码不可为空");
+            mIView.showLoginStatus(false, "密码不可为空",null);
             return;
         }
         if (code == null || code.equals("")) {
-            mIView.showLoginStauts(false, "验证码不可为空");
+            mIView.showLoginStatus(false, "验证码不可为空",null);
             return;
         }
         rxUtils.register(mIModel.getLoginStatus(token,phone, pwd, code)
                 .subscribe(loginBean -> {
                     if (loginBean.getCode() == 200) {
-                        mIView.showLoginStauts(true, "登录成功");
-                        mIView.saveUserInfo(loginBean);
+                        mIView.showLoginStatus(true, "登录成功",loginBean);
                     } else if (loginBean.getCode() == 406) {
                         mIView.userNotRegister(loginBean.getMessage());
                     } else if (loginBean.getCode() == 402) {
                         mIView.showVerification(loginBean.getMessage());
                     } else {
-                        mIView.showLoginStauts(false, loginBean.getMessage());
+                        mIView.showLoginStatus(false, loginBean.getMessage(),null);
                     }
                 }, throwable -> {
                     if (throwable instanceof SocketTimeoutException) {
-                        mIView.showLoginStauts(false, "连接超时");
+                        mIView.showLoginStatus(false, "连接超时",null);
                     } else {
-                        mIView.showLoginStauts(false, "连接超时");
+                        mIView.showLoginStatus(false, "连接超时",null);
                     }
                     LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));
@@ -107,7 +106,7 @@ public class LoginPresenter extends ILoginContract.LoginPresenter {
 
     @Override
     protected LoginModel getModel() {
-        return LoginModel.getInstance();
+        return LoginModel.Companion.getInstance();
     }
 
     @Override

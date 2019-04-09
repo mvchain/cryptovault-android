@@ -20,7 +20,7 @@ import org.json.JSONObject
 class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.RegisterInvitationPresenter>(), View.OnClickListener, IRegisterInvitationConstrat.InvitationView {
 
     override fun initPresenter(): BasePresenter<*, *> {
-        return RegisterInvitationPresenter.newIntance()
+        return RegisterInvitationPresenter.newInstance()
     }
 
     override fun initMVPData() {

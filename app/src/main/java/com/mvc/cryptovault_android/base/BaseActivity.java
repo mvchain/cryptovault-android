@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.activity.LoginActivity;
 import com.mvc.cryptovault_android.activity.SelectLoginActivity;
 import com.mvc.cryptovault_android.activity.StartActivity;
@@ -79,6 +80,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         SPUtils.getInstance().remove(USER_ID);
         SPUtils.getInstance().remove(USER_PUBLIC_KEY);
         SPUtils.getInstance().remove(USER_SALT);
+        SPUtils.getInstance().remove(USER_GOOGLE);
         Intent intent = new Intent(activity, SelectLoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -98,8 +100,9 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        KeyboardUtils.hideSoftInput(this);
         super.onDestroy();
+        KeyboardUtils.hideSoftInput(this);
+        ImmersionBar.with(this).destroy();
     }
 
     protected void setAlpha(float alpha) {

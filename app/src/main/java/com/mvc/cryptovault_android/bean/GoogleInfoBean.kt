@@ -8,9 +8,11 @@ data class GoogleInfoBean(
     data class DataBean(
             /**
              * otpAuthURL : string
+             * downloadUrl : string
              * secret : string
              */
             var otpAuthURL: String,
+            var downloadUrl: String,
             var secret: String
     )
 }

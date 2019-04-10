@@ -87,7 +87,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="168dp"
 						android:layout_margin="20dp"
-						android:background="@drawable/shape_filter_blue_22dp_submit"
+						android:background="@drawable/option_top_bg"
 						android:orientation="vertical">
 
 					<LinearLayout

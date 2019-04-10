@@ -20,10 +20,13 @@ import com.mvc.cryptovault_android.bean.FinancialListBean
 import com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_RATE
 import com.mvc.cryptovault_android.common.Constant.SP.SET_RATE
 import com.mvc.cryptovault_android.contract.IFinancialContract
+import com.mvc.cryptovault_android.event.FinancialDetailEvent
 import com.mvc.cryptovault_android.presenter.FinancialPresenter
 import com.mvc.cryptovault_android.utils.JsonHelper
 import com.mvc.cryptovault_android.utils.TextUtils
 import kotlinx.android.synthetic.main.fragment_financial.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
 class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.FinancialPresenter>(), IFinancialContract.FinancialView {
@@ -47,6 +50,16 @@ class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.Financial
         rootView.my_option.setOnClickListener {
             startActivity(Intent(activity, MyOptionActivity::class.java))
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun showFinanciaListSuccess(financialListBean: List<FinancialListBean.DataBean>) {
@@ -96,6 +109,13 @@ class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.Financial
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rootView.refresh.post { rootView.refresh.isRefreshing = false }
+    }
+
+    @Subscribe
+    fun refresh(detailEvent: FinancialDetailEvent) {
+        isRefresh = true
+        mPresenter.getFinancialBalance()
+        mPresenter.getFinancialList(0, 10)
     }
 
     override fun initData() {

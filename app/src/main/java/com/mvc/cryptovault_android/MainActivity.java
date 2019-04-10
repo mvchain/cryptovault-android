@@ -147,7 +147,11 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
 
                                             @Override
                                             public void success(int i) {
-                                                AppInnerDownLoder.downLoadApk(MainActivity.this, installApkBean.getData().getHttpUrl(), "BZT");
+                                                AppInnerDownLoder.downLoadApk(MainActivity.this
+                                                        , installApkBean.getData().getHttpUrl()
+                                                        , "TTPay"
+                                                        , "版本升级"
+                                                        , "正在下载安装包，请稍后");
                                             }
                                         }).requestPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                                         break;

@@ -33,7 +33,11 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
         dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, msg)
         dialogHelper!!.dismissDelayed(object : DialogHelper.IDialogDialog {
             override fun callback() {
-                startTaskActivity(this@SetLoginPasswordActivity)
+                if(type == LOGIN_PASSWORD){
+                    startTaskActivity(this@SetLoginPasswordActivity)
+                }else{
+                    finish()
+                }
             }
         })
     }
@@ -59,6 +63,8 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
             PAY_PASSWORD -> {
                 toolbar_title.text = "修改支付密码"
                 forget_pwd.text = "忘记支付密码？"
+                old_pwd.setHint("输入当前支付密码")
+                new_pwd.setHint("输入新支付密码")
                 old_pwd.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                 new_pwd.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                 old_pwd.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(6))

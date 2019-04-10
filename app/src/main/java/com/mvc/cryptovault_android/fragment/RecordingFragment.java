@@ -138,7 +138,6 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
         transType = arguments.getInt("transType");
         transionType = arguments.getInt("transionType",2);
         pairId = arguments.getInt("pairId");
-        LogUtils.e("initArgument");
     }
 
     @Override
@@ -164,12 +163,21 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
         }
         this.bean.addAll(bean);
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
-        mRvChild.setVisibility(View.VISIBLE);
-        mNullData.setVisibility(View.GONE);
-        mRecorAdapter.notifyDataSetChanged();
+        if (this.bean.size() > 0) {
+            mRvChild.setVisibility(View.VISIBLE);
+            mNullData.setVisibility(View.GONE);
+            mRecorAdapter.notifyDataSetChanged();
+        } else {
+            mRvChild.setVisibility(View.GONE);
+            mNullData.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showNull() {
+        if (isRefresh) {
+            this.bean.clear();
+            isRefresh = false;
+        }
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         if (bean.size() > 0) {
             mRvChild.setVisibility(View.VISIBLE);
@@ -181,6 +189,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
     }
 
     public void serverError() {
+        isRefresh = false;
         mItemSwipHis.post(() -> mItemSwipHis.setRefreshing(false));
         mRvChild.setVisibility(View.GONE);
         mNullData.setVisibility(View.VISIBLE);

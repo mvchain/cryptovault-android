@@ -72,7 +72,7 @@ public class AboutActivity extends BaseActivity {
 
     @SuppressLint("CheckResult")
     public void onClick(View view) {
-        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
+        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe(installApkBean -> {
                     if (installApkBean.getCode() == 200) {
@@ -96,7 +96,11 @@ public class AboutActivity extends BaseActivity {
 
                                             @Override
                                             public void success(int i) {
-                                                AppInnerDownLoder.downLoadApk(AboutActivity.this, installApkBean.getData().getHttpUrl(), "BZT");
+                                                AppInnerDownLoder.downLoadApk(AboutActivity.this
+                                                        , installApkBean.getData().getHttpUrl()
+                                                        , "TTPay"
+                                                        , "版本升级"
+                                                        , "正在下载安装包，请稍后");
                                             }
                                         }).requestPermission(AboutActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                                         break;

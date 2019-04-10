@@ -35,14 +35,14 @@ public class AppInnerDownLoder {
     /**
      * 从服务器中下载APK
      */
-    public static void downLoadApk(final Context mContext, final String downURL, final String appName) {
+    public static void downLoadApk(final Context mContext, final String downURL, final String appName,final String title,final String msg) {
         final ProgressDialog pd; // 进度条对话框
         pd = new ProgressDialog(mContext);
         // 必须一直下载完，不可取消
         pd.setCancelable(false);
         pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        pd.setMessage("正在下载安装包，请稍后");
-        pd.setTitle("版本升级");
+        pd.setMessage(msg);
+        pd.setTitle(title);
         pd.show();
         new Thread() {
             @Override
@@ -108,25 +108,21 @@ public class AppInnerDownLoder {
      * 安装apk
      */
     private static void installApk(Context mContext, File file) {
+        Intent install = new Intent(Intent.ACTION_VIEW);
+        // 防止打不开应用
+        install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //判读版本是否在7.0以上
         if (Build.VERSION.SDK_INT >= 24) {
             //在AndroidManifest中的android:authorities值
             Uri apkUri = FileProvider.getUriForFile(mContext, MyApplication.getAppContext().getPackageName() + ".fileprovider", file);
-            Intent install = new Intent(Intent.ACTION_VIEW);
-            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //添加这一句表示对目标应用临时授权该Uri所代表的文件
             install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             install.setDataAndType(apkUri, "application/vnd.android.package-archive");
             mContext.startActivity(install);
         } else {
-            Uri fileUri = Uri.fromFile(file);
-            Intent it = new Intent();
-            it.setAction(Intent.ACTION_VIEW);
-            it.setDataAndType(fileUri, "application/vnd.android.package-archive");
-            // 防止打不开应用
-            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            mContext.startActivity(it);
+            install.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         }
+        mContext.startActivity(install);
 
     }
 

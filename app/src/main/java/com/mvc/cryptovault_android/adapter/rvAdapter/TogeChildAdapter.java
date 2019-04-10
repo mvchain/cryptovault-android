@@ -38,7 +38,7 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
         if (item.getStatus() == 1) {
             submit.setText(R.string.toge_com);
             submit.setVisibility(View.VISIBLE);
-            submit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_toge_child_item_tv_blue));
+            submit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_login_submit));
             submit.setTextColor(ContextCompat.getColor(mContext,R.color.white));
             submit.setEnabled(true);
             helper.setText(R.id.toge_child_sj, TimeUtils.getFitTimeSpan(new Date(item.getStopAt()),new Date(System.currentTimeMillis()), 4));

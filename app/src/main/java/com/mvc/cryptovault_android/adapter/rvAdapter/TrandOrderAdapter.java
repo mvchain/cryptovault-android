@@ -90,12 +90,12 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
             helper.getView(R.id.order_item_forsale_layout).setVisibility(View.VISIBLE);
             mSubmit.setText(R.string.trand_withdrawal);
             mSubmit.setVisibility(View.VISIBLE);
-            mSubmit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_toge_child_item_tv_blue));
+            mSubmit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_login_submit));
             mSubmit.setTextColor(ContextCompat.getColor(mContext,R.color.white));
             mSubmit.setEnabled(true);
             if (item.getTransactionType() == 1) {
             }
-            mSubmit.setText("撤单");
+            mSubmit.setText(R.string.trand_withdrawal);
         } else { //已完成订单
             mSubmit.setText(R.string.trand_withdrawal);
             mSubmit.setVisibility(View.VISIBLE);

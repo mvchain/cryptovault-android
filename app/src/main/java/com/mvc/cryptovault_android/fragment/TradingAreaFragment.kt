@@ -59,6 +59,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
     private var createCarryOut: Boolean = false
     private var leftPosition = 0
 
+
     override fun initView() {
         mFragment = ArrayList()
         ratioList = ArrayList()
@@ -86,7 +87,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                 mSelectPop.dismiss()
             } else {
                 mSelectPop.showAsDropDown(mSelect, 0, 0, Gravity.BOTTOM)
-                ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.up_tab),mSelect)
+                ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity, R.drawable.up_tab), mSelect)
                 mMask.visibility = View.VISIBLE
             }
         }
@@ -109,8 +110,13 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
 
     override fun vrtSuccess(trandChildBean: ArrayList<TrandChildBean.DataBean>) {
         ratioList.addAll(trandChildBean)
-        mSelect.text = ratioList[0].tokenName
-        loadFragment(0)
+        if (leftPosition > ratioList.size - 1) {
+            leftPosition = 0
+        }
+        LogUtils.e(leftPosition)
+        mSelect.text = ratioList[leftPosition].tokenName
+        loadFragment(leftPosition)
+        mPresenter.getPairTickers(ratioList[leftPosition].pairId)
         initPop()
     }
 
@@ -215,10 +221,17 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
             }
 
             override fun dismiss() {
-                ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity,R.drawable.down_tab),mSelect)
+                ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(activity, R.drawable.down_tab), mSelect)
                 mMask.visibility = View.INVISIBLE
             }
         })
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && createCarryOut) {
+            initData()
+        }
     }
 
     private fun refreshFragment(position: Int) {
@@ -245,6 +258,5 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         ratioList.clear()
         mPresenter.getAllVrtAndBalance()
         mPresenter.getVrt(pairId)
-        mPresenter.getPairTickers(pairId)
     }
 }

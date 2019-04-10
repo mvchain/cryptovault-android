@@ -8,24 +8,24 @@ import android.view.View
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.MyApplication
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.api.ApiStore
 import com.mvc.cryptovault_android.base.BaseActivity
+import com.mvc.cryptovault_android.listener.IDialogViewClickListener
 import com.mvc.cryptovault_android.utils.AppInnerDownLoder
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
+import com.mvc.cryptovault_android.view.DialogHelper
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_google_code.*
-import kotlinx.android.synthetic.main.activity_invatition.*
 import org.jsoup.Jsoup
 
 class GoogleCodeActivity : BaseActivity() {
+    private var downloadUrl = ""
+
     override fun getLayoutId(): Int {
         return R.layout.activity_google_code
     }
@@ -36,13 +36,13 @@ class GoogleCodeActivity : BaseActivity() {
                 .flatMap { google ->
                     if (google.code == 200) {
                         google_key.text = google.data.secret
+                        downloadUrl = google.data.downloadUrl
                     }
                     Observable.just(google.data.otpAuthURL)
                 }
                 .subscribe({ gooJson ->
                     val mBitmap = CodeUtils.createImage(gooJson, 400, 400, null)
-                    Glide.with(this).load(mBitmap).into(qcode)
-                    mBitmap.recycle()
+                    Glide.with(this).load(mBitmap).into(google_qcode)
                 }, { error ->
                     LogUtils.e(error.message)
                 })
@@ -64,7 +64,21 @@ class GoogleCodeActivity : BaseActivity() {
                 ToastUtils.showLong("16位密钥已复制至剪贴板")
             }
             R.id.google_app -> {
-                AppInnerDownLoder.downLoadApk(this, "", "google")
+                DialogHelper.instance.create(this
+                        , "是否下载Google验证器"
+                        , IDialogViewClickListener { viewId ->
+                    when (viewId) {
+                        R.id.hint_cancle -> DialogHelper.instance.dismiss()
+                        R.id.hint_enter -> {
+                            DialogHelper.instance.dismiss()
+                            AppInnerDownLoder.downLoadApk(this@GoogleCodeActivity
+                                    , downloadUrl
+                                    , "google"
+                                    , "请稍后"
+                                    , "正在下载Google验证器，请稍后...")
+                        }
+                    }
+                }).show()
             }
             R.id.google_next -> {
                 startActivity(Intent(this, GoogleVerificationActivity::class.java).putExtra("googleSecret", google_key.text.toString()))

@@ -66,13 +66,19 @@ class FinancialDepositActivity : BaseActivity() {
                     if (price > detail.balance) {
                         available.text = "可用${detail.baseTokenName}：不足"
                         available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.red))
+                        submit.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
+                        submit.isEnabled = false
                     } else {
                         available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
                         available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.login_content))
+                        submit.setBackgroundResource(R.drawable.bg_login_submit)
+                        submit.isEnabled = true
                     }
                 } else {
                     available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
                     available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.login_content))
+                    submit.setBackgroundResource(R.drawable.bg_login_submit)
+                    submit.isEnabled = true
                 }
             }
         })

@@ -8,7 +8,7 @@ import java.net.SocketTimeoutException
 class SetLoginPresenter : ISetPasswordContract.SetPasswordPresenter() {
 
     companion object {
-        fun newIntance(): BasePresenter<*, *> {
+        fun newInstance(): BasePresenter<*, *> {
             return SetLoginPresenter()
         }
     }
@@ -16,7 +16,7 @@ class SetLoginPresenter : ISetPasswordContract.SetPasswordPresenter() {
     override fun setLoginPassword(password: String, newPassword: String) {
         rxUtils.register(mIModel.setLoginPassword(password, newPassword)
                 .subscribe({
-                    if (it.code === 200) {
+                    if (it.code == 200) {
                         mIView.showSuccess("登录密码修改成功")
                     } else {
                         mIView.showError(it.message)
@@ -33,7 +33,7 @@ class SetLoginPresenter : ISetPasswordContract.SetPasswordPresenter() {
     override fun setPayPassword(password: String, newPassword: String) {
         rxUtils.register(mIModel.setPayPassword(password, newPassword)
                 .subscribe({
-                    if (it.code === 200) {
+                    if (it.code == 200) {
                         mIView.showSuccess("支付密码修改成功")
                     } else {
                         mIView.showError(it.message)

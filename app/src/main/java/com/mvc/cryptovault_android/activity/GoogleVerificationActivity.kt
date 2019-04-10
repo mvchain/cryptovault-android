@@ -20,8 +20,8 @@ import com.mvc.cryptovault_android.view.DialogHelper
 import kotlinx.android.synthetic.main.activity_google_verification.*
 
 class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresenter>(), IGoogleContract.GoogleView {
-    private var googleStatus = 0
-
+    private var googleStatus = SPUtils.getInstance().getInt(USER_GOOGLE, 0)
+    private var googleSecret = ""
     private lateinit var dialogHelper: DialogHelper
 
     override fun getLayoutId(): Int {
@@ -34,7 +34,7 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
-        googleStatus = intent.getIntExtra("google_status", 0)
+        googleSecret = intent.getStringExtra("googleSecret")
         google_title.text = "${if (googleStatus == 0) "开启" else "关闭"}Google安全验证"
         google_submit.text = "${if (googleStatus == 0) "开启" else "关闭"}Google验证"
     }
@@ -57,7 +57,7 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
 
             R.id.google_submit -> {
                 dialogHelper.create(this, R.drawable.pending_icon, "验证中...").show()
-                mPresenter.changeGoogleVerification(google_code.text.toString(), google_pwd.text.toString(), if (googleStatus == 0) 1 else 0)
+                mPresenter.changeGoogleVerification(google_code.text.toString(),googleSecret, google_pwd.text.toString(), if (googleStatus == 0) 1 else 0)
             }
         }
     }

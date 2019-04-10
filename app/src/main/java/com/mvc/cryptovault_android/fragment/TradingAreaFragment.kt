@@ -12,6 +12,7 @@ import android.widget.RadioButton
 import android.widget.TextView
 import com.blankj.utilcode.util.LogUtils
 import com.mvc.cryptovault_android.R
+import com.mvc.cryptovault_android.activity.TrandOrderActivity
 import com.mvc.cryptovault_android.activity.TrandPurhAndSellActivity
 import com.mvc.cryptovault_android.activity.TrandPurhAndSellItemActivity
 import com.mvc.cryptovault_android.adapter.TrandRecorAdapter
@@ -141,9 +142,9 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                     intent.putExtra("type", transionType)
 //        unitPrice
                     if (transionType == 2) {
-                        intent.putExtra("unit_price", "出售MVC挂单")
+                        intent.putExtra("unit_price", "出售MVC")
                     } else {
-                        intent.putExtra("unit_price", "购买MVC挂单")
+                        intent.putExtra("unit_price", "购买MVC")
                     }
                     intent.putExtra("allprice_unit", data.tokenName)
                     startActivity(intent)
@@ -189,6 +190,10 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                         startActivity(intent)
                     }
                     2 -> {
+                        intent.setClass(activity, TrandOrderActivity::class.java)
+                        intent.putExtra("pairId", data.pairId.toString() + "")
+                        intent.putExtra("transactionType", "")
+                        startActivity(intent)
 
                     }
                 }

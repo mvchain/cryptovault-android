@@ -22,7 +22,7 @@ class GoogleModel : BaseModel(), IGoogleContract.GoogleModel {
             get() = GoogleModel()
     }
 
-    override fun changeGoogleVerification(googleCode: String, password: String, status: Int): Observable<LoginBean> {
+    override fun changeGoogleVerification(googleCode: String, googleSecret: String, password: String, status: Int): Observable<LoginBean> {
         return RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getUserSalt(MyApplication.getTOKEN()
                 , SPUtils.getInstance().getString(USER_EMAIL))
                 .compose(RxHelper.rxSchedulerHelper())
@@ -30,6 +30,7 @@ class GoogleModel : BaseModel(), IGoogleContract.GoogleModel {
                     val jsonObject = JSONObject()
                     try {
                         jsonObject.put("googleCode", googleCode)
+                        jsonObject.put("googleSecret", googleSecret)
                         jsonObject.put("password", EncryptUtils.encryptMD5ToString(dataBean.data + EncryptUtils.encryptMD5ToString(password)))
                         jsonObject.put("status", status)
                     } catch (e: JSONException) {

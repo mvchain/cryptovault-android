@@ -91,6 +91,11 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                             dialogHelper?.dismissDelayed(null)
                             return
                         }
+                        if (value.length < 8) {
+                            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码必须在8位以上")?.show()
+                            dialogHelper?.dismissDelayed(null)
+                            return
+                        }
                         if (Pattern.compile("[0-9]*").matcher(value).matches()) {
                             dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为纯数字")?.show()
                             dialogHelper?.dismissDelayed(null)
@@ -99,6 +104,11 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                     }
                     TYPE_PAY_PASSWORD -> {
                         value = pay_pwd.text.toString()
+                        if (value.length < 6) {
+                            dialogHelper?.create(this, R.drawable.miss_icon, "支付密码必须为6位")?.show()
+                            dialogHelper?.dismissDelayed(null)
+                            return
+                        }
                         if (value == "") {
                             dialogHelper?.create(this, R.drawable.miss_icon, "支付密码不可为空")?.show()
                             dialogHelper?.dismissDelayed(null)
@@ -154,7 +164,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                         })
             }
 
-            R.id.pay_pwd_show->{
+            R.id.pay_pwd_show -> {
                 if (pay_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
                     pay_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
                     pay_pwd_show.setImageResource(R.drawable.edit_hide)
@@ -166,7 +176,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 }
             }
 
-            R.id.pwd_show->{
+            R.id.pwd_show -> {
                 if (login_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
                     login_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
                     pwd_show.setImageResource(R.drawable.edit_hide)

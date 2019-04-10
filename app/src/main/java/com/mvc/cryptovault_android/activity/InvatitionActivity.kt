@@ -55,7 +55,7 @@ class InvatitionActivity : BaseActivity() {
         RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).getInvitation(MyApplication.getTOKEN())
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ http ->
-                    if (http.code === 200) {
+                    if (http.code == 200) {
                         me_invatition.text = http.data
                     } else {
                         ToastUtils.showShort("邀请码获取失败")

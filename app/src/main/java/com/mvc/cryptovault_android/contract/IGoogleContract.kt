@@ -11,11 +11,11 @@ import io.reactivex.Observable
 
 interface IGoogleContract {
     abstract class GooglePresenter : BasePresenter<GoogleModel, GoogleView>() {
-       abstract fun changeGoogleVerification(googleCode:String,password:String,status:Int)
+        abstract fun changeGoogleVerification(googleCode: String, googleSecret: String, password: String, status: Int)
     }
 
     interface GoogleModel : IBaseModel {
-        fun changeGoogleVerification(googleCode:String,password:String,status:Int) :Observable<LoginBean>
+        fun changeGoogleVerification(googleCode: String, googleSecret: String, password: String, status: Int): Observable<LoginBean>
     }
 
     interface GoogleView : IBaseActivity {

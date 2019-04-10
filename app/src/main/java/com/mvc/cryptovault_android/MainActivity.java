@@ -120,6 +120,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
             int finalI = i;
             mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
         }
+        ((RadioButton)mButtonGroupHome.getChildAt(0)).setChecked(true);
         mMainVpHome.addOnPageChangeListener(this);
         ImmersionBar.with(this).titleBar(statusBar).statusBarDarkFont(true).init();
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")

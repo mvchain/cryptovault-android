@@ -22,8 +22,7 @@ class SelectResetPasswordActivity : BaseActivity() {
 
     override fun initView() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init()
-        LogUtils.e(googleStatus)
-        switch_google_verification.setLeftString(if(googleStatus == 1) getString(R.string.switch_google_verification_off) else getString(R.string.switch_google_verification_on))
+        switch_google_verification.setLeftString(if (googleStatus == 1) getString(R.string.switch_google_verification_off) else getString(R.string.switch_google_verification_on))
     }
 
     fun onClick(v: View) {
@@ -47,9 +46,14 @@ class SelectResetPasswordActivity : BaseActivity() {
                 startActivity(updateIntent)
             }
             R.id.switch_google_verification -> {
-                updateIntent.setClass(this, GoogleVerificationActivity::class.java)
-                updateIntent.putExtra("google_status", googleStatus)
-                startActivity(updateIntent)
+                if(googleStatus == 0){
+                    updateIntent.setClass(this, GoogleCodeActivity::class.java)
+                    startActivity(updateIntent)
+                }else{
+                    updateIntent.setClass(this, GoogleVerificationActivity::class.java)
+                    updateIntent.putExtra("googleSecret", "")
+                    startActivity(updateIntent)
+                }
             }
         }
     }

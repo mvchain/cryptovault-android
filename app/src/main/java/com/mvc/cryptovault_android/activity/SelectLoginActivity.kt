@@ -2,10 +2,14 @@ package com.mvc.cryptovault_android.activity
 
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseActivity
+import com.mvc.cryptovault_android.bean.LanguageEvent
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class SelectLoginActivity : BaseActivity(), View.OnClickListener {
     override fun getLayoutId(): Int {
@@ -14,6 +18,16 @@ class SelectLoginActivity : BaseActivity(), View.OnClickListener {
 
     override fun initData() {
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun initView() {
@@ -35,6 +49,14 @@ class SelectLoginActivity : BaseActivity(), View.OnClickListener {
             R.id.register -> {
                 startActivity(RegisterInvitationActivity::class.java)
             }
+            R.id.change_language->{
+                startActivity(LanguageActivity::class.java)
+            }
         }
+    }
+
+    @Subscribe
+    fun changeLanguage(languageEvent: LanguageEvent) {
+        recreate()
     }
 }

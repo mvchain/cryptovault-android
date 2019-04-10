@@ -31,14 +31,12 @@
 				android:layout_height="match_parent"
 				android:layout_weight="1"
 				android:button="@null"
-				android:checked="true"
 				android:drawableTop="@drawable/select_home_button_wallet"
 				android:gravity="center"
 				android:paddingTop="5dp"
 				android:text="@string/navi_assets"
 				android:textColor="@color/select_home_button_wallet"
 				android:textSize="10sp"/>
-
 		<RadioButton
 				android:layout_width="0dp"
 				android:layout_height="match_parent"

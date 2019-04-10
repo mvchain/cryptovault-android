@@ -1,5 +1,7 @@
 package com.mvc.cryptovault_android.activity
 
+import android.text.InputFilter
+import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
@@ -29,7 +31,7 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
 
     override fun showSuccess(msg: String) {
         dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, msg)
-        dialogHelper!!.dismissDelayed  (object :DialogHelper.IDialogDialog{
+        dialogHelper!!.dismissDelayed(object : DialogHelper.IDialogDialog {
             override fun callback() {
                 startTaskActivity(this@SetLoginPasswordActivity)
             }
@@ -37,7 +39,7 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
     }
 
     override fun initPresenter(): BasePresenter<*, *> {
-        return SetLoginPresenter.newIntance()
+        return SetLoginPresenter.newInstance()
     }
 
     override fun initMVPData() {
@@ -50,15 +52,17 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
         when (type) {
             LOGIN_PASSWORD -> {
                 toolbar_title.text = "修改登录密码"
-                old_pay_layout.visibility = View.GONE
-                new_pay_layout.visibility = View.GONE
                 forget_pwd.text = "忘记登录密码？"
+                old_pwd.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                new_pwd.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
             PAY_PASSWORD -> {
                 toolbar_title.text = "修改支付密码"
-                old_layout.visibility = View.GONE
-                new_layout.visibility = View.GONE
                 forget_pwd.text = "忘记支付密码？"
+                old_pwd.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                new_pwd.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                old_pwd.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(6))
+                new_pwd.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(6))
             }
         }
         //设置眼睛可见
@@ -72,19 +76,6 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val length = s.length
                 new_pwd_show.visibility = if (length > 0) View.VISIBLE else View.INVISIBLE
-            }
-        })
-        //设置眼睛可见
-        old_pay_pwd.addTextChangedListener(object : EditTextChange() {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                val length = s.length
-                old_pay_pwd_show.visibility = if (length > 0) View.VISIBLE else View.INVISIBLE
-            }
-        })
-        new_pay_pwd.addTextChangedListener(object : EditTextChange() {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                val length = s.length
-                new_pay_pwd_show.visibility = if (length > 0) View.VISIBLE else View.INVISIBLE
             }
         })
     }
@@ -110,12 +101,11 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
             }
             R.id.submit -> {
                 if (checkNotNullValue()) {
-                    val email = SPUtils.getInstance().getString(USER_EMAIL)
                     dialogHelper!!.create(this, R.drawable.pending_icon_1, "修改中").show()
                     if (type == 0) {
-                        mPresenter.setLoginPassword(EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(old_pwd.text.toString())), EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(new_pwd.text.toString())))
+                        mPresenter.setLoginPassword(old_pwd.text.toString(), new_pwd.text.toString())
                     } else if (type == 1) {
-                        mPresenter.setPayPassword(EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(old_pay_pwd.text.toString())), EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(new_pay_pwd.text.toString())))
+                        mPresenter.setPayPassword(old_pwd.text.toString(), new_pwd.text.toString())
                     }
                 }
             }
@@ -150,48 +140,50 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
                     new_pwd.setSelection(new_pwd.text.length)
                 }
             }
-            R.id.old_pay_pwd_show -> {
-                if (old_pay_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
-                    old_pay_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
-                    old_pay_pwd_show.setImageResource(R.drawable.edit_hide)
-                    old_pay_pwd.setSelection(old_pay_pwd.text.length)
-                } else {
-                    old_pay_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                    old_pay_pwd_show.setImageResource(R.drawable.edit_show)
-                    old_pay_pwd.setSelection(old_pay_pwd.text.length)
-                }
-            }
-            R.id.new_pay_pwd_show -> {
-                if (new_pay_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
-                    new_pay_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
-                    new_pay_pwd_show.setImageResource(R.drawable.edit_hide)
-                    new_pay_pwd.setSelection(new_pay_pwd.text.length)
-                } else {
-                    new_pay_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                    new_pay_pwd_show.setImageResource(R.drawable.edit_show)
-                    new_pay_pwd.setSelection(new_pay_pwd.text.length)
-                }
-            }
         }
     }
 
     private fun checkNotNullValue(): Boolean {
-        if (old_pwd.text.toString() == "") {
-            dialogHelper!!.create(this, R.drawable.miss_icon, "旧密码不可为空").show()
-            dialogHelper!!.dismissDelayed(null)
-            return false
+        if (type == 0) {
+            if (old_pwd.text.toString() == "") {
+                dialogHelper!!.create(this, R.drawable.miss_icon, "旧密码不可为空").show()
+                dialogHelper!!.dismissDelayed(null)
+                return false
+            }
+            if (new_pwd.text.toString() == "") {
+                dialogHelper!!.create(this, R.drawable.miss_icon, "新密码不可为空").show()
+                dialogHelper!!.dismissDelayed(null)
+                return false
+            }
+            if (new_pwd.text.toString().length < 8) {
+                dialogHelper!!.create(this, R.drawable.miss_icon, "登录密码必须在8位以上").show()
+                dialogHelper!!.dismissDelayed(null)
+                return false
+            }
+            if (Pattern.compile("[0-9]*").matcher(new_pwd.text.toString()).matches()) {
+                dialogHelper!!.create(this, R.drawable.miss_icon, "密码不可为纯数字").show()
+                dialogHelper!!.dismissDelayed(null)
+                return false
+            }
+            return true
+        } else {
+            if (old_pwd.text.toString() == "") {
+                dialogHelper!!.create(this, R.drawable.miss_icon, "旧密码不可为空").show()
+                dialogHelper!!.dismissDelayed(null)
+                return false
+            }
+            if (new_pwd.text.toString() == "") {
+                dialogHelper!!.create(this, R.drawable.miss_icon, "新密码不可为空").show()
+                dialogHelper!!.dismissDelayed(null)
+                return false
+            }
+            if (new_pwd.text.toString().length < 6) {
+                dialogHelper!!.create(this, R.drawable.miss_icon, "支付密码必须6位").show()
+                dialogHelper!!.dismissDelayed(null)
+                return false
+            }
+            return true
         }
-        if (new_pwd.text.toString() == "") {
-            dialogHelper!!.create(this, R.drawable.miss_icon, "新密码不可为空").show()
-            dialogHelper!!.dismissDelayed(null)
-            return false
-        }
-        if (Pattern.compile("[0-9]*").matcher(new_pwd.text.toString()).matches()) {
-            dialogHelper!!.create(this, R.drawable.miss_icon, "密码不可为纯数字").show()
-            dialogHelper!!.dismissDelayed(null)
-            return false
-        }
-        return true
     }
 
     override fun initView() {

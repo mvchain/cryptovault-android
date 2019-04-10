@@ -3,6 +3,7 @@ package com.mvc.cryptovault_android.activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -16,10 +17,12 @@ import com.mvc.cryptovault_android.base.BaseActivity
 import com.mvc.cryptovault_android.utils.AppInnerDownLoder
 import com.mvc.cryptovault_android.utils.RetrofitUtils
 import com.mvc.cryptovault_android.utils.RxHelper
+import com.uuzuche.lib_zxing.activity.CodeUtils
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_google_code.*
+import kotlinx.android.synthetic.main.activity_invatition.*
 import org.jsoup.Jsoup
 
 class GoogleCodeActivity : BaseActivity() {
@@ -36,15 +39,10 @@ class GoogleCodeActivity : BaseActivity() {
                     }
                     Observable.just(google.data.otpAuthURL)
                 }
-                .observeOn(Schedulers.io())
                 .subscribe({ gooJson ->
-                    val body = Jsoup.connect(gooJson).get().body()
-                    LogUtils.e("${Thread.currentThread().name}   ------   ${body.html()}")
-                    var imgSrc = body.getElementsByTag("img").attr("src")
-                    val options = RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project)
-                    runOnUiThread {
-                        Glide.with(MyApplication.getAppContext()).load(imgSrc).apply(options).into(google_qcode)
-                    }
+                    val mBitmap = CodeUtils.createImage(gooJson, 400, 400, null)
+                    Glide.with(this).load(mBitmap).into(qcode)
+                    mBitmap.recycle()
                 }, { error ->
                     LogUtils.e(error.message)
                 })
@@ -69,7 +67,7 @@ class GoogleCodeActivity : BaseActivity() {
                 AppInnerDownLoder.downLoadApk(this, "", "google")
             }
             R.id.google_next -> {
-                startActivity(GoogleVerificationActivity::class.java)
+                startActivity(Intent(this, GoogleVerificationActivity::class.java).putExtra("googleSecret", google_key.text.toString()))
             }
         }
     }

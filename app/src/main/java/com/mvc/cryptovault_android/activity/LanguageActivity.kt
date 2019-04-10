@@ -1,6 +1,5 @@
 package com.mvc.cryptovault_android.activity
 
-import com.blankj.utilcode.util.LogUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
 import com.mvc.cryptovault_android.base.BaseActivity

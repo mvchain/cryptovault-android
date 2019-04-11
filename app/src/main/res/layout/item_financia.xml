@@ -70,10 +70,11 @@
 			<TextView
 					android:id="@+id/tag_time"
 					android:layout_width="wrap_content"
+					android:layout_marginTop="14dp"
 					android:layout_height="wrap_content"
 					android:background="@drawable/shape_item_financia_gray_stroke_5dp"
 					android:padding="3dp"
-					android:text="签到-天"
+					android:text="理财周期-天"
 					android:textColor="@color/trand_gray"
 					android:textSize="12sp"/>
 

@@ -45,12 +45,12 @@ public class TrandChildAdapter extends BaseQuickAdapter<TrandChildBean.DataBean,
             increase.setText("不可交易");
             increase.setTextColor(ContextCompat.getColor(mContext,R.color.trand_gray));
         } else {
-            increase.setText(TextUtils.doubleToDouble(incre) + "%");
+            increase.setText(TextUtils.INSTANCE.doubleToDouble(incre) + "%");
             increase.setTextColor(ContextCompat.getColor(mContext,R.color.white));
         }
-        helper.setText(R.id.trand_child_ratio, TextUtils.doubleToEight(item.getRatio()) + " " + item.getPair().substring(item.getPair().indexOf("/") + 1, item.getPair().length()));
+        helper.setText(R.id.trand_child_ratio, TextUtils.INSTANCE.doubleToEight(item.getRatio()) + " " + item.getPair().substring(item.getPair().indexOf("/") + 1, item.getPair().length()));
         helper.setText(R.id.trand_child_title, item.getTokenName());
-        helper.setText(R.id.trand_child_pair, SPUtils.getInstance().getString(DEFAULT_SYMBOL) + TextUtils.rateToPrice(item.getRatio()));
+        helper.setText(R.id.trand_child_pair, SPUtils.getInstance().getString(DEFAULT_SYMBOL) + TextUtils.INSTANCE.rateToPrice(item.getRatio()));
         RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
         Glide.with(mContext).load(item.getTokenImage()).apply(options).into(icon);
         helper.addOnClickListener(R.id.trand_layout);

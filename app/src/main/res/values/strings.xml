@@ -43,6 +43,8 @@
     <string name="switch_google_verification_off">关闭Google验证</string>
     <string name="toge_left_title">发币</string>
     <string name="toge_right_title">订单</string>
+    <string name="transfer_sxf_hint">TTPay 用户之间转账/收款无需手续费</string>
+
     <!---->
     <string name="download_url">https://www.bzvp.net/</string>
     <string name="base_url">http://47.110.234.233:10086/</string>

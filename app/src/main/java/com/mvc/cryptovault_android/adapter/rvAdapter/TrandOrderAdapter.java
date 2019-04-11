@@ -81,7 +81,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         TrandChildBean.DataBean dataBean = orderBean.get(position);
         mPurchase.setText(item.getDeal() + " " + dataBean.getTokenName());
         mPendContent.setText(item.getDeal() + " " + dataBean.getTokenName());
-        mPrice.setText(TextUtils.doubleToEight(item.getPrice()) + " " + dataBean.getPair().substring(0, dataBean.getPair().indexOf("/")));
+        mPrice.setText(TextUtils.INSTANCE.doubleToEight(item.getPrice()) + " " + dataBean.getPair().substring(0, dataBean.getPair().indexOf("/")));
         if (item.getStatus() == 0) {//进行中的订单
             helper.getView(R.id.order_item_num_layout).setVisibility(View.GONE);
             helper.getView(R.id.order_item_seller_layout).setVisibility(View.GONE);

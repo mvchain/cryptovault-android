@@ -91,7 +91,7 @@
 							android:layout_height="wrap_content"
 							android:background="@drawable/shape_item_financia_white_stroke_5dp"
 							android:padding="3dp"
-							android:text="剩余签到天数"
+							android:text="剩余理财周期"
 							android:textColor="@color/white"
 							android:textSize="11sp"/>
 				</LinearLayout>

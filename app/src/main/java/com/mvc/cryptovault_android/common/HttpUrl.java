@@ -77,6 +77,11 @@ public class HttpUrl {
     public static final String GET_TRANASTION = URL_PATH + "asset/transaction";
 
     /**
+     * 获取手续费
+     */
+    public static final String ASSETS_INNER = URL_PATH + "asset/inner";
+
+    /**
      * 划账余额获取 / 划账
      */
     public static final String GET_DEBIT = URL_PATH + "asset/debit";

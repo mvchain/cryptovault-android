@@ -13,9 +13,9 @@
         android:background="@color/white" />
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
-        android:src="@mipmap/vp_logo" />
+        android:src="@drawable/date" />
 </LinearLayout>

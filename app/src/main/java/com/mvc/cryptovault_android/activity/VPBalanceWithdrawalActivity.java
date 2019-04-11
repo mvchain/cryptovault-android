@@ -79,12 +79,12 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String chagePrice = s.toString();
                 if (!chagePrice.equals("") && vpBalanceBean != null) {
-                    if (TextUtils.stringToDouble(chagePrice) > vpBalanceBean.getData()) {
+                    if (TextUtils.INSTANCE.stringToDouble(chagePrice) > vpBalanceBean.getData()) {
                         mPriceVp.setText("余额不足");
                         mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.red));
                         mSubmitVp.setEnabled(false);
                     } else {
-                        mPriceVp.setText("余额：" + TextUtils.doubleToEight(vpBalanceBean.getData()));
+                        mPriceVp.setText("余额：" + TextUtils.INSTANCE.doubleToEight(vpBalanceBean.getData()));
                         mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.login_edit_bg));
                         mSubmitVp.setEnabled(true);
                     }
@@ -111,7 +111,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
     @Override
     public void showSuccess(VPBalanceBean data) {
         this.vpBalanceBean = data;
-        mPriceVp.setText("余额：" + TextUtils.doubleToEight(data.getData()));
+        mPriceVp.setText("余额：" + TextUtils.INSTANCE.doubleToEight(data.getData()));
     }
 
     @Override

@@ -10,7 +10,7 @@
 			android:layout_height="100dp"
 			android:layout_gravity="center"
 			android:layout_marginTop="145dp"
-			android:src="@mipmap/vp_logo"/>
+			android:src="@drawable/tttpay"/>
 
 	<TextView
 			android:id="@+id/login"

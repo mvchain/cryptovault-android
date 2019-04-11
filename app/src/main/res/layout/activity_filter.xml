@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp"
-            android:text="BZT类型"
+            android:text="TTPay类型"
             android:textColor="@color/login_content"
             android:textSize="13sp" />
 

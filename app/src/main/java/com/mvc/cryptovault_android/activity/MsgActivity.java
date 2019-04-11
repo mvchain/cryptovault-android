@@ -72,7 +72,7 @@ public class MsgActivity extends BaseMVPActivity<IMsgContract.MsgPresenter> impl
     protected void initMVPData() {
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init();
         isRefresh = true;
-        mPresenter.getMsg(0, 0, 10);
+        mPresenter.getMsg(0, 0, 20);
     }
 
     @Override
@@ -113,9 +113,9 @@ public class MsgActivity extends BaseMVPActivity<IMsgContract.MsgPresenter> impl
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-                    if (lastVisibleItemPosition + 1 == msgAdapter.getItemCount() && msgAdapter.getItemCount() >= 10 && !isRefresh) {
+                    if (lastVisibleItemPosition + 1 == msgAdapter.getItemCount() && msgAdapter.getItemCount() >= 20 && !isRefresh) {
                         //发送网络请求获取更多数据
-                        mPresenter.getMsg(mBeans.get(mBeans.size() - 1).getCreatedAt(), 1, 10);
+                        mPresenter.getMsg(mBeans.get(mBeans.size() - 1).getCreatedAt(), 1, 20);
                     }
                 }
             }
@@ -141,7 +141,7 @@ public class MsgActivity extends BaseMVPActivity<IMsgContract.MsgPresenter> impl
 
     public void refresh() {
         isRefresh = true;
-        mPresenter.getMsg(0, 0, 10);
+        mPresenter.getMsg(0, 0, 20);
     }
 
     @Override

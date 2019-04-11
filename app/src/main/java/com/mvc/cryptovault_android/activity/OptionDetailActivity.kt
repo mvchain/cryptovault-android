@@ -51,7 +51,7 @@ class OptionDetailActivity : BaseMVPActivity<IOptionDetailContract.OptionDetailP
         daily_swipe.post { daily_swipe.isRefreshing = false }
         investment_amount.text = TextUtils.doubleToEight(detail.value) + detail.baseTokenName
         cumulative_income.text = TextUtils.doubleToEight(detail.income) + detail.tokenName
-        remaining_days.text = "剩余签到天数${detail.times}天"
+        remaining_days.text = "剩余理财周期${detail.times}天"
         detail_title.text = "${detail.financialName}持仓详情"
         detail_content.text = detail.financialName
         interest_rate.text = "年化收益率：${TextUtils.doubleToDouble(detail.incomeMin)}-${TextUtils.doubleToDouble(detail.incomeMax)} %"

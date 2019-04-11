@@ -33,7 +33,7 @@ public class HistoryChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         int transactionType = item.getTransactionType();
         ImageView icon = helper.getView(R.id.his_child_icon);
         helper.setText(R.id.his_child_time, TimeUtils.millis2String(item.getCreatedAt()));
-        String price = TextUtils.toBigDecimal(item.getValue());
+        String price = TextUtils.INSTANCE.doubleToEight(item.getValue());
         TextView priceView = helper.getView(R.id.his_child_price);
         priceView.setText((item.getTransactionType() == 1 ? "+" : "-") + price);
         TextView mStatusTv = helper.getView(R.id.his_child_status);

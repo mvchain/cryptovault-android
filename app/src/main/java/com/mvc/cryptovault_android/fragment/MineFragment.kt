@@ -140,7 +140,7 @@ class MineFragment : BaseMVPFragment<IMineContract.MinePresenter>(), IMineContra
             R.id.sys_language -> startActivity(Intent(activity, LanguageActivity::class.java))
             R.id.about -> startActivity(Intent(activity, AboutActivity::class.java))
             R.id.singout -> {
-                dialogHelper!!.create(activity, "确定要登出BZT?", IDialogViewClickListener { viewId ->
+                dialogHelper!!.create(activity, "确定要登出TTPay?", IDialogViewClickListener { viewId ->
                     when (viewId) {
                         R.id.hint_enter -> {
                             dialogHelper!!.dismiss()

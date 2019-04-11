@@ -40,7 +40,7 @@ import java.util.TimerTask;
 public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageChangeListener {
     private boolean isBack = false;
     private Timer timer = new Timer();
-    private NoScrollViewPager mMainVpHome;
+    private ViewPager mMainVpHome;
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;

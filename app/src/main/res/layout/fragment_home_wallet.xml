@@ -37,7 +37,7 @@
 		                android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="BZT Wallet"
+                    android:text="TTPay"
                     android:textColor="@color/white"
                     android:textSize="17sp" />
 

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebView
+import android.widget.ScrollView
 import com.blankj.utilcode.util.LogUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
@@ -34,7 +36,7 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
     override fun showSuccess(bean: FinancialDetailBean.DataBean) {
         financial_title.text = bean.name
         financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
-        time_cycle.text = "需累计签到${bean.times}天"
+        time_cycle.text = "${bean.times}天"
         starting.text = "${TextUtils.doubleToEight(bean.minValue)} ${bean.baseTokenName}"
         content.text = bean.content
         rule.text = bean.rule

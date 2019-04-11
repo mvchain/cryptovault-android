@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BZT</string>
+    <string name="app_name">TTPay</string>
 
     <!--App login-->
     <string name="login">Login</string>
@@ -30,4 +30,6 @@
     <string name="increase_remove">Remove</string>
     <string name="toge_left_title">Currency</string>
     <string name="toge_right_title">Order</string>
+    <string name="transfer_sxf_hint">There is no charge for transferring/receiving between TTPay users</string>
+
 </resources>

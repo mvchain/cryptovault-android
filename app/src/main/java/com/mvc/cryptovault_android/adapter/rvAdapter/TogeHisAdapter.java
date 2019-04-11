@@ -45,8 +45,8 @@ public class TogeHisAdapter extends BaseQuickAdapter<TogeHisBean.DataBean, BaseV
         helper.setText(R.id.toge_histroy_order_num, item.getProjectOrderId());
         helper.setText(R.id.toge_histroy_bl, 1 + item.getTokenName() + " = " + item.getRatio() + item.getBaseTokenName());
         helper.setText(R.id.toge_histroy_day_bl, item.getReleaseValue() + "%");
-        helper.setText(R.id.toge_histroy_pay_num, TextUtils.doubleToEight(item.getSuccessPayed()) + "/" + TextUtils.doubleToEight(item.getPrice()) + " "+item.getBaseTokenName());
-        helper.setText(R.id.toge_histroy_success_num, TextUtils.doubleToEight(item.getSuccessValue()) + "/" + item.getValue() + " " + item.getTokenName());
+        helper.setText(R.id.toge_histroy_pay_num, TextUtils.INSTANCE.doubleToEight(item.getSuccessPayed()) + "/" + TextUtils.INSTANCE.doubleToEight(item.getPrice()) + " "+item.getBaseTokenName());
+        helper.setText(R.id.toge_histroy_success_num, TextUtils.INSTANCE.doubleToEight(item.getSuccessValue()) + "/" + item.getValue() + " " + item.getTokenName());
         helper.setText(R.id.toge_histroy_over_time, TimeUtils.millis2String(item.getStopAt()));
     }
 }

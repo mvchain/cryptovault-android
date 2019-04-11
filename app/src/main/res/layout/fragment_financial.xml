@@ -16,7 +16,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:gravity="center"
-				android:text="@string/navi_financial"
+				android:text="BTC 理财"
 				android:textColor="@color/white"
 				android:textSize="17sp"/>
 
@@ -37,92 +37,10 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
-		<LinearLayout
+		<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:orientation="vertical">
-
-			<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:background="@drawable/home_top_bg"
-					android:orientation="vertical"
-					android:paddingTop="14dp"
-					android:paddingBottom="17dp">
-
-				<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="理财总资产"
-						android:layout_marginLeft="30dp"
-						android:textColor="@color/white"
-						android:textSize="15sp"/>
-
-				<TextView
-						android:id="@+id/me_financia"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginLeft="30dp"
-						android:text="-"
-						android:textColor="@color/white"
-						android:textSize="33sp"/>
-
-				<LinearLayout
-						android:layout_width="match_parent"
-						android:paddingLeft="30dp"
-						android:paddingRight="30dp"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="14dp"
-						android:orientation="horizontal">
-
-					<LinearLayout
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:layout_weight="1"
-							android:orientation="vertical">
-
-						<TextView
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:text="今日收益"
-								android:textColor="#66FFFFFF"
-								android:textSize="12sp"/>
-
-						<TextView
-								android:id="@+id/yesterday_earnings"
-								android:layout_width="wrap_content"
-								android:layout_marginTop="1dp"
-								android:layout_height="wrap_content"
-								android:text="-"
-								android:textColor="@color/white"
-								android:textSize="15sp"/>
-					</LinearLayout>
-
-					<LinearLayout
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"
-							android:layout_weight="1"
-							android:orientation="vertical">
-
-						<TextView
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:textColor="#66FFFFFF"
-								android:text="累计收益"
-								android:textSize="12sp"/>
-
-						<TextView
-								android:id="@+id/all_earnings"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:layout_marginTop="1dp"
-								android:text="-"
-								android:textColor="@color/white"
-								android:textSize="15sp"/>
-					</LinearLayout>
-				</LinearLayout>
-			</LinearLayout>
-
 			<android.support.v7.widget.RecyclerView
 					android:id="@+id/financial_recyclerview"
 					android:layout_width="match_parent"
@@ -131,6 +49,92 @@
 					android:paddingLeft="16dp"
 					android:paddingRight="16dp"
 					app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-		</LinearLayout>
+
+			<com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
+					android:id="@+id/financial_layout"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@drawable/home_top_bg"
+						android:orientation="vertical"
+						android:paddingBottom="17dp">
+
+					<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="理财总资产"
+							android:layout_marginLeft="30dp"
+							android:textColor="@color/white"
+							android:textSize="15sp"/>
+
+					<TextView
+							android:id="@+id/me_financia"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="30dp"
+							android:text="-"
+							android:textColor="@color/white"
+							android:textSize="33sp"/>
+
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:paddingLeft="30dp"
+							android:paddingRight="30dp"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="14dp"
+							android:orientation="horizontal">
+
+						<LinearLayout
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:orientation="vertical">
+
+							<TextView
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text="今日收益"
+									android:textColor="#66FFFFFF"
+									android:textSize="12sp"/>
+
+							<TextView
+									android:id="@+id/yesterday_earnings"
+									android:layout_width="wrap_content"
+									android:layout_marginTop="1dp"
+									android:layout_height="wrap_content"
+									android:text="-"
+									android:textColor="@color/white"
+									android:textSize="15sp"/>
+						</LinearLayout>
+
+						<LinearLayout
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:orientation="vertical">
+
+							<TextView
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:textColor="#66FFFFFF"
+									android:text="累计收益"
+									android:textSize="12sp"/>
+
+							<TextView
+									android:id="@+id/all_earnings"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:layout_marginTop="1dp"
+									android:text="-"
+									android:textColor="@color/white"
+									android:textSize="15sp"/>
+						</LinearLayout>
+					</LinearLayout>
+				</LinearLayout>
+
+			</com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
+		</RelativeLayout>
 	</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

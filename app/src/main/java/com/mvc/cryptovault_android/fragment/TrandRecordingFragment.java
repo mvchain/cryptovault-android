@@ -136,7 +136,7 @@ public class TrandRecordingFragment extends BaseActivity implements View.OnClick
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @SuppressLint("CheckResult")
+    @SuppressLint({"CheckResult", "SetTextI18n"})
     private void initLineChartData() {
         RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getKLine(MyApplication.getTOKEN(), data.getPairId())
                 .compose(RxHelper.rxSchedulerHelper())
@@ -149,9 +149,9 @@ public class TrandRecordingFragment extends BaseActivity implements View.OnClick
                 {
                     if (pickBean.getCode() == 200) {
                         PairTickersBean.DataBean data = pickBean.getData();
-                        mCurrentTvRecording.setText(TextUtils.doubleToEight(data.getPrice()) + " " + recordingType);
-                        mDayMaxTvRecording.setText(TextUtils.doubleToEight(data.getHigh()) + " " + recordingType);
-                        mDayMinTvRecording.setText(TextUtils.doubleToEight(data.getLow()) + " " + recordingType);
+                        mCurrentTvRecording.setText(TextUtils.INSTANCE.doubleToEight(data.getPrice()) + " " + recordingType);
+                        mDayMaxTvRecording.setText(TextUtils.INSTANCE.doubleToEight(data.getHigh()) + " " + recordingType);
+                        mDayMinTvRecording.setText(TextUtils.INSTANCE.doubleToEight(data.getLow()) + " " + recordingType);
                     }
                 }, throwable -> {
                     LogUtils.e("TrandRecordingFragment", throwable.getMessage());

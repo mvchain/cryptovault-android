@@ -182,7 +182,7 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
                     mTitleDetail.setText(transactionType == 1 ? "收款失败" : "转账失败");
                     break;
             }
-            mFeesContentDetail.setText(TextUtils.doubleToEight(data.getFee()) + " " + data.getFeeTokenType());
+            mFeesContentDetail.setText(TextUtils.INSTANCE.doubleToEight(data.getFee()) + " " + data.getFeeTokenType());
             String address = data.getToAddress();
             String fromAddress = data.getFromAddress();
             if (!address.equals("")) {
@@ -273,7 +273,7 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
         }
-        mPriceContentDetail.setText((transactionType == 1 ? "+" : "-") + TextUtils.doubleToEight(data.getValue()) + " " + data.getTokenName());
+        mPriceContentDetail.setText((transactionType == 1 ? "+" : "-") + TextUtils.INSTANCE.doubleToEight(data.getValue()) + " " + data.getTokenName());
         mTimeDetail.setText(TimeUtils.millis2String(data.getCreatedAt()));
     }
 }

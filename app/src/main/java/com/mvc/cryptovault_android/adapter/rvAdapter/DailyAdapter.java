@@ -20,6 +20,6 @@ public class DailyAdapter extends BaseQuickAdapter<OptionDailyIncomeBean.DataBea
     @Override
     protected void convert(BaseViewHolder helper, OptionDailyIncomeBean.DataBean item) {
         helper.setText(R.id.time, TimeUtils.millis2String(item.getCreatedAt(), new SimpleDateFormat("yyyy-MM-dd")));
-        helper.setText(R.id.price, TextUtils.doubleToEight(item.getIncome()));
+        helper.setText(R.id.price, TextUtils.INSTANCE.doubleToEight(item.getIncome()));
     }
 }

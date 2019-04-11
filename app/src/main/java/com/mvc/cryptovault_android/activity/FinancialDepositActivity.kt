@@ -51,7 +51,7 @@ class FinancialDepositActivity : BaseActivity() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         detail = intent.getParcelableExtra("detail")
         dialogHelper = DialogHelper.instance
-        deposit_limit.text = "产品限额：${TextUtils.doubleToEight(detail.purchased)}/${TextUtils.doubleToEight(detail.userLimit)}"
+        deposit_limit.text = "每用户参与限额：${TextUtils.doubleToEight(detail.purchased)}/${TextUtils.doubleToEight(detail.userLimit)}"
         available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
         financial_title.text = "${detail.name}存入"
         remaining_amount_progress.max = detail.limitValue.toInt()

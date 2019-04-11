@@ -98,8 +98,8 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         this.purchaseBean = purchaseBean;
                         maxPurchase = purchaseBean.getData().getLimitValue();
                         minPurchase = purchaseBean.getData().getProjectMin();
-                        mInfoMaxM.setText("限购额：" + TextUtils.doubleToInt(dataBean.getProjectLimit() - maxPurchase) + "/" + TextUtils.doubleToInt(dataBean.getProjectLimit()));
-                        mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToEight(purchaseBean.getData().getBalance()));
+                        mInfoMaxM.setText("限购额：" + TextUtils.INSTANCE.doubleToInt(dataBean.getProjectLimit() - maxPurchase) + "/" + TextUtils.INSTANCE.doubleToInt(dataBean.getProjectLimit()));
+                        mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.INSTANCE.doubleToEight(purchaseBean.getData().getBalance()));
                     }
                 }, throwable -> {
                     LogUtils.e("CrowdfundingAppointment", throwable.getMessage());
@@ -114,7 +114,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 if (!updateTv.equals("")) {
                     ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(), R.drawable.clean_icon_edit), mBwPriceM);
                     Double currentNum = Double.valueOf(updateTv);
-                    mPriceM.setText(TextUtils.doubleToEight(currentNum * dataBean.getRatio()));
+                    mPriceM.setText(TextUtils.INSTANCE.doubleToEight(currentNum * dataBean.getRatio()));
                     if (currentNum * dataBean.getRatio() > purchaseBean.getData().getBalance()) {
                         mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "不足！");
                         mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
@@ -122,7 +122,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else {
                         if (purchaseBean != null) {
-                            mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToEight(purchaseBean.getData().getBalance()));
+                            mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.INSTANCE.doubleToEight(purchaseBean.getData().getBalance()));
                             mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.trand_gray));
                             mSubmitM.setEnabled(true);
                             mSubmitM.setBackgroundResource(R.drawable.bg_login_submit);
@@ -134,7 +134,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         mSubmitM.setEnabled(false);
                         mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else if (currentNum < minPurchase) {
-                        mNumHint.setText("最小预约数量：" + TextUtils.doubleToInt(minPurchase));
+                        mNumHint.setText("最小预约数量：" + TextUtils.INSTANCE.doubleToInt(minPurchase));
                         mNumHint.setVisibility(View.VISIBLE);
                         mSubmitM.setEnabled(false);
                         mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
@@ -147,7 +147,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                     }
                 } else {
                     ViewDrawUtils.clearDraw(mBwPriceM);
-                    mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.doubleToEight(purchaseBean.getData().getBalance()));
+                    mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.INSTANCE.doubleToEight(purchaseBean.getData().getBalance()));
                     mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.trand_gray));
                     mNumHint.setVisibility(View.INVISIBLE);
                     mPriceM.setText("0.0000");

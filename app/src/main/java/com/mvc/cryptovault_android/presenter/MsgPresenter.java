@@ -26,7 +26,7 @@ public class MsgPresenter extends IMsgContract.MsgPresenter {
 
     @Override
     protected MsgModel getModel() {
-        return MsgModel.getInstance();
+        return MsgModel.Companion.getInstance();
     }
 
     @Override

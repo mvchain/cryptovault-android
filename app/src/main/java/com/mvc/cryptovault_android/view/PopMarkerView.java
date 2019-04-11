@@ -39,7 +39,7 @@ public class PopMarkerView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         mTimeMarker.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(Long.valueOf(new BigDecimal(e.getX()).toString()))));
-        mValueMarker.setText(TextUtils.doubleToEight(e.getY()) + " " + recordingType);
+        mValueMarker.setText(TextUtils.INSTANCE.doubleToEight(e.getY()) + " " + recordingType);
     }
 
     @Override

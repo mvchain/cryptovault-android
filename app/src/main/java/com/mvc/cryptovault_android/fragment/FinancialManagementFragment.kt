@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.mvc.cryptovault_android.R
@@ -79,6 +80,7 @@ class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.Financial
         rootView.financial_recyclerview.adapter = mFinaAdapter
         rootView.refresh.post { rootView.refresh.isRefreshing = true }
         rootView.refresh.setOnRefreshListener { refresh() }
+        rootView.financial_layout.attachTo(rootView.financial_recyclerview)
         mFinaAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.financial_layout -> {

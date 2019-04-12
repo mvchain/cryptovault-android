@@ -18,24 +18,16 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
+import android.widget.ViewFlipper
 
 import com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.mvc.cryptovault_android.R
-import com.mvc.cryptovault_android.activity.BlockchainBrowserActivity
-import com.mvc.cryptovault_android.activity.HistoryActivity
-import com.mvc.cryptovault_android.activity.IncreaseCurrencyActivity
-import com.mvc.cryptovault_android.activity.MsgActivity
 import com.mvc.cryptovault_android.adapter.rvAdapter.WalletAssetsAdapter
 import com.mvc.cryptovault_android.base.BaseMVPFragment
 import com.mvc.cryptovault_android.base.BasePresenter
-import com.mvc.cryptovault_android.bean.ExchangeRateBean
-import com.mvc.cryptovault_android.bean.AllAssetBean
-import com.mvc.cryptovault_android.bean.AssetListBean
-import com.mvc.cryptovault_android.bean.CurrencyBean
-import com.mvc.cryptovault_android.bean.MsgBean
 import com.mvc.cryptovault_android.contract.IWalletContract
 import com.mvc.cryptovault_android.event.TrandFragmentEvent
 import com.mvc.cryptovault_android.event.WalletAssetsListEvent
@@ -51,9 +43,11 @@ import com.mvc.cryptovault_android.view.PopViewHelper
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-import java.util.ArrayList
 
 import cn.jpush.android.api.JPushInterface
+import com.blankj.utilcode.util.LogUtils
+import com.mvc.cryptovault_android.activity.*
+import com.mvc.cryptovault_android.bean.*
 
 import com.mvc.cryptovault_android.common.Constant.SP.ALLASSETS
 import com.mvc.cryptovault_android.common.Constant.SP.ASSETS_LIST
@@ -63,8 +57,10 @@ import com.mvc.cryptovault_android.common.Constant.SP.MSG_TIME
 import com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST
 import com.mvc.cryptovault_android.common.Constant.SP.READ_MSG
 import com.mvc.cryptovault_android.common.Constant.SP.SET_RATE
+import kotlin.collections.ArrayList
 
 class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWalletContract.IWalletView, View.OnClickListener, IPopViewListener {
+
     private lateinit var mHintAssets: ImageView
     private lateinit var mBrowser: ImageView
     private lateinit var mNullAssets: ImageView
@@ -72,6 +68,7 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
     private lateinit var mSignInView: ImageView
     private lateinit var mTypeAssets: TextView
     private lateinit var mPriceAssets: TextView
+    private var mFlipper: ViewFlipper? = null
     private lateinit var mAssetsLayout: RecyclerViewHeader
     private lateinit var mRvAssets: RecyclerView
     private lateinit var assetsAdapter: WalletAssetsAdapter
@@ -93,12 +90,15 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
         mData = ArrayList()
         mExchange = ArrayList()
         mMsgBean = ArrayList()
+        var note = LayoutInflater.from(activity).inflate(R.layout.layout_wellet_announcement, null)
+        note.findViewById<TextView>(R.id.note_tv).text = "暂无通知"
         mHintAssets = rootView.findViewById(R.id.assets_hint)
         mBrowser = rootView.findViewById(R.id.assets_browser)
         mNullAssets = rootView.findViewById(R.id.assets_null)
         mAddAssets = rootView.findViewById(R.id.assets_add)
         mTypeAssets = rootView.findViewById(R.id.assets_type)
         mPriceAssets = rootView.findViewById(R.id.assets_price)
+        mFlipper = rootView.findViewById(R.id.flipper)
         mRvAssets = rootView.findViewById(R.id.assets_rv)
         mAssetsLayout = rootView.findViewById(R.id.assets_layout)
         mSwipAsstes = rootView.findViewById(R.id.asstes_swip)
@@ -112,6 +112,7 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
         mSignInView.setOnClickListener(this)
         mBrowser.setOnClickListener(this)
         createCarryOut = true
+        mFlipper!!.addView(note)
     }
 
     override fun getLayoutId(): Int {
@@ -156,6 +157,9 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
+        if (!isVisibleToUser && mFlipper != null) {
+            mFlipper!!.stopFlipping()
+        }
         if (isVisibleToUser && createCarryOut) {
             onRefresh()
         }
@@ -201,6 +205,7 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
         mRvAssets.adapter = assetsAdapter
         mPresenter.getAssetList()
         mPresenter.getWhetherToSignIn()
+        mPresenter.getBanner()
         val msg_time = SPUtils.getInstance().getLong(MSG_TIME)
         mPresenter.getMsg(if (msg_time == -1L) System.currentTimeMillis() else msg_time, 0, 1)
         val defalutBean = JsonHelper.stringToJson(defalutRate, ExchangeRateBean.DataBean::class.java) as ExchangeRateBean.DataBean
@@ -222,6 +227,20 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
             mPopView = PopViewHelper.instance.create(activity, R.layout.layout_rate_pop, content, this)
         }
     }
+
+    override fun bannerList(bannerBean: ArrayList<BannerBean.DataBean>) {
+        mFlipper!!.removeAllViews()
+        for (dataBean in bannerBean) {
+            var note = LayoutInflater.from(activity).inflate(R.layout.layout_wellet_announcement, null)
+            note.findViewById<TextView>(R.id.note_tv).text = dataBean.title
+            note.setOnClickListener {
+                startActivity(Intent(activity, BannerActivity::class.java).putExtra("id", dataBean.id))
+            }
+            mFlipper!!.addView(note)
+        }
+        mFlipper!!.startFlipping()
+    }
+
 
     override fun refreshAssetList(asset: AssetListBean) {
         SPUtils.getInstance().put(ASSETS_LIST, JsonHelper.jsonToString(asset))
@@ -333,9 +352,9 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
      * 刷新接口
      */
     fun onRefresh() {
-        //        mData.clear();
         mPresenter.getAllAsset()
         mPresenter.getAssetList()
+        mPresenter.getBanner()
         mPresenter.getWhetherToSignIn()
         val msg_time = SPUtils.getInstance().getLong(MSG_TIME)
         mPresenter.getMsg(if (msg_time == -1L) System.currentTimeMillis() else msg_time, 0, 1)
@@ -351,9 +370,9 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
      */
     @Subscribe
     fun msgRefresh(msgEvent: WalletMsgEvent) {
-        //        mData.clear();
         mPresenter.getAllAsset()
         mPresenter.getAssetList()
+        mPresenter.getBanner()
         mPresenter.getWhetherToSignIn()
         val msg_time = SPUtils.getInstance().getLong(MSG_TIME)
         mPresenter.getMsg(if (msg_time == -1L) System.currentTimeMillis() else msg_time, 0, 1)

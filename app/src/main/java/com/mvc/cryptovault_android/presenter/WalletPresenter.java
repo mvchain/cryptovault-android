@@ -96,4 +96,19 @@ public class WalletPresenter extends IWalletContract.WalletPresenter {
     public void onStart() {
 
     }
+
+    @Override
+    public void getBanner() {
+        rxUtils.register(mIModel.getBanner()
+                .subscribe(banner -> {
+                            if (banner.getCode() == 200) {
+                                if (banner.getData().size() > 0) {
+                                    mIView.bannerList(banner.getData());
+                                }
+                            }
+                        }
+                        , throwable -> {
+                            LogUtils.e("WalletPresenter", throwable.getMessage());
+                        }));
+    }
 }

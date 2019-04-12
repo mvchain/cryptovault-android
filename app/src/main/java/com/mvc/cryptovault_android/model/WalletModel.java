@@ -6,12 +6,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.mvc.cryptovault_android.MyApplication;
 import com.mvc.cryptovault_android.api.ApiStore;
 import com.mvc.cryptovault_android.base.BaseModel;
-import com.mvc.cryptovault_android.bean.ExchangeRateBean;
-import com.mvc.cryptovault_android.bean.AllAssetBean;
-import com.mvc.cryptovault_android.bean.AssetListBean;
-import com.mvc.cryptovault_android.bean.CurrencyBean;
-import com.mvc.cryptovault_android.bean.MsgBean;
-import com.mvc.cryptovault_android.bean.UpdateBean;
+import com.mvc.cryptovault_android.bean.*;
 import com.mvc.cryptovault_android.contract.IWalletContract;
 import com.mvc.cryptovault_android.utils.JsonHelper;
 import com.mvc.cryptovault_android.utils.RetrofitUtils;
@@ -20,6 +15,7 @@ import com.mvc.cryptovault_android.utils.RxHelper;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
+import org.jetbrains.annotations.NotNull;
 
 import static com.mvc.cryptovault_android.common.Constant.SP.CURRENCY_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_RATE;
@@ -91,5 +87,11 @@ public class WalletModel extends BaseModel implements IWalletContract.IWalletMod
     @Override
     public Observable<UpdateBean> putSignIn() {
         return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).putSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+    }
+
+    @NotNull
+    @Override
+    public Observable<BannerBean> getBanner() {
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getBanner(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(bannerBean -> bannerBean);
     }
 }

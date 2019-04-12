@@ -284,4 +284,9 @@ public class HttpUrl {
      */
     public static final String USER_SALT = URL_PATH + "user/salt";
 
+
+    /**
+     * 获取Banner
+     */
+    public static final String BANNER = URL_PATH + "view/banner";
 }

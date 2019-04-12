@@ -285,18 +285,16 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }
-                val type = if (this.type == 1) data!!.tokenName else unitPrice
-                val numType = if (this.type == 1) data!!.pair.substring(0, data!!.pair.indexOf("/")) else data!!.pair.substring(data!!.pair.indexOf("/") + 1, data!!.pair.length)
                 val payNum = currentAllPrice.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-                val buyPrice = if (this.type == 1) currentNum else payNum
+                val buyPrice = if (this.type == 2) currentNum else payNum
                 mPopView = createPopWindow(this
                         , R.layout.layout_paycode
-                        , if (this.type == 1) "确认购买" else "确认发布"
+                        , if (this.type == 2) "确认购买" else "确认发布"
                         , "总计需支付"
-                        , (if (this.type == 1) payNum else currentNum) + " " + type
-                        , if (this.type == 1) "购买数量" else "总价"
-                        , "$buyPrice MVC"
-                        , if (this.type == 1) "购买单价" else "出售单价"
+                        , "${(if (this.type == 2) payNum else currentNum)} ${if (this.type == 2) data!!.tokenName else unitPrice}"
+                        , if (this.type == 2) "购买数量" else "总价"
+                        , "$buyPrice ${if (this.type == 2) unitPrice else data!!.tokenName}"
+                        , if (this.type == 2) "购买单价" else "出售单价"
                         , "${if (price_edit.text.toString() == "") TextUtils.doubleToEight(currentPricePurh) else price_edit.text} ${data!!.tokenName}"
                         , object : IPayWindowListener {
                     override fun onclick(view: View) {

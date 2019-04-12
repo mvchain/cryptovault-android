@@ -370,4 +370,7 @@ interface ApiStore {
 
     @POST(HttpUrl.USER_SALT)
     fun getUserSalt(@Header("Authorization") token: String, @Query("email") email: String): Observable<HttpTokenBean>
+
+    @GET(HttpUrl.BANNER)
+    fun getBanner(@Header("Authorization") token: String): Observable<BannerBean>
 }

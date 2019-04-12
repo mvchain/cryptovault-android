@@ -122,6 +122,7 @@
 		<activity android:name=".activity.GoogleCodeActivity"/>
 		<activity android:name=".activity.GoogleVerificationActivity"/>
 		<activity android:name=".activity.LoginVerificationGoogleActivity"/>
+		<activity android:name=".activity.BannerActivity"/>
 
 
 		<receiver

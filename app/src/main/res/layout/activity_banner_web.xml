@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+	<View
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:background="@color/white"/>
+
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:layout_below="@id/status_bar"
+			android:background="@color/white">
+
+		<TextView
+				android:id="@+id/banner_title"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:text="@string/about_title"
+				android:textColor="@color/login_content"
+				android:textSize="17sp"/>
+
+		<ImageView
+				android:id="@+id/banner_back"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="6dp"
+				android:scaleType="center"
+				android:src="@drawable/back_icon_black"/>
+	</RelativeLayout>
+	<FrameLayout
+			android:id="@+id/web_layout"
+			android:layout_width="match_parent"
+	             android:layout_height="match_parent"/>
+</LinearLayout>

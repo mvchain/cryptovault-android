@@ -154,49 +154,13 @@
 						android:layout_marginTop="5dp"
 						android:layout_height="3dp"/>
 			</RelativeLayout>
-			<LinearLayout android:layout_width="match_parent"
-			              android:layout_marginBottom="26dp"
-			              android:layout_marginTop="11dp"
-			              android:layout_marginLeft="16dp"
-			              android:layout_marginRight="16dp"
-			              android:paddingLeft="15dp"
-			              android:paddingRight="15dp"
-			              android:paddingTop="7dp"
-			              android:gravity="center_horizontal"
-			              android:paddingBottom="7dp"
-			              android:orientation="vertical"
-			              android:background="@drawable/shape_round_white_5dp"
-			              android:layout_height="wrap_content">
-				<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="20dp"
-						android:textColor="#666666"
-						android:text="产品介绍"/>
-
-
-				<TextView
-						android:id="@+id/content"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="7dp"
-						android:textColor="@color/trand_gray"
-						android:textSize="14sp"/>
-				<TextView
-						android:layout_width="wrap_content"
-						android:textColor="#666666"
-						android:layout_height="20dp"
-						android:layout_marginTop="10dp"
-						android:text="参与规则"/>
-
-
-				<TextView
-						android:id="@+id/rule"
-						android:layout_width="match_parent"
-						android:layout_marginTop="7dp"
-						android:layout_height="wrap_content"
-						android:textColor="@color/trand_gray"
-						android:textSize="14sp"/>
-			</LinearLayout>
+			<FrameLayout
+					android:id="@+id/webview_layout"
+					android:layout_marginTop="11dp"
+					android:layout_marginLeft="16dp"
+					android:layout_marginRight="16dp"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"></FrameLayout>
 		</LinearLayout>
 	</ScrollView>
 

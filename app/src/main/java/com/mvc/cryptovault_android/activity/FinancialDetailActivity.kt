@@ -3,9 +3,14 @@ package com.mvc.cryptovault_android.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.View
+import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ScrollView
+import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.LogUtils
 import com.gyf.barlibrary.ImmersionBar
 import com.mvc.cryptovault_android.R
@@ -23,6 +28,8 @@ import org.greenrobot.eventbus.Subscribe
 class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.FinancialDetailPresenter>(), IFinancialDetailContract.FinancialDetailfoView {
     private lateinit var detail: FinancialDetailBean.DataBean
     private lateinit var baseName: String
+    private lateinit var webView: WebView
+
     //    private var detailId = -1
     override fun startActivity() {
 
@@ -38,8 +45,22 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
         time_cycle.text = "${bean.times}天"
         starting.text = "${TextUtils.doubleToEight(bean.minValue)} ${bean.baseTokenName}"
-        content.text = bean.content
-        rule.text = bean.rule
+        webview_layout.addView(webView)
+        webView.loadUrl("${getString(R.string.web_url)}?type=${2}&id=${bean.id}")
+        LogUtils.e("${getString(R.string.web_url)}?type=${2}&id=${bean.id}")
+        webView.overScrollMode = WebView.OVER_SCROLL_NEVER
+        webView.webChromeClient = object : WebChromeClient() {
+
+        }
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView, url: String?) {
+                var height = view.contentHeight
+                var flp = webView.layoutParams
+                flp.height = ConvertUtils.dp2px(height.toFloat())
+                webView.layoutParams = flp
+                super.onPageFinished(view, url)
+            }
+        }
         detail = bean
         deposit.isEnabled = true
         deposit.setBackgroundResource(R.drawable.bg_login_submit)
@@ -67,6 +88,8 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
     override fun initMVPView() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         id = intent.getIntExtra("id", 0)
+        webView = WebView(this)
+        webView.settings.javaScriptEnabled = true
     }
 
     override fun initData() {
@@ -102,6 +125,14 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
 
     override fun onDestroy() {
         EventBus.getDefault().unregister(this)
+        webView.clearHistory()
+        (webView.parent as ViewGroup).removeView(webView)
+        webView.stopLoading()
+        webView.settings.domStorageEnabled = false
+        webView.settings.javaScriptEnabled = false
+        webView.clearView()
+        webView.removeAllViews()
+        webView.destroy()
         super.onDestroy()
     }
 }

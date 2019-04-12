@@ -53,4 +53,7 @@
     <!--<string name="base_browser_url">https://www.bzvp.net/</string>-->
     <string name="base_browser_url">http://47.110.234.233/</string>
 
+
+    <string name="web_url">http://47.110.234.233/wv/</string>
+
 </resources>

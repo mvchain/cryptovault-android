@@ -65,7 +65,6 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
 
     @Override
     protected void initView() {
-        LogUtils.e("initView");
         bean = new ArrayList<>();
         mRvChild = rootView.findViewById(R.id.child_rv);
         mNullData = rootView.findViewById(R.id.data_null);

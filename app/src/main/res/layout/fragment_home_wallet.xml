@@ -122,7 +122,15 @@
                                 android:textColor="@color/white"
                                 android:textSize="36sp"
                                 android:textStyle="bold" />
-
+                            <ImageView
+                                    android:id="@+id/assets_sign_in"
+                                    android:layout_width="77dp"
+                                    android:layout_height="36dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginTop="7dp"
+                                    android:layout_marginRight="-80dp"
+                                    android:src="@drawable/home_check_in_img"
+                                    android:visibility="invisible" />
                         </RelativeLayout>
                     </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 

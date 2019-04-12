@@ -12,6 +12,7 @@ data class FinancialListBean(
         var data: List<DataBean>
 ) {
     data class DataBean(
+
             /**
              * baseTokenName : string
              * id : 0
@@ -19,10 +20,11 @@ data class FinancialListBean(
              * incomeMin : 0
              * minValue : 0
              * name : string
+             * needSign : 0
+             * sold :double
              * stopAt : 0
              * times : 0
              */
-
             var baseTokenName: String,
             var id: Int,
             var incomeMax: Double,
@@ -30,6 +32,7 @@ data class FinancialListBean(
             var limitValue: Double,
             var minValue: Double,
             var name: String,
+            var needSign: Int,
             var sold: Double,
             var stopAt: Long,
             var times: Long

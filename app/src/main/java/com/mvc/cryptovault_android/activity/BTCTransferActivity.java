@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.View;
@@ -17,10 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.EncryptUtils;
-import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.*;
 import com.gyf.barlibrary.ImmersionBar;
 import com.mvc.cryptovault_android.R;
 import com.mvc.cryptovault_android.base.BaseMVPActivity;
@@ -135,11 +133,6 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 }
             }
         });
-        mTransAddressBtc.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                mPresenter.getTransFee(mTransAddressBtc.getText().toString().trim());
-            }
-        });
         mTransAddressBtc.addTextChangedListener(new EditTextChange() {
             @TargetApi(Build.VERSION_CODES.M)
             @SuppressLint("SetTextI18n")
@@ -151,6 +144,11 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 } else {
                     ViewDrawUtils.clearDraw(mTransAddressBtc);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPresenter.getTransFee(mTransAddressBtc.getText().toString().trim());
             }
         });
         mBackM.setOnClickListener(this);
@@ -212,13 +210,13 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                     return;
                 }
                 if (tokenId == 4 || tokenId == 2) {
-                    if (!RxgularUtils.isBTC(transAddress.trim())) {
+                    if (!RxgularUtils.isBTC(transAddress.trim()) || !RxgularUtils.isEmail(transAddress.trim())) {
                         dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
                         dialogHelper.dismissDelayed(null, 2000);
                         return;
                     }
                 } else {
-                    if (!RxgularUtils.isETH(transAddress.trim())) {
+                    if (!RxgularUtils.isETH(transAddress.trim()) || !RxgularUtils.isEmail(transAddress.trim())) {
                         dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
                         dialogHelper.dismissDelayed(null, 2000);
                         return;
@@ -289,6 +287,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                     }
                     String hash = data.getStringExtra(CodeUtils.RESULT_STRING);
                     mTransAddressBtc.setText(hash.trim());
+                    mTransAddressBtc.setSelection(mTransAddressBtc.length());
                     break;
             }
         }

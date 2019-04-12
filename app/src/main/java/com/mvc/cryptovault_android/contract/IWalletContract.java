@@ -16,6 +16,10 @@ public interface IWalletContract {
 
         public abstract void getAssetList();
 
+        public abstract void getWhetherToSignIn();
+
+        public abstract void putSignIn();
+
         public abstract void getMsg(long timestamp, int type, int pagesize);
     }
 
@@ -35,6 +39,20 @@ public interface IWalletContract {
         Observable<AssetListBean> getAssetList();
 
         /**
+         * 获取用户是否签到
+         *
+         * @return
+         */
+        Observable<UpdateBean> getWhetherToSignIn();
+
+        /**
+         * 发起签到请求
+         *
+         * @return
+         */
+        Observable<UpdateBean> putSignIn();
+
+        /**
          * 请求数据
          *
          * @return
@@ -50,6 +68,10 @@ public interface IWalletContract {
         void refreshAllAsset(AllAssetBean allAssetBean);
 
         void refreshMsg(MsgBean msgBean);
+
+        void showSignin(boolean isSignin);
+
+        void signRequest(boolean isSignin);
 
         void showNullAsset();
 

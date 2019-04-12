@@ -65,6 +65,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
 
     @Override
     protected void initView() {
+        LogUtils.e("initView");
         bean = new ArrayList<>();
         mRvChild = rootView.findViewById(R.id.child_rv);
         mNullData = rootView.findViewById(R.id.data_null);
@@ -136,7 +137,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
     private void initArgument() {
         Bundle arguments = getArguments();
         transType = arguments.getInt("transType");
-        transionType = arguments.getInt("transionType",2);
+        transionType = arguments.getInt("transionType", 2);
         pairId = arguments.getInt("pairId");
     }
 

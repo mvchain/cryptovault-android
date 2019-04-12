@@ -7,7 +7,7 @@ import com.mvc.cryptovault_android.model.WalletModel;
 
 public class WalletPresenter extends IWalletContract.WalletPresenter {
 
-    public static BasePresenter newIntance() {
+    public static BasePresenter newInstance() {
         return new WalletPresenter();
     }
 
@@ -27,6 +27,36 @@ public class WalletPresenter extends IWalletContract.WalletPresenter {
                             mIView.serverError();
                             LogUtils.e("WalletPresenter", throwable.getMessage());
                         }));
+    }
+
+    @Override
+    public void getWhetherToSignIn() {
+        rxUtils.register(mIModel.getWhetherToSignIn().subscribe(
+                updateBean -> {
+                    if (updateBean.getCode() == 200) {
+                        mIView.showSignin(updateBean.isData());
+                    }
+                }
+                ,
+                throwable -> {
+                    mIView.showSignin(true);
+                }
+        ));
+    }
+
+    @Override
+    public void putSignIn() {
+        rxUtils.register(mIModel.putSignIn().subscribe(
+                updateBean -> {
+                    if (updateBean.getCode() == 200) {
+                        mIView.signRequest(updateBean.isData());
+                    }
+                }
+                ,
+                throwable -> {
+                    mIView.signRequest(false);
+                }
+        ));
     }
 
     @Override

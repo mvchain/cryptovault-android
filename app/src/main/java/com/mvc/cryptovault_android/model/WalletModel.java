@@ -27,8 +27,7 @@ import static com.mvc.cryptovault_android.common.Constant.SP.DEFAULT_SYMBOL;
 import static com.mvc.cryptovault_android.common.Constant.SP.RATE_LIST;
 import static com.mvc.cryptovault_android.common.Constant.SP.SET_RATE;
 
-public class WalletModel extends BaseModel implements IWalletContract.
-        IWalletModel {
+public class WalletModel extends BaseModel implements IWalletContract.IWalletModel {
     @Nullable
     public static WalletModel getInstance() {
         return new WalletModel();
@@ -84,4 +83,13 @@ public class WalletModel extends BaseModel implements IWalletContract.
         return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getAssetAll(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(allAssetBean -> allAssetBean);
     }
 
+    @Override
+    public Observable<UpdateBean> getWhetherToSignIn() {
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getWhetherToSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+    }
+
+    @Override
+    public Observable<UpdateBean> putSignIn() {
+        return RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).putSignIn(MyApplication.getTOKEN()).compose(RxHelper.rxSchedulerHelper()).map(updateBean -> updateBean);
+    }
 }

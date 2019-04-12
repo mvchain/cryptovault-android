@@ -68,7 +68,6 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         menuList.add("出售MVC挂单")
         menuList.add("交易记录")
         createCarryOut = true
-        recorAdapter = TrandRecorAdapter(fragmentManager, mFragment)
         mMenu = rootView.findViewById(R.id.menu)
         mMask = rootView.findViewById(R.id.mask)
         mSelect = rootView.findViewById(R.id.select_mvc)
@@ -80,7 +79,6 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         mRecordingOutRadio = rootView.findViewById(R.id.recording_out_radio)
         mRecordingOutRadio.setOnClickListener { mRecordingVp.currentItem = 0 }
         mRecordingInRadio.setOnClickListener { mRecordingVp.currentItem = 1 }
-        mRecordingVp.adapter = recorAdapter
         mSelect.setOnClickListener {
             if (mMenuPop.isShowing) {
                 mMenuPop.dismiss()
@@ -122,7 +120,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
     }
 
     private fun loadFragment(position: Int) {
-        mFragment.clear()
+        mFragment = ArrayList()
         val purhFragment = RecordingFragment()
         val purhBundle = Bundle()
         purhBundle.putInt("transType", 2)
@@ -158,7 +156,8 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                 }
             })
         }
-        recorAdapter.notifyDataSetChanged()
+        recorAdapter = TrandRecorAdapter(fragmentManager, mFragment)
+        mRecordingVp.adapter = recorAdapter
     }
 
     override fun vrtFailed(msg: String) {

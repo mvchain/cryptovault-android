@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.mvc.cryptovault_android">
+          package="com.mvc.ttpay_android">
 
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 	<uses-permission android:name="android.permission.INTERNET"/>
@@ -40,7 +40,7 @@
 	<uses-permission android:name="android.permission.GET_TASKS"/>
 
 	<application
-			android:name=".MyApplication"
+			android:name="com.mvc.ttpay_android.MyApplication"
 			android:configChanges="locale"
 			android:icon="@mipmap/vp_logo"
 			android:label="@string/app_name"
@@ -51,82 +51,82 @@
 			android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 			tools:ignore="GoogleAppIndexingWarning"
 			tools:targetApi="n">
-		<activity android:name=".activity.StartActivity">
+		<activity android:name="com.mvc.ttpay_android.activity.StartActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
-		<activity android:name=".activity.LoginActivity"/>
-		<activity android:name=".activity.RegisterInvitationActivity"/>
-		<activity android:name=".MainActivity"/>
-		<activity android:name=".activity.DetailActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.LoginActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.RegisterInvitationActivity"/>
+		<activity android:name="com.mvc.ttpay_android.MainActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.DetailActivity"/>
 		<activity
-				android:name=".activity.MsgActivity"
+				android:name="com.mvc.ttpay_android.activity.MsgActivity"
 				android:launchMode="singleTop"/>
-		<activity android:name=".activity.HistoryActivity"/>
-		<activity android:name=".activity.AboutActivity"/>
-		<activity android:name=".activity.IncreaseCurrencyActivity"/>
-		<activity android:name=".activity.QCodeActivity"/>
-		<activity android:name=".activity.TogeHistroyActivity"/>
-		<activity android:name=".activity.MineReceiptQRCodeActivity"/>
-		<activity android:name=".activity.BTCTransferActivity"/>
-		<activity android:name=".activity.MineMnemonicsActivity"/>
-		<activity android:name=".activity.VPBalanceWithdrawalActivity"/>
-		<activity android:name=".activity.CrowdfundingAppointmentActivity"/>
-		<activity android:name=".fragment.TrandRecordingFragment"/>
+		<activity android:name="com.mvc.ttpay_android.activity.HistoryActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.AboutActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.IncreaseCurrencyActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.QCodeActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.TogeHistroyActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.MineReceiptQRCodeActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.BTCTransferActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.MineMnemonicsActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.VPBalanceWithdrawalActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.CrowdfundingAppointmentActivity"/>
+		<activity android:name="com.mvc.ttpay_android.fragment.TrandRecordingFragment"/>
 		<activity
-				android:name=".activity.TrandPurhAndSellActivity"
+				android:name="com.mvc.ttpay_android.activity.TrandPurhAndSellActivity"
 				android:windowSoftInputMode="adjustPan"/>
 		<activity
-				android:name=".activity.TrandPurhAndSellItemActivity"
+				android:name="com.mvc.ttpay_android.activity.TrandPurhAndSellItemActivity"
 				android:windowSoftInputMode="adjustPan"/>
-		<activity android:name=".activity.TrandOrderActivity"/>
-		<activity android:name=".activity.LanguageActivity"/>
-		<activity android:name=".activity.FilterOrderActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.TrandOrderActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.LanguageActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.FilterOrderActivity"/>
 		<activity
-				android:name=".activity.SelectLoginActivity"
+				android:name="com.mvc.ttpay_android.activity.SelectLoginActivity"
 				android:launchMode="singleTask">
 			<intent-filter>
 				<action android:name="${JPUSH_PKGNAME}.android.login"/>
 				<category android:name="android.intent.category.DEFAULT"/>
 			</intent-filter>
 		</activity>
-		<activity android:name=".activity.RegisterSetPwdActivity"/>
-		<activity android:name=".activity.VerificationMnemonicActivity"/>
-		<activity android:name=".activity.ForgetPasswordActivity"/>
-		<activity android:name=".activity.SetLoginPasswordActivity"/>
-		<activity android:name=".activity.VerificationInfoActivity"/>
-		<activity android:name=".activity.ResetPasswordActivity"/>
-		<activity android:name=".activity.ResetPasswordVerificationMnemonicsActivity"/>
-		<activity android:name=".activity.SelectResetPasswordActivity"/>
-		<activity android:name=".activity.SendEmailActivity"/>
-		<activity android:name=".activity.SetEmailActivity"/>
-		<activity android:name=".activity.InvatitionActivity"/>
-		<activity android:name=".activity.FinancialDetailActivity"/>
-		<activity android:name=".activity.FinancialDepositActivity"/>
-		<activity android:name=".activity.MyOptionActivity"/>
-		<activity android:name=".activity.OptionDetailActivity"/>
-		<activity android:name=".activity.PrivateKeyVerificationActivity"/>
-		<activity android:name=".activity.PublishListActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.RegisterSetPwdActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.VerificationMnemonicActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.ForgetPasswordActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.SetLoginPasswordActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.VerificationInfoActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.ResetPasswordActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.ResetPasswordVerificationMnemonicsActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.SelectResetPasswordActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.SendEmailActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.SetEmailActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.InvatitionActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.FinancialDetailActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.FinancialDepositActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.MyOptionActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.OptionDetailActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.PrivateKeyVerificationActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.PublishListActivity"/>
 
-		<activity android:name=".activity.PublishDetailActivity"/>
-		<activity android:name=".activity.BlockchainBrowserActivity"/>
-		<activity android:name=".activity.BlockchainListActivity"/>
-		<activity android:name=".activity.PublicKeyActivity"/>
-		<activity android:name=".activity.BlockchainDetailActivity"/>
-		<activity android:name=".activity.BlockAssetsActivity"/>
-		<activity android:name=".activity.BlockAssetsDetailActivity"/>
-		<activity android:name=".activity.BlockTransferDetailActivity"/>
-		<activity android:name=".activity.TurnGoogleActivity"/>
-		<activity android:name=".activity.GoogleCodeActivity"/>
-		<activity android:name=".activity.GoogleVerificationActivity"/>
-		<activity android:name=".activity.LoginVerificationGoogleActivity"/>
-		<activity android:name=".activity.BannerActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.PublishDetailActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.BlockchainBrowserActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.BlockchainListActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.PublicKeyActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.BlockchainDetailActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.BlockAssetsActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.BlockAssetsDetailActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.BlockTransferDetailActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.TurnGoogleActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.GoogleCodeActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.GoogleVerificationActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.LoginVerificationGoogleActivity"/>
+		<activity android:name="com.mvc.ttpay_android.activity.BannerActivity"/>
 
 
 		<receiver
-				android:name=".receiver.PushReceiver"
+				android:name="com.mvc.ttpay_android.receiver.PushReceiver"
 				android:enabled="true"
 				android:exported="false">
 			<intent-filter>
@@ -143,7 +143,7 @@
 				<category android:name="${JPUSH_PKGNAME}"/>
 			</intent-filter>
 		</receiver>
-		<receiver android:name=".receiver.MyJPushMessageReceiver">
+		<receiver android:name="com.mvc.ttpay_android.receiver.MyJPushMessageReceiver">
 			<intent-filter>
 				<action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE"/>
 				<category android:name="${JPUSH_PKGNAME}"/>

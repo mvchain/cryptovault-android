@@ -134,7 +134,7 @@
             android:textColor="@color/trand_gray"
             android:textSize="13sp" />
 
-        <com.mvc.cryptovault_android.view.ClearEditText
+        <com.mvc.ttpay_android.view.ClearEditText
             android:id="@+id/m_bw_price"
             android:layout_width="match_parent"
             android:layout_height="40dp"

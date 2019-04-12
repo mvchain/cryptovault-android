@@ -44,7 +44,9 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
         time_cycle.text = "${bean.times}天"
         starting.text = "${TextUtils.doubleToEight(bean.minValue)} ${bean.baseTokenName}"
-        webview_layout.removeAllViews()
+        if((webView.parent)!= null){
+            (webView.parent as ViewGroup).removeView(webView)
+        }
         webview_layout.addView(webView)
         webView.loadUrl("${getString(R.string.web_url)}?type=${2}&id=${bean.id}")
         webView.overScrollMode = WebView.OVER_SCROLL_NEVER
@@ -55,7 +57,7 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
             override fun onPageFinished(view: WebView, url: String?) {
                 var height = view.contentHeight
                 var flp = webView.layoutParams
-                flp.height = ConvertUtils.dp2px(height.toFloat())
+                flp.height = ConvertUtils.dp2px(height.toFloat()*2)
                 webView.layoutParams = flp
                 super.onPageFinished(view, url)
             }

@@ -61,7 +61,6 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
     private var mHistroyTrand: ImageView? = null
     private var mHintPrice: TextView? = null
     private var mPrice: TextView? = null
-    private var mHintVrt: TextView? = null
     private var mPriceVrt: TextView? = null
     private var mNumPrice: TextView? = null
     private var mEditPurh: EditText? = null
@@ -101,17 +100,16 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
         pairId = intent.getIntExtra("id", 0)
         unitPrice = intent.getStringExtra("unit_price")
         allPriceUnit = intent.getStringExtra("allprice_unit")
-        mEditPurh!!.hint = "输入" + (if (type == 2) "出售" else "购买") + "数量"
-        mHintBusiness!!.text = if (type == 2) "买家：" else "卖家："
-        mHintRemaining!!.text = "剩余" + (if (type == 2) "购买" else "出售") + "量"
-        mPriceHintSale!!.text = (if (type == 2) "购买" else "出售") + "价格"
-        mVRTHint!!.text = "可用" + SPUtils.getInstance().getString(RECORDING_TYPE)
+        mEditPurh!!.hint = "输入" + (if (type == 1) "出售" else "购买") + "数量"
+        mHintBusiness!!.text = if (type == 1) "买家：" else "卖家："
+        mHintRemaining!!.text = "剩余" + (if (type == 1) "购买" else "出售") + "量"
+        mPriceHintSale!!.text = (if (type == 1) "购买" else "出售") + "价格"
         mNameBusiness!!.text = recorBean!!.nickname
         price = recorBean!!.price.toString()
         mNumRemaining!!.text = recorBean!!.limitValue.toString() + " MVC"
         mPriceNumSale!!.text = TextUtils.doubleToEight(recorBean!!.price.toDouble()) + " " + allPriceUnit
         this.currentPrice = recorBean!!.price.toDouble()
-        mNumPrice!!.text = (if (type == 2) "出售" else "购买") + "量"
+        mNumPrice!!.text = (if (type == 1) "出售" else "购买") + "量"
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getTransactionInfo(token, data!!.pairId, type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ trandPurhBean ->
@@ -142,7 +140,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
                                             mNumErrorHint!!.text = mVRTHint!!.text.toString() + "不足"
-                                        } else if (type == 2 && num > this@TrandPurhAndSellItemActivity.tokenBalance) {
+                                        } else if (type == 1 && num > this@TrandPurhAndSellItemActivity.tokenBalance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
@@ -175,7 +173,6 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
         mHistroyTrand = findViewById(R.id.trand_histroy)
         mHintPrice = findViewById(R.id.price_hint)
         mPrice = findViewById(R.id.price)
-        mHintVrt = findViewById(R.id.vrt_hint)
         mPriceVrt = findViewById(R.id.vrt_price)
         mHintBusiness = findViewById(R.id.business_hint)
         mNameBusiness = findViewById(R.id.business_name)
@@ -215,7 +212,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                 val currentNum = mEditPurh!!.text.toString()
                 val currentAllPrice = mAllPricePurh!!.text.toString()
                 if (currentNum == "" || java.lang.Double.valueOf(currentNum) <= 0) {
-                    dialogHelper!!.create(this, R.drawable.miss_icon, if (type == 2) "出售数量不正确" else "购买数量不正确").show()
+                    dialogHelper!!.create(this, R.drawable.miss_icon, if (type == 1) "出售数量不正确" else "购买数量不正确").show()
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }
@@ -224,16 +221,21 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }
-                if (type == 2 && java.lang.Double.valueOf(currentNum) > tokenBalance) {
+                if (type == 1 && java.lang.Double.valueOf(currentNum) > tokenBalance) {
                     dialogHelper!!.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToEight(tokenBalance)).show()
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }
-                val type = if (this.type == 2) allPriceUnit else data!!.pair.substring(data!!.pair.indexOf("/") + 1, data!!.pair.length)
-                val numType = if (this.type == 2) data!!.pair.substring(data!!.pair.indexOf("/") + 1, data!!.pair.length) else data!!.pair.substring(0, data!!.pair.indexOf("/"))
+                val type = if (this.type == 1) allPriceUnit else data!!.pair.substring(data!!.pair.indexOf("/") + 1, data!!.pair.length)
+                val numType = if (this.type == 1) data!!.pair.substring(data!!.pair.indexOf("/") + 1, data!!.pair.length) else data!!.pair.substring(0, data!!.pair.indexOf("/"))
                 val payNum = currentAllPrice.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-                val buyPrice = if (this.type == 2) TextUtils.doubleToEight(java.lang.Double.parseDouble(currentNum) * currentPrice) else currentNum
-                mPopView = createPopWindow(this, R.layout.layout_paycode, if (this.type == 2) "确认发布" else "确认购买", "总计需支付", (if (this.type == 2) currentNum else payNum) + " MVC", if (this.type == 2) "总价" else "购买数量", "$buyPrice $allPriceUnit", if (this.type == 2) "出售单价" else "购买单价", TextUtils.doubleToEight(currentPrice) + " " + allPriceUnit, object : IPayWindowListener {
+                val buyPrice = if (this.type == 1) TextUtils.doubleToEight(java.lang.Double.parseDouble(currentNum) * currentPrice) else currentNum
+                mPopView = createPopWindow(this
+                        , R.layout.layout_paycode, if (this.type == 1) "确定出售" else "确认购买"
+                        , "总计需支付", "${(if (this.type == 1) currentNum else payNum)} ${if (this.type == 1) "MVC" else data!!.tokenName}"
+                        , if (this.type == 1) "总价" else "购买数量", "$buyPrice ${if (this.type == 1) data!!.tokenName else "MVC"}"
+                        , if (this.type == 1) "出售单价" else "购买单价", TextUtils.doubleToEight(currentPrice) + " " + allPriceUnit
+                        , object : IPayWindowListener {
                     override fun onclick(view: View) {
                         when (view.id) {
                             R.id.pay_close -> {
@@ -279,7 +281,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                                 }
 
                                 val body = RequestBody.create(MediaType.parse("text/html"), obj.toString())
-                                if (this.type == 2) {
+                                if (this.type == 1) {
                                     releasePurh(body)
                                 } else {
                                     releaseSell(body)
@@ -304,7 +306,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
     private fun releasePurh(body: RequestBody) {
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).releaseOrder(token, body).compose(RxHelper.rxSchedulerHelper()).subscribe({ updateBean ->
             if (updateBean.code == 200) {
-                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.success_icon, (if (type == 2) "出售" else "购买") + "成功")
+                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.success_icon, (if (type == 1) "出售" else "购买") + "成功")
                 EventBus.getDefault().post(RecordingEvent())
                 dialogHelper!!.dismissDelayed(object : DialogHelper.IDialogDialog {
                     override fun callback() {
@@ -334,7 +336,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
     private fun releaseSell(body: RequestBody) {
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).releaseOrder(token, body).compose(RxHelper.rxSchedulerHelper()).subscribe({ updateBean ->
             if (updateBean.code == 200) {
-                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.success_icon, (if (type == 2) "出售" else "购买") + "成功")
+                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.success_icon, (if (type == 1) "出售" else "购买") + "成功")
                 EventBus.getDefault().post(RecordingEvent())
                 dialogHelper!!.dismissDelayed(object : DialogHelper.IDialogDialog {
                     override fun callback() {

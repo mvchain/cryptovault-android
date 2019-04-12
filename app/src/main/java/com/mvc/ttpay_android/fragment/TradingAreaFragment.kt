@@ -145,7 +145,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                     intent.putExtra("recorBean", recorBean)
                     intent.putExtra("type", transionType)
 //        unitPrice
-                    if (transionType == 2) {
+                    if (transionType == 1) {
                         intent.putExtra("unit_price", "出售MVC")
                     } else {
                         intent.putExtra("unit_price", "购买MVC")
@@ -178,7 +178,6 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                     0 -> {
                         intent.setClass(activity, TrandPurhAndSellActivity::class.java)
                         intent.putExtra("title", "购买MVC挂单")
-                        intent.putExtra("allprice_unit", data.tokenName)
                         intent.putExtra("unit_price", "MVC")
                         intent.putExtra("data", data)
                         intent.putExtra("type", 2)
@@ -187,7 +186,6 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                     1 -> {
                         intent.setClass(activity, TrandPurhAndSellActivity::class.java)
                         intent.putExtra("title", "出售MVC挂单")
-                        intent.putExtra("allprice_unit", data.tokenName)
                         intent.putExtra("unit_price", "MVC")
                         intent.putExtra("data", data)
                         intent.putExtra("type", 1)

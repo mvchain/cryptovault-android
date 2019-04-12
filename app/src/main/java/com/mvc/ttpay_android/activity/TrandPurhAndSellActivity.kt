@@ -53,12 +53,12 @@ import kotlinx.android.synthetic.main.activity_purh_sell.*
 
 class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
 
-    private var data: TrandChildBean.DataBean? = null
+    private lateinit var data: TrandChildBean.DataBean
     private var mTitleTrand: TextView? = null
     private var mBackTrand: ImageView? = null
     private var mHistroyTrand: ImageView? = null
     private var mToolbarAbout: RelativeLayout? = null
-    private var mHintPrice: TextView? = null
+    private lateinit var mHintPrice: TextView
     private var mPrice: TextView? = null
     private var mPriceVrt: TextView? = null
     private var mTitlePrice: TextView? = null
@@ -73,7 +73,6 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
     private val isNetWork: Boolean = false
     private var type: Int = 0
     private var unitPrice: String? = null
-    private var allPriceUnit: String? = null
     private var mPopView: PopupWindow? = null
     private var dialogHelper: DialogHelper? = null
     private var mPurhDialog: Dialog? = null
@@ -92,28 +91,26 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
         mTitleTrand!!.text = intent.getStringExtra("title")
         type = intent.getIntExtra("type", 0)
         unitPrice = intent.getStringExtra("unit_price")
-        allPriceUnit = intent.getStringExtra("allprice_unit")
-        mEditPurh.hint = "输入" + (if (type == 1) "购买" else "出售") + "数量"
-        mTitlePrice!!.text = (if (type == 1) "购买" else "出售") + "单价："
-        mVRTHint!!.text = "可用" + SPUtils.getInstance().getString(RECORDING_TYPE)
-        mNumPrice!!.text = (if (type == 1) "购买" else "出售") + "数量"
-        unit_price.text = data!!.tokenName
+        mEditPurh.hint = "输入" + (if (type == 2) "购买" else "出售") + "数量"
+        mTitlePrice!!.text = (if (type == 2) "购买" else "出售") + "单价："
+        mNumPrice!!.text = (if (type == 2) "购买" else "出售") + "数量"
+        mHintPrice.text = "可用${data.tokenName}"
+        unit_price.text = data.tokenName
         unit_num.text = "MVC"
-        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getTransactionInfo(token, data!!.pairId, type)
+        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getTransactionInfo(token, data.pairId, type)
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ trandPurhBean ->
                     if (trandPurhBean.code == 200) {
                         val data = trandPurhBean.data
                         mPrice!!.text = TextUtils.doubleToEight(data.tokenBalance)
                         mPriceVrt!!.text = TextUtils.doubleToEight(data.balance)
-                        mHintPrice!!.text = "可用" + this@TrandPurhAndSellActivity.data!!.tokenName
                         mPriceCurrent!!.text = "当前价格" + TextUtils.doubleToEight(data.price) + unitPrice
                         this.tokenBalance = data.tokenBalance
                         this.balance = data.balance
                         this.currentPricePurh = data.price
                         this.minLimit = data.minLimit
                         price_edit.hint = TextUtils.doubleToEight(data.price)
-                        mAllPricePurh!!.text = "0.00000000 " + allPriceUnit!!
+                        mAllPricePurh!!.text = "0.00000000 " + this.data!!.tokenName
                         mPrice!!.text = TextUtils.doubleToEight(data.tokenBalance)
                         mEditPurh.filters = arrayOf<InputFilter>(PointLengthFilter())
                         mEditPurh.addTextChangedListener(object : EditTextChange() {
@@ -122,7 +119,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                 if (numText != "") {
                                     val num = java.lang.Double.valueOf(numText)
                                     if (num <= 0) {
-                                        mAllPricePurh!!.text = "0.00000000 " + allPriceUnit!!
+                                        mAllPricePurh!!.text = "0.00000000 " + this@TrandPurhAndSellActivity.data.tokenName
                                         mSubmitPurh!!.isEnabled = false
                                         mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                         mNumErrorHint!!.visibility = View.INVISIBLE
@@ -136,13 +133,13 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                         } else {
                                             data.price * num!!
                                         }
-                                        mAllPricePurh!!.text = TextUtils.doubleToEight(allPrice) + " " + allPriceUnit
-                                        if (type == 1 && allPrice > this@TrandPurhAndSellActivity.balance) {
+                                        mAllPricePurh!!.text = TextUtils.doubleToEight(allPrice) + " " + this@TrandPurhAndSellActivity.data!!.tokenName
+                                        if (type == 2 && allPrice > this@TrandPurhAndSellActivity.balance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
                                             mNumErrorHint!!.text = mVRTHint!!.text.toString() + "不足"
-                                        } else if (type == 2 && num > this@TrandPurhAndSellActivity.tokenBalance) {
+                                        } else if (type == 1 && num > this@TrandPurhAndSellActivity.tokenBalance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
@@ -160,7 +157,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                     }
                                 } else {
                                     mNumErrorHint!!.visibility = View.INVISIBLE
-                                    mAllPricePurh!!.text = "0.00000000 " + allPriceUnit!!
+                                    mAllPricePurh!!.text = "0.00000000 " + this@TrandPurhAndSellActivity.data!!.tokenName!!
                                     mSubmitPurh!!.isEnabled = false
                                     mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                 }
@@ -174,7 +171,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                     val num = java.lang.Double.valueOf(numText)
                                     if (mEditPurh.text.toString() == "" || num <= 0) {
                                         mNumErrorHint!!.visibility = View.INVISIBLE
-                                        mAllPricePurh!!.text = "0.00000000 " + allPriceUnit!!
+                                        mAllPricePurh!!.text = "0.00000000 " + this@TrandPurhAndSellActivity.data!!.tokenName
                                         mSubmitPurh!!.isEnabled = false
                                         mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                     } else {
@@ -186,13 +183,13 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                         } else {
                                             data.price * currentPro
                                         }
-                                        mAllPricePurh!!.text = TextUtils.doubleToEight(allPrice) + " " + allPriceUnit
-                                        if (type == 1 && allPrice > this@TrandPurhAndSellActivity.balance) {
+                                        mAllPricePurh!!.text = TextUtils.doubleToEight(allPrice) + " " + this@TrandPurhAndSellActivity.data!!.tokenName
+                                        if (type == 2 && allPrice > this@TrandPurhAndSellActivity.balance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
                                             mNumErrorHint!!.text = mVRTHint!!.text.toString() + "不足"
-                                        } else if (type == 2 && num > this@TrandPurhAndSellActivity.tokenBalance) {
+                                        } else if (type == 1 && num > this@TrandPurhAndSellActivity.tokenBalance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
@@ -210,7 +207,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                     }
                                 } else {
                                     mNumErrorHint!!.visibility = View.INVISIBLE
-                                    mAllPricePurh!!.text = "0.00000000 " + allPriceUnit!!
+                                    mAllPricePurh!!.text = "0.00000000 " + this@TrandPurhAndSellActivity.data!!.tokenName
                                     mSubmitPurh!!.isEnabled = false
                                     mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                 }
@@ -271,16 +268,16 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                 val currentNum = mEditPurh.text.toString()
                 val currentAllPrice = mAllPricePurh!!.text.toString()
                 if (currentNum == "" || java.lang.Double.valueOf(currentNum) <= 0) {
-                    dialogHelper!!.create(this, R.drawable.miss_icon, if (type == 1) "购买数量不正确" else "出售数量不正确").show()
+                    dialogHelper!!.create(this, R.drawable.miss_icon, if (type == 2) "购买数量不正确" else "出售数量不正确").show()
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }
-                if (type == 1 && java.lang.Double.parseDouble(currentNum) > balance) {
+                if (type == 2 && java.lang.Double.parseDouble(currentNum) > balance) {
                     dialogHelper!!.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToEight(balance)).show()
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }
-                if (type == 2 && java.lang.Double.parseDouble(currentNum) > tokenBalance) {
+                if (type == 1 && java.lang.Double.parseDouble(currentNum) > tokenBalance) {
                     dialogHelper!!.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToEight(tokenBalance)).show()
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
@@ -340,13 +337,8 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                 } catch (e: JSONException) {
                                     e.printStackTrace()
                                 }
-
                                 val body = RequestBody.create(MediaType.parse("text/html"), obj.toString())
-                                if (this.type == 1) {
-                                    releasePurh(body)
-                                } else {
-                                    releaseSell(body)
-                                }
+                                releaseSell(body)
                             }, { error ->
                                 LogUtils.e(error.message)
                             })

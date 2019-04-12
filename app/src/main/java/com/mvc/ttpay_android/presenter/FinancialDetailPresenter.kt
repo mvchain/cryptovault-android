@@ -8,7 +8,7 @@ class FinancialDetailPresenter : IFinancialDetailContract.FinancialDetailPresent
     override fun getFinancialDetail(id: Int) {
         rxUtils.register(mIModel.getFinancialDetail(id)
                 .subscribe({ detail ->
-                    if (detail.code === 200) {
+                    if (detail.code == 200) {
                         mIView.showSuccess(detail.data)
                     } else {
                         mIView.showError(detail.message)

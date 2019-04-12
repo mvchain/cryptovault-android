@@ -1,5 +1,6 @@
 package com.mvc.ttpay_android.activity
 
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -43,9 +44,9 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
         time_cycle.text = "${bean.times}天"
         starting.text = "${TextUtils.doubleToEight(bean.minValue)} ${bean.baseTokenName}"
+        webview_layout.removeAllViews()
         webview_layout.addView(webView)
         webView.loadUrl("${getString(R.string.web_url)}?type=${2}&id=${bean.id}")
-        LogUtils.e("${getString(R.string.web_url)}?type=${2}&id=${bean.id}")
         webView.overScrollMode = WebView.OVER_SCROLL_NEVER
         webView.webChromeClient = object : WebChromeClient() {
 
@@ -65,6 +66,11 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         remaining_amount_progress.max = bean.limitValue.toInt()
         remaining_amount_progress.progress = (bean.limitValue - bean.sold).toInt()
         remaining_amount.text = "剩余总额度 ${TextUtils.doubleToFourPrice(bean.limitValue - bean.sold)} ${bean.baseTokenName}"
+//        val valueAnimator = ValueAnimator.ofInt(bean.limitValue.toInt(), (bean.limitValue - bean.sold).toInt()).setDuration(800)
+//        valueAnimator.addUpdateListener { animation ->
+//            remaining_amount_progress.progress = animation.animatedValue as Int
+//        }
+//        valueAnimator.start()
     }
 
     private var id = 0

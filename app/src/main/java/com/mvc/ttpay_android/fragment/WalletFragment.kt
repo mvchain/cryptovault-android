@@ -156,9 +156,6 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if (!isVisibleToUser && mFlipper != null) {
-            mFlipper!!.stopFlipping()
-        }
         if (isVisibleToUser && createCarryOut) {
             onRefresh()
         }
@@ -207,10 +204,12 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
         mPresenter.getBanner()
         val msg_time = SPUtils.getInstance().getLong(MSG_TIME)
         mPresenter.getMsg(if (msg_time == -1L) System.currentTimeMillis() else msg_time, 0, 1)
-        val defalutBean = JsonHelper.stringToJson(defalutRate, ExchangeRateBean.DataBean::class.java) as ExchangeRateBean.DataBean
-        if (defalutBean != null) {
-            val default_type = defalutBean.name
-            mTypeAssets.text = default_type.substring(1, default_type.length)
+        if (defalutRate.isNotEmpty()) {
+            val defalutBean = JsonHelper.stringToJson(defalutRate, ExchangeRateBean.DataBean::class.java) as ExchangeRateBean.DataBean
+            if (defalutBean != null) {
+                val default_type = defalutBean.name
+                mTypeAssets.text = default_type.substring(1, default_type.length)
+            }
         }
     }
 
@@ -353,7 +352,6 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
     fun onRefresh() {
         mPresenter.getAllAsset()
         mPresenter.getAssetList()
-        mPresenter.getBanner()
         mPresenter.getWhetherToSignIn()
         val msg_time = SPUtils.getInstance().getLong(MSG_TIME)
         mPresenter.getMsg(if (msg_time == -1L) System.currentTimeMillis() else msg_time, 0, 1)
@@ -371,7 +369,6 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
     fun msgRefresh(msgEvent: WalletMsgEvent) {
         mPresenter.getAllAsset()
         mPresenter.getAssetList()
-        mPresenter.getBanner()
         mPresenter.getWhetherToSignIn()
         val msg_time = SPUtils.getInstance().getLong(MSG_TIME)
         mPresenter.getMsg(if (msg_time == -1L) System.currentTimeMillis() else msg_time, 0, 1)

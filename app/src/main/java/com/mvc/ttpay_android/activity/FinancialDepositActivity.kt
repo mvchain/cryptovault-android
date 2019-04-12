@@ -137,10 +137,10 @@ class FinancialDepositActivity : BaseActivity() {
                                             EventBus.getDefault().post(FinancialDetailEvent())
                                             finish()
                                         }
-                                    })
+                                    },1500)
                                 } else {
                                     dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, date.message)
-                                    dialogHelper.dismissDelayed(null)
+                                    dialogHelper.dismissDelayed(null,1500)
                                 }
                             }, {
                                 if (it is SocketTimeoutException) {

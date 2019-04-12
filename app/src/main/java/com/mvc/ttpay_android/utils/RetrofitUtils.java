@@ -33,6 +33,7 @@ import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -66,8 +67,8 @@ public class RetrofitUtils {
                     Response response = chain.proceed(request);
                     return response;
                 })
-//                .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
-//                        .setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(new HttpLoggingInterceptor(message -> LogUtils.e("RetrofitUtils", message))
+                        .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .authenticator((route, response) -> {
                     HttpTokenBean body = RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).refreshToken(SPUtils.getInstance().getString(REFRESH_TOKEN)).execute().body();
                     if (body.getCode() == 200) {

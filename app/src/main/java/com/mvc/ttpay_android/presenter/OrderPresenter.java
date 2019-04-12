@@ -1,0 +1,35 @@
+package com.mvc.ttpay_android.presenter;
+
+import com.blankj.utilcode.util.LogUtils;
+import com.mvc.ttpay_android.base.BasePresenter;
+import com.mvc.ttpay_android.contract.ITrandOrderContract;
+import com.mvc.ttpay_android.model.OrderModel;
+
+public class OrderPresenter extends ITrandOrderContract.TrandOrderPresenter {
+    public static BasePresenter newIntance() {
+        return new OrderPresenter();
+    }
+
+    @Override
+    public void getTrandOrder(int id, int pageSize, String pairId, int status, String transactionType, int type) {
+        rxUtils.register(mIModel.getTrandOrder(id, pageSize, pairId, status, transactionType, type).subscribe(trandOrderBean -> {
+            if (trandOrderBean.getCode() == 200 && trandOrderBean.getData().size() > 0) {
+                mIView.showSuccess(trandOrderBean.getData());
+            } else {
+                mIView.showNull();
+            }
+        }, throwable -> {
+            LogUtils.e("OrderPresenter", throwable.getMessage());
+        }));
+    }
+
+    @Override
+    protected ITrandOrderContract.ITrandOrderModel getModel() {
+        return OrderModel.getInstance();
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+}

@@ -14,7 +14,7 @@ android {
     }
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.mvc.cryptovault_android"
+        applicationId "com.mvc.ttpay_android"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 3
@@ -28,9 +28,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
             manifestPlaceholders = [
-                    JPUSH_PKGNAME: "com.mvc.cryptovault_android",
+                    JPUSH_PKGNAME: "com.mvc.ttpay_android",
                     JPUSH_APPKEY : "ffb83d2be1729d733dd03c34",
-                    JPUSH_CHANNEL: "developer-default",
+                    JPUSH_CHANNEL: "8c5027ae94a43f339164e728",
             ]
         }
         debug {
@@ -39,7 +39,7 @@ android {
             signingConfig signingConfigs.config
             applicationIdSuffix = ".debug"
             manifestPlaceholders = [
-                    JPUSH_PKGNAME: "com.mvc.cryptovault_android.debug",
+                    JPUSH_PKGNAME: "com.mvc.ttpay_android.debug",
                     JPUSH_APPKEY : "ead10cb72ec212eba6433c7c",
                     JPUSH_CHANNEL: "developer-default",
             ]

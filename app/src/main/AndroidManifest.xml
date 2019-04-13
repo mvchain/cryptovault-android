@@ -42,10 +42,10 @@
 	<application
 			android:name="com.mvc.ttpay_android.MyApplication"
 			android:configChanges="locale"
-			android:icon="@mipmap/vp_logo"
+			android:icon="@mipmap/ttpay_icon"
 			android:label="@string/app_name"
 			android:resizeableActivity="false"
-			android:roundIcon="@mipmap/vp_logo"
+			android:roundIcon="@mipmap/ttpay_icon"
 			android:screenOrientation="portrait"
 			android:supportsRtl="true"
 			android:theme="@style/Theme.AppCompat.Light.NoActionBar"

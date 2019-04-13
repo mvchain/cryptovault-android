@@ -37,7 +37,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
     private List<RecorBean.DataBean> bean;
     private RecorAdapter mRecorAdapter;
     private int transType;
-    private int transionType;
+    private int transferType;
     private int pairId;
     private boolean isRefresh = false;
     private IRecordingClick recording;
@@ -78,7 +78,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
             switch (view.getId()) {
                 case R.id.recording_layout:
                     // TODO 18/12/13
-                    recording.startPurhActivity(transionType, bean.get(position).getId(), bean.get(position));
+                    recording.startPurhActivity(transferType, bean.get(position).getId(), bean.get(position));
                     break;
             }
         });
@@ -135,7 +135,7 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
     private void initArgument() {
         Bundle arguments = getArguments();
         transType = arguments.getInt("transType");
-        transionType = arguments.getInt("transionType", 2);
+        transferType = arguments.getInt("transferType", 1);
         pairId = arguments.getInt("pairId");
     }
 

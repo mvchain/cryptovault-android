@@ -44,7 +44,7 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
         time_cycle.text = "${bean.times}天"
         starting.text = "${TextUtils.doubleToEight(bean.minValue)} ${bean.baseTokenName}"
-        if((webView.parent)!= null){
+        if ((webView.parent) != null) {
             (webView.parent as ViewGroup).removeView(webView)
         }
         webview_layout.addView(webView)
@@ -55,9 +55,11 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         }
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String?) {
-                var height = view.contentHeight
-                var flp = webView.layoutParams
-                flp.height = ConvertUtils.dp2px(height.toFloat()*2)
+                view.measure(View.MeasureSpec.UNSPECIFIED,View.MeasureSpec.UNSPECIFIED)
+                var height = view.measuredHeight
+                var flp = view.layoutParams
+                flp.height = ConvertUtils.dp2px(view.height.toFloat())
+                LogUtils.e("${view.contentHeight} $height  ${flp.height}")
                 webView.layoutParams = flp
                 super.onPageFinished(view, url)
             }

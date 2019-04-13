@@ -123,14 +123,14 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         val purhFragment = RecordingFragment()
         val purhBundle = Bundle()
         purhBundle.putInt("transType", 1)
-        purhBundle.putInt("transionType", 2) //如果获取的是购买挂单列表，那id就是
+        purhBundle.putInt("transferType", 2) //如果获取的是购买挂单列表，那id就是
         purhBundle.putInt("pairId", ratioList[position].pairId)
         purhFragment.arguments = purhBundle
         mFragment.add(purhFragment)
         val sellFragment = RecordingFragment()
         val sellBundle = Bundle()
         sellBundle.putInt("transType", 2)
-        sellBundle.putInt("transionType", 1)
+        sellBundle.putInt("transferType", 1)
         sellBundle.putInt("pairId", ratioList[position].pairId)
         sellFragment.arguments = sellBundle
         mFragment.add(sellFragment)

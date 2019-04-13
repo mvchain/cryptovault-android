@@ -232,7 +232,8 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                 val buyPrice = if (this.type == 1) TextUtils.doubleToEight(java.lang.Double.parseDouble(currentNum) * currentPrice) else currentNum
                 mPopView = createPopWindow(this
                         , R.layout.layout_paycode, if (this.type == 1) "确定出售" else "确认购买"
-                        , "总计需支付", "${(if (this.type == 1) currentNum else payNum)} ${if (this.type == 1) "MVC" else data!!.tokenName}"
+                        , "总计需支付",
+                        "${(if (this.type == 1) currentNum else payNum)} ${if (this.type == 1) "MVC" else data!!.tokenName}"
                         , if (this.type == 1) "总价" else "购买数量", "$buyPrice ${if (this.type == 1) data!!.tokenName else "MVC"}"
                         , if (this.type == 1) "出售单价" else "购买单价", TextUtils.doubleToEight(currentPrice) + " " + allPriceUnit
                         , object : IPayWindowListener {
@@ -281,11 +282,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                                 }
 
                                 val body = RequestBody.create(MediaType.parse("text/html"), obj.toString())
-                                if (this.type == 1) {
-                                    releasePurh(body)
-                                } else {
-                                    releaseSell(body)
-                                }
+                                releaseOrder(body)
                             }, { error ->
                                 LogUtils.e(error.message)
                             })
@@ -303,7 +300,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
      * @param body
      */
     @SuppressLint("CheckResult")
-    private fun releasePurh(body: RequestBody) {
+    private fun releaseOrder(body: RequestBody) {
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).releaseOrder(token, body).compose(RxHelper.rxSchedulerHelper()).subscribe({ updateBean ->
             if (updateBean.code == 200) {
                 dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.success_icon, (if (type == 1) "出售" else "购买") + "成功")
@@ -327,44 +324,6 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
         })
     }
 
-    /**
-     * 发布出售订单
-     *
-     * @param body
-     */
-    @SuppressLint("CheckResult")
-    private fun releaseSell(body: RequestBody) {
-        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).releaseOrder(token, body).compose(RxHelper.rxSchedulerHelper()).subscribe({ updateBean ->
-            if (updateBean.code == 200) {
-                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.success_icon, (if (type == 1) "出售" else "购买") + "成功")
-                EventBus.getDefault().post(RecordingEvent())
-                dialogHelper!!.dismissDelayed(object : DialogHelper.IDialogDialog {
-                    override fun callback() {
-                        finish()
-                    }
-                }, 2000)
-            } else if (updateBean.code == 400) {
-                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.miss_icon, updateBean.message)
-                dialogHelper!!.dismissDelayed(null, 2000)
-            } else {
-                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.miss_icon, updateBean.message)
-                dialogHelper!!.dismissDelayed(null, 2000)
-            }
-        }, { throwable ->
-            dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.miss_icon, throwable.message!!)
-            dialogHelper!!.dismissDelayed(null, 2000)
-            //能获取到报错信息
-            //            if(throwable instanceof HttpException){
-            //                HttpException httpException= (HttpException) throwable;
-            //                try {
-            //                    String errorBody= httpException.response().errorBody().string();
-            //                    //TODO: parse To JSON Obj
-            //                } catch (IOException e) {
-            //                    e.printStackTrace();
-            //                }
-            //            }
-        })
-    }
 
     @SuppressLint("WrongConstant")
     fun createPopWindow(context: Context, layoutId: Int, title: String, childTitle: String, price: String, numhint: String, numtv: String, pricehint: String, pricetv: String, iPayWindowListener: IPayWindowListener?, maxListener: PswMaxListener): PopupWindow {

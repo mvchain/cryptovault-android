@@ -89,7 +89,7 @@ public class PushReceiver extends BroadcastReceiver {
                 //使用当前的用户默认设置
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 //设置通知小ICON(应用默认图标)
-                .setSmallIcon(R.mipmap.vp_logo);
+                .setSmallIcon(R.mipmap.ttpay_icon);
         nm.notify(orderId, builder.build());
     }
 }

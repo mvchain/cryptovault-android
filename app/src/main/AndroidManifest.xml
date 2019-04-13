@@ -1,174 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.mvc.ttpay_android">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mvc.ttpay_android">
 
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.CAMERA"/>
-	<uses-permission android:name="android.permission.FLASHLIGHT"/>
-	<uses-permission android:name="android.permission.VIBRATE"/>
-	<uses-permission android:name="android.permission.WAKE_LOCK"/>
-	<!--极光必备权限-->
-	<!-- Required -->
-	<permission
-			android:name="${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE"
-			android:protectionLevel="signature"/>
-	<uses-permission android:name="${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE"/>
-	<!-- Required -->
-	<uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.WAKE_LOCK"/>
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.VIBRATE"/>
-	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--极光必备权限-->
+    <!-- Required -->
+    <permission
+        android:name="${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${JPUSH_PKGNAME}.permission.JPUSH_MESSAGE" />
+    <!-- Required -->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-	<!-- Optional. Required for location feature -->
-	<uses-permission
-			android:name="android.permission.SYSTEM_ALERT_WINDOW"/> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-	<uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
-	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.GET_TASKS"/>
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
-	<application
-			android:name="com.mvc.ttpay_android.MyApplication"
-			android:configChanges="locale"
-			android:icon="@mipmap/ttpay_icon"
-			android:label="@string/app_name"
-			android:resizeableActivity="false"
-			android:roundIcon="@mipmap/ttpay_icon"
-			android:screenOrientation="portrait"
-			android:supportsRtl="true"
-			android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-			tools:ignore="GoogleAppIndexingWarning"
-			tools:targetApi="n">
-		<activity android:name="com.mvc.ttpay_android.activity.StartActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.LAUNCHER"/>
-			</intent-filter>
-		</activity>
-		<activity android:name="com.mvc.ttpay_android.activity.LoginActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.RegisterInvitationActivity"/>
-		<activity android:name="com.mvc.ttpay_android.MainActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.DetailActivity"/>
-		<activity
-				android:name="com.mvc.ttpay_android.activity.MsgActivity"
-				android:launchMode="singleTop"/>
-		<activity android:name="com.mvc.ttpay_android.activity.HistoryActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.AboutActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.IncreaseCurrencyActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.QCodeActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.TogeHistroyActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.MineReceiptQRCodeActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.BTCTransferActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.MineMnemonicsActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.VPBalanceWithdrawalActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.CrowdfundingAppointmentActivity"/>
-		<activity android:name="com.mvc.ttpay_android.fragment.TrandRecordingFragment"/>
-		<activity
-				android:name="com.mvc.ttpay_android.activity.TrandPurhAndSellActivity"
-				android:windowSoftInputMode="adjustPan"/>
-		<activity
-				android:name="com.mvc.ttpay_android.activity.TrandPurhAndSellItemActivity"
-				android:windowSoftInputMode="adjustPan"/>
-		<activity android:name="com.mvc.ttpay_android.activity.TrandOrderActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.LanguageActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.FilterOrderActivity"/>
-		<activity
-				android:name="com.mvc.ttpay_android.activity.SelectLoginActivity"
-				android:launchMode="singleTask">
-			<intent-filter>
-				<action android:name="${JPUSH_PKGNAME}.android.login"/>
-				<category android:name="android.intent.category.DEFAULT"/>
-			</intent-filter>
-		</activity>
-		<activity android:name="com.mvc.ttpay_android.activity.RegisterSetPwdActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.VerificationMnemonicActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.ForgetPasswordActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.SetLoginPasswordActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.VerificationInfoActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.ResetPasswordActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.ResetPasswordVerificationMnemonicsActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.SelectResetPasswordActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.SendEmailActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.SetEmailActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.InvatitionActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.FinancialDetailActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.FinancialDepositActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.MyOptionActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.OptionDetailActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.PrivateKeyVerificationActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.PublishListActivity"/>
+    <application
+        android:name="com.mvc.ttpay_android.MyApplication"
+        android:configChanges="locale"
+        android:icon="@mipmap/ttpay_icon"
+        android:label="@string/app_name"
+        android:resizeableActivity="false"
+        android:roundIcon="@mipmap/ttpay_icon"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="n">
+        <activity
+            android:name="com.mvc.ttpay_android.activity.StartActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-		<activity android:name="com.mvc.ttpay_android.activity.PublishDetailActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.BlockchainBrowserActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.BlockchainListActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.PublicKeyActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.BlockchainDetailActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.BlockAssetsActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.BlockAssetsDetailActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.BlockTransferDetailActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.TurnGoogleActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.GoogleCodeActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.GoogleVerificationActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.LoginVerificationGoogleActivity"/>
-		<activity android:name="com.mvc.ttpay_android.activity.BannerActivity"/>
+        <activity
+            android:name="com.mvc.ttpay_android.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.RegisterInvitationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.DetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.MsgActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.HistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.IncreaseCurrencyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.QCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.TogeHistroyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.MineReceiptQRCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.BTCTransferActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.MineMnemonicsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.VPBalanceWithdrawalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.CrowdfundingAppointmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.fragment.TrandRecordingFragment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.TrandPurhAndSellActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.TrandPurhAndSellItemActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.TrandOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.LanguageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.FilterOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.SelectLoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="${JPUSH_PKGNAME}.android.login" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mvc.ttpay_android.activity.RegisterSetPwdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.VerificationMnemonicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.SetLoginPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.VerificationInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.ResetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.ResetPasswordVerificationMnemonicsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.SelectResetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.SendEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.SetEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.InvatitionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.FinancialDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.FinancialDepositActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.MyOptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.OptionDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.PrivateKeyVerificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.PublishListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.mvc.ttpay_android.activity.PublishDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.BlockchainBrowserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.BlockchainListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.PublicKeyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.BlockchainDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.BlockAssetsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.BlockAssetsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.BlockTransferDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.TurnGoogleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.GoogleCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.GoogleVerificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.LoginVerificationGoogleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mvc.ttpay_android.activity.BannerActivity"
+            android:screenOrientation="portrait" />
 
 
-		<receiver
-				android:name="com.mvc.ttpay_android.receiver.PushReceiver"
-				android:enabled="true"
-				android:exported="false">
-			<intent-filter>
-				<!-- Required 用户注册SDK的intent -->
-				<action android:name="cn.jpush.android.intent.REGISTRATION"/>
-				<!-- Required 用户接收SDK消息的intent -->
-				<action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
-				<!-- Required 用户接收SDK通知栏信息的intent -->
-				<action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
-				<!-- Required 用户打开自定义通知栏的intent -->
-				<action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
-				<!-- 接收网络变化 连接/断开 since 1.6.3 -->
-				<action android:name="cn.jpush.android.intent.CONNECTION"/>
-				<category android:name="${JPUSH_PKGNAME}"/>
-			</intent-filter>
-		</receiver>
-		<receiver android:name="com.mvc.ttpay_android.receiver.MyJPushMessageReceiver">
-			<intent-filter>
-				<action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE"/>
-				<category android:name="${JPUSH_PKGNAME}"/>
-			</intent-filter>
-		</receiver>
-		<!--适配华为（hw）刘海屏-->
-		<meta-data
-				android:name="android.notch_support"
-				android:value="true"/>
-		<!--适配小米（xiaomi）刘海屏-->
-		<meta-data
-				android:name="notch.config"
-				android:value="portrait|landscape"/>
-		<!-- Required. AppKey copied from Portal -->
-		<provider
-				android:name="android.support.v4.content.FileProvider"
-				android:authorities="${JPUSH_PKGNAME}.fileprovider"
-				android:exported="false"
-				android:grantUriPermissions="true">
-			<meta-data
-					android:name="android.support.FILE_PROVIDER_PATHS"
-					android:resource="@xml/file_paths"/>
-			<!--<meta-data-->
-			<!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-			<!--android:resource="@xml/file_paths_down" />-->
-		</provider>
-	</application>
+        <receiver
+            android:name="com.mvc.ttpay_android.receiver.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <!-- Required 用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!-- Required 用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!-- Required 用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!-- Required 用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="${JPUSH_PKGNAME}" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.mvc.ttpay_android.receiver.MyJPushMessageReceiver">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="${JPUSH_PKGNAME}" />
+            </intent-filter>
+        </receiver>
+        <!--适配华为（hw）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+        <!-- Required. AppKey copied from Portal -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${JPUSH_PKGNAME}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+            <!--<meta-data-->
+            <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+            <!--android:resource="@xml/file_paths_down" />-->
+        </provider>
+    </application>
 
 </manifest>

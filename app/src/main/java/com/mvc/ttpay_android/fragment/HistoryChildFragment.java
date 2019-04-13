@@ -100,7 +100,6 @@ public class HistoryChildFragment extends BaseMVPFragment<IHistroyChildContract.
         Bundle arguments = getArguments();
         tokenId = arguments.getInt("tokenId");
         action = arguments.getInt("action", 0);
-        LogUtils.e("HistoryChildFragment", "action:" + action);
     }
 
     @Override

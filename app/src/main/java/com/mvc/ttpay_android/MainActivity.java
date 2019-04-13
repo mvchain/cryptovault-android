@@ -117,7 +117,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
             int finalI = i;
             mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
         }
-        ((RadioButton)mButtonGroupHome.getChildAt(0)).setChecked(true);
+        ((RadioButton) mButtonGroupHome.getChildAt(0)).setChecked(true);
         mMainVpHome.addOnPageChangeListener(this);
         ImmersionBar.with(this).titleBar(statusBar).statusBarDarkFont(true).init();
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
@@ -190,7 +190,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (mFragment != null && ((RadioButton) mButtonGroupHome.getChildAt(0)).isChecked() && mFragment.get(0) instanceof WalletFragment) {
+        if (mFragment != null && ((RadioButton) mButtonGroupHome.getChildAt(0)).isChecked() && mPresenter != null && mFragment.get(0) instanceof WalletFragment) {
             ((WalletFragment) mFragment.get(0)).onRefresh();
         }
     }

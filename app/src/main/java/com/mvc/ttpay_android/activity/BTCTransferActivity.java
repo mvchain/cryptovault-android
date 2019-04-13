@@ -115,42 +115,6 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
         mSubmitBtc = findViewById(R.id.btc_submit);
         mTitleM.setText(tokenName + "转账");
         mTransPriceBtc.setFilters(new InputFilter[]{new PointLengthFilter()});
-        mTransPriceBtc.addTextChangedListener(new EditTextChange() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String chagePrice = s.toString();
-                if (!chagePrice.equals("") && mTransBean != null) {
-                    if (TextUtils.INSTANCE.stringToDouble(chagePrice) > mTransBean.getBalance()) {
-                        mPriceBtc.setText("余额不足");
-                        mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
-                        mSubmitBtc.setEnabled(false);
-                    } else {
-                        mPriceBtc.setText(String.format("可用%s：" + TextUtils.INSTANCE.doubleToEight(mTransBean.getBalance()), tokenName));
-                        mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.login_edit_bg));
-                        mSubmitBtc.setEnabled(true);
-                    }
-                }
-            }
-        });
-        mTransAddressBtc.addTextChangedListener(new EditTextChange() {
-            @TargetApi(Build.VERSION_CODES.M)
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String updateTv = s.toString();
-                if (!updateTv.equals("")) {
-                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(), R.drawable.clean_icon_edit), mTransAddressBtc);
-                } else {
-                    ViewDrawUtils.clearDraw(mTransAddressBtc);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mPresenter.getTransFee(mTransAddressBtc.getText().toString().trim());
-            }
-        });
         mBackM.setOnClickListener(this);
         mQCodeM.setOnClickListener(this);
         mSubmitBtc.setOnClickListener(this);
@@ -303,6 +267,42 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
         this.mTransBean = data;
         mPriceBtc.setText(String.format("可用%s：" + TextUtils.INSTANCE.doubleToEight(data.getBalance()), tokenName));
         mSxfBtc.setText(data.getFee() + " " + data.getFeeTokenName());
+        mTransPriceBtc.addTextChangedListener(new EditTextChange() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String chagePrice = s.toString();
+                if (!chagePrice.equals("") && mTransBean != null) {
+                    if (TextUtils.INSTANCE.stringToDouble(chagePrice) > mTransBean.getBalance()) {
+                        mPriceBtc.setText("余额不足");
+                        mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
+                        mSubmitBtc.setEnabled(false);
+                    } else {
+                        mPriceBtc.setText(String.format("可用%s：" + TextUtils.INSTANCE.doubleToEight(mTransBean.getBalance()), tokenName));
+                        mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.login_edit_bg));
+                        mSubmitBtc.setEnabled(true);
+                    }
+                }
+            }
+        });
+        mTransAddressBtc.addTextChangedListener(new EditTextChange() {
+            @TargetApi(Build.VERSION_CODES.M)
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String updateTv = s.toString();
+                if (!updateTv.equals("")) {
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(), R.drawable.clean_icon_edit), mTransAddressBtc);
+                } else {
+                    ViewDrawUtils.clearDraw(mTransAddressBtc);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPresenter.getTransFee(mTransAddressBtc.getText().toString().trim());
+            }
+        });
     }
 
     @Override

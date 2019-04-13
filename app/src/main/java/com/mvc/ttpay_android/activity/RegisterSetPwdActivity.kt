@@ -36,7 +36,7 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
             R.id.reg_submit -> {
                 if (checkNotNullValue()) {
                     var userJson = JSONObject(userInfo)
-                    var salt = UUID.randomUUID().toString().replace("-", "")
+                    var salt = UUID.randomUUID().toString().replace("-", "").toUpperCase()
                     userJson.put("salt", salt)
                     userJson.put("password", EncryptUtils.encryptMD5ToString(salt + EncryptUtils.encryptMD5ToString(reg_login_pwd.text.toString())))
                     userJson.put("transactionPassword", EncryptUtils.encryptMD5ToString(salt + EncryptUtils.encryptMD5ToString(reg_pay_pwd.text.toString())))

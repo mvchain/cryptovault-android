@@ -236,7 +236,9 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
             }
             mFlipper!!.addView(note)
         }
-        mFlipper!!.startFlipping()
+        if(bannerBean.size>1){
+            mFlipper!!.startFlipping()
+        }
     }
 
 

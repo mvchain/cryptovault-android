@@ -8,7 +8,7 @@ class VerificationInfoPresenter : IVerificationInfoContract.VerificationInfoPres
     override fun verification(email: String, type: Int, value: String) {
         rxUtils.register(mIModel.verification(email, type, value)
                 .subscribe({ httpToken ->
-                    if (httpToken.code === 200) {
+                    if (httpToken.code == 200) {
                         mIView.showSuccess(httpToken.data)
                     } else {
                         mIView.showError(httpToken.message)

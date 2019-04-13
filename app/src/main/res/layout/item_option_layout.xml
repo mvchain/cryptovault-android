@@ -21,7 +21,7 @@
         app:sLeftBottomTextSize="12sp"
         app:sLeftTopTextSize="16sp"
         app:sLeftBottomTextColor="@color/toge_gray"
-        app:sLeftBottomTextString="剩余周期"
+        app:sLeftBottomTextString="剩余"
         app:sLeftTextGravity="left"
         app:sLeftTopTextColor="@color/login_content"
         app:sLeftTopTextString="产品名称"

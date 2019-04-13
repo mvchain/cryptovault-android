@@ -81,7 +81,10 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showToast(int resId) {
-        ToastUtils.showLong(resId);
+        ToastUtils.showShort(resId);
+    }
+    protected void showToast(String msg) {
+        ToastUtils.showShort(msg);
     }
 
     @Override

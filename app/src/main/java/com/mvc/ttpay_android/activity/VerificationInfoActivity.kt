@@ -126,7 +126,7 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe({ upset ->
                                         //传递邮箱过去 获取助记词
-                                        if (upset.code === 200) {
+                                        if (upset.code == 200) {
                                             list.addAll(upset.data)
                                             dialogHelper?.dismissDelayed(null, 0)
                                             var tokenIntent = intent

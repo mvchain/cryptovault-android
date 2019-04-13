@@ -320,7 +320,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
         }, { throwable ->
             dialogHelper!!.resetDialogResource(this@TrandPurhAndSellItemActivity, R.drawable.miss_icon, throwable.message!!)
             dialogHelper!!.dismissDelayed(null, 2000)
-            LogUtils.e("TrandPurhAndSellActivit", throwable.message)
+            LogUtils.e("TrandPurhAndSellActivity", throwable.message)
         })
     }
 

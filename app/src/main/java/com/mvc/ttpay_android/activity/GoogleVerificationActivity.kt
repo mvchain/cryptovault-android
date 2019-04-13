@@ -14,6 +14,7 @@ import com.mvc.ttpay_android.base.BasePresenter
 import com.mvc.ttpay_android.bean.LoginBean
 import com.mvc.ttpay_android.common.Constant.SP.*
 import com.mvc.ttpay_android.contract.IGoogleContract
+import com.mvc.ttpay_android.listener.EditTextChange
 import com.mvc.ttpay_android.listener.IDialogViewClickListener
 import com.mvc.ttpay_android.presenter.GooglePresenter
 import com.mvc.ttpay_android.view.DialogHelper
@@ -37,6 +38,12 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
         googleSecret = intent.getStringExtra("googleSecret")
         google_title.text = "${if (googleStatus == 0) "开启" else "关闭"}Google安全验证"
         google_submit.text = "${if (googleStatus == 0) "开启" else "关闭"}Google验证"
+        google_pwd.addTextChangedListener(object : EditTextChange() {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val length = s.length
+                pay_pwd_show.visibility = if (length > 0) View.VISIBLE else View.INVISIBLE
+            }
+        })
     }
 
     fun onClick(v: View) {
@@ -45,9 +52,11 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
                 if (google_pwd.transformationMethod == HideReturnsTransformationMethod.getInstance()) {
                     google_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
                     pay_pwd_show.setBackgroundResource(R.drawable.edit_hide)
+                    google_pwd.setSelection(google_pwd.length())
                 } else {
                     google_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
                     pay_pwd_show.setBackgroundResource(R.drawable.edit_show)
+                    google_pwd.setSelection(google_pwd.length())
                 }
             }
 

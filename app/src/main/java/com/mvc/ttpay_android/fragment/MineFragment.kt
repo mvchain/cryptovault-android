@@ -103,13 +103,19 @@ class MineFragment : BaseMVPFragment<IMineContract.MinePresenter>(), IMineContra
 
     override fun setUser(user: UserInfoBean) {
         mSwipMine!!.post { mSwipMine!!.isRefreshing = false }
-        SPUtils.getInstance().put(USER_INFO, JsonHelper.jsonToString(user))
-        val data = user.data
-        mNameUser!!.text = data.nickname
-        mPhoneUser!!.text = "邮箱 ${data.username}"
-        mKeyUser!!.text = "公钥 ${SPUtils.getInstance().getString(USER_PUBLIC_KEY)}"
-        val options = RequestOptions().fallback(R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon)
-        Glide.with(activity).load(data.headImage).apply(options).into(mImgUser!!)
+        if (user.code == 200) {
+            SPUtils.getInstance().put(USER_INFO, JsonHelper.jsonToString(user))
+            val data = user.data
+            mNameUser!!.text = data.nickname
+            mPhoneUser!!.text = "邮箱 ${data.username}"
+            mKeyUser!!.text = "公钥 ${SPUtils.getInstance().getString(USER_PUBLIC_KEY)}"
+            val options = RequestOptions().fallback(R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon)
+            Glide.with(activity).load(data.headImage).apply(options).into(mImgUser!!)
+        } else if (user.code == 400) {
+            showToast(user.message)
+            startTaskActivity(activity)
+        }
+
     }
 
     private fun refresh() {

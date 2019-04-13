@@ -10,8 +10,8 @@
 			android:id="@+id/sign_out"
 			android:layout_alignParentRight="true"
 			android:src="@drawable/sign_financial"
-			android:layout_width="50dp"
-			android:layout_height="30dp"/>
+			android:layout_width="40dp"
+			android:layout_height="25dp"/>
 
 	<LinearLayout android:layout_width="match_parent"
 	              android:gravity="center_vertical"

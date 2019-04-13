@@ -46,6 +46,7 @@ public class OptionBean {
          * partake : 2
          * times : 11
          * tokenName : VRT
+         * needSign:1
          * value : 0
          */
 
@@ -55,7 +56,16 @@ public class OptionBean {
         private double partake;
         private int times;
         private String tokenName;
+        private int needSign;
         private double value;
+
+        public int getNeedSign() {
+            return needSign;
+        }
+
+        public void setNeedSign(int needSign) {
+            this.needSign = needSign;
+        }
 
         public String getBaseTokenName() {
             return baseTokenName;

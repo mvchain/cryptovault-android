@@ -46,16 +46,17 @@
     <string name="transfer_sxf_hint">TTPay 用户之间转账/收款无需手续费</string>
 
     <!---->
+
     <!--<string name="base_url">https://www.bzvp.net/</string>-->
     <!--<string name="base_url">http://192.168.15.21:10086/</string>-->
     <!--<string name="base_browser_url">https://www.bzvp.net/</string>-->
     <string name="download_url">https://www.bzvp.net/</string>
-    <string name="base_url">http://47.110.234.233:10086/</string>
-    <!--<string name="base_url">https://www.ttpay-tech.com/</string>-->
-    <string name="base_browser_url">http://47.110.234.233/</string>
-    <!--<string name="base_browser_url">https://www.ttpay-tech.com/</string>-->
-    <string name="web_url">http://47.110.234.233/wv/</string>
-    <!--<string name="web_url">https://www.ttpay-tech.com/wv/</string>-->
+    <!--<string name="base_url">http://47.110.234.233:10086/</string>-->
+    <string name="base_url">https://www.ttpay-tech.com/</string>
+    <!--<string name="base_browser_url">http://47.110.234.233/</string>-->
+    <string name="base_browser_url">https://www.ttpay-tech.com/</string>
+    <!--<string name="web_url">http://47.110.234.233/wv/</string>-->
+    <string name="web_url">https://www.ttpay-tech.com/wv/</string>
 
 
 </resources>

@@ -23,11 +23,7 @@ public class MinePresenter extends IMineContract.MinePresenter {
     @Override
     public void getUserInfo() {
         rxUtils.register(mIModel.getUserInfo().subscribe(user -> {
-            if(user.getCode() == 200) {
-                mIView.setUser(user);
-            }else{
-                mIView.serverError();
-            }
+            mIView.setUser(user);
         }, throwable -> {
             mIView.serverError();
             LogUtils.e("MinePresenter", throwable.getMessage());

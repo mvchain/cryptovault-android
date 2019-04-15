@@ -118,6 +118,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                         this.tokenBalance = data.tokenBalance
                         this.balance = data.balance
                         mPrice!!.text = TextUtils.doubleToEight(data.tokenBalance)
+
                         mPriceVrt!!.text = TextUtils.doubleToEight(data.balance)
                         mHintPrice!!.text = "可用" + this@TrandPurhAndSellItemActivity.data!!.tokenName
                         mAllPricePurh!!.text = "0.00000000 " + allPriceUnit!!
@@ -135,17 +136,19 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                                         mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                     } else {
                                         mAllPricePurh!!.text = TextUtils.doubleToEight(recorBean!!.price.toDouble() * num!!) + " " + allPriceUnit
-                                        if (type == 2 && recorBean!!.price.toDouble() * num > this@TrandPurhAndSellItemActivity.balance) {
-                                            mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
-                                            mSubmitPurh!!.isEnabled = false
-                                            mNumErrorHint!!.visibility = View.VISIBLE
-                                            mNumErrorHint!!.text = mVRTHint!!.text.toString() + "不足"
-                                        } else if (type == 1 && num > this@TrandPurhAndSellItemActivity.tokenBalance) {
-                                            mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
-                                            mSubmitPurh!!.isEnabled = false
-                                            mNumErrorHint!!.visibility = View.VISIBLE
-                                            mNumErrorHint!!.text = mHintPrice!!.text.toString() + "不足"
-                                        } else {
+                                        if(num > this@TrandPurhAndSellItemActivity.recorBean!!.limitValue){
+                                            if(type == 1){
+                                                mNumErrorHint!!.visibility = View.VISIBLE
+                                                mNumErrorHint!!.text = "剩余可购买MVC不足"
+                                                mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
+                                                mSubmitPurh!!.isEnabled = false
+                                            }else if(type == 2){
+                                                mNumErrorHint!!.visibility = View.VISIBLE
+                                                mNumErrorHint!!.text = "剩余可购买${this@TrandPurhAndSellItemActivity.data!!.tokenName}不足"
+                                                mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
+                                                mSubmitPurh!!.isEnabled = false
+                                            }
+                                        }else{
                                             mNumErrorHint!!.visibility = View.INVISIBLE
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_login_submit)
                                             mSubmitPurh!!.isEnabled = true
@@ -213,16 +216,6 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                 val currentAllPrice = mAllPricePurh!!.text.toString()
                 if (currentNum == "" || java.lang.Double.valueOf(currentNum) <= 0) {
                     dialogHelper!!.create(this, R.drawable.miss_icon, if (type == 1) "出售数量不正确" else "购买数量不正确").show()
-                    dialogHelper!!.dismissDelayed(null, 2000)
-                    return
-                }
-                if (type == 2 && java.lang.Double.valueOf(currentNum) > balance) {
-                    dialogHelper!!.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToEight(balance)).show()
-                    dialogHelper!!.dismissDelayed(null, 2000)
-                    return
-                }
-                if (type == 1 && java.lang.Double.valueOf(currentNum) > tokenBalance) {
-                    dialogHelper!!.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToEight(tokenBalance)).show()
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }

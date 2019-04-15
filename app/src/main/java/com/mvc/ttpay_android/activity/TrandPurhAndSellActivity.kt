@@ -272,16 +272,16 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }
-                if (type == 2 && java.lang.Double.parseDouble(currentNum) > balance) {
-                    dialogHelper!!.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToEight(balance)).show()
-                    dialogHelper!!.dismissDelayed(null, 2000)
-                    return
-                }
-                if (type == 1 && java.lang.Double.parseDouble(currentNum) > tokenBalance) {
-                    dialogHelper!!.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToEight(tokenBalance)).show()
-                    dialogHelper!!.dismissDelayed(null, 2000)
-                    return
-                }
+//                if (type == 2 && java.lang.Double.parseDouble(currentNum) > balance) {
+//                    dialogHelper!!.create(this, R.drawable.miss_icon, "最多可购买" + TextUtils.doubleToEight(balance)).show()
+//                    dialogHelper!!.dismissDelayed(null, 2000)
+//                    return
+//                }
+//                if (type == 1 && java.lang.Double.parseDouble(currentNum) > tokenBalance) {
+//                    dialogHelper!!.create(this, R.drawable.miss_icon, "最多可出售" + TextUtils.doubleToEight(tokenBalance)).show()
+//                    dialogHelper!!.dismissDelayed(null, 2000)
+//                    return
+//                }
                 val payNum = currentAllPrice.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
                 val buyPrice = if (this.type == 2) currentNum else payNum
                 mPopView = createPopWindow(this

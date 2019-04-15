@@ -14,6 +14,7 @@ import com.mvc.ttpay_android.R
 import com.mvc.ttpay_android.activity.TrandOrderActivity
 import com.mvc.ttpay_android.activity.TrandPurhAndSellActivity
 import com.mvc.ttpay_android.activity.TrandPurhAndSellItemActivity
+import com.mvc.ttpay_android.adapter.TrandAreaAdapter
 import com.mvc.ttpay_android.adapter.TrandRecorAdapter
 import com.mvc.ttpay_android.base.BaseMVPFragment
 import com.mvc.ttpay_android.base.BasePresenter
@@ -49,7 +50,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
     private lateinit var mRecordingInRadio: RadioButton
     private lateinit var mRecordingOutRadio: RadioButton
     private lateinit var mRecordingVp: NoScrollViewPager
-    private lateinit var recorAdapter: TrandRecorAdapter
+    private lateinit var recorAdapter: TrandAreaAdapter
     private lateinit var mSelectPop: PopupWindow
     private lateinit var mMenuPop: PopupWindow
     private lateinit var ratioList: ArrayList<TrandChildBean.DataBean>
@@ -155,7 +156,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                 }
             })
         }
-        recorAdapter = TrandRecorAdapter(fragmentManager, mFragment)
+        recorAdapter = TrandAreaAdapter(fragmentManager, mFragment)
         mRecordingVp.adapter = recorAdapter
     }
 

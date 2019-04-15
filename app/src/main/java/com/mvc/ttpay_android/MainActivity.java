@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RadioButton;
@@ -34,14 +35,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseMVPActivity {
     private boolean isBack = false;
     private Timer timer = new Timer();
-    private ViewPager mMainVpHome;
     private RadioGroup mButtonGroupHome;
     private ArrayList<Fragment> mFragment;
     private HomePagerAdapter pagerAdapter;
     private View statusBar;
+    private Fragment currentFragment;
     private int[] colors = {R.drawable.home_top_toolbar, R.drawable.home_top_toolbar, R.drawable.imm_white, R.drawable.home_top_toolbar};
     private DialogHelper dialogHelper;
 
@@ -80,23 +81,6 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         }
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        ((RadioButton) mButtonGroupHome.getChildAt(position)).setChecked(true);
-        statusBar.setBackgroundResource(colors[position]);
-        ImmersionBar.with(this).titleBar(statusBar).statusBarDarkFont(true).init();
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
     @SuppressLint("CheckResult")
     @Override
     protected void initMVPData() {
@@ -106,19 +90,32 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
         mFragment.add(financial);
         TradingAreaFragment tradingFragment = new TradingAreaFragment();
         mFragment.add(tradingFragment);
-//        TogeFragment togeFragment = new TogeFragment();
-//        mFragment.add(togeFragment);
         MineFragment mineFragment = new MineFragment();
         mFragment.add(mineFragment);
-        pagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), mFragment);
-        mMainVpHome.setAdapter(pagerAdapter);
         int childCount = mButtonGroupHome.getChildCount();
         for (int i = 0; i < childCount; i++) {
             int finalI = i;
-            mButtonGroupHome.getChildAt(i).setOnClickListener(v -> mMainVpHome.setCurrentItem(finalI));
+            mButtonGroupHome.getChildAt(i).setOnClickListener(v -> {
+                switch (finalI) {
+                    case 0:
+                        switchFragment(walletFragment).commit();
+                        break;
+                    case 1:
+                        switchFragment(financial).commit();
+                        break;
+                    case 2:
+                        switchFragment(tradingFragment).commit();
+                        break;
+                    case 3:
+                        switchFragment(mineFragment).commit();
+                        break;
+                }
+                statusBar.setBackgroundResource(colors[finalI]);
+                ImmersionBar.with(this).titleBar(statusBar).statusBarDarkFont(true).init();
+            });
         }
+        switchFragment(walletFragment).commit();
         ((RadioButton) mButtonGroupHome.getChildAt(0)).setChecked(true);
-        mMainVpHome.addOnPageChangeListener(this);
         ImmersionBar.with(this).titleBar(statusBar).statusBarDarkFont(true).init();
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).updateApk(MyApplication.getTOKEN(), "apk")
                 .compose(RxHelper.rxSchedulerHelper())
@@ -166,7 +163,6 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
 
     @Override
     protected void initMVPView() {
-        mMainVpHome = findViewById(R.id.home_main_vp);
         mButtonGroupHome = findViewById(R.id.home_button_group);
         statusBar = findViewById(R.id.status_bar);
         mFragment = new ArrayList<>();
@@ -182,7 +178,7 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mMainVpHome.removeOnPageChangeListener(this);
+//        mMainVpHome.removeOnPageChangeListener(this);
         ImmersionBar.with(this).destroy();
         EventBus.getDefault().unregister(this);
     }
@@ -199,4 +195,23 @@ public class MainActivity extends BaseMVPActivity implements ViewPager.OnPageCha
     public void changeLanguage(LanguageEvent languageEvent) {
         recreate();
     }
+
+    private FragmentTransaction switchFragment(Fragment targetFragment){
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction();
+        if (!targetFragment.isAdded()) {
+            //第一次使用switchFragment()时currentFragment为null，所以要判断一下
+            if (currentFragment != null) {
+                transaction.hide(currentFragment);
+            }
+            transaction.add(R.id.home_main_fragment, targetFragment,targetFragment.getClass().getName());
+        } else {
+            transaction
+                    .hide(currentFragment)
+                    .show(targetFragment);
+        }
+        currentFragment = targetFragment;
+        return  transaction;
+    }
+
 }

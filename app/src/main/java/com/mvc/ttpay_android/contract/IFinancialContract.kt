@@ -11,6 +11,7 @@ interface IFinancialContract {
     abstract class FinancialPresenter : BasePresenter<FinancialModel, FinancialView>() {
         abstract fun getFinancialBalance()
         abstract fun getFinancialList(id:Int,pageSize:Int)
+        abstract fun getLoadFinancialList(id:Int,pageSize:Int)
     }
 
     interface FinancialModel : IBaseModel {
@@ -25,6 +26,10 @@ interface IFinancialContract {
 
         fun showFinanciaListError()
         fun showFinanciaListSuccess(financialListBean: List<FinancialListBean.DataBean>)
+
+
+        fun showLoadFinanciaListError()
+        fun showLoadFinanciaListSuccess(financialListBean: List<FinancialListBean.DataBean>)
 
         fun showServerError()
     }

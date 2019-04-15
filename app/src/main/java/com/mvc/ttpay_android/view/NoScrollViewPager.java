@@ -16,7 +16,11 @@ public class NoScrollViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return false;
+        try {
+            return false;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Override

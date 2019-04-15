@@ -32,7 +32,6 @@ import java.util.ArrayList
 class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.FinancialPresenter>(), IFinancialContract.FinancialView {
     private lateinit var mFinaList: ArrayList<FinancialListBean.DataBean>
     private lateinit var mFinaAdapter: FinanciaAdapter
-    private var isRefresh = false
     private var createCarryOut = false
     @SuppressLint("SetTextI18n")
     override fun showMeFinanciaSuccess(financialBean: FinancialBean.DataBean) {
@@ -62,12 +61,19 @@ class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.Financial
         EventBus.getDefault().unregister(this)
     }
 
+    override fun showLoadFinanciaListError() {
+
+    }
+
+    override fun showLoadFinanciaListSuccess(financialListBean: List<FinancialListBean.DataBean>) {
+
+        mFinaList.addAll(financialListBean)
+        mFinaAdapter.notifyDataSetChanged()
+    }
+
     override fun showFinanciaListSuccess(financialListBean: List<FinancialListBean.DataBean>) {
         rootView.refresh.post { rootView.refresh.isRefreshing = false }
-        if (isRefresh) {
-            isRefresh = false
-            mFinaList.clear()
-        }
+        mFinaList.clear()
         mFinaList.addAll(financialListBean)
         mFinaAdapter.notifyDataSetChanged()
     }
@@ -95,8 +101,8 @@ class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.Financial
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val layoutManager = recyclerView!!.layoutManager as LinearLayoutManager
                     val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                    if (lastVisibleItemPosition + 1 == mFinaAdapter.itemCount && mFinaAdapter.itemCount >= 10 && !isRefresh) {
-                        mPresenter.getFinancialList(mFinaList[mFinaList.size - 1].id, 10)
+                    if (lastVisibleItemPosition + 1 == mFinaAdapter.itemCount && mFinaAdapter.itemCount >= 10) {
+                        mPresenter.getLoadFinancialList(mFinaList[mFinaList.size - 1].id, 10)
                     }
                 }
             }
@@ -114,20 +120,20 @@ class FinancialManagementFragment : BaseMVPFragment<IFinancialContract.Financial
 
     @Subscribe
     fun refresh(detailEvent: FinancialDetailEvent) {
-        isRefresh = true
+        mFinaList.clear()
         mPresenter.getFinancialBalance()
         mPresenter.getFinancialList(0, 10)
     }
 
     override fun initData() {
         super.initData()
-        isRefresh = true
+        mFinaList.clear()
         mPresenter.getFinancialBalance()
         mPresenter.getFinancialList(0, 10)
     }
 
     fun refresh() {
-        isRefresh = true
+        mFinaList.clear()
         mPresenter.getFinancialBalance()
         mPresenter.getFinancialList(0, 10)
     }

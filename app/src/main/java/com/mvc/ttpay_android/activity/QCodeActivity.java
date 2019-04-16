@@ -121,7 +121,7 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
 
                         @Override
                         public void cancle(int i) {
-                            ToastUtils.showLong("未给予读取权限无法读取相册图片");
+                            ToastUtils.showLong(getString(R.string.cannot_read_permission));
                         }
 
                         @Override
@@ -168,7 +168,7 @@ public class QCodeActivity extends BaseActivity implements View.OnClickListener 
                     setResult(200, intent);
                     finish();
                 } else {
-                    ToastUtils.showLong("图片不正确，请重新选择");
+                    ToastUtils.showLong(getString(R.string.image_error));
                 }
             }
         }

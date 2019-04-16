@@ -19,7 +19,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:gravity="center"
-				android:text="Google安全验证"
+				android:text="@string/google_verification"
 				android:textColor="@color/login_content"
 				android:textSize="17sp"/>
 
@@ -50,7 +50,7 @@
 				android:background="@null"
 				android:layout_weight="1"
 				android:layout_height="48dp"
-				android:hint="输入登陆密码"
+				android:hint="@string/enter_your_login_password"
 				android:gravity="center_vertical"
 				android:inputType="textPassword"
 				android:padding="10dp"
@@ -79,7 +79,7 @@
 			android:background="@drawable/shape_round_gray_5dp"
 			android:layout_height="48dp"
 			android:layout_marginTop="15dp"
-			android:hint="输入Google验证码"
+			android:hint="@string/enter_your_google_code"
 			android:layout_marginLeft="44dp"
 			android:layout_marginRight="44dp"
 			android:gravity="center_vertical"

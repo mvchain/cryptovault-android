@@ -35,7 +35,6 @@
             android:layout_marginRight="40dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="预约-"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
     </LinearLayout>
@@ -130,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:text="预约数量"
+            android:text="@string/number_of_reservations"
             android:textColor="@color/trand_gray"
             android:textSize="13sp" />
 
@@ -143,7 +142,7 @@
             android:digits="1234567890."
             android:focusable="true"
             android:gravity="center_vertical"
-            android:hint="输入预约数量"
+            android:hint="@string/enter_the_number"
             android:inputType="numberDecimal"
             android:paddingLeft="12dp"
             android:paddingRight="10dp"
@@ -167,7 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
-            android:text="总计需支付:"
+            android:text="@string/total_payment_2"
             android:textColor="@color/trand_gray"
             android:textSize="13sp" />
 
@@ -220,7 +219,7 @@
         android:background="@drawable/bg_toge_child_item_tv_blue_nocheck"
         android:enabled="false"
         android:gravity="center"
-        android:text="确认"
+        android:text="@string/confirm"
         android:textColor="@color/select_button_tv_color"
         android:textSize="15sp"
         android:textStyle="bold" />

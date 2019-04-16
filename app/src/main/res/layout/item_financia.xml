@@ -50,7 +50,7 @@
 					android:layout_marginTop="10dp"
 					android:text="-"
 					android:textColor="@color/aoi_bg_orangey"
-					android:textSize="23sp"/>
+					android:textSize="21sp"/>
 
 			<TextView
 					android:layout_width="wrap_content"

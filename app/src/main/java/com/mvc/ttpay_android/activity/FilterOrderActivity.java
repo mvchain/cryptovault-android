@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.gyf.barlibrary.ImmersionBar;
+import com.mvc.ttpay_android.MyApplication;
 import com.mvc.ttpay_android.R;
 import com.mvc.ttpay_android.adapter.rvAdapter.FilterAdapter;
 import com.mvc.ttpay_android.base.BaseActivity;
@@ -39,7 +40,7 @@ public class FilterOrderActivity extends BaseActivity implements View.OnClickLis
     private FilterAdapter allFilterAdapter;
     private FilterAdapter vrtFilterAdapter;
     private FilterAdapter balanceFilterAdapter;
-    private String[] types = {"全部", "购买", "售出"};
+    private String[] types = {MyApplication.getAppContext().getString(R.string.all), MyApplication.getAppContext().getString(R.string.buy), MyApplication.getAppContext().getString(R.string.sold)};
     private String paitId = "";
     private String transactionType = "";
 

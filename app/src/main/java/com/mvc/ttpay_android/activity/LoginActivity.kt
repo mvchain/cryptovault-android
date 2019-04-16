@@ -161,7 +161,7 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
                 startActivity(ForgetPasswordActivity::class.java)
             }
             R.id.send_code -> {
-                dialogHelper.create(this, R.drawable.pending_icon_1, "发送验证码").show()
+                dialogHelper.create(this, R.drawable.pending_icon_1,  getString(R.string.send_code)).show()
                 mPresenter.sendCode(email)
             }
             R.id.back -> finish()
@@ -240,7 +240,7 @@ class LoginActivity : BaseMVPActivity<ILoginContract.LoginPresenter>(), View.OnC
                     send_code!!.isEnabled = true
                     send_code!!.setBackgroundResource(R.drawable.shape_sendcode_bg)
                     send_code!!.setTextColor(ContextCompat.getColor(baseContext, R.color.send_code_tv_bg))
-                    send_code!!.text = "重新发送"
+                    send_code!!.text = getString(R.string.reset_send)
                 }
             }).updataTime()
         } else {

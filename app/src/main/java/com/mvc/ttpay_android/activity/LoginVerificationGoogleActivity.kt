@@ -50,7 +50,7 @@ class LoginVerificationGoogleActivity : BaseActivity() {
                     ToastUtils.showShort("Google验证码不可为空")
                     return
                 }
-                dialogHelper.create(this, R.drawable.pending_icon, "验证中...").show()
+                dialogHelper.create(this, R.drawable.pending_icon, getString(R.string.in_verification)).show()
                 RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java)
                         .verificationGoogle(MyApplication.getTOKEN(), code)
                         .compose(RxHelper.rxSchedulerHelper())

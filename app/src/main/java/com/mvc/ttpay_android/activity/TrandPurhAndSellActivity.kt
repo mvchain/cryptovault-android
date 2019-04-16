@@ -134,12 +134,12 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                             data.price * num!!
                                         }
                                         mAllPricePurh!!.text = TextUtils.doubleToEight(allPrice) + " " + this@TrandPurhAndSellActivity.data!!.tokenName
-                                        if (type == 1 && allPrice > this@TrandPurhAndSellActivity.balance) {
+                                        if (type == 1 && num > this@TrandPurhAndSellActivity.balance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
                                             mNumErrorHint!!.text = mVRTHint!!.text.toString() + "不足"
-                                        } else if (type == 2 && num > this@TrandPurhAndSellActivity.tokenBalance) {
+                                        } else if (type == 2 && allPrice > this@TrandPurhAndSellActivity.tokenBalance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
@@ -188,12 +188,12 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
-                                            mNumErrorHint!!.text = mVRTHint!!.text.toString() + "不足"
+                                            mNumErrorHint!!.text = mVRTHint!!.text.toString() + getString(R.string.insufficient)
                                         } else if (type == 2 && num > this@TrandPurhAndSellActivity.tokenBalance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
-                                            mNumErrorHint!!.text = mHintPrice!!.text.toString() + "不足"
+                                            mNumErrorHint!!.text = mHintPrice!!.text.toString() + getString(R.string.insufficient)
                                         } else if (num < minLimit) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
@@ -298,7 +298,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                         when (view.id) {
                             R.id.pay_close -> {
                                 mPopView!!.dismiss()
-                                ToastUtils.showLong("取消交易")
+                                ToastUtils.showLong(getString(R.string.cancel_the_deal))
                             }
                             R.id.pay_text -> {
                                 KeyboardUtils.showSoftInput(mPopView!!.contentView.findViewById<View>(R.id.pay_text))

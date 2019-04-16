@@ -46,12 +46,12 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
         when (passwordType) {
             TYPE_LOGIN_PASSWORD -> {
                 account_pay_hint.visibility = View.GONE
-                reset_title.text = "设置登录密码"
+                reset_title.text = getString(R.string.setting_login_password)
 
             }
             TYPE_PAY_PASSWORD -> {
                 account_hint.visibility = View.GONE
-                reset_title.text = "设置支付密码"
+                reset_title.text = getString(R.string.setting_pay_password)
             }
         }
     }
@@ -87,17 +87,17 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                     TYPE_LOGIN_PASSWORD -> {
                         value = login_pwd.text.toString()
                         if (value == "") {
-                            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为空")?.show()
+                            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.login_password_cannot_be_empty))?.show()
                             dialogHelper?.dismissDelayed(null)
                             return
                         }
                         if (value.length < 8) {
-                            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码必须在8位以上")?.show()
+                            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.login_password_must_be_8_or_more))?.show()
                             dialogHelper?.dismissDelayed(null)
                             return
                         }
                         if (Pattern.compile("[0-9]*").matcher(value).matches()) {
-                            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为纯数字")?.show()
+                            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.login_password_cannot_be_a_pure_number))?.show()
                             dialogHelper?.dismissDelayed(null)
                             return
                         }
@@ -105,12 +105,12 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                     TYPE_PAY_PASSWORD -> {
                         value = pay_pwd.text.toString()
                         if (value.length < 6) {
-                            dialogHelper?.create(this, R.drawable.miss_icon, "支付密码必须为6位")?.show()
+                            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.payment_password_must_be_6_digits))?.show()
                             dialogHelper?.dismissDelayed(null)
                             return
                         }
                         if (value == "") {
-                            dialogHelper?.create(this, R.drawable.miss_icon, "支付密码不可为空")?.show()
+                            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.payment_password_cannot_be_empty))?.show()
                             dialogHelper?.dismissDelayed(null)
                             return
                         }
@@ -156,7 +156,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                             }
                         }, { error ->
                             if (error is SocketTimeoutException) {
-                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
+                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, getString(R.string.connection_timed_out))
                             } else {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message!!)
                             }

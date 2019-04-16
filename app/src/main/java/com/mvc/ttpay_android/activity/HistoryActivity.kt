@@ -185,7 +185,7 @@ class HistoryActivity : BaseMVPActivity<IHistoryContract.HistroyPrecenter>(), IH
                         }
 
                         override fun cancle(i: Int) {
-                            ToastUtils.showLong("未给予相机权限将无法扫描二维码")
+                            ToastUtils.showLong(getString(R.string.cannot_scan_qr_code))
                         }
 
                         override fun success(i: Int) {
@@ -232,7 +232,7 @@ class HistoryActivity : BaseMVPActivity<IHistoryContract.HistroyPrecenter>(), IH
                     val qode = data.getBooleanExtra("QODE", false)
                     if (!qode) {
                         val dialogHelper = DialogHelper.instance
-                        dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show()
+                        dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.invalid_address)).show()
                         dialogHelper.dismissDelayed(null, 2000)
                         return
                     }

@@ -120,7 +120,7 @@
 				android:paddingTop="5dp"
 				android:paddingRight="7dp"
 				android:paddingBottom="5dp"
-				android:text="发送验证码"
+				android:text="@string/send_code"
 				android:textColor="@color/send_code_tv_bg"
 				android:textSize="15sp"/>
 	</LinearLayout>

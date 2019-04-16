@@ -16,7 +16,7 @@ class FinanciaAdapter(layoutResId: Int, data: List<FinancialListBean.DataBean>?)
 
     override fun convert(helper: BaseViewHolder, item: FinancialListBean.DataBean) {
         var bar = helper.getView<ProgressBar>(R.id.remaining_amount_progress)
-        helper.setText(R.id.stop_time, "下线时间：${TimeUtils.millis2String(item.stopAt, SimpleDateFormat("yyyy-MM-dd"))}")
+        helper.setText(R.id.stop_time, "${mContext.getString(R.string.offline_time)}：${TimeUtils.millis2String(item.stopAt, SimpleDateFormat("yyyy-MM-dd"))}")
         var income = if (item.incomeMax <= 0 && item.incomeMin <= 0) {
             "0"
         } else if (item.incomeMin <= 0) {
@@ -27,18 +27,18 @@ class FinanciaAdapter(layoutResId: Int, data: List<FinancialListBean.DataBean>?)
             "${TextUtils.doubleToDouble(item.incomeMin)}-${TextUtils.doubleToDouble(item.incomeMax)}"
         }
         if(item.needSign == 1){
-            helper.setText(R.id.tag_time, "需签到${item.times}次")
+            helper.setText(R.id.tag_time, "${mContext.getString(R.string.need_to_sign_in)}${item.times}${mContext.getString(R.string.times)}")
             helper.getView<ImageView>(R.id.sign_out).visibility = View.VISIBLE
         }else{
-            helper.setText(R.id.tag_time, "理财周期${item.times}天")
+            helper.setText(R.id.tag_time, "${mContext.getString(R.string.financial_cycle)}${item.times}${mContext.getString(R.string.day)}")
             helper.getView<ImageView>(R.id.sign_out).visibility = View.INVISIBLE
         }
-        helper.setText(R.id.income, "$income %")
+        helper.setText(R.id.income, "$income%")
         helper.setText(R.id.name, item.name)
-        helper.setText(R.id.remaining_amount, "产品剩余额度:${TextUtils.doubleToEight(item.limitValue - item.sold)} ${item.baseTokenName}")
+        helper.setText(R.id.remaining_amount, "${mContext.getString(R.string.product_remaining_amount)}:${TextUtils.doubleToEight(item.limitValue - item.sold)} ${item.baseTokenName}")
         bar.max = item.limitValue.toInt()
         bar.progress = (item.limitValue - item.sold).toInt()
-        helper.setText(R.id.tag_start, "${TextUtils.doubleToEight(item.minValue)}${item.baseTokenName}起投")
+        helper.setText(R.id.tag_start, "${TextUtils.doubleToEight(item.minValue)}${item.baseTokenName}${mContext.getString(R.string.starting)}")
         helper.addOnClickListener(R.id.financial_layout)
     }
 }

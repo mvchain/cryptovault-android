@@ -1,223 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
 
-    <View
-        android:id="@+id/status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+	<View
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        android:gravity="center_vertical">
+	<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="@color/white"
+			android:gravity="center_vertical">
 
 
-        <TextView
-		        android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="区块详情"
-            android:textSize="17sp" />
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:text="@string/block_details"
+				android:textSize="17sp"/>
 
-        <ImageView
-            android:id="@+id/browser_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:scaleType="center"
-            android:src="@drawable/back_icon_black" />
-    </RelativeLayout>
+		<ImageView
+				android:id="@+id/browser_back"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="5dp"
+				android:scaleType="center"
+				android:src="@drawable/back_icon_black"/>
+	</RelativeLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe"
-		    android:layout_width="match_parent"
-        android:layout_height="match_parent">
+	<android.support.v4.widget.SwipeRefreshLayout
+			android:id="@+id/swipe"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+		<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical">
 
-                <com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
-                        android:id="@+id/browser_header"
-		                android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+			<com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader
+					android:id="@+id/browser_header"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+				<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="22dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginRight="22dp"
-                            android:orientation="vertical">
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="22dp"
+							android:layout_marginTop="8dp"
+							android:layout_marginRight="22dp"
+							android:orientation="vertical">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingTop="8dp"
-                                android:paddingBottom="8dp">
+						<LinearLayout
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:orientation="horizontal"
+								android:paddingTop="8dp"
+								android:paddingBottom="8dp">
 
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center_vertical"
-                                    android:text="当前区块"
-                                    android:textColor="@color/login_content"
-                                    android:textSize="13sp" />
+							<TextView
+									android:layout_width="0dp"
+									android:layout_height="match_parent"
+									android:layout_weight="1"
+									android:gravity="center_vertical"
+									android:text="@string/current_block"
+									android:textColor="@color/login_content"
+									android:textSize="13sp"/>
 
-                                <TextView
-                                        android:id="@+id/current_block"
-		                                android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="right|center_vertical"
-                                    android:text="-"
-                                    android:textColor="@color/login_content"
-                                    android:textSize="17sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
+							<TextView
+									android:id="@+id/current_block"
+									android:layout_width="0dp"
+									android:layout_height="match_parent"
+									android:layout_weight="1"
+									android:gravity="right|center_vertical"
+									android:text="-"
+									android:textColor="@color/login_content"
+									android:textSize="17sp"
+									android:textStyle="bold"/>
+						</LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingTop="8dp"
-                                android:paddingBottom="8dp">
+						<LinearLayout
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:orientation="horizontal"
+								android:paddingTop="8dp"
+								android:paddingBottom="8dp">
 
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center_vertical"
-                                    android:text="交易数量"
-                                    android:textColor="@color/login_content"
-                                    android:textSize="13sp" />
+							<TextView
+									android:layout_width="0dp"
+									android:layout_height="match_parent"
+									android:layout_weight="1"
+									android:gravity="center_vertical"
+									android:text="@string/number_of_transactions"
+									android:textColor="@color/login_content"
+									android:textSize="13sp"/>
 
-                                <TextView
-                                        android:id="@+id/block_number"
-		                                android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="right|center_vertical"
-                                    android:text="-"
-                                    android:textColor="@color/login_content"
-                                    android:textSize="17sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
+							<TextView
+									android:id="@+id/block_number"
+									android:layout_width="0dp"
+									android:layout_height="match_parent"
+									android:layout_weight="1"
+									android:gravity="right|center_vertical"
+									android:text="-"
+									android:textColor="@color/login_content"
+									android:textSize="17sp"
+									android:textStyle="bold"/>
+						</LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:paddingTop="8dp"
-                                android:paddingBottom="8dp">
+						<LinearLayout
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:orientation="horizontal"
+								android:paddingTop="8dp"
+								android:paddingBottom="8dp">
 
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center_vertical"
-                                    android:text="出块时间"
-                                    android:textColor="@color/login_content"
-                                    android:textSize="13sp" />
+							<TextView
+									android:layout_width="0dp"
+									android:layout_height="match_parent"
+									android:layout_weight="1"
+									android:gravity="center_vertical"
+									android:text="@string/block_time"
+									android:textColor="@color/login_content"
+									android:textSize="13sp"/>
 
-                                <TextView
-                                        android:id="@+id/block_time"
-		                                android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="right|center_vertical"
-                                    android:text="-"
-                                    android:textColor="@color/login_content"
-                                    android:textSize="13sp" />
-                            </LinearLayout>
+							<TextView
+									android:id="@+id/block_time"
+									android:layout_width="0dp"
+									android:layout_height="match_parent"
+									android:layout_weight="1"
+									android:gravity="right|center_vertical"
+									android:text="-"
+									android:textColor="@color/login_content"
+									android:textSize="13sp"/>
+						</LinearLayout>
 
-                        </LinearLayout>
+					</LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="12dp"
-                            android:layout_marginTop="8dp"
-                            android:background="#FBFBFB" />
+					<View
+							android:layout_width="match_parent"
+							android:layout_height="12dp"
+							android:layout_marginTop="8dp"
+							android:background="#FBFBFB"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="22dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginRight="22dp"
-                            android:text="交易"
-                            android:textColor="@color/login_content"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+					<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="22dp"
+							android:layout_marginTop="16dp"
+							android:layout_marginRight="22dp"
+							android:text="@string/transfer"
+							android:textColor="@color/login_content"
+							android:textSize="17sp"
+							android:textStyle="bold"/>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="22dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginRight="22dp"
-                            android:orientation="horizontal">
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="22dp"
+							android:layout_marginTop="16dp"
+							android:layout_marginRight="22dp"
+							android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="交易 Hash"
-                                android:textColor="@color/trand_gray"
-                                android:textSize="13sp" />
+						<TextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="@string/trading_hash"
+								android:textColor="@color/trand_gray"
+								android:textSize="13sp"/>
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="确认数"
-                                android:textColor="@color/trand_gray"
-                                android:textSize="13sp" />
+						<TextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:gravity="center"
+								android:text="@string/confirmation_number"
+								android:textColor="@color/trand_gray"
+								android:textSize="13sp"/>
 
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:text="交易时间"
-                                android:textColor="@color/trand_gray"
-                                android:textSize="13sp" />
-                        </LinearLayout>
+						<TextView
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:gravity="right"
+								android:text="@string/transaction_time"
+								android:textColor="@color/trand_gray"
+								android:textSize="13sp"/>
+					</LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginLeft="22dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginRight="22dp"
-                            android:layout_marginBottom="15dp" />
-                    </LinearLayout>
-                </com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
+					<View
+							android:layout_width="match_parent"
+							android:layout_height="0dp"
+							android:layout_marginLeft="22dp"
+							android:layout_marginTop="15dp"
+							android:layout_marginRight="22dp"
+							android:layout_marginBottom="15dp"/>
+				</LinearLayout>
+			</com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader>
 
-                <android.support.v7.widget.RecyclerView
-                        android:id="@+id/browser_transfer_rv"
-		                android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="22dp"
-                    android:layout_marginRight="22dp"
-                    android:layout_marginBottom="17dp"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-            </RelativeLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+			<android.support.v7.widget.RecyclerView
+					android:id="@+id/browser_transfer_rv"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginLeft="22dp"
+					android:layout_marginRight="22dp"
+					android:layout_marginBottom="17dp"
+					app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+		</RelativeLayout>
+	</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

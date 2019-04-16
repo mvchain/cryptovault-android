@@ -16,7 +16,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:gravity="center"
-				android:text="BTC 理财"
+				android:text="@string/btc_finance"
 				android:textColor="@color/white"
 				android:textSize="17sp"/>
 
@@ -28,7 +28,7 @@
 				android:textColor="@color/white"
 				android:gravity="center"
 				android:padding="10dp"
-				android:text="我的持仓"
+				android:text="@string/my_position"
 				android:textSize="13sp"/>
 	</RelativeLayout>
 
@@ -64,7 +64,7 @@
 					<TextView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							android:text="理财总资产"
+							android:text="@string/total_wealth_management_assets"
 							android:layout_marginLeft="30dp"
 							android:textColor="@color/white"
 							android:textSize="15sp"/>
@@ -95,7 +95,7 @@
 							<TextView
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
-									android:text="今日收益"
+									android:text="@string/today_income"
 									android:textColor="#66FFFFFF"
 									android:textSize="12sp"/>
 
@@ -119,7 +119,7 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"
 									android:textColor="#66FFFFFF"
-									android:text="累计收益"
+									android:text="@string/cumulative_income"
 									android:textSize="12sp"/>
 
 							<TextView

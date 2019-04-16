@@ -95,7 +95,7 @@ class InvatitionActivity : BaseActivity() {
                     }
 
                     override fun cancle(i: Int) {
-                        dialogHelper!!.create(this@InvatitionActivity, R.drawable.miss_icon, "权限不足").show()
+                        dialogHelper!!.create(this@InvatitionActivity, R.drawable.miss_icon, getString(R.string.insufficient_permissions)).show()
                         dialogHelper!!.dismissDelayed(null, 2000)
                     }
 

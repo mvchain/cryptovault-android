@@ -38,12 +38,12 @@ class SetEmailActivity : BaseActivity() {
             }
             R.id.send_code -> {
                 if (checkEmailNotNullValue()) {
-                    dialogHelper!!.create(this, R.drawable.pending_icon_1, "发送验证码").show()
+                    dialogHelper!!.create(this, R.drawable.pending_icon_1,  getString(R.string.send_code)).show()
                     RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendValiCode(email.text.toString())
                             .compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ bean ->
                                 if (bean.code === 200) {
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "验证码发送成功")
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "getString(R.string.send_successfully)")
                                     TimeVerification.getInstence().resume()
                                     setViewStatus()
                                 } else {
@@ -110,7 +110,7 @@ class SetEmailActivity : BaseActivity() {
                 send_code.isEnabled = true
                 send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
                 send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.send_code_tv_bg))
-                send_code.text = "重新发送"
+                send_code.text = getString(R.string.reset_send)
             }
         }).updataTime()
     }

@@ -41,7 +41,7 @@ class PrivateKeyVerificationActivity : BaseActivity() {
             R.id.submit -> {
                 var email = SPUtils.getInstance().getString(USER_EMAIL)
                 if (checkNotNullValue()) {
-                    dialogHelper?.create(this, R.drawable.pending_icon_1, "验证中")?.show()
+                    dialogHelper?.create(this, R.drawable.pending_icon_1, getString(R.string.in_verification))?.show()
                     verification(email, 1, private_key.text.toString())
                 }
             }

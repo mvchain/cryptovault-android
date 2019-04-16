@@ -137,7 +137,7 @@
 								android:layout_height="wrap_content"
 								android:layout_marginTop="4dp"
 								android:gravity="center_vertical|left"
-								android:text="支付金额/预约金额"
+								android:text="@string/payment_amount"
 								android:textColor="@color/toge_gray"
 								android:textSize="12sp"/>
 
@@ -146,7 +146,7 @@
 								android:layout_height="wrap_content"
 								android:layout_marginTop="4dp"
 								android:gravity="center_vertical|left"
-								android:text="成功数量/预约数量"
+								android:text="@string/number_of_success"
 								android:textColor="@color/toge_gray"
 								android:textSize="12sp"/>
 
@@ -155,7 +155,7 @@
 								android:layout_height="wrap_content"
 								android:layout_marginTop="4dp"
 								android:gravity="center_vertical|left"
-								android:text="兑换比例"
+								android:text="@string/conversion_ratio"
 								android:textColor="@color/toge_gray"
 								android:textSize="12sp"/>
 
@@ -164,7 +164,7 @@
 								android:layout_height="wrap_content"
 								android:layout_marginTop="4dp"
 								android:gravity="center_vertical|left"
-								android:text="发币时间"
+								android:text="@string/currency_time"
 								android:textColor="@color/toge_gray"
 								android:textSize="12sp"/>
 					</LinearLayout>
@@ -236,7 +236,7 @@
 						android:layout_height="wrap_content"
 						android:gravity="center"
 						android:padding="10dp"
-						android:text="发币记录"/>
+						android:text="@string/currency_record"/>
 
 				<RelativeLayout
 						android:layout_width="match_parent"
@@ -248,7 +248,7 @@
 							android:layout_height="match_parent"
 							android:gravity="center_horizontal"
 							android:paddingTop="40dp"
-							android:text="暂无发币记录"/>
+							android:text="@string/no_currency_record"/>
 
 					<android.support.v7.widget.RecyclerView
 							android:id="@+id/publish_detail_rv"

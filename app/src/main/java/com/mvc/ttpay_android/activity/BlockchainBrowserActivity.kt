@@ -185,7 +185,7 @@ class BlockchainBrowserActivity : BaseMVPActivity<IBrowserContract.IBrowserPrese
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             var searchMsg = browser_edit.text.toString().trim()
                             if (browser_edit.text.toString().trim() == "") {
-                                showToast("请输入搜索关键字")
+                                showToast(getString(R.string.please_enter))
                                 false
                             } else {
                                 // 搜索功能主体

@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/msg_title"
             android:layout_width="match_parent"
-            android:text="通知"
+            android:text="@string/msg_title"
             android:gravity="center"
             android:textColor="@color/login_content"
             android:textSize="17sp"

@@ -42,7 +42,7 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
     override fun showSuccess(bean: FinancialDetailBean.DataBean) {
         financial_title.text = bean.name
         financia_income.text = "${TextUtils.doubleToDouble(bean.incomeMin)}-${TextUtils.doubleToDouble(bean.incomeMax)} %"
-        time_cycle.text = "${bean.times}天"
+        time_cycle.text = "${bean.times}${getString(R.string.day)}"
         starting.text = "${TextUtils.doubleToEight(bean.minValue)} ${bean.baseTokenName}"
         if ((webView.parent) != null) {
             (webView.parent as ViewGroup).removeView(webView)
@@ -69,7 +69,7 @@ class FinancialDetailActivity : BaseMVPActivity<IFinancialDetailContract.Financi
         deposit.setBackgroundResource(R.drawable.bg_login_submit)
         remaining_amount_progress.max = bean.limitValue.toInt()
         remaining_amount_progress.progress = (bean.limitValue - bean.sold).toInt()
-        remaining_amount.text = "剩余总额度 ${TextUtils.doubleToFourPrice(bean.limitValue - bean.sold)} ${bean.baseTokenName}"
+        remaining_amount.text = "${getString(R.string.remaining_total)} ${TextUtils.doubleToFourPrice(bean.limitValue - bean.sold)} ${bean.baseTokenName}"
 //        val valueAnimator = ValueAnimator.ofInt(bean.limitValue.toInt(), (bean.limitValue - bean.sold).toInt()).setDuration(800)
 //        valueAnimator.addUpdateListener { animation ->
 //            remaining_amount_progress.progress = animation.animatedValue as Int

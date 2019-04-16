@@ -30,13 +30,13 @@ class OptionDetailActivity : BaseMVPActivity<IOptionDetailContract.OptionDetailP
 
 
     override fun showExtractSuccess() {
-        dialogHelper.resetDialogResource(this, R.drawable.success_icon, "取出成功")
+        dialogHelper.resetDialogResource(this, R.drawable.success_icon, getString(R.string.successfully_removed))
         dialogHelper.dismissDelayed (object :DialogHelper.IDialogDialog{
             override fun callback() {
                 EventBus.getDefault().post(OptionEvent())
             }
         })
-        submit.text = "已取出"
+        submit.text = getString(R.string.removed)
         submit.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
         submit.isEnabled = false
     }
@@ -52,13 +52,13 @@ class OptionDetailActivity : BaseMVPActivity<IOptionDetailContract.OptionDetailP
         investment_amount.text = TextUtils.doubleToEight(detail.value) + detail.baseTokenName
         cumulative_income.text = TextUtils.doubleToEight(detail.income) + detail.tokenName
         if(detail.needSign == 1){
-            remaining_days.text = "剩余签到${detail.times}次"
+            remaining_days.text = "${getString(R.string.remaining_check_in)}${detail.times}${getString(R.string.times)}"
         }else{
-            remaining_days.text = "剩余理财周期${detail.times}天"
+            remaining_days.text = "${getString(R.string.remaining_financial_period)}${detail.times}${getString(R.string.day)}"
         }
-        detail_title.text = "${detail.financialName}持仓详情"
+        detail_title.text = "${detail.financialName}${getString(R.string.position_details)}"
         detail_content.text = detail.financialName
-        interest_rate.text = "年化收益率：${TextUtils.doubleToDouble(detail.incomeMin)}-${TextUtils.doubleToDouble(detail.incomeMax)} %"
+        interest_rate.text = "${getString(R.string.annualized_rate_of_return)}：${TextUtils.doubleToDouble(detail.incomeMin)}-${TextUtils.doubleToDouble(detail.incomeMax)} %"
     }
 
     override fun showDailyIncome(incom: ArrayList<OptionDailyIncomeBean.DataBean>) {
@@ -148,13 +148,13 @@ class OptionDetailActivity : BaseMVPActivity<IOptionDetailContract.OptionDetailP
                 submit.isEnabled = true
             }
             3 -> {
-                submit.text = "已取出"
+                submit.text = getString(R.string.removed)
                 submit.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                 submit.isEnabled = false
             }
         }
         submit.setOnClickListener {
-            dialogHelper.create(this, "确定取出？", IDialogViewClickListener { viewId ->
+            dialogHelper.create(this, getString(R.string.confirm_removed), IDialogViewClickListener { viewId ->
                 when (viewId) {
                     R.id.hint_cancle -> {
                         dialogHelper.dismiss()
@@ -169,7 +169,7 @@ class OptionDetailActivity : BaseMVPActivity<IOptionDetailContract.OptionDetailP
     }
 
     private fun extractOptionDetail() {
-        dialogHelper.create(this, R.drawable.pending_icon_1, "正在取出").show()
+        dialogHelper.create(this, R.drawable.pending_icon_1, getString(R.string.extracting)).show()
         mPresenter.extractOptionDetail(id)
     }
 

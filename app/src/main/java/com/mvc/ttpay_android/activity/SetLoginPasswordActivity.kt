@@ -53,16 +53,16 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
         dialogHelper = DialogHelper.instance
         when (type) {
             LOGIN_PASSWORD -> {
-                toolbar_title.text = "修改登录密码"
-                forget_pwd.text = "忘记登录密码？"
+                toolbar_title.text = getString(R.string.set_login_password)
+                forget_pwd.text = getString(R.string.forgot_your_password)
                 old_pwd.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                 new_pwd.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
             PAY_PASSWORD -> {
-                toolbar_title.text = "修改支付密码"
-                forget_pwd.text = "忘记支付密码？"
-                old_pwd.setHint("输入当前支付密码")
-                new_pwd.setHint("输入新支付密码")
+                toolbar_title.text = getString(R.string.modify_payment_password)
+                forget_pwd.text = getString(R.string.forgot_to_pay_the_password)
+                old_pwd.setHint(getString(R.string.enter_the_current_payment_password))
+                new_pwd.setHint(getString(R.string.Enter_a_new_payment_password))
                 old_pwd.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                 new_pwd.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                 old_pwd.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(6))

@@ -21,7 +21,7 @@
 				android:id="@+id/assets_title"
 				android:layout_height="match_parent"
 				android:gravity="center"
-				android:text="交易记录"
+				android:text="@string/transaction_record"
 				android:textSize="17sp"/>
 		<ImageView
 				android:id="@+id/assets_back"
@@ -58,7 +58,7 @@
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
 						android:gravity="left"
-						android:text="交易类型"
+						android:text="@string/transaction_type"
 						android:textSize="13sp"/>
 
 				<TextView
@@ -67,7 +67,7 @@
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
 						android:gravity="right"
-						android:text="交易时间"
+						android:text="@string/transaction_time"
 						android:textSize="13sp"/>
 			</LinearLayout>
 

@@ -45,7 +45,7 @@ class MineMnemonicsActivity : BaseActivity(), View.OnClickListener {
                 var clipManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 var clipText = ClipData.newPlainText("private_key", private_key.text.toString())
                 clipManager.primaryClip = clipText
-                ToastUtils.showLong("内容已复制至剪贴板")
+                ToastUtils.showLong(getString(R.string.copied_to_the_clipboard))
             }
             R.id.submit -> {
                 var intent = Intent(this, VerificationMnemonicActivity::class.java)

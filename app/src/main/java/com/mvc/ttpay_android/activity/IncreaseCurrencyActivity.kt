@@ -45,13 +45,13 @@ import okhttp3.MediaType
 import okhttp3.RequestBody
 
 class IncreaseCurrencyActivity : BaseMVPActivity<IncreaseContract.IncreasePresenter>(), IncreaseContract.IIncreaseView, View.OnClickListener, BaseQuickAdapter.OnItemChildClickListener {
-   private var isSearch = false
-   private lateinit var mBean: ArrayList<IncreaseBean>
-   private lateinit var mSearch: ArrayList<IncreaseBean>
-   private lateinit var allIncreaseAdapter: IncreaseAdapter
-   private lateinit var searchIncreaseAdapter: IncreaseAdapter
-   private lateinit var mHintDialog: Dialog
-   private lateinit var listBean: AssetListBean
+    private var isSearch = false
+    private lateinit var mBean: ArrayList<IncreaseBean>
+    private lateinit var mSearch: ArrayList<IncreaseBean>
+    private lateinit var allIncreaseAdapter: IncreaseAdapter
+    private lateinit var searchIncreaseAdapter: IncreaseAdapter
+    private lateinit var mHintDialog: Dialog
+    private lateinit var listBean: AssetListBean
     //    assertVisibleDTO
 
     override fun initMVPData() {
@@ -167,7 +167,7 @@ class IncreaseCurrencyActivity : BaseMVPActivity<IncreaseContract.IncreasePresen
             R.id.item_increase_add -> if (increase_serach_rv.visibility == View.VISIBLE) {
                 // 搜索的结果
                 if (!mSearch[position].isAdd) {
-                    mHintDialog = DialogHelper.instance.create(this, "确定移除" + mSearch[position].title + "?", IDialogViewClickListener { viewId ->
+                    mHintDialog = DialogHelper.instance.create(this, getString(R.string.confirm_removal) + mSearch[position].title + "?", IDialogViewClickListener { viewId ->
                         when (viewId) {
                             R.id.hint_cancle -> mHintDialog.dismiss()
                             R.id.hint_enter -> {
@@ -182,7 +182,7 @@ class IncreaseCurrencyActivity : BaseMVPActivity<IncreaseContract.IncreasePresen
             } else {
                 //全部列表结果
                 if (!mBean[position].isAdd) {
-                    mHintDialog = DialogHelper.instance.create(this, "确定移除" + mBean[position].title + "?", IDialogViewClickListener { viewId ->
+                    mHintDialog = DialogHelper.instance.create(this, getString(R.string.confirm_removal) + mBean[position].title + "?", IDialogViewClickListener { viewId ->
                         when (viewId) {
                             R.id.hint_cancle -> mHintDialog.dismiss()
                             R.id.hint_enter -> {

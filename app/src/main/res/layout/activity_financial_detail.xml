@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="产品名称"
+            android:text="@string/product_name"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 
@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="预期年化收益率"
+                    android:text="@string/expected_annualized_rate_of_return"
                     android:textColor="@color/white"
                     android:textSize="11sp" />
 
@@ -102,7 +102,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="理财周期"
+                            android:text="@string/financial_cycle"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
 
@@ -126,7 +126,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="起投金额"
+                            android:text="@string/starting_amount"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
 
@@ -189,7 +189,7 @@
             android:enabled="false"
             android:gravity="center"
             android:onClick="onClick"
-            android:text="存入"
+            android:text="@string/deposit"
             android:textColor="@color/select_button_tv_color"
             android:textSize="15sp" />
     </LinearLayout>

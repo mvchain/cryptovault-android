@@ -130,7 +130,7 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
 
                     @Override
                     public void cancle(int i) {
-                        dialogHelper.create(DetailActivity.this, R.drawable.miss_icon, "权限不足").show();
+                        dialogHelper.create(DetailActivity.this, R.drawable.miss_icon, getString(R.string.insufficient_permissions)).show();
                         dialogHelper.dismissDelayed(null, 2000);
                     }
 
@@ -144,7 +144,7 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
                         parintent.setType("image/*");  //设置分享内容的类型
                         parintent.putExtra(Intent.EXTRA_STREAM, parseUri);
                         //创建分享的Dialog
-                        Intent share_intent = Intent.createChooser(parintent, "分享到:");
+                        Intent share_intent = Intent.createChooser(parintent, getString(R.string.share_to));
                         startActivity(share_intent);
                         drawingCache.recycle();
                         mLayoutShare.setDrawingCacheEnabled(false);
@@ -160,9 +160,9 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
         DetailBean.DataBean data = bean.getData();
         int transactionType = data.getTransactionType();
         if (transactionType == 1) {
-            mColladdTitleDetail.setText("付款地址：");
+            mColladdTitleDetail.setText(getString(R.string.payment_address));
         } else {
-            mColladdTitleDetail.setText("收款地址：");
+            mColladdTitleDetail.setText(getString(R.string.collection_address_2));
         }
         int classify = data.getClassify();
         //区块链和转账
@@ -171,15 +171,15 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
                 case 0:
                 case 1:
                     mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.pending_status_icon));
-                    mTitleDetail.setText(transactionType == 1 ? "收款中" : "转账中");
+                    mTitleDetail.setText(transactionType == 1 ? getString(R.string.in_the_collection) : getString(R.string.transfer_load));
                     break;
                 case 2:
                     mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.success_status_icon));
-                    mTitleDetail.setText(transactionType == 1 ? "收款成功" : "转账成功");
+                    mTitleDetail.setText(transactionType == 1 ? getString(R.string.successful_payment) : getString(R.string.successful_transfer));
                     break;
                 case 9:
                     mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.defeat_status_icon));
-                    mTitleDetail.setText(transactionType == 1 ? "收款失败" : "转账失败");
+                    mTitleDetail.setText(transactionType == 1 ? getString(R.string.failed_payment) : getString(R.string.failed_transfer));
                     break;
             }
             mFeesContentDetail.setText(TextUtils.INSTANCE.doubleToEight(data.getFee()) + " " + data.getFeeTokenType());
@@ -193,12 +193,12 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
                     ClipData mClipData = ClipData.newPlainText("hash", mColladdContentDetail.getText().toString());
                     // 将ClipData内容放到系统剪贴板里。
                     cm.setPrimaryClip(mClipData);
-                    dialogHelper.create(this, R.drawable.success_icon, "内容已复制至剪贴板");
+                    dialogHelper.create(this, R.drawable.success_icon, getString(R.string.copied_to_the_clipboard));
                     dialogHelper.dismissDelayed(null, 2000);
                     return true;
                 });
             } else {
-                mColladdContentDetail.setText("无");
+                mColladdContentDetail.setText(getString(R.string.no));
             }
             String hash = data.getHash();
             if (!hash.equals("")) {
@@ -214,17 +214,17 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
                     ClipData mClipData = ClipData.newPlainText("hash", mHashContentDetail.getText().toString());
                     // 将ClipData内容放到系统剪贴板里。
                     cm.setPrimaryClip(mClipData);
-                    dialogHelper.create(this, R.drawable.success_icon, "内容已复制至剪贴板");
+                    dialogHelper.create(this, R.drawable.success_icon, getString(R.string.copied_to_the_clipboard));
                     dialogHelper.dismissDelayed(null, 2000);
                     return true;
                 });
             } else {
 
-                mHashContentDetail.setText("无");
+                mHashContentDetail.setText(getString(R.string.no));
             }
         } else if (classify == 1) { //订单交易
             mIconDetail.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.jy_icon));
-            mTitleDetail.setText(data.getOrderRemark() + " 交易");
+            mTitleDetail.setText(data.getOrderRemark() + " "+getString(R.string.navi_trand));
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
@@ -233,23 +233,23 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
             StringBuffer buffer = new StringBuffer();
             switch (data.getStatus()) {
                 case 9:
-                    buffer.append("退回");
+                    buffer.append(getString(R.string.return_));
                     break;
                 case 2:
-                    buffer.append("发币");
+                    buffer.append(getString(R.string.currency_));
                     break;
                 case 0:
-                    buffer.append("预约");
+                    buffer.append(getString(R.string.reservation));
                     break;
             }
-            mTitleDetail.setText(data.getOrderRemark() + " 众筹" + buffer.toString());
+            mTitleDetail.setText(data.getOrderRemark() + " "+getString(R.string.navi_toge) + buffer.toString());
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
         } else if (classify == 3) {
             mIconDetail.setImageDrawable(data.getStatus() == 2 ? ContextCompat.getDrawable(getBaseContext(), R.drawable.success_icon) : ContextCompat.getDrawable(getBaseContext(), R.drawable.miss_icon));
-            mTitleDetail.setText("存入" + (data.getStatus() == 9 ? "失败" : "成功"));
-            mTvTitle.setText(data.getOrderRemark() + " " + (data.getStatus() == 9 ? "支出" : "收入"));
+            mTitleDetail.setText(getString(R.string.deposit) + (data.getStatus() == 9 ? getString(R.string.failed): getString(R.string.success)));
+            mTvTitle.setText(data.getOrderRemark() + " " + (data.getStatus() == 9 ? getString(R.string.expenditure): getString(R.string.income)));
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);
@@ -258,17 +258,16 @@ public class DetailActivity extends BaseMVPActivity<IDetailContract.DetailPresen
             StringBuffer buffer = new StringBuffer();
             switch (data.getStatus()) {
                 case 4:
-                    buffer.append("取出");
+                    buffer.append(getString(R.string.take_out));
                     break;
                 case 5:
-                    buffer.append("提成");
+                    buffer.append(getString(R.string.commission));
                     break;
                 case 6:
-                    buffer.append("收益");
+                    buffer.append(getString(R.string.earnings));
                     break;
             }
             mTitleDetail.setText(data.getOrderRemark() + " " + buffer);
-//            mTvTitle.setText(data.getOrderRemark() + " " + (data.getStatus() == 9 ? "支出" : "收入"));
             mFeesLayoutDetail.setVisibility(View.GONE);
             mHashLayoutDetail.setVisibility(View.GONE);
             mCollLayoutDetail.setVisibility(View.GONE);

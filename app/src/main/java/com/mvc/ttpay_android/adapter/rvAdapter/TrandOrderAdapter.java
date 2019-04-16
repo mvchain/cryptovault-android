@@ -57,7 +57,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         TextView mPendContent = helper.getView(R.id.order_item_pendpurh);
         helper.setText(R.id.order_item_time, TimeUtils.millis2String(item.getCreatedAt()));
         int position = 0;
-        if (item.getTransactionType() == 1) {
+        if (item.getTransactionType() == 2) {
             mSellerHint.setText("买家");
             pendHint.setText("待购买数量");
             for (int i = 0; i < orderBean.size(); i++) {
@@ -80,7 +80,7 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         }
         TrandChildBean.DataBean dataBean = orderBean.get(position);
         mPurchase.setText(item.getDeal() + " " + dataBean.getTokenName());
-        mPendContent.setText(item.getDeal() + " " + dataBean.getTokenName());
+        mPendContent.setText(item.getDeal() + " MVC");
         mPrice.setText(TextUtils.INSTANCE.doubleToEight(item.getPrice()) + " " + dataBean.getPair().substring(0, dataBean.getPair().indexOf("/")));
         if (item.getStatus() == 0) {//进行中的订单
             helper.getView(R.id.order_item_num_layout).setVisibility(View.GONE);

@@ -110,7 +110,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<IReceiptQRContrac
 
                     @Override
                     public void cancle(int i) {
-                        dialogHelper.create(MineReceiptQRCodeActivity.this, R.drawable.miss_icon, "权限不足").show();
+                        dialogHelper.create(MineReceiptQRCodeActivity.this, R.drawable.miss_icon, getString(R.string.insufficient_permissions)).show();
                         dialogHelper.dismissDelayed(null, 2000);
                     }
 
@@ -138,7 +138,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<IReceiptQRContrac
                 ClipData mClipData = ClipData.newPlainText("hash", mHashM.getText().toString());
                 // 将ClipData内容放到系统剪贴板里。
                 cm.setPrimaryClip(mClipData);
-                ToastUtils.showLong("内容已复制至剪贴板");
+                ToastUtils.showLong(getString(R.string.copied_to_the_clipboard));
                 break;
         }
     }

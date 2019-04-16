@@ -124,7 +124,7 @@ public class MainActivity extends BaseMVPActivity {
                         PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                         int versionCode = packageInfo.versionCode;
                         if (installApkBean.getData().getAppVersionCode() > versionCode) {
-                            dialogHelper.create(MainActivity.this, "检查到新版本，是否更新？", viewId -> {
+                            dialogHelper.create(MainActivity.this, getString(R.string.check_to_new_version), viewId -> {
                                 switch (viewId) {
                                     case R.id.hint_enter:
                                         dialogHelper.dismiss();
@@ -143,9 +143,9 @@ public class MainActivity extends BaseMVPActivity {
                                             public void success(int i) {
                                                 AppInnerDownLoder.downLoadApk(MainActivity.this
                                                         , installApkBean.getData().getHttpUrl()
-                                                        , "TTPay"
-                                                        , "版本升级"
-                                                        , "正在下载安装包，请稍后");
+                                                        , getString(R.string.app_name)
+                                                        , getString(R.string.version_upgrade)
+                                                        , getString(R.string.downloading_package));
                                             }
                                         }).requestPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                                         break;

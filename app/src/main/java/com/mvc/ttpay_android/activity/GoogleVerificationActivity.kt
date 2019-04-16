@@ -36,8 +36,8 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
     @SuppressLint("SetTextI18n")
     override fun initView() {
         googleSecret = intent.getStringExtra("googleSecret")
-        google_title.text = "${if (googleStatus == 0) "开启" else "关闭"}Google安全验证"
-        google_submit.text = "${if (googleStatus == 0) "开启" else "关闭"}Google验证"
+        google_title.text = "${if (googleStatus == 0) getString(R.string.open) else getString(R.string.shut_down)}${getString(R.string.google_verification)}"
+        google_submit.text = "${if (googleStatus == 0)getString(R.string.open) else getString(R.string.shut_down)}${getString(R.string.google_verifly)}"
         google_pwd.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val length = s.length
@@ -65,7 +65,7 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
             }
 
             R.id.google_submit -> {
-                dialogHelper.create(this, R.drawable.pending_icon, "验证中...").show()
+                dialogHelper.create(this, R.drawable.pending_icon, getString(R.string.in_verification)).show()
                 mPresenter.changeGoogleVerification(google_code.text.toString(),googleSecret, google_pwd.text.toString(), if (googleStatus == 0) 1 else 0)
             }
         }
@@ -102,7 +102,7 @@ class GoogleVerificationActivity : BaseMVPActivity<IGoogleContract.GooglePresent
             val intent = Intent(this@GoogleVerificationActivity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-        }, "已成功${if (googleStatus == 0) "开启" else "关闭"}Google验证登录").show()
+        }, "${getString(R.string.succeeded)}${if (googleStatus == 0) getString(R.string.open) else getString(R.string.shut_down)}${getString(R.string.google_verified_login)}").show()
     }
 
     override fun changeFailed(msg: String) {

@@ -96,7 +96,7 @@
 									android:layout_centerHorizontal="true"
 									android:layout_marginTop="20dp"
 									android:gravity="center"
-									android:text="总资产"
+									android:text="@string/total_assets"
 									android:textColor="@color/white"
 									android:textSize="14sp"/>
 

@@ -76,14 +76,14 @@ class BlockAssetsActivity : BaseMVPActivity<IBlockAssetsContract.BlockAssetsPres
         type = intent.getIntExtra("type", 0)
         publicKey = intent.getStringExtra("publicKey")
         if (type == 0) {
-            assets_type.text = "币种"
-            assets_actual.text = "余额"
-            assets_title.text = "资产"
+            assets_type.text = getString(R.string.currency)
+            assets_actual.text = getString(R.string.balance)
+            assets_title.text = getString(R.string.assets)
             assets_rv.adapter = blockAssetsAdapter
         } else {
-            assets_type.text = "交易类型"
-            assets_actual.text = "交易时间"
-            assets_title.text = "交易记录"
+            assets_type.text = getString(R.string.transaction_type)
+            assets_actual.text = getString(R.string.transaction_time)
+            assets_title.text = getString(R.string.transaction_record)
             assets_rv.adapter = blockOrderAdapter
             assets_rv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {

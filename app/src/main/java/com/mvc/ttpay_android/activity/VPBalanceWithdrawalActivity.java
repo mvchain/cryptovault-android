@@ -170,7 +170,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
                                         switch (view.getId()) {
                                             case R.id.pay_close:
                                                 mPopView.dismiss();
-                                                ToastUtils.showLong("取消交易");
+                                                ToastUtils.showLong(getString(R.string.cancel_the_deal));
                                                 break;
                                             case R.id.pay_text:
                                                 KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));

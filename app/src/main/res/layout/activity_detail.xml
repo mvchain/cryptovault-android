@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="区块链浏览器"
+            android:text="@string/blockchain_browser"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 
@@ -103,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="金额："
+                        android:text="@string/amount"
                         android:textColor="@color/login_content"
                         android:textSize="14sp" />
 
@@ -129,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="交易手续费："
+                        android:text="@string/transaction_fees_"
                         android:textColor="@color/login_content"
                         android:textSize="14sp" />
 
@@ -155,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:gravity="left"
-                        android:text="收款地址："
+                        android:text="@string/collection_address_2"
                         android:textColor="@color/login_content"
                         android:textSize="14sp" />
 
@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:gravity="left"
-                        android:text="交易哈希："
+                        android:text="@string/trading_hash_"
                         android:textColor="@color/login_content"
                         android:textSize="14sp" />
 

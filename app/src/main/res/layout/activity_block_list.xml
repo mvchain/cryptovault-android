@@ -21,7 +21,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:gravity="center"
-				android:text="区块列表"
+				android:text="@string/block_list"
 				android:textSize="17sp"/>
 
 		<ImageView
@@ -58,7 +58,7 @@
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
-						android:text="区块高度"
+						android:text="@string/block_height"
 						android:textColor="@color/trand_gray"
 						android:textSize="13sp"/>
 
@@ -67,7 +67,7 @@
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
 						android:gravity="center"
-						android:text="交易数量"
+						android:text="@string/number_of_transactions"
 						android:textColor="@color/trand_gray"
 						android:textSize="13sp"/>
 
@@ -76,7 +76,7 @@
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
 						android:gravity="right"
-						android:text="出块时间"
+						android:text="@string/block_time"
 						android:textColor="@color/trand_gray"
 						android:textSize="13sp"/>
 			</LinearLayout>

@@ -54,7 +54,7 @@ class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.R
         when (v.id) {
             R.id.reg_submit -> {
                 if (checkNotNullValue()) {
-                    dialogHelper?.create(this, R.drawable.pending_icon_1, "请稍后")?.show()
+                    dialogHelper?.create(this, R.drawable.pending_icon_1, getString(R.string.please_wait))?.show()
                     mPresenter.sendInvitationRequest(reg_email.text.toString(), reg_code.text.toString())
                 }
             }
@@ -64,7 +64,7 @@ class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.R
                     dialogHelper?.dismissDelayed(null)
                     return
                 }
-                dialogHelper?.create(this, R.drawable.pending_icon_1, "发送验证码")?.show()
+                dialogHelper?.create(this, R.drawable.pending_icon_1, getString(R.string.send_code))?.show()
                 mPresenter.sendValiCode(reg_email.text.toString())
             }
             R.id.reg_back -> {
@@ -125,7 +125,7 @@ class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.R
                 send_code.isEnabled = true
                 send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
                 send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.send_code_tv_bg))
-                send_code.text = "重新发送"
+                send_code.text = getString(R.string.reset_send)
             }
         }).updataTime()
     }

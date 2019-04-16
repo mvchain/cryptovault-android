@@ -20,7 +20,7 @@ class RegisterInvitationPresenter : IRegisterInvitationConstrat.RegisterInvitati
     override fun sendValiCode(email: String) {
         rxUtils.register(mIModel.sendValiCode(email).subscribe({ httpBean ->
             if (httpBean.code === 200) {
-                mIView.showValiCode("验证码发送成功")
+                mIView.showValiCode("getString(R.string.send_successfully)")
             } else {
                 mIView.showError(httpBean.message)
             }

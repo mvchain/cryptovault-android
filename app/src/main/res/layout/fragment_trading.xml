@@ -15,7 +15,7 @@
 			android:background="@color/white"
 			android:layout_height="44dp">
 		<TextView
-				android:text="MVC交易"
+				android:text="@string/mvc_trading"
 				android:gravity="center"
 				android:textSize="17sp"
 				android:textColor="#333333"
@@ -68,7 +68,7 @@
 						android:id="@+id/current_hint"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="当前价格"
+						android:text="@string/current_price"
 						android:textColor="@color/msg_time_gray"
 						android:textSize="12sp"/>
 
@@ -76,7 +76,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_centerHorizontal="true"
-						android:text="24H最高"
+						android:text="@string/h24_highest"
 						android:textColor="@color/msg_time_gray"
 						android:textSize="12sp"/>
 
@@ -84,7 +84,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_alignParentRight="true"
-						android:text="24H最低"
+						android:text="@string/h24_minimum"
 						android:textColor="@color/msg_time_gray"
 						android:textSize="12sp"/>
 
@@ -146,7 +146,7 @@
 							android:button="@null"
 							android:checked="true"
 							android:gravity="center"
-							android:text="购买MVC"
+							android:text="@string/buy_mvc"
 							android:textColor="@color/select_recording_radio"/>
 
 					<RadioButton
@@ -157,7 +157,7 @@
 							android:background="@drawable/select_recording_radio"
 							android:button="@null"
 							android:gravity="center"
-							android:text="出售MVC"
+							android:text="@string/sell_mvc"
 							android:textColor="@color/select_recording_radio"/>
 				</RadioGroup>
 				<com.mvc.ttpay_android.view.NoScrollViewPager

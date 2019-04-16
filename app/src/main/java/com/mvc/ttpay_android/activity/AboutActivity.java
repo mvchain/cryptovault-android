@@ -74,7 +74,7 @@ public class AboutActivity extends BaseActivity {
                         PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                         int versionCode = packageInfo.versionCode;
                         if (installApkBean.getData().getAppVersionCode() > versionCode) {
-                            dialogHelper.create(AboutActivity.this, "检查到新版本，是否更新？", viewId -> {
+                            dialogHelper.create(AboutActivity.this, getString(R.string.check_to_new_version), viewId -> {
                                 switch (viewId) {
                                     case R.id.hint_enter:
                                         dialogHelper.dismiss();
@@ -93,9 +93,9 @@ public class AboutActivity extends BaseActivity {
                                             public void success(int i) {
                                                 AppInnerDownLoder.downLoadApk(AboutActivity.this
                                                         , installApkBean.getData().getHttpUrl()
-                                                        , "TTPay"
-                                                        , "版本升级"
-                                                        , "正在下载安装包，请稍后");
+                                                        , getString(R.string.app_name)
+                                                        , getString(R.string.version_upgrade)
+                                                        , getString(R.string.downloading_package));
                                             }
                                         }).requestPermission(AboutActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                                         break;
@@ -105,7 +105,7 @@ public class AboutActivity extends BaseActivity {
                                 }
                             }).show();
                         } else {
-                            ToastUtils.showShort("当前版本已是最新");
+                            ToastUtils.showShort(getString(R.string.the_current_version));
                         }
                     } else {
                         LogUtils.e(installApkBean.getMessage());

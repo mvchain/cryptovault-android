@@ -91,16 +91,16 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
             }
             R.id.send_code -> {
                 if (account.text.toString() == "") {
-                    dialogHelper?.create(this, R.drawable.miss_icon, "邮箱不可为空")?.show()
+                    dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.mailbox_cannot_be_empty))?.show()
                     dialogHelper?.dismissDelayed(null)
                     return
                 }
-                dialogHelper?.create(this, R.drawable.pending_icon_1, "发送验证码")?.show()
+                dialogHelper?.create(this, R.drawable.pending_icon_1,  getString(R.string.send_code))?.show()
                 RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).sendValiCode(account.text.toString())
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ httpTokenBean ->
                             if (httpTokenBean.code == 200) {
-                                dialogHelper?.resetDialogResource(this, R.drawable.success_icon, "验证码发送成功")
+                                dialogHelper?.resetDialogResource(this, R.drawable.success_icon, getString(R.string.send_successfully))
                                 dialogHelper?.dismissDelayed(null)
                                 startTimeCountdown()
                             } else {
@@ -115,7 +115,7 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
             R.id.submit -> {
                 if (checkNotNullValue(resetType)) {
                     //助记词需要先去请求助记词之后才允许跳转设置密码
-                    dialogHelper?.create(this, R.drawable.pending_icon_1, "验证中")?.show()
+                    dialogHelper?.create(this, R.drawable.pending_icon_1, getString(R.string.in_verification))?.show()
                     when (resetType) {
                         TYPE_MNEMONICS -> {
                             //获取助记词
@@ -171,14 +171,14 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
                 send_code.isEnabled = true
                 send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
                 send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.send_code_tv_bg))
-                send_code.text = "重新发送"
+                send_code.text = getString(R.string.reset_send)
             }
         }).updataTime()
     }
 
     private fun checkNotNullValue(resetType: Int): Boolean {
         if (account.text.toString() == "") {
-            dialogHelper?.create(this, R.drawable.miss_icon, "${hintMsg}不可为空")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, "$hintMsg${getString(R.string.not_nullable)}")?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }

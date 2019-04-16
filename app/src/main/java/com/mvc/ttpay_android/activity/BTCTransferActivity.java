@@ -113,7 +113,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
         mPriceBtc = findViewById(R.id.btc_price);
         mSxfBtc = findViewById(R.id.btc_sxf);
         mSubmitBtc = findViewById(R.id.btc_submit);
-        mTitleM.setText(tokenName + "转账");
+        mTitleM.setText(tokenName + getString(R.string.transfer));
         mTransPriceBtc.setFilters(new InputFilter[]{new PointLengthFilter()});
         mBackM.setOnClickListener(this);
         mQCodeM.setOnClickListener(this);
@@ -138,7 +138,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
 
                         @Override
                         public void cancle(int i) {
-                            ToastUtils.showLong("未给予相机权限将无法扫描二维码");
+                            ToastUtils.showLong(getString(R.string.cannot_scan_qr_code));
                         }
 
                         @Override
@@ -159,29 +159,29 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 String transAddress = mTransAddressBtc.getText().toString();
                 String priceBtc = mTransPriceBtc.getText().toString();
                 if (transAddress.equals("")) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "收款地址不能为空").show();
+                    dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.collection_address_cannot_be_empty)).show();
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (priceBtc.equals("")) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "转账金额不能为空").show();
+                    dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.transfer_amount_cannot_be_empty)).show();
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (Double.parseDouble(priceBtc) <= mTransBean.getFee()) {
-                    dialogHelper.create(this, R.drawable.miss_icon, "转账金额必须大于手续费").show();
+                    dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.greater_than_the_handling_fee)).show();
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
                 if (tokenId == 4 || tokenId == 2) {
                     if (!RxgularUtils.isBTC(transAddress.trim()) || !RxgularUtils.isEmail(transAddress.trim())) {
-                        dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
+                        dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.invalid_address)).show();
                         dialogHelper.dismissDelayed(null, 2000);
                         return;
                     }
                 } else {
                     if (!RxgularUtils.isETH(transAddress.trim()) || !RxgularUtils.isEmail(transAddress.trim())) {
-                        dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
+                        dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.invalid_address)).show();
                         dialogHelper.dismissDelayed(null, 2000);
                         return;
                     }
@@ -191,8 +191,8 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 mPopView = PopViewHelper.Companion.getInstance()
                         .create(this
                                 , R.layout.layout_paycode
-                                , "确认转账"
-                                , "转账金额"
+                                , getString(R.string.confirm_transfer)
+                                , getString(R.string.transfer_amount)
                                 , priceBtc + tokenName
                                 , transAddress
                                 , TextUtils.INSTANCE.doubleToSix(mTransBean.getFee()) + mTransBean.getFeeTokenName()
@@ -203,7 +203,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                                         switch (view.getId()) {
                                             case R.id.pay_close:
                                                 mPopView.dismiss();
-                                                ToastUtils.showLong("取消交易");
+                                                ToastUtils.showLong(getString(R.string.cancel_the_deal));
                                                 break;
                                             case R.id.pay_text:
                                                 KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
@@ -222,7 +222,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                                         setAlpha(1f);
                                     }
                                 }, num -> {
-                                    dialogHelper.create(this, R.drawable.pending_icon, "转账中").show();
+                                    dialogHelper.create(this, R.drawable.pending_icon, getString(R.string.transfer_load)).show();
                                     String email = SPUtils.getInstance().getString(USER_EMAIL);
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
                                     mPresenter.sendTransferMsg(transAddress.trim(), num, tokenId, priceBtc);
@@ -245,7 +245,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 case 200:
                     boolean qode = data.getBooleanExtra("QODE", false);
                     if (!qode) {
-                        dialogHelper.create(this, R.drawable.miss_icon, "无效地址").show();
+                        dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.invalid_address)).show();
                         dialogHelper.dismissDelayed(null, 2000);
                         return;
                     }
@@ -265,7 +265,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
     @Override
     public void showSuccess(IDToTransferBean.DataBean data) {
         this.mTransBean = data;
-        mPriceBtc.setText(String.format("可用%s：" + TextUtils.INSTANCE.doubleToEight(data.getBalance()), tokenName));
+        mPriceBtc.setText(String.format(getString(R.string.available) + TextUtils.INSTANCE.doubleToEight(data.getBalance()), tokenName));
         mSxfBtc.setText(data.getFee() + " " + data.getFeeTokenName());
         mTransPriceBtc.addTextChangedListener(new EditTextChange() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -274,11 +274,11 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 String chagePrice = s.toString();
                 if (!chagePrice.equals("") && mTransBean != null) {
                     if (TextUtils.INSTANCE.stringToDouble(chagePrice) > mTransBean.getBalance()) {
-                        mPriceBtc.setText("余额不足");
+                        mPriceBtc.setText(getString(R.string.insufficient_balance));
                         mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
                         mSubmitBtc.setEnabled(false);
                     } else {
-                        mPriceBtc.setText(String.format("可用%s：" + TextUtils.INSTANCE.doubleToEight(mTransBean.getBalance()), tokenName));
+                        mPriceBtc.setText(String.format(getString(R.string.available) + TextUtils.INSTANCE.doubleToEight(mTransBean.getBalance()), tokenName));
                         mPriceBtc.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.login_edit_bg));
                         mSubmitBtc.setEnabled(true);
                     }
@@ -308,7 +308,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
     @Override
     public void transferCallBack(UpdateBean bean) {
         if (bean.getCode() == 200) {
-            dialogHelper.resetDialogResource(this, R.drawable.success_icon, "操作成功");
+            dialogHelper.resetDialogResource(this, R.drawable.success_icon, getString(R.string.successful_operation));
             dialogHelper.dismissDelayed(() -> {
                 EventBus.getDefault().post(new HistroyEvent(mTransPriceBtc.getText().toString().trim()));
                 EventBus.getDefault().post(new HistroyFragmentEvent());

@@ -38,12 +38,12 @@ class SendEmailActivity : BaseActivity() {
                 finish()
             }
             R.id.send_code -> {
-                dialogHelper!!.create(this, R.drawable.pending_icon_1, "发送验证码").show()
+                dialogHelper!!.create(this, R.drawable.pending_icon_1,  getString(R.string.send_code)).show()
                 RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).sendEmail(MyApplication.getTOKEN())
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ codeBean ->
                             if (codeBean.code === 200) {
-                                dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "验证码发送成功")
+                                dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "getString(R.string.send_successfully)")
                                 setViewStatus()
                             } else {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, codeBean.message)
@@ -56,7 +56,7 @@ class SendEmailActivity : BaseActivity() {
             }
             R.id.submit -> {
                 if (checkNotNullValue()) {
-                    dialogHelper!!.create(this, R.drawable.pending_icon_1, "验证中").show()
+                    dialogHelper!!.create(this, R.drawable.pending_icon_1, getString(R.string.in_verification)).show()
                     var code = email_code.text.toString()
                     var json = JSONObject()
                     json.put("valiCode", code)
@@ -101,7 +101,7 @@ class SendEmailActivity : BaseActivity() {
                 send_code.isEnabled = true
                 send_code.setBackgroundResource(R.drawable.shape_sendcode_bg)
                 send_code.setTextColor(ContextCompat.getColor(baseContext, R.color.send_code_tv_bg))
-                send_code.text = "重新发送"
+                send_code.text = getString(R.string.reset_send)
             }
         }).updataTime()
     }

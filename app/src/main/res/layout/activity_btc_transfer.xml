@@ -34,7 +34,6 @@
 				android:layout_height="match_parent"
 				android:layout_weight="1"
 				android:gravity="center"
-				android:text="BTC转帐"
 				android:textColor="@color/login_content"
 				android:textSize="17sp"/>
 
@@ -67,7 +66,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="4dp"
-				android:text="收款地址"
+				android:text="@string/collection_address"
 				android:textColor="@color/btc_gray"
 				android:textSize="13sp"/>
 
@@ -81,7 +80,7 @@
 				android:focusable="true"
 				android:focusableInTouchMode="true"
 				android:gravity="center_vertical"
-				android:hint="输入地址"
+				android:hint="@string/input_address"
 				android:paddingLeft="12dp"
 				android:paddingRight="10dp"
 				android:singleLine="true"
@@ -94,7 +93,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="4dp"
 				android:layout_marginTop="24dp"
-				android:text="转账金额"
+				android:text="@string/transfer_amount"
 				android:textColor="@color/btc_gray"
 				android:textSize="13sp"/>
 
@@ -105,7 +104,7 @@
 				android:layout_marginTop="8dp"
 				android:background="@drawable/shape_round_gray_5dp"
 				android:digits="1234567890."
-				android:hint="输入转账金额"
+				android:hint="@string/enter_the_transfer_amount"
 				android:inputType="numberDecimal"
 				android:paddingLeft="12dp"
 				android:singleLine="true"
@@ -128,7 +127,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="4dp"
 				android:layout_marginTop="24dp"
-				android:text="交易手续费"
+				android:text="@string/transaction_fees"
 				android:textColor="@color/btc_gray"
 				android:textSize="13sp"/>
 

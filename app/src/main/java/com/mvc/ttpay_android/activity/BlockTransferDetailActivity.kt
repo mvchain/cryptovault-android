@@ -20,7 +20,7 @@ class BlockTransferDetailActivity : BaseMVPActivity<IBlockTransferDetailContract
     override fun transferDetailSuccess(blockTransferDetailBean: BlockTransferDetailBean.DataBean) {
         detail_hash.text = blockTransferDetailBean.hash
         detail_time.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(blockTransferDetailBean.createdAt))
-        detail_number.text = "${blockTransferDetailBean.confirm}个确认"
+        detail_number.text = "${blockTransferDetailBean.confirm}${getString(R.string.confirmation)}"
         detail_price.text = TextUtils.doubleToEight(blockTransferDetailBean.value)
         detail_receivables.text = blockTransferDetailBean.from
         detail_transfer.text = blockTransferDetailBean.to

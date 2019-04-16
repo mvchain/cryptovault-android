@@ -18,7 +18,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:gravity="center"
-				android:text="交易信息"
+				android:text="@string/trading_information"
 				android:textSize="17sp"/>
 
 		<ImageView
@@ -47,7 +47,7 @@
 			<TextView
 					android:layout_width="60dp"
 					android:layout_height="wrap_content"
-					android:text="交易Hash"
+					android:text="@string/trading_hash"
 					android:textSize="13sp"/>
 
 			<TextView
@@ -72,7 +72,7 @@
 			<TextView
 					android:layout_width="60dp"
 					android:layout_height="wrap_content"
-					android:text="交易时间"
+					android:text="@string/transaction_time"
 					android:textSize="13sp"/>
 
 			<TextView
@@ -97,7 +97,7 @@
 			<TextView
 					android:layout_width="60dp"
 					android:layout_height="wrap_content"
-					android:text="确认数"
+					android:text="@string/confirmation_number"
 					android:textSize="13sp"/>
 
 			<TextView
@@ -122,7 +122,7 @@
 			<TextView
 					android:layout_width="60dp"
 					android:layout_height="wrap_content"
-					android:text="交易金额"
+					android:text="@string/the_transaction_amount"
 					android:textSize="13sp"/>
 
 			<TextView
@@ -147,7 +147,7 @@
 			<TextView
 					android:layout_width="60dp"
 					android:layout_height="wrap_content"
-					android:text="收款地址"
+					android:text="@string/collection_address"
 					android:textSize="13sp"/>
 
 			<TextView
@@ -172,7 +172,7 @@
 			<TextView
 					android:layout_width="60dp"
 					android:layout_height="wrap_content"
-					android:text="转账地址"
+					android:text="@string/transfer_address"
 					android:textSize="13sp"/>
 
 			<TextView
@@ -197,7 +197,7 @@
 			<TextView
 					android:layout_width="60dp"
 					android:layout_height="wrap_content"
-					android:text="区块高度"
+					android:text="@string/block_height"
 					android:textSize="13sp"/>
 
 			<TextView

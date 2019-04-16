@@ -85,11 +85,11 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
     protected void initData() {
         Intent intent = getIntent();
         dataBean = intent.getParcelableExtra("databean");
-        mTitleM.setText("预约" + dataBean.getProjectName());
+        mTitleM.setText(getString(R.string.reservation)+ dataBean.getProjectName());
         mInfoTitleM.setText(dataBean.getProjectName());
         RequestOptions options = new RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project);
         Glide.with(this).load(dataBean.getProjectImage()).apply(options).into(mInfoIconM);
-        mInfoBlM.setText("兑换比例：1 " + dataBean.getTokenName() + " = " + dataBean.getRatio() + dataBean.getBaseTokenName());
+        mInfoBlM.setText(getString(R.string.exchange_ratio) +"1 "+ dataBean.getTokenName() + " = " + dataBean.getRatio() + dataBean.getBaseTokenName());
         mPriceType.setText(dataBean.getBaseTokenName());
         RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).getPurchaseOnID(MyApplication.getTOKEN(), dataBean.getProjectId())
                 .compose(RxHelper.rxSchedulerHelper())
@@ -98,8 +98,8 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                         this.purchaseBean = purchaseBean;
                         maxPurchase = purchaseBean.getData().getLimitValue();
                         minPurchase = purchaseBean.getData().getProjectMin();
-                        mInfoMaxM.setText("限购额：" + TextUtils.INSTANCE.doubleToInt(dataBean.getProjectLimit() - maxPurchase) + "/" + TextUtils.INSTANCE.doubleToInt(dataBean.getProjectLimit()));
-                        mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.INSTANCE.doubleToEight(purchaseBean.getData().getBalance()));
+                        mInfoMaxM.setText(getString(R.string.purchase_limit) + TextUtils.INSTANCE.doubleToInt(dataBean.getProjectLimit() - maxPurchase) + "/" + TextUtils.INSTANCE.doubleToInt(dataBean.getProjectLimit()));
+                        mAvailableM.setText(getString(R.string.available) + dataBean.getBaseTokenName() + "：" + TextUtils.INSTANCE.doubleToEight(purchaseBean.getData().getBalance()));
                     }
                 }, throwable -> {
                     LogUtils.e("CrowdfundingAppointment", throwable.getMessage());
@@ -116,25 +116,25 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                     Double currentNum = Double.valueOf(updateTv);
                     mPriceM.setText(TextUtils.INSTANCE.doubleToEight(currentNum * dataBean.getRatio()));
                     if (currentNum * dataBean.getRatio() > purchaseBean.getData().getBalance()) {
-                        mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "不足！");
+                        mAvailableM.setText(getString(R.string.available) + dataBean.getBaseTokenName() + getString(R.string.insufficient));
                         mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
                         mSubmitM.setEnabled(false);
                         mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else {
                         if (purchaseBean != null) {
-                            mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.INSTANCE.doubleToEight(purchaseBean.getData().getBalance()));
+                            mAvailableM.setText(getString(R.string.available) + dataBean.getBaseTokenName() + "：" + TextUtils.INSTANCE.doubleToEight(purchaseBean.getData().getBalance()));
                             mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.trand_gray));
                             mSubmitM.setEnabled(true);
                             mSubmitM.setBackgroundResource(R.drawable.bg_login_submit);
                         }
                     }
                     if (currentNum > maxPurchase) {
-                        mNumHint.setText("超出最大预约数量！");
+                        mNumHint.setText(getString(R.string.exceeded_the_maximum_number));
                         mNumHint.setVisibility(View.VISIBLE);
                         mSubmitM.setEnabled(false);
                         mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
                     } else if (currentNum < minPurchase) {
-                        mNumHint.setText("最小预约数量：" + TextUtils.INSTANCE.doubleToInt(minPurchase));
+                        mNumHint.setText(getString(R.string.minimum_number) + TextUtils.INSTANCE.doubleToInt(minPurchase));
                         mNumHint.setVisibility(View.VISIBLE);
                         mSubmitM.setEnabled(false);
                         mSubmitM.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck);
@@ -147,7 +147,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                     }
                 } else {
                     ViewDrawUtils.clearDraw(mBwPriceM);
-                    mAvailableM.setText("可用" + dataBean.getBaseTokenName() + "：" + TextUtils.INSTANCE.doubleToEight(purchaseBean.getData().getBalance()));
+                    mAvailableM.setText(getString(R.string.available) + dataBean.getBaseTokenName() + "：" + TextUtils.INSTANCE.doubleToEight(purchaseBean.getData().getBalance()));
                     mAvailableM.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.trand_gray));
                     mNumHint.setVisibility(View.INVISIBLE);
                     mPriceM.setText("0.0000");
@@ -197,14 +197,14 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 // TODO 18/12/12
                 String currentNum = mBwPriceM.getText().toString();
                 if (currentNum.equals("")) {
-                    ToastUtils.showLong("购买数量不可为空");
+                    ToastUtils.showLong(getString(R.string.purchase_quantity_cannot_be_empty));
                     return;
                 }
                 mPopView = PopViewHelper.Companion.getInstance()
                         .create(this
                                 , R.layout.layout_paycode
-                                , "确认预约"
-                                , "总计需支付"
+                                , getString(R.string.confirm_reservation)
+                                , getString(R.string.total_payment)
                                 , mPriceM.getText().toString() + dataBean.getBaseTokenName()
                                 , currentNum + dataBean.getTokenName()
                                 , new IPayWindowListener() {
@@ -213,7 +213,7 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                                         switch (view.getId()) {
                                             case R.id.pay_close:
                                                 mPopView.dismiss();
-                                                ToastUtils.showLong("取消交易");
+                                                ToastUtils.showLong(getString(R.string.cancel_the_deal));
                                                 break;
                                             case R.id.pay_text:
                                                 KeyboardUtils.showSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
@@ -263,17 +263,16 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                 .subscribe(updateBean -> {
                     EventBus.getDefault().post(new TogeFragmentEvent());
                     if (updateBean.getCode() == 200) {
-                        dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.success_icon, "预约成功");
+                        dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.success_icon, getString(R.string.successful_appointment));
                         new Handler().postDelayed(() -> {
                             mReservationDialog.dismiss();
                             finish();
                         }, 1000);
                     } else {
                         if (!NetworkUtils.isConnected()) {
-                            dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, "无网络连接，请检查网络");
-
+                            dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, getString(R.string.no_network));
                         } else {
-                            dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, "预约失败");
+                            dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, getString(R.string.failed_appointment));
                         }
                         new Handler().postDelayed(() -> {
                             mReservationDialog.dismiss();
@@ -281,9 +280,9 @@ public class CrowdfundingAppointmentActivity extends BaseActivity implements Vie
                     }
                 }, throwable -> {
                     if (!NetworkUtils.isConnected()) {
-                        dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, "无网络连接，请检查网络");
+                        dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, getString(R.string.no_network));
                     } else {
-                        dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, "预约失败");
+                        dialogHelper.resetDialogResource(CrowdfundingAppointmentActivity.this, R.drawable.miss_icon, getString(R.string.failed_appointment));
                     }
                     new Handler().postDelayed(() -> {
                         mReservationDialog.dismiss();

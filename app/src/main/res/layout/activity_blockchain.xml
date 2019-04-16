@@ -32,7 +32,7 @@
 				android:layout_height="match_parent"
 				android:layout_weight="1"
 				android:gravity="center"
-				android:text="区块链浏览器"
+				android:text="@string/blockchain_browser"
 				android:textSize="17sp"/>
 
 		<EditText
@@ -44,7 +44,7 @@
 				android:layout_weight="1"
 				android:background="@drawable/bg_increase_edit"
 				android:drawableLeft="@drawable/search_icon_drawable_edit"
-				android:hint="输入公钥/区块高度"
+				android:hint="@string/enter_public_key"
 				android:imeOptions="actionSearch"
 				android:maxLines="1"
 				android:paddingLeft="15dp"
@@ -117,7 +117,7 @@
 									android:layout_below="@id/browser_height"
 									android:layout_centerHorizontal="true"
 									android:layout_marginTop="3dp"
-									android:text="区块高度"
+									android:text="@string/block_height"
 									android:textColor="@color/white"
 									android:textSize="13sp"/>
 						</RelativeLayout>
@@ -144,7 +144,7 @@
 									android:layout_below="@id/browser_number"
 									android:layout_centerHorizontal="true"
 									android:layout_marginTop="3dp"
-									android:text="交易数量"
+									android:text="@string/number_of_transactions"
 									android:textColor="@color/white"
 									android:textSize="13sp"/>
 						</RelativeLayout>
@@ -177,7 +177,7 @@
 									android:layout_below="@id/browser_timer"
 									android:layout_centerHorizontal="true"
 									android:layout_marginTop="3dp"
-									android:text="确认时间"
+									android:text="@string/confirm_the_time"
 									android:textColor="@color/white"
 									android:textSize="13sp"/>
 						</RelativeLayout>
@@ -193,7 +193,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginLeft="22dp"
-						android:text="区块链信息"
+						android:text="@string/blockchain_information"
 						android:textColor="@color/login_content"
 						android:textSize="17sp"
 						android:textStyle="bold"/>
@@ -216,7 +216,7 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_marginBottom="16dp"
-								android:text="内核版本"
+								android:text="@string/kernel_version"
 								android:textColor="@color/trand_gray"
 								android:textSize="13sp"/>
 
@@ -224,8 +224,7 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_marginBottom="16dp"
-
-								android:text="基础资产"
+								android:text="@string/basic_assets"
 								android:textColor="@color/trand_gray"
 								android:textSize="13sp"/>
 
@@ -233,7 +232,7 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_marginBottom="16dp"
-								android:text="最新时间"
+								android:text="@string/latest_time"
 								android:textColor="@color/trand_gray"
 								android:textSize="13sp"/>
 					</LinearLayout>
@@ -292,7 +291,7 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_alignParentBottom="true"
-							android:text="区块信息"
+							android:text="@string/block_information"
 							android:textColor="@color/login_content"
 							android:textSize="17sp"
 							android:textStyle="bold"/>
@@ -305,7 +304,7 @@
 							android:layout_alignParentBottom="true"
 							android:layout_marginLeft="22dp"
 							android:onClick="onClick"
-							android:text="更多   >"
+							android:text="@string/menu"
 							android:textColor="@color/login_content"
 							android:textSize="13sp"/>
 				</RelativeLayout>
@@ -322,7 +321,7 @@
 							android:layout_width="0dp"
 							android:layout_height="wrap_content"
 							android:layout_weight="1"
-							android:text="区块高度"
+							android:text="@string/block_height"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 
@@ -331,7 +330,7 @@
 							android:layout_height="wrap_content"
 							android:layout_weight="1"
 							android:gravity="center"
-							android:text="交易数量"
+							android:text="@string/number_of_transactions"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 
@@ -340,7 +339,7 @@
 							android:layout_height="wrap_content"
 							android:layout_weight="1"
 							android:gravity="right"
-							android:text="出块时间"
+							android:text="@string/block_time"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 				</LinearLayout>
@@ -374,7 +373,7 @@
 						android:layout_marginLeft="22dp"
 						android:layout_marginTop="16dp"
 						android:layout_marginRight="22dp"
-						android:text="最新交易"
+						android:text="@string/latest_transaction"
 						android:textColor="@color/login_content"
 						android:textSize="17sp"
 						android:textStyle="bold"/>
@@ -392,7 +391,7 @@
 							android:layout_height="wrap_content"
 							android:layout_weight="1"
 							android:gravity="center"
-							android:text="交易 Hash"
+							android:text="@string/trading_hash"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 
@@ -401,7 +400,7 @@
 							android:layout_height="wrap_content"
 							android:gravity="center"
 							android:layout_weight="1"
-							android:text="交易时间"
+							android:text="@string/transaction_time"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 				</LinearLayout>
@@ -433,7 +432,7 @@
 						android:layout_marginLeft="22dp"
 						android:layout_marginTop="16dp"
 						android:layout_marginRight="22dp"
-						android:text="节点列表"
+						android:text="@string/node_list"
 						android:textColor="@color/login_content"
 						android:textSize="17sp"
 						android:textStyle="bold"/>
@@ -451,7 +450,7 @@
 							android:layout_height="wrap_content"
 							android:layout_weight="1"
 							android:gravity="center"
-							android:text="节点"
+							android:text="@string/node"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 
@@ -460,7 +459,7 @@
 							android:layout_height="wrap_content"
 							android:layout_weight="1"
 							android:gravity="center"
-							android:text="同步高度"
+							android:text="@string/synchronous_height"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 				</LinearLayout>
@@ -492,7 +491,7 @@
 						android:layout_marginLeft="22dp"
 						android:layout_marginTop="16dp"
 						android:layout_marginRight="22dp"
-						android:text="节点分布图"
+						android:text="@string/node_map"
 						android:textColor="@color/login_content"
 						android:textSize="17sp"
 						android:textStyle="bold"/>

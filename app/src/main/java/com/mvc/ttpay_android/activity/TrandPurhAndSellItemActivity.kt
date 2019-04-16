@@ -234,7 +234,7 @@ class TrandPurhAndSellItemActivity : BaseActivity(), View.OnClickListener {
                         when (view.id) {
                             R.id.pay_close -> {
                                 mPopView!!.dismiss()
-                                ToastUtils.showLong("取消交易")
+                                ToastUtils.showLong(getString(R.string.cancel_the_deal))
                             }
                             R.id.pay_text -> {
                                 KeyboardUtils.showSoftInput(mPopView!!.contentView.findViewById<View>(R.id.pay_text))

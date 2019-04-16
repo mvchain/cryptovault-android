@@ -60,11 +60,11 @@ class GoogleCodeActivity : BaseActivity() {
                 var clipManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 var clipText = ClipData.newPlainText("google_key", google_key.text.toString())
                 clipManager.primaryClip = clipText
-                ToastUtils.showLong("16位密钥已复制至剪贴板")
+                ToastUtils.showLong(getString(R.string.copy_16_success))
             }
             R.id.google_app -> {
                 DialogHelper.instance.create(this
-                        , "是否下载Google验证器"
+                        , getString(R.string.download_google)
                         , IDialogViewClickListener { viewId ->
                     when (viewId) {
                         R.id.hint_cancle -> DialogHelper.instance.dismiss()
@@ -73,8 +73,8 @@ class GoogleCodeActivity : BaseActivity() {
                             AppInnerDownLoder.downLoadApk(this@GoogleCodeActivity
                                     , downloadUrl
                                     , "google"
-                                    , "请稍后"
-                                    , "正在下载Google验证器，请稍后...")
+                                    , getString(R.string.please_wait)
+                                    , getString(R.string.downloading_google_load))
                         }
                     }
                 }).show()

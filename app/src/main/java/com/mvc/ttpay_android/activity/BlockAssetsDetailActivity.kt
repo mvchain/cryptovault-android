@@ -27,7 +27,7 @@ class BlockAssetsDetailActivity : BaseMVPActivity<IAssetsDetailContract.AssetsDe
             type_transfer_content.text = blockOrderOnIdBean.from
             type_receipt_content.text = blockOrderOnIdBean.to
             type_transfer_price_content.text = "${TextUtils.doubleToEight(blockOrderOnIdBean.buyValue)} ${blockOrderOnIdBean.buyTokenName}"
-            detail_title.text = "转账"
+            detail_title.text = getString(R.string.transfer)
         } else {
             type_transfer.visibility = View.GONE
             type_receipt.visibility = View.GONE
@@ -36,7 +36,7 @@ class BlockAssetsDetailActivity : BaseMVPActivity<IAssetsDetailContract.AssetsDe
             type_coin_purchase_content.text = "${TextUtils.doubleToEight(blockOrderOnIdBean.buyValue)} ${blockOrderOnIdBean.buyTokenName}"
             type_coin_seller_content.text = blockOrderOnIdBean.from
             type_coin_selling_content.text = "${TextUtils.doubleToEight(blockOrderOnIdBean.sellValue)} ${blockOrderOnIdBean.buyTokenName}"
-            detail_title.text = "币币交易"
+            detail_title.text = getString(R.string.currency_transaction)
         }
     }
 

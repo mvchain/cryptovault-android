@@ -51,12 +51,12 @@ class FinancialDepositActivity : BaseActivity() {
         ImmersionBar.with(this).titleBar(R.id.status_bar).statusBarDarkFont(true).init()
         detail = intent.getParcelableExtra("detail")
         dialogHelper = DialogHelper.instance
-        deposit_limit.text = "每用户参与限额：${TextUtils.doubleToEight(detail.purchased)}/${TextUtils.doubleToEight(detail.userLimit)}"
-        available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
-        financial_title.text = "${detail.name}存入"
+        deposit_limit.text = "${getString(R.string.per_user_participation_limit)}：${TextUtils.doubleToEight(detail.purchased)}/${TextUtils.doubleToEight(detail.userLimit)}"
+        available.text = "${getString(R.string.available)}${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
+        financial_title.text = "${detail.name}${getString(R.string.deposit)}"
         remaining_amount_progress.max = detail.limitValue.toInt()
         remaining_amount_progress.progress = (detail.limitValue - detail.sold).toInt()
-        remaining_amount.text = "剩余总额度 ${TextUtils.doubleToFourPrice(detail.limitValue - detail.sold)} ${detail.baseTokenName}"
+        remaining_amount.text = "${getString(R.string.remaining_total)} ${TextUtils.doubleToFourPrice(detail.limitValue - detail.sold)} ${detail.baseTokenName}"
         deposit_count.filters = arrayOf<InputFilter>(PointLengthFilter())
         deposit_count.addTextChangedListener(object : EditTextChange() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -64,18 +64,18 @@ class FinancialDepositActivity : BaseActivity() {
                 if (length > 0) {
                     var price = java.lang.Double.parseDouble(s.toString())
                     if (price > detail.balance) {
-                        available.text = "可用${detail.baseTokenName}：不足"
+                        available.text = "${getString(R.string.available)}${detail.baseTokenName}：${getString(R.string.insufficient)}"
                         available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.red))
                         submit.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                         submit.isEnabled = false
                     } else {
-                        available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
+                        available.text = "${getString(R.string.available)}${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
                         available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.login_content))
                         submit.setBackgroundResource(R.drawable.bg_login_submit)
                         submit.isEnabled = true
                     }
                 } else {
-                    available.text = "可用${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
+                    available.text = "${getString(R.string.available)}${detail.baseTokenName}：${TextUtils.doubleToEight(detail.balance)}"
                     available.setTextColor(ContextCompat.getColor(this@FinancialDepositActivity, R.color.login_content))
                     submit.setBackgroundResource(R.drawable.bg_login_submit)
                     submit.isEnabled = true
@@ -95,7 +95,7 @@ class FinancialDepositActivity : BaseActivity() {
                             R.id.pay_close -> {
                                 mPopView.dismiss()
                                 KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
-                                ToastUtils.showLong("取消存入")
+                                ToastUtils.showLong(getString(R.string.cancel_deposit))
                             }
                             R.id.pay_text -> {
                                 KeyboardUtils.showSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
@@ -117,7 +117,7 @@ class FinancialDepositActivity : BaseActivity() {
                     val email = SPUtils.getInstance().getString(USER_EMAIL)
                     KeyboardUtils.hideSoftInput(mPopView.contentView.findViewById<PswText>(R.id.pay_text))
                     mPopView.dismiss()
-                    dialogHelper.create(this@FinancialDepositActivity, R.drawable.pending_icon_1, "存入中").show()
+                    dialogHelper.create(this@FinancialDepositActivity, R.drawable.pending_icon_1, getString(R.string.deposit_in)).show()
                     RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getUserSalt(MyApplication.getTOKEN(), email)
                             .compose(RxHelper.rxSchedulerHelper())
                             .flatMap {
@@ -131,7 +131,7 @@ class FinancialDepositActivity : BaseActivity() {
                                         .compose(RxHelper.rxSchedulerHelper())
                             }.subscribe({ date ->
                                 if (date.code == 200) {
-                                    dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.success_icon, "存入成功")
+                                    dialogHelper.resetDialogResource(this@FinancialDepositActivity, R.drawable.success_icon, getString(R.string.deposit_successfully))
                                     dialogHelper.dismissDelayed(object :DialogHelper.IDialogDialog{
                                         override fun callback() {
                                             EventBus.getDefault().post(FinancialDetailEvent())
@@ -144,7 +144,7 @@ class FinancialDepositActivity : BaseActivity() {
                                 }
                             }, {
                                 if (it is SocketTimeoutException) {
-                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, "连接超时")
+                                    dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, getString(R.string.connection_timed_out))
                                 } else {
                                     dialogHelper!!.resetDialogResource(this@FinancialDepositActivity, R.drawable.miss_icon, it.message!!)
                                 }
@@ -171,7 +171,7 @@ class FinancialDepositActivity : BaseActivity() {
 
     private fun checkNotNullValue(): Boolean {
         if (deposit_count.text.toString() == "") {
-            dialogHelper.create(this, R.drawable.miss_icon, "存入金额不许为空").show()
+            dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.deposit_amount_is_not_allowed_to_be_empty)).show()
             dialogHelper.dismissDelayed(null)
             return false
         }

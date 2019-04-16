@@ -40,12 +40,12 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
                     userJson.put("salt", salt)
                     userJson.put("password", EncryptUtils.encryptMD5ToString(salt + EncryptUtils.encryptMD5ToString(reg_login_pwd.text.toString())))
                     userJson.put("transactionPassword", EncryptUtils.encryptMD5ToString(salt + EncryptUtils.encryptMD5ToString(reg_pay_pwd.text.toString())))
-                    dialogHelper?.create(this, R.drawable.pending_icon_1, "请稍后")?.show()
+                    dialogHelper?.create(this, R.drawable.pending_icon_1, getString(R.string.please_wait))?.show()
                     val body = RequestBody.create(MediaType.parse("text/html"), userJson.toString())
                     RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).userRegister(body).compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ loginBean ->
                                 if (loginBean.code == 200) {
-                                    dialogHelper?.resetDialogResource(baseContext, R.drawable.success_icon, "注册成功")
+                                    dialogHelper?.resetDialogResource(baseContext, R.drawable.success_icon, getString(R.string.registration_success))
                                     dialogHelper?.dismissDelayed(null, 0)
                                     SPUtils.getInstance().put(REFRESH_TOKEN, loginBean.data.refreshToken)
                                     SPUtils.getInstance().put(TOKEN, loginBean.data.token)
@@ -98,27 +98,27 @@ class RegisterSetPwdActivity : BaseActivity(), View.OnClickListener {
      */
     private fun checkNotNullValue(): Boolean {
         if (reg_login_pwd.text.toString() == "") {
-            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为空")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.login_password_cannot_be_empty))?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }
         if (reg_login_pwd.text.toString().length < 8) {
-            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码必须在8位以上")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.login_password_must_be_8_or_more))?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }
         if (Pattern.compile("[0-9]*").matcher(reg_login_pwd.text.toString()).matches()) {
-            dialogHelper?.create(this, R.drawable.miss_icon, "登录密码不可为纯数字")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.login_password_cannot_be_a_pure_number))?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }
         if (reg_pay_pwd.text.toString() == "") {
-            dialogHelper?.create(this, R.drawable.miss_icon, "支付密码不可为空")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.payment_password_cannot_be_empty))?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }
         if (reg_pay_pwd.text.toString().length < 6) {
-            dialogHelper?.create(this, R.drawable.miss_icon, "支付密码必须为6位")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.payment_password_must_be_6_digits))?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }

@@ -64,9 +64,9 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
         mFragment = ArrayList()
         ratioList = ArrayList()
         menuList = ArrayList()
-        menuList.add("购买MVC挂单")
-        menuList.add("出售MVC挂单")
-        menuList.add("交易记录")
+        menuList.add(getString(R.string.buy_mvc_pending_order))
+        menuList.add(getString(R.string.sell_mvc_pending_order))
+        menuList.add(getString(R.string.transaction_record))
         createCarryOut = true
         mMenu = rootView.findViewById(R.id.menu)
         mMask = rootView.findViewById(R.id.mask)

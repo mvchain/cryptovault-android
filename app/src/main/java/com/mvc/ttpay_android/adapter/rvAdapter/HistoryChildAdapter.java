@@ -17,7 +17,7 @@ import com.mvc.ttpay_android.utils.TextUtils;
 import java.util.List;
 
 public class HistoryChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, BaseViewHolder> {
-    private String[] status = {"转帐中", "转帐中", "转账成功", "转账失败"};
+    private String[] status = {mContext.getString(R.string.load_payment), mContext.getString(R.string.load_payment), mContext.getString(R.string.successful_transfer),  mContext.getString(R.string.failed_transfer)};
     private int[] status_color = {R.color.login_edit_bg, R.color.login_edit_bg, R.color.login_edit_bg, R.color.error};
     private int[] status_icon = {R.drawable.sent_icon, R.drawable.receive_icon, R.drawable.zc_icon, R.drawable.jy_icon, R.drawable.financial_selected_bold};
 
@@ -48,41 +48,41 @@ public class HistoryChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         if ((item.getClassify() == 0 || item.getClassify() == 3)) {
             if (transactionType == 1) {
                 iconType = 1;
-                helper.setText(R.id.his_child_title, item.getOrderRemark() + " 收入");
+                helper.setText(R.id.his_child_title, item.getOrderRemark() + " "+mContext.getString(R.string.income));
             } else {
                 iconType = 0;
-                helper.setText(R.id.his_child_title, item.getOrderRemark() + " 支出");
+                helper.setText(R.id.his_child_title, item.getOrderRemark() + " "+mContext.getString(R.string.expenditure));
             }
         } else if (item.getClassify() == 1) {
             iconType = 3;
-            helper.setText(R.id.his_child_title, item.getOrderRemark() + " 交易");
+            helper.setText(R.id.his_child_title, item.getOrderRemark() + " "+mContext.getString(R.string.navi_trand));
         } else if (item.getClassify() == 2) {
             iconType = 2;
             StringBuffer buffer = new StringBuffer();
             switch (item.getStatus()) {
                 case 9:
-                    buffer.append("退回");
+                    buffer.append(mContext.getString(R.string.return_));
                     break;
                 case 2:
-                    buffer.append("发币");
+                    buffer.append(mContext.getString(R.string.currency_));
                     break;
                 case 0:
-                    buffer.append("预约");
+                    buffer.append(mContext.getString(R.string.reservation));
                     break;
             }
-            helper.setText(R.id.his_child_title, item.getOrderRemark() + " 众筹" + buffer.toString());
+            helper.setText(R.id.his_child_title, item.getOrderRemark() + " " + mContext.getString(R.string.navi_toge) + buffer.toString());
         } else if (item.getClassify() == 4) {
             iconType = 4;
             StringBuffer buffer = new StringBuffer();
             switch (item.getStatus()) {
                 case 4:
-                    buffer.append("取出");
+                    buffer.append(mContext.getString(R.string.take_out));
                     break;
                 case 5:
-                    buffer.append("提成");
+                    buffer.append(mContext.getString(R.string.commission));
                     break;
                 case 6:
-                    buffer.append("收益");
+                    buffer.append(mContext.getString(R.string.earnings));
                     break;
             }
             helper.setText(R.id.his_child_title, item.getOrderRemark() + " " + buffer.toString());

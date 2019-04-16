@@ -57,7 +57,7 @@
 					android:layout_height="wrap_content"
 					android:layout_marginTop="9dp"
 					android:layout_marginBottom="10dp"
-					android:text="预期年化收益率"
+					android:text="@string/expected_annualized_rate_of_return"
 					android:textColor="@color/trand_gray"
 					android:textSize="12sp"/>
 		</LinearLayout>

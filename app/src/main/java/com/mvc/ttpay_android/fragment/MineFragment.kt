@@ -107,8 +107,8 @@ class MineFragment : BaseMVPFragment<IMineContract.MinePresenter>(), IMineContra
             SPUtils.getInstance().put(USER_INFO, JsonHelper.jsonToString(user))
             val data = user.data
             mNameUser!!.text = data.nickname
-            mPhoneUser!!.text = "邮箱 ${data.username}"
-            mKeyUser!!.text = "公钥 ${SPUtils.getInstance().getString(USER_PUBLIC_KEY)}"
+            mPhoneUser!!.text = "${getString(R.string.email)} ${data.username}"
+            mKeyUser!!.text = "${getString(R.string.public_key)} ${SPUtils.getInstance().getString(USER_PUBLIC_KEY)}"
             val options = RequestOptions().fallback(R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon)
             Glide.with(activity).load(data.headImage).apply(options).into(mImgUser!!)
         } else if (user.code == 400) {
@@ -145,7 +145,7 @@ class MineFragment : BaseMVPFragment<IMineContract.MinePresenter>(), IMineContra
             R.id.sys_language -> startActivity(Intent(activity, LanguageActivity::class.java))
             R.id.about -> startActivity(Intent(activity, AboutActivity::class.java))
             R.id.singout -> {
-                dialogHelper!!.create(activity, "确定要登出TTPay?", IDialogViewClickListener { viewId ->
+                dialogHelper!!.create(activity, getString(R.string.are_you_sure_you_want_to_log_out_of_ttpay), IDialogViewClickListener { viewId ->
                     when (viewId) {
                         R.id.hint_enter -> {
                             dialogHelper!!.dismiss()
@@ -159,10 +159,10 @@ class MineFragment : BaseMVPFragment<IMineContract.MinePresenter>(), IMineContra
                 // TODO 18/12/07
                 val cm = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 // 创建普通字符型ClipData
-                val mClipData = ClipData.newPlainText("hash", mKeyUser!!.text.toString().replace("公钥", ""))
+                val mClipData = ClipData.newPlainText("hash", mKeyUser!!.text.toString().replace(getString(R.string.public_key), ""))
                 // 将ClipData内容放到系统剪贴板里。
                 cm.primaryClip = mClipData
-                ToastUtils.showLong("公钥已复制至剪贴板")
+                ToastUtils.showLong(getString(R.string.the_public_key_has_been_copied_to_the_clipboard))
             }
         }
     }

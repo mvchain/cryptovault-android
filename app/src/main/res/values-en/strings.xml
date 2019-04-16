@@ -216,6 +216,34 @@
     <string name="forgot_to_pay_the_password">Forgot to pay the password?</string>
     <string name="enter_the_current_payment_password">Enter the current payment password</string>
     <string name="Enter_a_new_payment_password">Enter a new payment password</string>
+    <string name="buy_mvc">Buy MVC</string>
+    <string name="sell_mvc">Sell MVC</string>
+    <string name="current_price">Current price</string>
+    <string name="h24_highest">24H highest</string>
+    <string name="h24_minimum">24H minimum</string>
+    <string name="mvc_trading">MVC trading</string>
+    <string name="buy_mvc_pending_order">Buy MVC pending order</string>
+    <string name="sell_mvc_pending_order">Sell MVC pending order</string>
+    <string name="btc_finance">BTC Finance</string>
+    <string name="my_position">My position</string>
+    <string name="total_wealth_management_assets">Total wealth management assets</string>
+    <string name="today_income">Today\'s income</string>
+    <string name="cumulative_income">Cumulative income</string>
+    <string name="offline_time">Offline time</string>
+    <string name="need_to_sign_in">Need to sign in</string>
+    <string name="product_remaining_amount">Product remaining amount</string>
+    <string name="starting">Starting</string>
+    <string name="total_assets">Total assets</string>
+    <string name="are_you_sure_you_want_to_log_out_of_ttpay">Are you sure you want to log out of TTPay？</string>
+    <string name="the_public_key_has_been_copied_to_the_clipboard">The public key has been copied to the clipboard</string>
+    <string name="email">Email</string>
+    <string name="public_key">Public Key</string>
+    <string name="cancel">Cancel</string>
+    <string name="determine">OK</string>
+
+
+
+
 
     <!--<string name="base_url">https://www.bzvp.net/</string>-->
     <!--<string name="base_url">http://192.168.15.21:10086/</string>-->

@@ -27,39 +27,42 @@
             android:textSize="17sp" />
 
         <ImageView
-		        android:id="@+id/publish_back"
-		        android:layout_width="40dp"
+            android:id="@+id/publish_back"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="6dp"
             android:scaleType="center"
             android:src="@drawable/back_icon_black" />
     </RelativeLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
-		    android:id="@+id/publish_swipe"
-		    android:layout_width="match_parent"
+        android:id="@+id/publish_swipe"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/fragment_grey">
 
             <android.support.v7.widget.RecyclerView
-		            android:id="@+id/publish_rv"
-		            android:layout_width="match_parent"
+                android:id="@+id/publish_rv"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="12dp"
                 android:visibility="invisible"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
             <TextView
-		            android:id="@+id/publish_null"
-		            android:layout_width="match_parent"
+                android:id="@+id/publish_null"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:gravity="center"
-                android:text="暂无发币项目"
+                android:text="@string/no_currency_project"
                 android:textSize="13sp" />
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>

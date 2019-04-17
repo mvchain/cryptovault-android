@@ -60,7 +60,7 @@ class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.R
             }
             R.id.send_code -> {
                 if (reg_email.text.toString() == "") {
-                    dialogHelper?.create(this, R.drawable.miss_icon, "邮箱不可为空")?.show()
+                    dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.mailbox_cannot_be_empty))?.show()
                     dialogHelper?.dismissDelayed(null)
                     return
                 }
@@ -78,17 +78,17 @@ class RegisterInvitationActivity : BaseMVPActivity<IRegisterInvitationConstrat.R
      */
     private fun checkNotNullValue(): Boolean {
         if (reg_nickname.text.toString() == "") {
-            dialogHelper?.create(this, R.drawable.miss_icon, "昵称不可为空")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.nickname_cannot_be_empty))?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }
         if (reg_email.text.toString() == "") {
-            dialogHelper?.create(this, R.drawable.miss_icon, "邮箱不可为空")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.mailbox_cannot_be_empty))?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }
         if (reg_code.text.toString() == "") {
-            dialogHelper?.create(this, R.drawable.miss_icon, "验证码不可为空")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.verification_code_cannot_be_empty))?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }

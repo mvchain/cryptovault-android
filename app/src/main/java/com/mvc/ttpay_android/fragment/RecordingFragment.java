@@ -1,14 +1,19 @@
 package com.mvc.ttpay_android.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.mvc.ttpay_android.MyApplication;
 import com.mvc.ttpay_android.R;
 import com.mvc.ttpay_android.adapter.rvAdapter.RecorAdapter;
@@ -52,6 +57,49 @@ public class RecordingFragment extends BaseMVPFragment<IRecordingContract.Record
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        LogUtils.e("RecordingFragment#onAttach");
+        super.onAttach(context);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        LogUtils.e("RecordingFragment#onCreateView");
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        LogUtils.e("RecordingFragment#onViewCreated");
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        LogUtils.e("RecordingFragment#onActivityCreated");
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        LogUtils.e("RecordingFragment#onDestroyView");
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        LogUtils.e("RecordingFragment#onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onResume() {
+        LogUtils.e("RecordingFragment#onResume");
+        super.onResume();
     }
 
     public void setRecording(IRecordingClick recording) {

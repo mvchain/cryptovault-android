@@ -42,12 +42,12 @@ class LoginVerificationGoogleActivity : BaseActivity() {
                 finish()
             }
             R.id.google_forget -> {
-                dialogHelper.create(this, IDialogViewClickListener { dialogHelper.dismiss() }, "请联系邮箱")
+                dialogHelper.create(this, IDialogViewClickListener { dialogHelper.dismiss() }, getString(R.string.please_contact_email))
             }
             R.id.google_submit -> {
                 var code = google_code.text.toString()
                 if (code.isEmpty()) {
-                    ToastUtils.showShort("Google验证码不可为空")
+                    ToastUtils.showShort(getString(R.string.google_empty))
                     return
                 }
                 dialogHelper.create(this, R.drawable.pending_icon, getString(R.string.in_verification)).show()
@@ -81,7 +81,7 @@ class LoginVerificationGoogleActivity : BaseActivity() {
                                             LogUtils.e("MyJPushMessageReceiver", "注册")
                                             JPushInterface.setAlias(applicationContext, loginBean.data.userId, loginBean.data.userId.toString())
                                         }, { throwable -> LogUtils.e("MyJPushMessageReceiver", throwable.message) })
-                                dialogHelper.resetDialogResource(this, R.drawable.success_icon, "登录成功")
+                                dialogHelper.resetDialogResource(this, R.drawable.success_icon, getString(R.string.login_successful))
                                 dialogHelper.dismissDelayed(object : DialogHelper.IDialogDialog {
                                     override fun callback() {
                                         val mIntent = Intent(this@LoginVerificationGoogleActivity, MainActivity::class.java)

@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="交易记录"
+            android:text="@string/transaction_record"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 

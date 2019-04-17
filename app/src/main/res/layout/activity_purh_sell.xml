@@ -151,7 +151,7 @@
 							android:id="@+id/price_title"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							android:text="出售单价："
+							android:text="@string/sell_unit_price"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 
@@ -207,7 +207,7 @@
 							android:layout_height="wrap_content"
 							android:layout_below="@id/current_price"
 							android:layout_marginTop="20dp"
-							android:text="出售价"
+							android:text="-"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 
@@ -229,7 +229,7 @@
 								android:layout_width="0dp"
 								android:inputType="numberDecimal"
 								android:digits="0123456789."
-								android:hint="输入出售数量"
+								android:hint="@string/input_sell_number"
 								android:layout_height="44dp"
 								android:layout_weight="1"
 								android:background="@null"/>
@@ -264,7 +264,7 @@
 							android:layout_height="wrap_content"
 							android:layout_below="@id/num_error_hint"
 							android:layout_marginTop="10dp"
-							android:text="总价:"
+							android:text="@string/total_price"
 							android:textColor="@color/trand_gray"
 							android:textSize="13sp"/>
 
@@ -292,7 +292,7 @@
 			android:layout_marginBottom="20dp"
 			android:background="@drawable/bg_login_submit"
 			android:gravity="center"
-			android:text="确认"
+			android:text="@string/confirm"
 			android:textColor="@color/select_button_tv_color"
 			android:textSize="15sp"
 			android:textStyle="bold"/>

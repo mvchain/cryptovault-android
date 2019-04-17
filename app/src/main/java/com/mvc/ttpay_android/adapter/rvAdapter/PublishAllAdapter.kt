@@ -14,7 +14,7 @@ class PublishAllAdapter(resId:Int,date:ArrayList<PublishBean.DataBean>) :BaseQui
     override fun convert(helper: BaseViewHolder, item: PublishBean.DataBean) {
         val options = RequestOptions().fallback(R.drawable.default_project).placeholder(R.drawable.loading_img).error(R.drawable.default_project)
         helper.setText(R.id.publish_child_title,item.projectName)
-        helper.setText(R.id.publish_child_recevie_type,"每日释放比例${item.releaseValue}%")
+        helper.setText(R.id.publish_child_recevie_type,"${getString(R.string.daily_release_ratio)}${item.releaseValue}%")
         helper.setText(R.id.publish_child_recevie_bespoke,"发币时间 ${SimpleDateFormat("yyyy-MM-dd HH : mm").format(item.publishTime)}")
         var pubIcon = helper.getView<ImageView>(R.id.publish_child_icon)
         Glide.with(mContext).load(item.projectImage).apply(options).into(pubIcon)

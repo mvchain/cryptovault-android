@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="我的持仓"
+            android:text="@string/my_position"
             android:textColor="@color/login_content"
             android:textSize="17sp" />
 

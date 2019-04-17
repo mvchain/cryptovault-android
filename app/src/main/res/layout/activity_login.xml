@@ -41,7 +41,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="44dp"
 			android:gravity="center_vertical"
-			android:hint="邮箱"
+			android:hint="@string/email"
 			android:layout_marginLeft="44dp"
 			android:layout_marginTop="46dp"
 			android:background="@drawable/shape_round_gray_5dp"
@@ -70,7 +70,7 @@
 				android:background="@null"
 				android:layout_weight="1"
 				android:layout_height="48dp"
-				android:hint="密码"
+				android:hint="@string/password"
 				android:gravity="center_vertical"
 				android:inputType="textPassword"
 				android:padding="10dp"
@@ -114,7 +114,7 @@
 				android:layout_weight="1"
 				android:background="@null"
 				android:gravity="center_vertical"
-				android:hint="请输入邮箱验证码"
+				android:hint="@string/please_enter_the_email"
 				android:inputType="number"
 				android:maxLines="1"
 				android:maxLength="6"
@@ -149,7 +149,7 @@
 			android:layout_marginLeft="44dp"
 			android:layout_marginTop="10dp"
 			android:onClick="onClick"
-			android:text="忘记密码？"
+			android:text="@string/forget_password"
 			android:textColor="@color/trand_gray"
 			android:textSize="15sp"/>
 	<View
@@ -165,7 +165,7 @@
 			android:layout_marginRight="44dp"
 			android:layout_marginBottom="45dp"
 			android:background="@drawable/bg_login_submit"
-			android:text="登录"
+			android:text="@string/login"
 			android:textColor="@color/white"/>
 
 

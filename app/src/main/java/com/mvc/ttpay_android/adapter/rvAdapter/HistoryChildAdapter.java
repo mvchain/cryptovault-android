@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.mvc.ttpay_android.MyApplication;
 import com.mvc.ttpay_android.R;
 import com.mvc.ttpay_android.bean.HistroyBean;
 import com.mvc.ttpay_android.utils.TextUtils;
@@ -17,7 +18,7 @@ import com.mvc.ttpay_android.utils.TextUtils;
 import java.util.List;
 
 public class HistoryChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, BaseViewHolder> {
-    private String[] status = {mContext.getString(R.string.load_payment), mContext.getString(R.string.load_payment), mContext.getString(R.string.successful_transfer),  mContext.getString(R.string.failed_transfer)};
+    private String[] status = {MyApplication.getAppContext().getString(R.string.load_payment), MyApplication.getAppContext().getString(R.string.load_payment), MyApplication.getAppContext().getString(R.string.successful_transfer),  MyApplication.getAppContext().getString(R.string.failed_transfer)};
     private int[] status_color = {R.color.login_edit_bg, R.color.login_edit_bg, R.color.login_edit_bg, R.color.error};
     private int[] status_icon = {R.drawable.sent_icon, R.drawable.receive_icon, R.drawable.zc_icon, R.drawable.jy_icon, R.drawable.financial_selected_bold};
 
@@ -48,41 +49,41 @@ public class HistoryChildAdapter extends BaseQuickAdapter<HistroyBean.DataBean, 
         if ((item.getClassify() == 0 || item.getClassify() == 3)) {
             if (transactionType == 1) {
                 iconType = 1;
-                helper.setText(R.id.his_child_title, item.getOrderRemark() + " "+mContext.getString(R.string.income));
+                helper.setText(R.id.his_child_title, item.getOrderRemark() + " "+MyApplication.getAppContext().getString(R.string.income));
             } else {
                 iconType = 0;
-                helper.setText(R.id.his_child_title, item.getOrderRemark() + " "+mContext.getString(R.string.expenditure));
+                helper.setText(R.id.his_child_title, item.getOrderRemark() + " "+MyApplication.getAppContext().getString(R.string.expenditure));
             }
         } else if (item.getClassify() == 1) {
             iconType = 3;
-            helper.setText(R.id.his_child_title, item.getOrderRemark() + " "+mContext.getString(R.string.navi_trand));
+            helper.setText(R.id.his_child_title, item.getOrderRemark() + " "+MyApplication.getAppContext().getString(R.string.navi_trand));
         } else if (item.getClassify() == 2) {
             iconType = 2;
             StringBuffer buffer = new StringBuffer();
             switch (item.getStatus()) {
                 case 9:
-                    buffer.append(mContext.getString(R.string.return_));
+                    buffer.append(MyApplication.getAppContext().getString(R.string.return_));
                     break;
                 case 2:
-                    buffer.append(mContext.getString(R.string.currency_));
+                    buffer.append(MyApplication.getAppContext().getString(R.string.currency_));
                     break;
                 case 0:
-                    buffer.append(mContext.getString(R.string.reservation));
+                    buffer.append(MyApplication.getAppContext().getString(R.string.reservation));
                     break;
             }
-            helper.setText(R.id.his_child_title, item.getOrderRemark() + " " + mContext.getString(R.string.navi_toge) + buffer.toString());
+            helper.setText(R.id.his_child_title, item.getOrderRemark() + " " + MyApplication.getAppContext().getString(R.string.navi_toge) + buffer.toString());
         } else if (item.getClassify() == 4) {
             iconType = 4;
             StringBuffer buffer = new StringBuffer();
             switch (item.getStatus()) {
                 case 4:
-                    buffer.append(mContext.getString(R.string.take_out));
+                    buffer.append(MyApplication.getAppContext().getString(R.string.take_out));
                     break;
                 case 5:
-                    buffer.append(mContext.getString(R.string.commission));
+                    buffer.append(MyApplication.getAppContext().getString(R.string.commission));
                     break;
                 case 6:
-                    buffer.append(mContext.getString(R.string.earnings));
+                    buffer.append(MyApplication.getAppContext().getString(R.string.earnings));
                     break;
             }
             helper.setText(R.id.his_child_title, item.getOrderRemark() + " " + buffer.toString());

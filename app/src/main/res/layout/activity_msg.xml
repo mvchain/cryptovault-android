@@ -49,7 +49,7 @@
             android:visibility="gone"
             android:id="@+id/msg_null"
             android:layout_width="match_parent"
-            android:text="暂无通知"
+            android:text="@string/no_notice"
             android:textColor="@color/login_content"
             android:textSize="17sp"
             android:gravity="center"

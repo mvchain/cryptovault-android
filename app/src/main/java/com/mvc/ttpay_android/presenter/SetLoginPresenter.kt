@@ -23,7 +23,7 @@ class SetLoginPresenter : ISetPasswordContract.SetPasswordPresenter() {
                     }
                 }, {
                     if (it is SocketTimeoutException) {
-                        mIView.showError("连接超时")
+                        mIView.showError(getString(R.string.connection_timed_out))
                     } else {
                         mIView.showError(it.message!!)
                     }
@@ -40,7 +40,7 @@ class SetLoginPresenter : ISetPasswordContract.SetPasswordPresenter() {
                     }
                 }, {
                     if (it is SocketTimeoutException) {
-                        mIView.showError("连接超时")
+                        mIView.showError(getString(R.string.connection_timed_out))
                     } else {
                         mIView.showError(it.message!!)
                     }

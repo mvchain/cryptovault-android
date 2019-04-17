@@ -78,7 +78,7 @@ class ResetPasswordVerificationMnemonicsActivity : BaseActivity(), BaseQuickAdap
                             }
                         }, { error ->
                             if (error is SocketTimeoutException) {
-                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, "连接超时")
+                                dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, getString(R.string.connection_timed_out))
                             }else{
                                 dialogHelper!!.resetDialogResource(this, R.drawable.pending_icon_1, error.message!!)
                             }

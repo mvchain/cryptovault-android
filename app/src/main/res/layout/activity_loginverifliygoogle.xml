@@ -38,7 +38,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="44dp"
 			android:gravity="center_vertical"
-			android:hint="输入Google验证码"
+			android:hint="@string/enter_your_google_code"
 			android:layout_marginLeft="44dp"
 			android:layout_marginTop="46dp"
 			android:background="@drawable/shape_round_gray_5dp"
@@ -54,7 +54,7 @@
 	<TextView
 			android:id="@+id/google_forget"
 			android:padding="10dp"
-			android:text="丢失Google验证器？"
+			android:text="@string/lost_google_authenticator"
 			android:onClick="onClick"
 			android:layout_gravity="right"
 			android:layout_marginRight="30dp"
@@ -74,6 +74,6 @@
 			android:layout_marginRight="44dp"
 			android:layout_marginBottom="45dp"
 			android:background="@drawable/bg_login_submit"
-			android:text="登录"
+			android:text="@string/login"
 			android:textColor="@color/white"/>
 </LinearLayout>

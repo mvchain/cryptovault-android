@@ -32,7 +32,7 @@
 				android:layout_height="match_parent"
 				android:layout_weight="1"
 				android:gravity="center"
-				android:text="添加币种"
+				android:text="@string/add_currency"
 				android:textSize="17sp"/>
 
 		<EditText
@@ -44,7 +44,7 @@
 				android:layout_weight="1"
 				android:background="@drawable/bg_increase_edit"
 				android:drawableLeft="@drawable/search_icon_drawable_edit"
-				android:hint="搜索币种"
+				android:hint="@string/search_currency"
 				android:maxLines="1"
 				android:paddingLeft="15dp"
 				android:textColorHint="@color/edit_tv"
@@ -88,7 +88,7 @@
 				android:layout_height="match_parent"
 				android:gravity="center_horizontal"
 				android:paddingTop="20dp"
-				android:text="没有搜索到相关结果"
+				android:text="@string/search_null"
 				android:visibility="gone"/>
 	</FrameLayout>
 </LinearLayout>

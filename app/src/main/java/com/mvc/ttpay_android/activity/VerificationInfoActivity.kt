@@ -183,7 +183,7 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
             return false
         }
         if (resetType == TYPE_EMAIL && code.text.toString() == "") {
-            dialogHelper?.create(this, R.drawable.miss_icon, "验证码不可为空")?.show()
+            dialogHelper?.create(this, R.drawable.miss_icon, getString(R.string.verification_code_cannot_be_empty))?.show()
             dialogHelper?.dismissDelayed(null)
             return false
         }
@@ -205,7 +205,7 @@ class VerificationInfoActivity : BaseMVPActivity<IVerificationInfoContract.Verif
         resetType = getIntent.getIntExtra("type", -1)
         when (resetType) {
             TYPE_EMAIL -> {
-                hintMsg = "邮箱"
+                hintMsg = getString(R.string.email)
             }
 //            TYPE_PRIVATEKEY, TYPE_MNEMONICS -> {
 //                verification_title.text = "输入邮箱账户"

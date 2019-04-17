@@ -105,7 +105,7 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
             }
             R.id.submit -> {
                 if (checkNotNullValue()) {
-                    dialogHelper!!.create(this, R.drawable.pending_icon_1, "修改中").show()
+                    dialogHelper!!.create(this, R.drawable.pending_icon_1, getString(R.string.change_load)).show()
                     if (type == 0) {
                         mPresenter.setLoginPassword(old_pwd.text.toString(), new_pwd.text.toString())
                     } else if (type == 1) {
@@ -150,39 +150,39 @@ class SetLoginPasswordActivity : BaseMVPActivity<ISetPasswordContract.SetPasswor
     private fun checkNotNullValue(): Boolean {
         if (type == 0) {
             if (old_pwd.text.toString() == "") {
-                dialogHelper!!.create(this, R.drawable.miss_icon, "旧密码不可为空").show()
+                dialogHelper!!.create(this, R.drawable.miss_icon, getString(R.string.old_password_cannot_be_empty)).show()
                 dialogHelper!!.dismissDelayed(null)
                 return false
             }
             if (new_pwd.text.toString() == "") {
-                dialogHelper!!.create(this, R.drawable.miss_icon, "新密码不可为空").show()
+                dialogHelper!!.create(this, R.drawable.miss_icon, getString(R.string.new_password_cannot_be_empty)).show()
                 dialogHelper!!.dismissDelayed(null)
                 return false
             }
             if (new_pwd.text.toString().length < 8) {
-                dialogHelper!!.create(this, R.drawable.miss_icon, "登录密码必须在8位以上").show()
+                dialogHelper!!.create(this, R.drawable.miss_icon, getString(R.string.login_password_must_be_8_or_more)).show()
                 dialogHelper!!.dismissDelayed(null)
                 return false
             }
             if (Pattern.compile("[0-9]*").matcher(new_pwd.text.toString()).matches()) {
-                dialogHelper!!.create(this, R.drawable.miss_icon, "密码不可为纯数字").show()
+                dialogHelper!!.create(this, R.drawable.miss_icon, getString(R.string.login_password_cannot_be_a_pure_number)).show()
                 dialogHelper!!.dismissDelayed(null)
                 return false
             }
             return true
         } else {
             if (old_pwd.text.toString() == "") {
-                dialogHelper!!.create(this, R.drawable.miss_icon, "旧密码不可为空").show()
+                dialogHelper!!.create(this, R.drawable.miss_icon,  getString(R.string.old_password_cannot_be_empty)).show()
                 dialogHelper!!.dismissDelayed(null)
                 return false
             }
             if (new_pwd.text.toString() == "") {
-                dialogHelper!!.create(this, R.drawable.miss_icon, "新密码不可为空").show()
+                dialogHelper!!.create(this, R.drawable.miss_icon, getString(R.string.new_password_cannot_be_empty)).show()
                 dialogHelper!!.dismissDelayed(null)
                 return false
             }
             if (new_pwd.text.toString().length < 6) {
-                dialogHelper!!.create(this, R.drawable.miss_icon, "支付密码必须6位").show()
+                dialogHelper!!.create(this, R.drawable.miss_icon, getString(R.string.payment_password_must_be_6_digits)).show()
                 dialogHelper!!.dismissDelayed(null)
                 return false
             }

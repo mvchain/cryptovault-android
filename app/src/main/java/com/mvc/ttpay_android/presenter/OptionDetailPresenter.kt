@@ -50,7 +50,7 @@ class OptionDetailPresenter : IOptionDetailContract.OptionDetailPresenter() {
                     }
                 }, {
                     if (it is SocketTimeoutException) {
-                        mIView.showExtractError("连接超时")
+                        mIView.showExtractError(getString(R.string.connection_timed_out))
                     } else {
                         mIView.showExtractError(it.message!!)
                     }

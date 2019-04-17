@@ -91,10 +91,10 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
         mTitleTrand!!.text = intent.getStringExtra("title")
         type = intent.getIntExtra("type", 0)
         unitPrice = intent.getStringExtra("unit_price")
-        mEditPurh.hint = "输入" + (if (type == 2) "购买" else "出售") + "数量"
-        mTitlePrice!!.text = (if (type == 2) "购买" else "出售") + "单价："
-        mNumPrice!!.text = (if (type == 2) "购买" else "出售") + "数量"
-        mHintPrice.text = "可用${data.tokenName}"
+        mEditPurh.hint = getString(R.string.input) + (if (type == 2) getString(R.string.buy) else getString(R.string.sell)) + getString(R.string.number)
+        mTitlePrice!!.text = (if (type == 2) getString(R.string.buy) else getString(R.string.sell)) + getString(R.string.unit_price)
+        mNumPrice!!.text = (if (type == 2) getString(R.string.buy) else getString(R.string.sell)) + getString(R.string.number)
+        mHintPrice.text = "${getString(R.string.available)}${data.tokenName}"
         unit_price.text = data.tokenName
         unit_num.text = "MVC"
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getTransactionInfo(token, data.pairId, type)
@@ -104,7 +104,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                         val data = trandPurhBean.data
                         mPrice!!.text = TextUtils.doubleToEight(data.tokenBalance)
                         mPriceVrt!!.text = TextUtils.doubleToEight(data.balance)
-                        mPriceCurrent!!.text = "当前价格" + TextUtils.doubleToEight(data.price) + unitPrice
+                        mPriceCurrent!!.text = getString(R.string.current_price) + TextUtils.doubleToEight(data.price) + unitPrice
                         this.tokenBalance = data.tokenBalance
                         this.balance = data.balance
                         this.currentPricePurh = data.price
@@ -133,22 +133,22 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                         } else {
                                             data.price * num!!
                                         }
-                                        mAllPricePurh!!.text = TextUtils.doubleToEight(allPrice) + " " + this@TrandPurhAndSellActivity.data!!.tokenName
+                                        mAllPricePurh!!.text = TextUtils.doubleToEight(allPrice) + " " + this@TrandPurhAndSellActivity.data.tokenName
                                         if (type == 1 && num > this@TrandPurhAndSellActivity.balance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
-                                            mNumErrorHint!!.text = mVRTHint!!.text.toString() + "不足"
+                                            mNumErrorHint!!.text = mVRTHint!!.text.toString() + getString(R.string.insufficient)
                                         } else if (type == 2 && allPrice > this@TrandPurhAndSellActivity.tokenBalance) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
-                                            mNumErrorHint!!.text = mHintPrice!!.text.toString() + "不足"
+                                            mNumErrorHint!!.text = mHintPrice!!.text.toString() + getString(R.string.insufficient)
                                         } else if (num < minLimit) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
-                                            mNumErrorHint!!.text = "最小挂单数量不可小于$minLimit"
+                                            mNumErrorHint!!.text = "${getString(R.string.orders_cannot_be_less_than)}$minLimit"
                                         } else {
                                             mNumErrorHint!!.visibility = View.INVISIBLE
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_login_submit)
@@ -193,12 +193,12 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
-                                            mNumErrorHint!!.text = mHintPrice!!.text.toString() + getString(R.string.insufficient)
+                                            mNumErrorHint!!.text = mHintPrice.text.toString() + getString(R.string.insufficient)
                                         } else if (num < minLimit) {
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_toge_child_item_tv_blue_nocheck)
                                             mSubmitPurh!!.isEnabled = false
                                             mNumErrorHint!!.visibility = View.VISIBLE
-                                            mNumErrorHint!!.text = "最小挂单数量不可小于$minLimit"
+                                            mNumErrorHint!!.text = "${getString(R.string.orders_cannot_be_less_than)}$minLimit"
                                         } else {
                                             mNumErrorHint!!.visibility = View.INVISIBLE
                                             mSubmitPurh!!.setBackgroundResource(R.drawable.bg_login_submit)
@@ -268,7 +268,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                 val currentNum = mEditPurh.text.toString()
                 val currentAllPrice = mAllPricePurh!!.text.toString()
                 if (currentNum == "" || java.lang.Double.valueOf(currentNum) <= 0) {
-                    dialogHelper!!.create(this, R.drawable.miss_icon, if (type == 2) "购买数量不正确" else "出售数量不正确").show()
+                    dialogHelper!!.create(this, R.drawable.miss_icon, if (type == 2) getString(R.string.incorrect_purchase_quantity) else getString(R.string.the_number_of_shares_sold_is_incorrect)).show()
                     dialogHelper!!.dismissDelayed(null, 2000)
                     return
                 }
@@ -286,12 +286,12 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                 val buyPrice = if (this.type == 2) currentNum else payNum
                 mPopView = createPopWindow(this
                         , R.layout.layout_paycode
-                        , if (this.type == 2) "确认购买" else "确认发布"
-                        , "总计需支付"
+                        , if (this.type == 2) getString(R.string.confirm_purchase) else getString(R.string.confirm_release)
+                        , getString(R.string.total_payment)
                         , "${(if (this.type == 2) payNum else currentNum)} ${if (this.type == 2) data!!.tokenName else unitPrice}"
-                        , if (this.type == 2) "购买数量" else "总价"
+                        , if (this.type == 2) getString(R.string.purchase_quantity) else getString(R.string.total_price)
                         , "$buyPrice ${if (this.type == 2) unitPrice else data!!.tokenName}"
-                        , if (this.type == 2) "购买单价" else "出售单价"
+                        , if (this.type == 2) getString(R.string.purchase_unit_price) else getString(R.string.sell_unit_price)
                         , "${if (price_edit.text.toString() == "") TextUtils.doubleToEight(currentPricePurh) else price_edit.text} ${data!!.tokenName}"
                         , object : IPayWindowListener {
                     override fun onclick(view: View) {
@@ -318,7 +318,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
                 }, PswMaxListener { num ->
                     val email = SPUtils.getInstance().getString(USER_EMAIL)
                     KeyboardUtils.hideSoftInput(mPopView!!.contentView.findViewById<View>(R.id.pay_text))
-                    mPurhDialog = dialogHelper!!.create(this@TrandPurhAndSellActivity, R.drawable.pending_icon, "正在发布")
+                    mPurhDialog = dialogHelper!!.create(this@TrandPurhAndSellActivity, R.drawable.pending_icon, getString(R.string.publishing))
                     mPurhDialog!!.show()
                     mPopView!!.dismiss()
                     RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).getUserSalt(MyApplication.getTOKEN(), email)
@@ -359,7 +359,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
     private fun releasePurh(body: RequestBody) {
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).releaseOrder(token, body).compose(RxHelper.rxSchedulerHelper()).subscribe({ updateBean ->
             if (updateBean.code == 200) {
-                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.success_icon, "发布成功")
+                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.success_icon, getString(R.string.successfully_released))
                 EventBus.getDefault().post(RecordingEvent())
                 dialogHelper!!.dismissDelayed(object : DialogHelper.IDialogDialog {
                     override fun callback() {
@@ -386,7 +386,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
             }
         }, { throwable ->
             if (throwable is SocketTimeoutException) {
-                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.miss_icon, "连接超时")
+                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.miss_icon, getString(R.string.connection_timed_out))
             } else {
                 dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.miss_icon, throwable.message!!)
             }
@@ -407,7 +407,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
     private fun releaseSell(body: RequestBody) {
         RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore::class.java).releaseOrder(token, body).compose(RxHelper.rxSchedulerHelper()).subscribe({ updateBean ->
             if (updateBean.code == 200) {
-                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.success_icon, "发布成功")
+                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.success_icon, getString(R.string.successfully_released))
                 EventBus.getDefault().post(RecordingEvent())
                 dialogHelper!!.dismissDelayed(object : DialogHelper.IDialogDialog {
                     override fun callback() {
@@ -432,7 +432,7 @@ class TrandPurhAndSellActivity : BaseActivity(), View.OnClickListener {
             }
         }, { throwable ->
             if (throwable is SocketTimeoutException) {
-                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.miss_icon, "连接超时")
+                dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.miss_icon, getString(R.string.connection_timed_out))
             } else {
                 dialogHelper!!.resetDialogResource(this@TrandPurhAndSellActivity, R.drawable.miss_icon, throwable.message!!)
             }

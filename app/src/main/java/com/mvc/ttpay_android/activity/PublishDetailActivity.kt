@@ -93,9 +93,9 @@ class PublishDetailActivity : BaseActivity() {
                 .subscribe({ publish ->
                     if (publish.code === 200) {
                         var bean = publish.data
-                        publish_detail_toobar.text = "${bean.projectName}-参与详情"
+                        publish_detail_toobar.text = "${bean.projectName}-${getString(R.string.participation_details)}"
                         publish_detail_title.text = bean.projectName
-                        publish_detail_recevie_type.text = "每日释放比例${TextUtils.doubleToDouble(bean.releaseValue)}%"
+                        publish_detail_recevie_type.text = "${getString(R.string.daily_release_ratio)}${TextUtils.doubleToDouble(bean.releaseValue)}%"
                         publish_detail_pay.text = "${TextUtils.doubleToDouble(bean.successPayed)}/${TextUtils.doubleToDouble(bean.payed)} ${bean.baseTokenName}"
                         publish_detail_success.text = "${TextUtils.doubleToDouble(bean.successValue)}/${TextUtils.doubleToDouble(bean.value)} ${bean.baseTokenName}"
                         publish_detail_jg.text = "1 ${bean.tokenName} = ${bean.ratio} ${bean.baseTokenName}"

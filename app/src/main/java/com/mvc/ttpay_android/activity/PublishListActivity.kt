@@ -71,7 +71,7 @@ class PublishListActivity : BaseActivity() {
                 .compose(RxHelper.rxSchedulerHelper())
                 .subscribe({ publish ->
                     publish_swipe.isRefreshing = false
-                    if (publish.code === 200) {
+                    if (publish.code == 200) {
                         publish_rv.visibility = View.VISIBLE
                         publish_null.visibility = View.INVISIBLE
                         publishBean.addAll(publish.data)

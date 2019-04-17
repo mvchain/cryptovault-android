@@ -23,7 +23,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:gravity="center"
-				android:text="持仓详情"
+				android:text="@string/position_details"
 				android:textColor="@color/login_content"
 				android:textSize="17sp"/>
 
@@ -65,7 +65,7 @@
 						android:id="@+id/detail_content"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="产品名称"
+						android:text="@string/product_name"
 						android:textColor="@color/white"
 						android:textSize="20sp"/>
 

@@ -48,9 +48,9 @@ public class LoginPresenter extends ILoginContract.LoginPresenter {
                     }
                 }, throwable -> {
                     if (throwable instanceof SocketTimeoutException) {
-                        mIView.showLoginStatus(false, "连接超时",null);
+                        mIView.showLoginStatus(false, getString(R.string.connection_timed_out),null);
                     } else {
-                        mIView.showLoginStatus(false, "连接超时",null);
+                        mIView.showLoginStatus(false, getString(R.string.connection_timed_out),null);
                     }
                     LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));
@@ -71,7 +71,7 @@ public class LoginPresenter extends ILoginContract.LoginPresenter {
                     }
                 }, throwable -> {
                     if (throwable instanceof SocketTimeoutException) {
-                        mIView.showSendCode(false, "连接超时");
+                        mIView.showSendCode(false, getString(R.string.connection_timed_out));
                     } else {
                         mIView.showSendCode(false, throwable.getMessage());
                     }

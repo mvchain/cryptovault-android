@@ -75,7 +75,7 @@ class SendEmailActivity : BaseActivity() {
                                 dialogHelper?.dismissDelayed(null)
                             }, {
                                 if (it is SocketTimeoutException) {
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, "连接超时")
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, getString(R.string.connection_timed_out))
                                 } else {
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message!!)
                                 }

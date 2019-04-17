@@ -64,7 +64,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="验证码"
+                android:hint="@string/please_enter_the_email"
                 android:inputType="number"
                 android:maxLines="1"
                 android:maxLength="6"
@@ -101,6 +101,6 @@
         android:layout_marginTop="136dp"
         android:layout_marginRight="44dp"
         android:background="@drawable/bg_login_submit"
-        android:text="下一步"
+        android:text="@string/next"
         android:textColor="@color/white" />
 </LinearLayout>

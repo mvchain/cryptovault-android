@@ -80,12 +80,12 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
                 String chagePrice = s.toString();
                 if (!chagePrice.equals("") && vpBalanceBean != null) {
                     if (TextUtils.INSTANCE.stringToDouble(chagePrice) > vpBalanceBean.getData()) {
-                        mPriceVp.setText("余额不足");
-                        mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.red));
+                        mPriceVp.setText(getString(R.string.insufficient_balance));
+                        mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
                         mSubmitVp.setEnabled(false);
                     } else {
-                        mPriceVp.setText("余额：" + TextUtils.INSTANCE.doubleToEight(vpBalanceBean.getData()));
-                        mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(),R.color.login_edit_bg));
+                        mPriceVp.setText(getString(R.string.balance) + "：" + TextUtils.INSTANCE.doubleToEight(vpBalanceBean.getData()));
+                        mPriceVp.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.login_edit_bg));
                         mSubmitVp.setEnabled(true);
                     }
                 }
@@ -111,13 +111,13 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
     @Override
     public void showSuccess(VPBalanceBean data) {
         this.vpBalanceBean = data;
-        mPriceVp.setText("余额：" + TextUtils.INSTANCE.doubleToEight(data.getData()));
+        mPriceVp.setText(getString(R.string.balance) + "：" + TextUtils.INSTANCE.doubleToEight(data.getData()));
     }
 
     @Override
     public void callBack(UpdateBean bean) {
         if (bean.getCode() == 200) {
-            Dialog dialog = dialogHelper.create(this, R.drawable.success_icon, "提取成功");
+            Dialog dialog = dialogHelper.create(this, R.drawable.success_icon, getString(R.string.successful_extraction));
             dialog.show();
             dialogHelper.dismissDelayed(() -> {
                 EventBus.getDefault().post(new HistroyEvent(mBwPriceVp.getText().toString().trim()));
@@ -152,15 +152,15 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
                 // TODO 18/12/11
                 String vpEditPrice = mBwPriceVp.getText().toString();
                 if (vpEditPrice.equals("")) {
-                    ToastUtils.showLong("取出余额不可为空");
+                    ToastUtils.showLong(getString(R.string.the_withdrawal_balance_cannot_be_empty));
                     return;
                 }
                 mPopView = PopViewHelper.Companion.getInstance()
                         .create(this
                                 , R.layout.layout_paycode
-                                , "确认取出"
-                                , "取出金额"
-                                , vpEditPrice + " 余额"
+                                , getString(R.string.confirm_removed)
+                                , getString(R.string.withdrawal_amount)
+                                , vpEditPrice + " "+getString(R.string.balance)
                                 , ""
                                 , ""
                                 , false
@@ -191,7 +191,7 @@ public class VPBalanceWithdrawalActivity extends BaseMVPActivity<IBalanceContrac
                                 }, num -> {
                                     String email = SPUtils.getInstance().getString(USER_EMAIL);
                                     KeyboardUtils.hideSoftInput(mPopView.getContentView().findViewById(R.id.pay_text));
-                                    mPresenter.sendDebitMsg(EncryptUtils.encryptMD5ToString(email +  EncryptUtils.encryptMD5ToString(num)), vpEditPrice);
+                                    mPresenter.sendDebitMsg(EncryptUtils.encryptMD5ToString(email + EncryptUtils.encryptMD5ToString(num)), vpEditPrice);
                                     mPopView.dismiss();
                                 });
                 mPopView.showAtLocation(mSubmitVp, Gravity.BOTTOM, 0, 0);

@@ -52,7 +52,7 @@ class SetEmailActivity : BaseActivity() {
                                 dialogHelper?.dismissDelayed(null)
                             }, { throwable ->
                                 if (throwable is SocketTimeoutException) {
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, "连接超时")
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, getString(R.string.connection_timed_out))
                                 }else{
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, throwable.message!!)
                                 }
@@ -62,7 +62,7 @@ class SetEmailActivity : BaseActivity() {
             }
             R.id.submit -> {
                 if (checkCodeNotNullValue()) {
-                    dialogHelper!!.create(this, R.drawable.pending_icon_1, "绑定中").show()
+                    dialogHelper!!.create(this, R.drawable.pending_icon_1, getString(R.string.bind_load)).show()
                     var code = email_code.text.toString()
                     var email = email.text.toString()
                     var json = JSONObject()
@@ -73,8 +73,8 @@ class SetEmailActivity : BaseActivity() {
                     RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore::class.java).bindNewsEmail(MyApplication.getTOKEN(), body)
                             .compose(RxHelper.rxSchedulerHelper())
                             .subscribe({ codeBean ->
-                                if (codeBean.code === 200) {
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "换绑成功")
+                                if (codeBean.code == 200) {
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, getString(R.string.successfully_tied))
                                     dialogHelper!!.dismissDelayed  (object :DialogHelper.IDialogDialog{
                                         override fun callback() {
                                             startTaskActivity(this@SetEmailActivity)
@@ -86,7 +86,7 @@ class SetEmailActivity : BaseActivity() {
                                 }
                             }, {
                                 if (it is SocketTimeoutException) {
-                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, "连接超时")
+                                    dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, getString(R.string.connection_timed_out))
                                 }else{
                                     dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, it.message!!)
                                 }
@@ -117,7 +117,7 @@ class SetEmailActivity : BaseActivity() {
 
     private fun checkCodeNotNullValue(): Boolean {
         if (email_code.text.toString() == "") {
-            dialogHelper!!.create(this, R.drawable.miss_icon, "验证码不可为空").show()
+            dialogHelper!!.create(this, R.drawable.miss_icon, getString(R.string.verification_code_cannot_be_empty)).show()
             dialogHelper?.dismissDelayed(null)
             return false
         }
@@ -125,7 +125,7 @@ class SetEmailActivity : BaseActivity() {
     }
     private fun checkEmailNotNullValue(): Boolean {
         if (email.text.toString() == "") {
-            dialogHelper!!.create(this, R.drawable.miss_icon, "邮箱不可为空").show()
+            dialogHelper!!.create(this, R.drawable.miss_icon, getString(R.string.mailbox_cannot_be_empty)).show()
             dialogHelper?.dismissDelayed(null)
             return false
         }

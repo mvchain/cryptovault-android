@@ -60,8 +60,8 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<IReceiptQRContrac
         mHashM = findViewById(R.id.m_hash);
         mQcImgM = findViewById(R.id.m_qc_img);
         mProtraitM = findViewById(R.id.m_protrait);
-        mTitleM.setText(tokenName + "收款");
-        mContentM.setText(tokenName + "收款地址");
+        mTitleM.setText(tokenName +  getString(R.string.receipt));
+        mContentM.setText(tokenName + getString(R.string.collection_address));
         mBackM.setOnClickListener(this);
         mShareM.setOnClickListener(this);
         mHashM.setOnClickListener(this);
@@ -124,7 +124,7 @@ public class MineReceiptQRCodeActivity extends BaseMVPActivity<IReceiptQRContrac
                         parintent.setType("image/*");  //设置分享内容的类型
                         parintent.putExtra(Intent.EXTRA_STREAM, parseUri);
                         //创建分享的Dialog
-                        Intent share_intent = Intent.createChooser(parintent, "分享到:");
+                        Intent share_intent = Intent.createChooser(parintent, getString(R.string.share_to));
                         startActivity(share_intent);
                         drawingCache.recycle();
                         mLayoutShare.setDrawingCacheEnabled(false);

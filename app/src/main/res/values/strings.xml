@@ -124,7 +124,7 @@
 	<string name="payment_address">付款地址：</string>
 	<string name="collection_address_2">收款地址：</string>
 	<string name="in_the_collection">收款中</string>
-	<string name="load_payment">转帐中</string>
+	<string name="load_payment">转账中</string>
 	<string name="successful_payment">收款成功</string>
 	<string name="successful_transfer">转账成功</string>
 	<string name="failed_payment">收款失败</string>
@@ -260,7 +260,7 @@
 	<string name="nickname_cannot_be_empty">昵称不可为空</string>
 	<string name="verification_code_cannot_be_empty">验证码不可为空</string>
 	<string name="setting_nickname">设置昵称</string>
-	<string name="please_input_your_email">请输入邮箱</string>
+	<string name="please_you_email">请输入邮箱</string>
 	<string name="setting_password">设置密码</string>
 	<string name="login_password">登录密码</string>
 	<string name="combination_minimum_8_digits">字母+数字组合，最少8位</string>
@@ -274,7 +274,6 @@
 	<string name="change_load">修改中</string>
 	<string name="old_password_cannot_be_empty">旧密码不可为空</string>
 	<string name="new_password_cannot_be_empty">新密码不可为空</string>
-	<string name="please_input_your_email">支付密码必须6位</string>
 	<string name="enter_the_current_login_password">输入当前登录密码</string>
 	<string name="enter_the_new_login_password">输入新登录密码</string>
 	<string name="search_for_project_name">搜索项目名称</string>
@@ -293,7 +292,7 @@
 	<string name="publishing">正在发布</string>
 	<string name="successfully_released">发布成功</string>
 	<string name="input_sell_number">输入出售数量</string>
-	<string name="buyer">买家：</string>
+	<string name="buyer_2">买家：</string>
 	<string name="seller_2">卖家：</string>
 	<string name="remaining">剩余</string>
 	<string name="the_amount">量</string>
@@ -304,36 +303,37 @@
 	<string name="successful_extraction">提取成功</string>
 	<string name="the_withdrawal_balance_cannot_be_empty">取出余额不可为空</string>
 	<string name="withdrawal_amount">取出金额</string>
+	<string name="remaining_period">剩余周期</string>
+	<string name="remaining_available_for_sale">剩余可出售量：</string>
+	<string name="remaining_purchase_amount">剩余可购买量：</string>
+	<string name="about_to_start">即将开始</string>
 	<string name="balance_is_taken_out">余额取出</string>
+	<string name="quantity_to_be_purchased">待购买数量</string>
+	<string name="quantity_to_be_sold">待出售数量</string>
+	<string name="deal_done">已成交</string>
+	<string name="confirm_dismantle">确认撤除</string>
+	<string name="pending_order">的挂单</string>
+	<string name="order_cancelled_successfully">订单撤销成功</string>
+	<string name="cancel_failure">取消失败</string>
+	<string name="interested">计息中</string>
+	<string name="pending">待提取</string>
+	<string name="extracted">已提取</string>
+	<string name="ongoing_order">进行中的订单</string>
+	<string name="clinch_record">成交记录</string>
+	<string name="ttpay_transaction">TTPay交易</string>
+	<string name="balance_transaction">余额交易</string>
+	<string name="sign_in_failure">签到失败</string>
+	<string name="password_cannot_be_empty">密码不可为空</string>
+	<string name="the_login_password_was_successfully_modified">登录密码修改成功</string>
+	<string name="the_payment_password_was_successfully_modified">支付密码修改成功</string>
+	<string name="new_message_notification">新消息通知</string>
+	<string name="message_notification">消息提醒</string>
+	<string name="you_have_new_news">您有新的消息</string>
+	<string name="filter">筛选</string>
+	<string name="type">类型</string>
+	<string name="tt_type">TTPay类型</string>
+	<string name="qr_code_view">将二维码置于取景框即可自动扫描</string>
 
-
-
-	<!--<string name="in_verification">验证中</string>-->
-	<!--<string name="in_verification">验证中</string>-->
-	<!--<string name="in_verification">验证中</string>-->
-	<!--<string name="in_verification">验证中</string>-->
-	<!--<string name="in_verification">验证中</string>-->
-
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-	<!--<string name="currency_">发币</string>-->
-
-
-	<!---->
 
 	<!--<string name="base_url">https://www.bzvp.net/</string>-->
 	<!--<string name="base_url">http://192.168.15.21:10086/</string>-->

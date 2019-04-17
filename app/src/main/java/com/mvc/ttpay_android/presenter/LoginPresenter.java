@@ -4,6 +4,8 @@ package com.mvc.ttpay_android.presenter;
 import android.annotation.SuppressLint;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.mvc.ttpay_android.MyApplication;
+import com.mvc.ttpay_android.R;
 import com.mvc.ttpay_android.base.BasePresenter;
 import com.mvc.ttpay_android.contract.ILoginContract;
 import com.mvc.ttpay_android.model.LoginModel;
@@ -24,21 +26,21 @@ public class LoginPresenter extends ILoginContract.LoginPresenter {
             return;
         }
         if (phone == null || phone.equals("")) {
-            mIView.showLoginStatus(false, "邮箱不可为空",null);
+            mIView.showLoginStatus(false, MyApplication.getAppContext().getString(R.string.mailbox_cannot_be_empty),null);
             return;
         }
         if (pwd == null || pwd.equals("")) {
-            mIView.showLoginStatus(false, "密码不可为空",null);
+            mIView.showLoginStatus(false, MyApplication.getAppContext().getString(R.string.password_cannot_be_empty),null);
             return;
         }
         if (code == null || code.equals("")) {
-            mIView.showLoginStatus(false, "验证码不可为空",null);
+            mIView.showLoginStatus(false, MyApplication.getAppContext().getString(R.string.verification_code_cannot_be_empty),null);
             return;
         }
         rxUtils.register(mIModel.getLoginStatus(token,phone, pwd, code)
                 .subscribe(loginBean -> {
                     if (loginBean.getCode() == 200) {
-                        mIView.showLoginStatus(true, "登录成功",loginBean);
+                        mIView.showLoginStatus(true, MyApplication.getAppContext().getString(R.string.login_successful),loginBean);
                     } else if (loginBean.getCode() == 406) {
                         mIView.userNotRegister(loginBean.getMessage());
                     } else if (loginBean.getCode() == 402) {
@@ -48,9 +50,9 @@ public class LoginPresenter extends ILoginContract.LoginPresenter {
                     }
                 }, throwable -> {
                     if (throwable instanceof SocketTimeoutException) {
-                        mIView.showLoginStatus(false, getString(R.string.connection_timed_out),null);
+                        mIView.showLoginStatus(false, MyApplication.getAppContext().getString(R.string.connection_timed_out),null);
                     } else {
-                        mIView.showLoginStatus(false, getString(R.string.connection_timed_out),null);
+                        mIView.showLoginStatus(false, MyApplication.getAppContext().getString(R.string.connection_timed_out),null);
                     }
                     LogUtils.e("LoginPresenter", throwable.getMessage());
                 }));
@@ -59,7 +61,7 @@ public class LoginPresenter extends ILoginContract.LoginPresenter {
     @Override
     public void sendCode(String cellphone) {
         if (cellphone == null || cellphone.equals("")) {
-            mIView.showSendCode(false, "邮箱不可为空");
+            mIView.showSendCode(false, MyApplication.getAppContext().getString(R.string.mailbox_cannot_be_empty));
             return;
         }
         rxUtils.register(mIModel.sendCode(cellphone)
@@ -71,7 +73,7 @@ public class LoginPresenter extends ILoginContract.LoginPresenter {
                     }
                 }, throwable -> {
                     if (throwable instanceof SocketTimeoutException) {
-                        mIView.showSendCode(false, getString(R.string.connection_timed_out));
+                        mIView.showSendCode(false, MyApplication.getAppContext().getString(R.string.connection_timed_out));
                     } else {
                         mIView.showSendCode(false, throwable.getMessage());
                     }

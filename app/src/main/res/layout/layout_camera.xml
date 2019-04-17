@@ -27,6 +27,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="310dp"
         android:textColor="@color/white"
-        android:text="将二维码置于取景框即可自动扫描"
+        android:text="@string/qr_code_view"
         android:layout_height="wrap_content" />
 </FrameLayout>

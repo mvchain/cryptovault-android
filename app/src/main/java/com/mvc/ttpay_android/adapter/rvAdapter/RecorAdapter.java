@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.mvc.ttpay_android.MyApplication;
 import com.mvc.ttpay_android.R;
 import com.mvc.ttpay_android.bean.RecorBean;
 import com.mvc.ttpay_android.utils.TextUtils;
@@ -25,7 +26,7 @@ public class RecorAdapter extends BaseQuickAdapter<RecorBean.DataBean, BaseViewH
     protected void convert(BaseViewHolder helper, RecorBean.DataBean item) {
         ImageView recIcon = helper.getView(R.id.recor_icon);
         helper.setText(R.id.recor_nickname, item.getNickname());
-        helper.setText(R.id.recor_max, (item.getTransactionType() == 2 ? "剩余可出售量：" : "剩余可购买量：") + TextUtils.INSTANCE.doubleToEight(item.getLimitValue()));
+        helper.setText(R.id.recor_max, (item.getTransactionType() == 2 ? MyApplication.getAppContext().getString(R.string.remaining_available_for_sale) : MyApplication.getAppContext().getString(R.string.remaining_purchase_amount)) + TextUtils.INSTANCE.doubleToEight(item.getLimitValue()));
         helper.setText(R.id.recor_price, TextUtils.INSTANCE.doubleToEight(item.getPrice().doubleValue()) + " " + SPUtils.getInstance().getString(RECORDING_TYPE));
         RequestOptions options = new RequestOptions().fallback(R.drawable.portrait_icon).placeholder(R.drawable.loading_img).error(R.drawable.portrait_icon);
         Glide.with(mContext).load(item.getHeadImage()).apply(options).into(recIcon);

@@ -4,12 +4,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.mvc.ttpay_android.MyApplication;
+import com.mvc.ttpay_android.R;
+
 import java.util.ArrayList;
 
 public class TrandOrderViewPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments;
     private FragmentManager fm;
-    private String[] titles = {"进行中的订单","成交记录"};
+    private String[] titles = {MyApplication.getAppContext().getString(R.string.ongoing_order),MyApplication.getAppContext().getString(R.string.clinch_record)};
 
     public TrandOrderViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);

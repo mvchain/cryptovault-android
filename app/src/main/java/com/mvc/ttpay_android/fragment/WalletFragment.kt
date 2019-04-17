@@ -90,7 +90,7 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
         mExchange = ArrayList()
         mMsgBean = ArrayList()
         var note = LayoutInflater.from(activity).inflate(R.layout.layout_wellet_announcement, null)
-        note.findViewById<TextView>(R.id.note_tv).text = "暂无通知"
+        note.findViewById<TextView>(R.id.note_tv).text = getString(R.string.no_notice)
         mHintAssets = rootView.findViewById(R.id.assets_hint)
         mBrowser = rootView.findViewById(R.id.assets_browser)
         mNullAssets = rootView.findViewById(R.id.assets_null)
@@ -308,7 +308,7 @@ class WalletFragment : BaseMVPFragment<IWalletContract.WalletPresenter>(), IWall
             xAnimation.duration = 200
             xAnimation.start()
         } else {
-            ToastUtils.showLong("签到失败")
+            ToastUtils.showLong(getString(R.string.sign_in_failure))
         }
     }
 

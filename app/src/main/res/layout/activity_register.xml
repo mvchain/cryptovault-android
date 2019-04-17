@@ -69,7 +69,7 @@
 			android:layout_marginRight="38dp"
 			android:background="@drawable/shape_round_gray_5dp"
 			android:gravity="center_vertical"
-			android:hint="@string/please_input_your_email"
+			android:hint="@string/please_you_email"
 			android:inputType="textEmailAddress"
 			android:maxLines="1"
 			android:textColor="@color/login_content"

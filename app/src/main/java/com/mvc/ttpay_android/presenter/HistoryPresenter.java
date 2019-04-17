@@ -15,13 +15,7 @@ public class HistoryPresenter extends IHistoryContract.HistroyPrecenter {
 
     @Override
     public void getMsg() {
-        rxUtils.register(mIModel.getMsg().subscribe(new Consumer<List<String>>() {
-            @Override
-            public void accept(List<String> strings) throws Exception {
-                mIView.showSuccess(strings);
-            }
-        }, throwable -> {
-        }));
+        rxUtils.register(mIModel.getMsg().subscribe(strings -> mIView.showSuccess(strings), throwable -> {}));
     }
 
     @Override

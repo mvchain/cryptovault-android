@@ -1,5 +1,7 @@
 package com.mvc.ttpay_android.presenter
 
+import com.mvc.ttpay_android.MyApplication
+import com.mvc.ttpay_android.R
 import com.mvc.ttpay_android.base.BasePresenter
 import com.mvc.ttpay_android.contract.IRegisterInvitationConstrat
 import com.mvc.ttpay_android.model.RegisterInvitationModel
@@ -26,7 +28,7 @@ class RegisterInvitationPresenter : IRegisterInvitationConstrat.RegisterInvitati
             }
         }, {
             if (it is SocketTimeoutException) {
-                mIView.showError(getString(R.string.connection_timed_out))
+                mIView.showError(MyApplication.getAppContext().getString(R.string.connection_timed_out))
             } else {
                 mIView.showError(it.message!!)
             }
@@ -43,7 +45,7 @@ class RegisterInvitationPresenter : IRegisterInvitationConstrat.RegisterInvitati
             }
         }, {
             if (it is SocketTimeoutException) {
-                mIView.showError(getString(R.string.connection_timed_out))
+                mIView.showError(MyApplication.getAppContext().getString(R.string.connection_timed_out))
             } else {
                 mIView.showError(it.message!!)
             }

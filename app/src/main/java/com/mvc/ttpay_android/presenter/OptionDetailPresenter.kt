@@ -1,5 +1,7 @@
 package com.mvc.ttpay_android.presenter
 
+import com.mvc.ttpay_android.MyApplication
+import com.mvc.ttpay_android.R
 import com.mvc.ttpay_android.base.BasePresenter
 import com.mvc.ttpay_android.contract.IOptionDetailContract
 import com.mvc.ttpay_android.model.OptionDetailModel
@@ -50,7 +52,7 @@ class OptionDetailPresenter : IOptionDetailContract.OptionDetailPresenter() {
                     }
                 }, {
                     if (it is SocketTimeoutException) {
-                        mIView.showExtractError(getString(R.string.connection_timed_out))
+                        mIView.showExtractError(MyApplication.getAppContext().getString(R.string.connection_timed_out))
                     } else {
                         mIView.showExtractError(it.message!!)
                     }

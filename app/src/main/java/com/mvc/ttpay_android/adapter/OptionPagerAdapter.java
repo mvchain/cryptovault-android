@@ -4,12 +4,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.mvc.ttpay_android.MyApplication;
+import com.mvc.ttpay_android.R;
+
 import java.util.ArrayList;
 
 public class OptionPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments;
     private FragmentManager fm;
-    private String[] titles = {"计息中", "待提取","已提取"};
+    private String[] titles = {MyApplication.getAppContext().getString(R.string.interested), MyApplication.getAppContext().getString(R.string.pending),MyApplication.getAppContext().getString(R.string.extracted)};
 
     public OptionPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);

@@ -53,6 +53,7 @@ class HistoryActivity : BaseMVPActivity<IHistoryContract.HistroyPrecenter>(), IH
     private lateinit var mTabHis: TabLayout
     private lateinit var mVpHis: ViewPager
     private lateinit var fragments: ArrayList<Fragment>
+    private lateinit var titles: ArrayList<String>
     private lateinit var mExchange: List<ExchangeRateBean.DataBean>
     private lateinit var historyPagerAdapter: HistoryPagerAdapter
     private lateinit var mTitleHis: TextView
@@ -92,8 +93,12 @@ class HistoryActivity : BaseMVPActivity<IHistoryContract.HistroyPrecenter>(), IH
     override fun initMVPView() {
         mExchange = ArrayList()
         fragments = ArrayList()
+        titles = ArrayList()
         ImmersionBar.with(this).statusBarView(R.id.status_bar).statusBarDarkFont(true).init()
-        historyPagerAdapter = HistoryPagerAdapter(supportFragmentManager, fragments)
+        titles.add(getString(R.string.transfer))
+        titles.add(getString(R.string.navi_financial))
+        titles.add(getString(R.string.navi_trand))
+        historyPagerAdapter = HistoryPagerAdapter(supportFragmentManager, fragments, titles)
         mBackHis = findViewById(R.id.his_back)
         mTitleHis = findViewById(R.id.his_title)
         mQcodeHis = findViewById(R.id.his_qcode)

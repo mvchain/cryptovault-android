@@ -58,21 +58,21 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         helper.setText(R.id.order_item_time, TimeUtils.millis2String(item.getCreatedAt()));
         int position = 0;
         if (item.getTransactionType() == 2) {
-            mSellerHint.setText("买家");
-            pendHint.setText("待购买数量");
+            mSellerHint.setText(R.string.buyer_2);
+            pendHint.setText(R.string.quantity_to_be_purchased);
             for (int i = 0; i < orderBean.size(); i++) {
                 if (orderBean.get(i).getPairId() == item.getPairId()) {
-                    mTitle.setText("购买 " + orderBean.get(i).getPair());
+                    mTitle.setText(MyApplication.getAppContext().getString(R.string.buy) + " " + orderBean.get(i).getPair());
                     position = i;
                     break;
                 }
             }
         } else {
-            pendHint.setText("待出售数量");
-            mSellerHint.setText("卖家");
+            mSellerHint.setText(R.string.seller_2);
+            pendHint.setText(R.string.quantity_to_be_sold);
             for (int i = 0; i < orderBean.size(); i++) {
                 if (orderBean.get(i).getPairId() == item.getPairId()) {
-                    mTitle.setText("出售 " + orderBean.get(i).getPair());
+                    mTitle.setText(MyApplication.getAppContext().getString(R.string.sell) + " " + orderBean.get(i).getPair());
                     position = i;
                     break;
                 }
@@ -90,8 +90,8 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
             helper.getView(R.id.order_item_forsale_layout).setVisibility(View.VISIBLE);
             mSubmit.setText(R.string.trand_withdrawal);
             mSubmit.setVisibility(View.VISIBLE);
-            mSubmit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_login_submit));
-            mSubmit.setTextColor(ContextCompat.getColor(mContext,R.color.white));
+            mSubmit.setBackground(ContextCompat.getDrawable(mContext, R.drawable.bg_login_submit));
+            mSubmit.setTextColor(ContextCompat.getColor(mContext, R.color.white));
             mSubmit.setEnabled(true);
             if (item.getTransactionType() == 1) {
             }
@@ -99,8 +99,8 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
         } else { //已完成订单
             mSubmit.setText(R.string.trand_withdrawal);
             mSubmit.setVisibility(View.VISIBLE);
-            mSubmit.setBackground(ContextCompat.getDrawable(mContext,R.drawable.bg_toge_child_item_tv_gray));
-            mSubmit.setTextColor(ContextCompat.getColor(mContext,R.color.gray_white));
+            mSubmit.setBackground(ContextCompat.getDrawable(mContext, R.drawable.bg_toge_child_item_tv_gray));
+            mSubmit.setTextColor(ContextCompat.getColor(mContext, R.color.gray_white));
             mSubmit.setEnabled(false);
             helper.getView(R.id.order_item_num_layout).setVisibility(View.VISIBLE);
             helper.getView(R.id.order_item_seller_layout).setVisibility(View.VISIBLE);
@@ -108,12 +108,12 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
             helper.getView(R.id.order_item_forsale_layout).setVisibility(View.VISIBLE);
             helper.getView(R.id.order_item_pendpurh_layout).setVisibility(View.GONE);
             TextView mSellerContent = helper.getView(R.id.order_item_seller);
-            mSubmit.setText("已成交");
+            mSubmit.setText(R.string.deal_done);
             mSellerContent.setText(item.getNickname());
             mOrderNum.setText(item.getOrderNumber());
         }
         helper.getView(R.id.order_item_submit).setOnClickListener(v -> {
-            mHintDialog = DialogHelper.Companion.getInstance().create(mContext, "确认撤除 " + dataBean.getPair() + "的挂单?", viewId -> {
+            mHintDialog = DialogHelper.Companion.getInstance().create(mContext, MyApplication.getAppContext().getString(R.string.confirm_dismantle) + dataBean.getPair() + MyApplication.getAppContext().getString(R.string.pending_order), viewId -> {
                 switch (viewId) {
                     case R.id.hint_cancle:
                         mHintDialog.dismiss();
@@ -121,14 +121,14 @@ public class TrandOrderAdapter extends BaseQuickAdapter<TrandOrderBean.DataBean,
                     case R.id.hint_enter:
                         mHintDialog.dismiss();
                         String token = SPUtils.getInstance().getString(TOKEN);
-                        RetrofitUtils.client(MyApplication.getBaseUrl(),ApiStore.class).cancleOrder(token, item.getId())
+                        RetrofitUtils.client(MyApplication.getBaseUrl(), ApiStore.class).cancleOrder(token, item.getId())
                                 .compose(RxHelper.rxSchedulerHelper())
                                 .subscribe(updateBean -> {
                                     if (updateBean.getCode() == 200) {
                                         EventBus.getDefault().post(new TrandOrderEvent());
-                                        ToastUtils.showLong("订单撤销成功");
+                                        ToastUtils.showLong(MyApplication.getAppContext().getString(R.string.order_cancelled_successfully));
                                     } else {
-                                        ToastUtils.showLong("取消失败");
+                                        ToastUtils.showLong(MyApplication.getAppContext().getString(R.string.cancel_failure));
                                     }
                                 }, throwable -> {
                                     LogUtils.e(TAG, throwable.getMessage());

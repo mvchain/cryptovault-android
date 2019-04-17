@@ -257,7 +257,7 @@ public class TrandRecordingFragment extends BaseActivity implements View.OnClick
             case R.id.recording_purh_submit:
                 // TODO 18/12/13
                 intent.setClass(this, TrandPurhAndSellActivity.class);
-                intent.putExtra("title", "出售" + data.getTokenName());
+                intent.putExtra("title", getString(R.string.sell) + data.getTokenName());
                 intent.putExtra("allprice_unit", data.getTokenName());
                 intent.putExtra("unit_price", "MVC");
                 intent.putExtra("data", data);
@@ -267,7 +267,7 @@ public class TrandRecordingFragment extends BaseActivity implements View.OnClick
             case R.id.recording_sell_submit:
                 // TODO 18/12/13
                 intent.setClass(this, TrandPurhAndSellActivity.class);
-                intent.putExtra("title", "购买" + data.getTokenName());
+                intent.putExtra("title", getString(R.string.buy) + data.getTokenName());
                 intent.putExtra("unit_price", "MVC");
                 intent.putExtra("allprice_unit", data.getTokenName());
                 intent.putExtra("data", data);

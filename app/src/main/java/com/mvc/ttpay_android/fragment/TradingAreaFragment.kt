@@ -147,9 +147,9 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                     intent.putExtra("type", transionType)
 //        unitPrice
                     if (transionType == 1) {
-                        intent.putExtra("unit_price", "出售MVC")
+                        intent.putExtra("unit_price", getString(R.string.sell_mvc))
                     } else {
-                        intent.putExtra("unit_price", "购买MVC")
+                        intent.putExtra("unit_price", getString(R.string.buy_mvc))
                     }
                     intent.putExtra("allprice_unit", data.tokenName)
                     startActivity(intent)
@@ -178,7 +178,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                 when (position) {
                     0 -> {
                         intent.setClass(activity, TrandPurhAndSellActivity::class.java)
-                        intent.putExtra("title", "购买MVC挂单")
+                        intent.putExtra("title", getString(R.string.buy_mvc_pending_order))
                         intent.putExtra("unit_price", "MVC")
                         intent.putExtra("data", data)
                         intent.putExtra("type", 2)
@@ -186,7 +186,7 @@ class TradingAreaFragment : BaseMVPFragment<IAreaContract.AreaPresenter>(), IAre
                     }
                     1 -> {
                         intent.setClass(activity, TrandPurhAndSellActivity::class.java)
-                        intent.putExtra("title", "出售MVC挂单")
+                        intent.putExtra("title", getString(R.string.sell_mvc_pending_order))
                         intent.putExtra("unit_price", "MVC")
                         intent.putExtra("data", data)
                         intent.putExtra("type", 1)

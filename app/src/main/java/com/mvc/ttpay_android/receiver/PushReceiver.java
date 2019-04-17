@@ -66,20 +66,20 @@ public class PushReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder = new NotificationCompat.Builder(context, "price_update");
-            nm.createNotificationChannel(new NotificationChannel("price_update", "新消息通知", NotificationManager.IMPORTANCE_HIGH));
+            nm.createNotificationChannel(new NotificationChannel("price_update", context.getString(R.string.new_message_notification), NotificationManager.IMPORTANCE_HIGH));
         } else {
             builder = new NotificationCompat.Builder(context);
         }
         Intent msgIntent = new Intent(context, MsgActivity.class);
         PendingIntent mPendingIntent = PendingIntent.getActivity(context, 1, msgIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         //设置通知栏标题
-        builder.setContentTitle("消息提醒")
+        builder.setContentTitle(context.getString(R.string.message_notification))
                 //设置通知栏显示内容
                 .setContentText(message)
                 ////设置通知栏点击意图
                 .setContentIntent(mPendingIntent)
                 //通知首次出现在通知栏，带上升动画效果的
-                .setTicker("您有新的消息")
+                .setTicker(context.getString(R.string.you_have_new_news))
                 //通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
                 .setWhen(System.currentTimeMillis())
                 //设置该通知优先级

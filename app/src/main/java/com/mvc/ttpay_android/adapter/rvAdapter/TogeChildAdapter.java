@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.mvc.ttpay_android.MyApplication;
 import com.mvc.ttpay_android.R;
 import com.mvc.ttpay_android.bean.TogeBean;
 
@@ -42,7 +43,7 @@ public class TogeChildAdapter extends BaseQuickAdapter<TogeBean.DataBean, BaseVi
             helper.setText(R.id.toge_child_sj, TimeUtils.getFitTimeSpan(new Date(item.getStopAt()),new Date(System.currentTimeMillis()), 4));
         } else if (item.getStatus() == 0) {
             submit.setVisibility(View.GONE);
-            helper.setText(R.id.toge_child_sj, "即将开始");
+            helper.setText(R.id.toge_child_sj, MyApplication.getAppContext().getString(R.string.about_to_start));
         } else {
             submit.setText(R.string.toge_end);
             submit.setVisibility(View.VISIBLE);

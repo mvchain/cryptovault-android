@@ -114,7 +114,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_his_out"
             android:gravity="center"
-            android:text="转账"
+            android:text="@string/transfer"
             android:textColor="@color/select_button_tv_color"
             android:textSize="15sp"
             android:visibility="gone" />
@@ -130,7 +130,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_his_in"
             android:gravity="center"
-            android:text="收款"
+            android:text="@string/receipt"
             android:textColor="@color/select_button_tv_color"
             android:textSize="15sp"
             android:visibility="gone" />

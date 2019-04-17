@@ -4,12 +4,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.mvc.ttpay_android.MyApplication;
+import com.mvc.ttpay_android.R;
+
 import java.util.ArrayList;
 
 public class TrandPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments;
     private FragmentManager fm;
-    private String[] titles = {"TTPay交易", "余额交易"};
+    private String[] titles = {MyApplication.getAppContext().getString(R.string.ttpay_transaction), MyApplication.getAppContext().getString(R.string.balance_transaction)};
 
     public TrandPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);

@@ -17,6 +17,9 @@
         <TextView
             android:id="@+id/dialog_title"
             android:text="正在登录"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
             android:textColor="@color/login_content"
             android:textSize="15sp"
             android:layout_width="wrap_content"

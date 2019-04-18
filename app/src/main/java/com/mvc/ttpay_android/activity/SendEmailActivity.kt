@@ -43,7 +43,7 @@ class SendEmailActivity : BaseActivity() {
                         .compose(RxHelper.rxSchedulerHelper())
                         .subscribe({ codeBean ->
                             if (codeBean.code === 200) {
-                                dialogHelper!!.resetDialogResource(this, R.drawable.success_icon, "getString(R.string.send_successfully)")
+                                dialogHelper!!.resetDialogResource(this, R.drawable.success_icon,  getString(R.string.send_successfully) )
                                 setViewStatus()
                             } else {
                                 dialogHelper!!.resetDialogResource(this, R.drawable.miss_icon, codeBean.message)

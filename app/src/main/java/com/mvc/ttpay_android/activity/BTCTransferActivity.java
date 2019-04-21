@@ -174,13 +174,13 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                     return;
                 }
                 if (tokenId == 4 || tokenId == 2) {
-                    if (!RxgularUtils.isBTC(transAddress.trim()) || !RxgularUtils.isEmail(transAddress.trim())) {
+                    if (!RxgularUtils.isBTC(transAddress.trim())) {
                         dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.invalid_address)).show();
                         dialogHelper.dismissDelayed(null, 2000);
                         return;
                     }
                 } else {
-                    if (!RxgularUtils.isETH(transAddress.trim()) || !RxgularUtils.isEmail(transAddress.trim())) {
+                    if (!RxgularUtils.isETH(transAddress.trim())) {
                         dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.invalid_address)).show();
                         dialogHelper.dismissDelayed(null, 2000);
                         return;

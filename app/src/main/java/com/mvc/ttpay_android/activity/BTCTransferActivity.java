@@ -65,6 +65,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
     private PopupWindow mPopView;
     private String tokenName;
     private DialogHelper dialogHelper;
+    private boolean isStation = false;
 
     @Override
     protected int getLayoutId() {
@@ -168,10 +169,13 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                     dialogHelper.dismissDelayed(null, 2000);
                     return;
                 }
-                if (Double.parseDouble(priceBtc) <= mTransBean.getFee()) {
-                    dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.greater_than_the_handling_fee)).show();
-                    dialogHelper.dismissDelayed(null, 2000);
-                    return;
+                //需要手续费的时候才提示
+                if (!isStation) {
+                    if (Double.parseDouble(priceBtc) <= mTransBean.getFee()) {
+                        dialogHelper.create(this, R.drawable.miss_icon, getString(R.string.greater_than_the_handling_fee)).show();
+                        dialogHelper.dismissDelayed(null, 2000);
+                        return;
+                    }
                 }
                 if (tokenId == 4 || tokenId == 2) {
                     if (!RxgularUtils.isBTC(transAddress.trim())) {
@@ -323,6 +327,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
 
     @Override
     public void transFeeStatus(boolean isStation) {
+        this.isStation = isStation;
         if (isStation) {
             mSxfBtc.setText(0 + " " + mTransBean.getFeeTokenName());
         } else {

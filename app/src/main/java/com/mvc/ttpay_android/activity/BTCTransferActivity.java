@@ -96,6 +96,10 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
     protected void initMVPData() {
         mTransAddressBtc.setText(hash);
         mPresenter.getDetail(tokenId);
+        if (!mTransAddressBtc.getText().toString().equals("")) {
+            ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(), R.drawable.clean_icon_edit), mTransAddressBtc);
+            mTransAddressBtc.setSelection(mTransAddressBtc.length());
+        }
     }
 
     @Override
@@ -262,6 +266,8 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                     String hash = data.getStringExtra(CodeUtils.RESULT_STRING);
                     mTransAddressBtc.setText(hash.trim());
                     mTransAddressBtc.setSelection(mTransAddressBtc.length());
+                    mPresenter.getTransFee(mTransAddressBtc.getText().toString().trim());
+                    ViewDrawUtils.setRigthDraw(ContextCompat.getDrawable(getBaseContext(), R.drawable.clean_icon_edit), mTransAddressBtc);
                     break;
             }
         }
@@ -276,7 +282,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
     public void showSuccess(IDToTransferBean.DataBean data) {
         this.mTransBean = data;
         mPriceBtc.setText(String.format(getString(R.string.available) + TextUtils.INSTANCE.doubleToEight(data.getBalance()), tokenName));
-        mSxfBtc.setText(data.getFee() + " " + data.getFeeTokenName());
+        mSxfBtc.setText(TextUtils.INSTANCE.doubleToEight(data.getFee()) + " " + data.getFeeTokenName());
         mTransPriceBtc.addTextChangedListener(new EditTextChange() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
@@ -295,6 +301,9 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 }
             }
         });
+        if (!mTransAddressBtc.getText().toString().equals("")) {
+            mPresenter.getTransFee(mTransAddressBtc.getText().toString());
+        }
         mTransAddressBtc.addTextChangedListener(new EditTextChange() {
             @TargetApi(Build.VERSION_CODES.M)
             @SuppressLint("SetTextI18n")

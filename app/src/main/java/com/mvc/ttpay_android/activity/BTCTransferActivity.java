@@ -192,6 +192,12 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 }
 
 //                startActivity(PayCodeActivity.class);
+                double fee;
+                if (isStation) {
+                    fee = 0;
+                } else {
+                    fee = mTransBean.getFee();
+                }
                 mPopView = PopViewHelper.Companion.getInstance()
                         .create(this
                                 , R.layout.layout_paycode
@@ -199,7 +205,7 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                                 , getString(R.string.transfer_amount)
                                 , priceBtc + tokenName
                                 , transAddress
-                                , TextUtils.INSTANCE.doubleToSix(mTransBean.getFee()) + mTransBean.getFeeTokenName()
+                                , TextUtils.INSTANCE.doubleToEight(fee) + mTransBean.getFeeTokenName()
                                 , true
                                 , new IPayWindowListener() {
                                     @Override
@@ -300,10 +306,6 @@ public class BTCTransferActivity extends BaseMVPActivity<IBTCTransferContract.BT
                 } else {
                     ViewDrawUtils.clearDraw(mTransAddressBtc);
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
                 mPresenter.getTransFee(mTransAddressBtc.getText().toString().trim());
             }
         });
